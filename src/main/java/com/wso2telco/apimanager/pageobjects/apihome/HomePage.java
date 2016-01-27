@@ -1,12 +1,16 @@
 package com.wso2telco.apimanager.pageobjects.apihome;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
+
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
 import com.wso2telco.apimanager.pageobjects.apihome.apis.APIsPage;
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
 
 public class HomePage extends BasicPageObject {
+	
+	Logger logger = Logger.getLogger(HomePage.class);
 
 	private WebPelement linkAPIs = defineEelement(UIType.Xpath, "//ul[@class='nav orderFix']/li[2]/a");
 	
