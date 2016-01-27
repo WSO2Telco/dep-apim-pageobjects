@@ -38,9 +38,27 @@ public class SubscriptionsPage extends BasicPageObject  {
 	public SubscriptionsPage(WebDriver driver) {
 		super(driver);
 	}
+	
+	public boolean isSubscriptionHeaderDisplayed(String header) throws Exception {
 
-	public boolean validateSubscriptionsPage(){
-		return getElement(lblSubscriptions).getText().equalsIgnoreCase("Subscriptions");
+		flag = false;
+		logger.debug("Validating Subscription Header");
+		Thread.sleep(10000);
+		try {
+			if (header.contains(getElement(lblSubscriptions).getText())) {
+				flag = true;
+				logger.debug("Validating Subscription Header completed");
+			} else {
+				logger.debug("Subscription Header is Not Matched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Subscription Header Page Title 'isSubscriptionHeaderDisplayed()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating Subscription Header Page Title 'isSubscriptionHeaderDisplayed()'"
+							+ e.getLocalizedMessage());
+		}
+		return flag;
 	}
 	
 	public boolean validateNoSubscription(String msg){
