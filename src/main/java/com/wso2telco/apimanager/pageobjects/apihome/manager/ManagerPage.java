@@ -43,15 +43,26 @@ public class ManagerPage extends BasicPageObject {
 	
 	private WebPelement titleAppTasks = defineEelement(UIType.Xpath, "//div[@class='title-section']/h2");
 	
-	private WebPelement titleAppRejPopup = defineEelement(UIType.Xpath, "//h3[contains(text(),'Enter approve/reject reasons')]");
-	
 	
 	public ManagerPage(WebDriver driver) {
 		super(driver);
 	}
 
-	public boolean validateManagerPage(){
-		return getElement(lblManager).getText().equalsIgnoreCase("Manager");
+	public boolean isManagerPage(String managerHeader) throws Exception{
+		flag = false;
+		logger.debug("Validating Manager page hedaer");
+		try {
+			if (getElement(lblManager).getText().equalsIgnoreCase(managerHeader)){
+				flag = true;
+				logger.debug("Manager page hedaer matched");
+			} else {
+				logger.debug("Manager page hedaer mismatched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Manager page header 'isManagerPage()'" + e.getMessage());
+			throw new Exception("Exception While Validating Manager page header 'isManagerPage()'" + e.getLocalizedMessage());
+		}
+		return flag;
 	}
 	
 	public void enterUserName(String username){
@@ -66,8 +77,21 @@ public class ManagerPage extends BasicPageObject {
 		getElement(btnLogIn).click();
 	}
 	
-	public boolean validateHomePage(){
-		return getElement(lblHome).getText().equalsIgnoreCase("Home");
+	public boolean isHomePage(String homeHeader) throws Exception{
+		flag = false;
+		logger.debug("Validating Home page hedaer");
+		try {
+			if (getElement(lblHome).getText().equalsIgnoreCase(homeHeader)){
+				flag = true;
+				logger.debug("Home page hedaer matched");
+			} else {
+				logger.debug("Home page hedaer mismatched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Home page header 'isHomePage()'" + e.getMessage());
+			throw new Exception("Exception While Validating Home page header 'isHomePage()'" + e.getLocalizedMessage());
+		}
+		return flag;
 	}
 	
 	public void clickUserName(){
@@ -78,64 +102,108 @@ public class ManagerPage extends BasicPageObject {
 		getElement(btnLogout).click();
 	}
 	
-	public boolean validateManageTabs(){
+	public boolean isManagerTwoTabsAccess() throws Exception{
+		flag = false;
+		logger.debug("Validating Manager page tabs for normal users");
 		List<WebElement> tabs = driver.findElements(By.xpath("//div[@class='navbar-inner main-menu-navbar']/ul/li"));
-		int tabCount = tabs.size();
-		
-		if (tabCount <= 3){
-			return true;
-		} else {
-			return false;
+		int tabCount = tabs.size();		
+		try {
+			if (tabCount <= 3){
+				flag = true;
+				logger.debug("User has access for 2 tabs");
+			} else {
+				logger.debug("User has access for more than 2 tabs");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Manager page tabs 'isManagerTwoTabsAccess()'" + e.getMessage());
+			throw new Exception("Exception While Validating Manager page tabs 'isManagerTwoTabsAccess()'" + e.getLocalizedMessage());
 		}
+		return flag;
 	}
 	
-	public boolean validateAllTabs(){
+	public boolean isAllTabsAccessible() throws Exception{
+		flag = false;
+		logger.debug("Validating Manager page tabs for admin users");
 		List<WebElement> tabs = driver.findElements(By.xpath("//div[@class='navbar-inner main-menu-navbar']/ul/li"));
 		int tabCount = tabs.size();
-		if (tabCount <= 6){
-			return true;
-		} else {
-			return false;
+		try {
+			if (tabCount <= 6){
+				flag = true;
+				logger.debug("User has access for all the tabs");
+			} else {
+				logger.debug("User has access for less than 5 tabs");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Manager page tabs 'isAllTabsAccessible()'" + e.getMessage());
+			throw new Exception("Exception While Validating Manager page tabs 'isAllTabsAccessible()'" + e.getLocalizedMessage());
 		}
+		return flag;
 	}
 	
-	public boolean validateThreeTabs(){
+	public boolean isThreeTabs() throws Exception{
+		flag = false;
+		logger.debug("Validating Manager page tabs for operator users");
 		List<WebElement> tabs = driver.findElements(By.xpath("//div[@class='navbar-inner main-menu-navbar']/ul/li"));
 		int tabCount = tabs.size();
-		if (tabCount <= 4){
-			return true;
-		} else {
-			return false;
+		try {
+			if (tabCount <= 4){
+				flag = true;
+				logger.debug("Operator user has access for three tabs");
+			} else {
+				logger.debug("Operator user has access for less/more than three tabs");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Manager page tabs 'isThreeTabs()'" + e.getMessage());
+			throw new Exception("Exception While Validating Manager page tabs 'isThreeTabs()'" + e.getLocalizedMessage());
 		}
+		return flag;
 	}
 	
 	public void clickWorkflow(){
 		getElement(lnkWorkflow).click();
 	}
 	
-	public boolean validateApllicationCreation(){
+	public boolean isApllicationCreation() throws Exception{
+		flag = false;
+		logger.debug("Validating Application creation link");
 		List<WebElement> tabs = driver.findElements(By.xpath("//li/a[text()[contains(.,'Application Creation')]]"));
 		int tabCount = tabs.size();
-		if (tabCount <= 1){
-			return true;
-		} else {
-			return false;
+		try {
+			if (tabCount <= 1){
+				flag = true;
+				logger.debug("Application creation link is visible");
+			} else {
+				logger.debug("Application creation link is not visible");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Application creation link 'isApllicationCreation()'" + e.getMessage());
+			throw new Exception("Exception While Validating Application creation link 'isApllicationCreation()'" + e.getLocalizedMessage());
 		}
+		return flag;
 	}
 	
 	public void clickApplicationCration(){
 		getElement(lnkApplicationCreation).click();
 	}
 	
-	public boolean validateAppName(String appName){
+	public boolean isApplicationNameVisible(String appName) throws Exception{
+		flag = false;
+		logger.debug("Validating Application name");
 		String xpath = "//tr/td/div/label[text()[contains(.,'" + appName + "')]]";
 		List<WebElement> appNames = driver.findElements(By.xpath(xpath));
 		int Names = appNames.size();
-		if (Names == 1){
-			return true;
-		} else {
-			return false;
-		}		
+		try {
+			if (Names == 1){
+				flag = true;
+				logger.debug("Application name is visible");
+			} else {
+				logger.debug("Application creation name is not visible");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Application name 'isApplicationNameVisible()'" + e.getMessage());
+			throw new Exception("Exception While Validating Application name 'isApplicationNameVisible()'" + e.getLocalizedMessage());
+		}	
+		return flag;
 	}
 	
 	public void clickApplicationDetails(String appname){
@@ -176,10 +244,6 @@ public class ManagerPage extends BasicPageObject {
 		getElement(btnComplete).click();
 	}
 	
-	public boolean validateApproveReject(){
-		return getElement(lblApproveReject).getText().trim().contains("Enter approve/reject reasons");
-	}
-	
 	public void enterApproveRejectReason(String reason){
 		getElement(txtApproveReject).clearAndSendkeys(reason);
 	}
@@ -188,15 +252,24 @@ public class ManagerPage extends BasicPageObject {
 		getElement(btnApproveOk).click();
 	}
 	
-	public boolean validateAppNameNOT(String appName){
+	public boolean isApplicationNameNotVisible(String appName) throws Exception{
+		flag = false;
+		logger.debug("Validating Application name not visible");
 		String xpath = "//tr/td/div/label[text()[contains(.,'" + appName + "')]]";
 		List<WebElement> appNames = driver.findElements(By.xpath(xpath));
 		int Names = appNames.size();
-		if (Names < 1){
-			return true;
-		} else {
-			return false;
+		try {
+			if (Names < 1){
+				flag = true;
+				logger.debug("Application name not visible");
+			} else {
+				logger.debug("Application name visible");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Application name 'isApplicationNameNotVisible()'" + e.getMessage());
+			throw new Exception("Exception While Validating Application name 'isApplicationNameNotVisible()'" + e.getLocalizedMessage());
 		}
+		return flag;
 	}
 	
 	public void clickSubCreation(){
@@ -231,7 +304,7 @@ public class ManagerPage extends BasicPageObject {
 		logger.debug("Validating Approve/Reject popup");
 		Thread.sleep(10000);
 		try {
-			if (title.contains(getElement(titleAppRejPopup).getText())) {
+			if (title.contains(getElement(lblApproveReject).getText())) {
 				flag = true;
 				logger.debug("Validating Approve/Reject popup completed");
 			} else {
