@@ -1,11 +1,16 @@
 package com.wso2telco.apimanager.pageobjects.apihome.sandbox;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
+
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
+import com.wso2telco.apimanager.pageobjects.apihome.manager.ManagerPage;
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
 
 public class SandBoxPage extends BasicPageObject  {
+	
+	Logger logger = Logger.getLogger(ManagerPage.class);
 
 	private WebPelement lblLogin = defineEelement(UIType.Xpath, "//div[@class='title-section']/h2");
 	
@@ -15,7 +20,6 @@ public class SandBoxPage extends BasicPageObject  {
 	
 	private WebPelement btnLogIn = defineEelement(UIType.Xpath, "//input[@id='loginButton']");
 	
-	//need to validate using a proper element
 	private WebPelement lblWelcome = defineEelement(UIType.Xpath, "//div[@class='title-section']/h2");
 	
 	private WebPelement btnUserName = defineEelement(UIType.Xpath, "//a[@id='userMenu']");
@@ -26,8 +30,21 @@ public class SandBoxPage extends BasicPageObject  {
 		super(driver);
 	}
 
-	public boolean validateLoginPage(){
-		return getElement(lblLogin).getText().equalsIgnoreCase("Login");
+	public boolean isSandboxLoginPage(String sandbobLoginHeader) throws Exception{
+		flag = false;
+		logger.debug("Validating Sandbox login page");
+		try {
+			if (getElement(lblLogin).getText().equalsIgnoreCase(sandbobLoginHeader)){
+				flag = true;
+				logger.debug("Sandbox login page is load properly");
+			} else {
+				logger.debug("Sandbox login page is not load properly");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Sandbox login page 'isSandboxLoginPage()'" + e.getMessage());
+			throw new Exception("Exception While Validating Sandbox login page 'isSandboxLoginPage()'" + e.getLocalizedMessage());
+		}
+		return flag;
 	}
 	
 	public void enterUserName(String username){
@@ -42,9 +59,21 @@ public class SandBoxPage extends BasicPageObject  {
 		getElement(btnLogIn).click();
 	}
 	
-	//need to validate using a proper element
-	public boolean validateWelcome(){
-		return getElement(lblWelcome).getText().equalsIgnoreCase("Welcome");
+	public boolean isSandboxWelcome(String welcome) throws Exception{
+		flag = false;
+		logger.debug("Validating Sandbox welcome page");
+		try {
+			if (getElement(lblWelcome).getText().equalsIgnoreCase(welcome)){
+				flag = true;
+				logger.debug("Sandbox welcome page is load properly");
+			} else {
+				logger.debug("Sandbox welcome page is not load properly");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Sandbox welcome page 'isSandboxWelcome()'" + e.getMessage());
+			throw new Exception("Exception While Validating Sandbox welcome page 'isSandboxWelcome()'" + e.getLocalizedMessage());
+		}
+		return flag;
 	}
 	
 	public void clickUserName(){
