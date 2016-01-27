@@ -77,8 +77,21 @@ public class LoginPage extends BasicPageObject {
 		getElement(btnLogin).click();
 	}
 	
-	public boolean validateUserName(String username){
-		return getElement(lblUserName).getText().equalsIgnoreCase(username);
+	public boolean isUserName(String username) throws Exception{
+		flag = false;
+		logger.debug("Validating user name");
+		try {
+			if (getElement(lblUserName).getText().equalsIgnoreCase(username)){
+				flag = true;
+				logger.debug("User name matched");
+			} else {
+				logger.debug("User name mismatched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating User name 'isUserName()'" + e.getMessage());
+			throw new Exception("Exception While Validating User name 'isUserName()'" + e.getLocalizedMessage());
+		}
+		return flag;
 	}
 	
 	public void clickOnUserName(){
@@ -89,11 +102,37 @@ public class LoginPage extends BasicPageObject {
 		getElement(btnLogout).click();
 	}
 	
-	public boolean validateLogin(){
-		return getElement(linkLogin).getText().equalsIgnoreCase("Login");
+	public boolean isLogin(String value) throws Exception{
+		flag = false;
+		logger.debug("Validating Login button");
+		try {
+			if (getElement(linkLogin).getText().equalsIgnoreCase(value)){
+				flag = true;
+				logger.debug("Login button visible");
+			} else {
+				logger.debug("Login button not visible");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating User login button 'isLogin()'" + e.getMessage());
+			throw new Exception("Exception While Validating User login button 'isLogin()'" + e.getLocalizedMessage());
+		}
+		return flag;
 	}
 	
-	public boolean validateSignUp(){
-		return getElement(btnSignUp).getText().equalsIgnoreCase("Sign-up");
+	public boolean isSignUp(String value) throws Exception{
+		flag = false;
+		logger.debug("Validating Signup button");
+		try {
+			if (getElement(btnSignUp).getText().equalsIgnoreCase(value)){
+				flag = true;
+				logger.debug("Signup button visible");
+			} else {
+				logger.debug("Signup button not visible");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating User Signup button 'isSignUp()'" + e.getMessage());
+			throw new Exception("Exception While Validating User Signup button 'isSignUp()'" + e.getLocalizedMessage());
+		}
+		return flag;
 	}
 }
