@@ -24,10 +24,14 @@ public class SubscriptionsPage extends BasicPageObject  {
 	
 	private WebPelement lblSecKeyProd = defineEelement(UIType.Xpath, "//div[@class='consumerSecret']/span");
 	
-    private WebPelement lblConsKeySand = defineEelement(UIType.Xpath, "//div[@id='wrap']/div[6]/div/div[2]/div[2]/div/div[2]/div/div/div[2]/div/div/div[1]/div[4]/span");
+    private WebPelement lblConsKeySand = defineEelement(UIType.Xpath, "//input[@id='refreshSandValidityTime']/../../div[4]/span");
 	
-	private WebPelement lblSecKeySand = defineEelement(UIType.Xpath, "//div[@id='wrap']/div[6]/div/div[2]/div[2]/div/div[2]/div/div/div[2]/div/div/div[1]/div[5]/span");
-
+	private WebPelement lblSecKeySand = defineEelement(UIType.Xpath, "//input[@id='refreshSandValidityTime']/../../div[5]/span");
+	
+	private WebPelement btnReGenerateProd = defineEelement(UIType.Xpath, "//div[@class='consumerKey']/span/../../div[3]/button");
+	
+	private WebPelement btnReGenerateSand = defineEelement(UIType.Xpath, "//input[@id='refreshSandValidityTime']/../../div[3]/button");
+	
 	public SubscriptionsPage(WebDriver driver) {
 		super(driver);
 	}
@@ -80,4 +84,18 @@ public class SubscriptionsPage extends BasicPageObject  {
 		String SecKeySand = getElement(lblSecKeySand).getText();
 		return SecKeySand;
 	}
+	
+	public void clickReGenProd(){
+		getElement(btnReGenerateProd).click();
+	}
+	
+	public void clickReGenSand(){
+		getElement(btnReGenerateSand).click();
+	}
+	
+	public String isTokenValidityProd(){
+		String validity = getElement(txtTokenValiditySand).getText();
+		return validity;
+	}
 }
+
