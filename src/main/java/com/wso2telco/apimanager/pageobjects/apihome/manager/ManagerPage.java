@@ -2,6 +2,7 @@ package com.wso2telco.apimanager.pageobjects.apihome.manager;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,6 +13,8 @@ import com.wso2telco.test.framework.util.UIType;
 
 public class ManagerPage extends BasicPageObject {
 
+	Logger logger = Logger.getLogger(ManagerPage.class);
+	
 	private WebPelement lblManager = defineEelement(UIType.Xpath, "//h2[@class='login-title']");
 	
 	private WebPelement txtUserName = defineEelement(UIType.Xpath, "//input[@id='username']");
@@ -37,6 +40,11 @@ public class ManagerPage extends BasicPageObject {
 	private WebPelement btnApproveOk = defineEelement(UIType.Xpath, "//div/a[text()[contains(.,'OK')]]");
 	
 	private WebPelement btnSubCreation = defineEelement(UIType.Xpath, "//li[@class='active']/a");
+	
+	private WebPelement titleAppTasks = defineEelement(UIType.Xpath, "//div[@class='title-section']/h2");
+	
+	private WebPelement titleAppRejPopup = defineEelement(UIType.Xpath, "//h3[contains(text(),'Enter approve/reject reasons')]");
+	
 	
 	public ManagerPage(WebDriver driver) {
 		super(driver);
@@ -193,6 +201,50 @@ public class ManagerPage extends BasicPageObject {
 	
 	public void clickSubCreation(){
 		getElement(btnSubCreation).click();
+	}
+	
+	public boolean isApprovalTaskDisplayed(String title) throws Exception {
+
+		flag = false;
+		logger.debug("Validating Approval Task Title");
+		Thread.sleep(10000);
+		try {
+			if (title.contains(getElement(titleAppTasks).getText())) {
+				flag = true;
+				logger.debug("Validating Approval Task Title completed");
+			} else {
+				logger.debug("Approval Task Title is Not Matched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Approval Task Title Page Title 'isApprovalTaskDisplayed()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating Approval Task Title Page Title 'isApprovalTaskDisplayed()'"
+							+ e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
+	public boolean isApproveRejectPopupDisplayed(String title) throws Exception {
+
+		flag = false;
+		logger.debug("Validating Approve/Reject popup");
+		Thread.sleep(10000);
+		try {
+			if (title.contains(getElement(titleAppRejPopup).getText())) {
+				flag = true;
+				logger.debug("Validating Approve/Reject popup completed");
+			} else {
+				logger.debug("Approve/Reject popup title is Not Matched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Approve/Reject popup Page Title 'isApproveRejectPopupDisplayed()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating Approve/Reject popup Page Title 'isApproveRejectPopupDisplayed()'"
+							+ e.getLocalizedMessage());
+		}
+		return flag;
 	}
 }
 
