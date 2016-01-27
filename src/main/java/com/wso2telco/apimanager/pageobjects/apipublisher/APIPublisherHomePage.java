@@ -1,12 +1,16 @@
 package com.wso2telco.apimanager.pageobjects.apipublisher;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
+import com.wso2telco.apimanager.pageobjects.apihome.subscriptions.SubscriptionsPage;
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
 
-public class APIPublisherHomePage extends BasicPageObject{
+public class APIPublisherHomePage extends BasicPageObject {
+	
+	Logger logger = Logger.getLogger(SubscriptionsPage.class);
 	
 	private WebPelement lblUsername = defineEelement(UIType.Xpath, "//a[@id='userMenu']");
 	
@@ -74,8 +78,21 @@ public class APIPublisherHomePage extends BasicPageObject{
 		super(driver);
 	}
 	
-	public boolean validateUserLogin(String username){
-		return getElement(lblUsername).getText().trim().equalsIgnoreCase(username);
+	public boolean isUserLogin(String username) throws Exception{
+		flag = false;
+		logger.debug("Validating User login");
+		try {
+			if (getElement(lblUsername).getText().trim().equalsIgnoreCase(username)){
+				flag = true;
+				logger.debug("User login is success");
+			} else {
+				logger.debug("User login is failed");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating User login 'isUserLogin()'" + e.getMessage());
+			throw new Exception("Exception While Validating User login 'isUserLogin()'" + e.getLocalizedMessage());
+		}
+		return flag;
 	}
 	
 	public void clickApiAdd(){
@@ -204,16 +221,55 @@ public class APIPublisherHomePage extends BasicPageObject{
 		getElement(btnSavePublish).click();
 	}
 	
-	public boolean validateProdUrl(String url){
-		return getElement(lblProdUrl).getText().trim().equalsIgnoreCase(url);
+	public boolean isProductionUrl(String url) throws Exception{
+		flag = false;
+		logger.debug("Validating production URL");
+		try {
+			if (getElement(lblProdUrl).getText().trim().equalsIgnoreCase(url)){
+				flag = true;
+				logger.debug("Production URL matched");
+			} else {
+				logger.debug("Production URL mismatched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating production URL 'isProductionUrl()'" + e.getMessage());
+			throw new Exception("Exception While Validating production URL 'isProductionUrl()'" + e.getLocalizedMessage());
+		}
+		return flag;
 	}
 	
-	public boolean validateSandboxUrl(String url){
-		return getElement(lblSandbox).getText().trim().equalsIgnoreCase(url);
+	public boolean isSandboxUrl(String url) throws Exception{
+		flag = false;
+		logger.debug("Validating sandbox URL");
+		try {
+			if (getElement(lblSandbox).getText().trim().equalsIgnoreCase(url)){
+				flag = true;
+				logger.debug("Sandbox URL matched");
+			} else {
+				logger.debug("Sandbox URL mismatched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating sandbox URL 'isSandboxUrl()'" + e.getMessage());
+			throw new Exception("Exception While Validating sandbox URL 'isSandboxUrl()'" + e.getLocalizedMessage());
+		}
+		return flag;
 	}
 	
-	public boolean validateTierAvailability(String url){
-		return getElement(lblTierAvailability).getText().trim().equalsIgnoreCase(url);
+	public boolean isTierAvailability(String url) throws Exception{
+		flag = false;
+		logger.debug("Validating tier availability");
+		try {
+			if (getElement(lblTierAvailability).getText().trim().equalsIgnoreCase(url)){
+				flag = true;
+				logger.debug("Tier availability matched");
+			} else {
+				logger.debug("Tier availability matched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating tier availability 'isTierAvailability()'" + e.getMessage());
+			throw new Exception("Exception While Validating tier availability 'isTierAvailability()'" + e.getLocalizedMessage());
+		}
+		return flag;
 	}
 
 }
