@@ -74,28 +74,61 @@ public class APIsPage extends BasicPageObject {
 		getElement(lnkCreatedAPI).click();
 	}
 	
-	public boolean validateApiStatus(String status){
-		return getElement(lblApiStatus).getText().trim().equalsIgnoreCase(status);
+	public boolean isAPIStatus(String status) throws Exception{
+		flag = false;
+		logger.debug("Validating created API status");
+		try {
+			if (getElement(lblApiStatus).getText().trim().equalsIgnoreCase(status)){
+				flag = true;
+				logger.debug("Created API status as expected");
+			} else {
+				logger.debug("Created API status mismatched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating API status 'isAPIStatus()'" + e.getMessage());
+			throw new Exception("Exception While Validating API status 'isAPIStatus()'"  + e.getLocalizedMessage());
+		}
+		return flag;
 	}
 	
 	public void clickApplicationDropDown(){
 		getElement(ddlApplication).click();
 	}
 	
-	public boolean validateAppName(String appname) {
+	public boolean isApplicationNameNotVisible(String appname) throws Exception {
+		flag = false;
+		logger.debug("Validating created application name before approving");
 		List<WebElement> tabs = driver.findElements(By.xpath("//select[@id='application-list']//option"));
-		if (tabs.contains(appname)) {
-			return false;
+		try {
+			if (!tabs.contains(appname)) {
+				flag = true;
+				logger.debug("Application name is not visible before approving");
+			} else {
+				logger.debug("Application name is visible before approving");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating created Application visible in API 'isCreatedAppName()'" + e.getMessage());
+			throw new Exception("Exception While Validating created Application visible in API 'isCreatedAppName()'"  + e.getLocalizedMessage());
 		}
-		return true;
+		return flag;
 	}
 	
-	public boolean validateAppNameInApplications(String appname){
+	public boolean isApplicationNameVisible(String appname) throws Exception{
+		flag = false;
+		logger.debug("Validating created application name after approving");
 		List<WebElement> tabs = driver.findElements(By.xpath("//select[@id='application-list']//option"));
-		if (tabs.contains(appname)) {
-			return true;
+		try {
+			if (tabs.contains(appname)) {
+				flag = true;
+				logger.debug("Application name is visible after approving");
+			} else {
+				logger.debug("Application name is not visible after approving");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating created Application visible in API 'isApplicationNameVisible()'" + e.getMessage());
+			throw new Exception("Exception While Validating created Application visible in API 'isApplicationNameVisible()'"  + e.getLocalizedMessage());
 		}
-		return false;
+		return flag;
 	}
 	
 	public void clickAppName(String appname){
@@ -114,8 +147,21 @@ public class APIsPage extends BasicPageObject {
 		getElement(btnSubscribe).click();
 	}
 	
-	public boolean validateSubscriptionSuccessPopup(String popupMsg){
-		return getElement(lblSubsSuccess).getText().equalsIgnoreCase(popupMsg);
+	public boolean isSubscriptionSuccessPopup(String popupMsg) throws Exception{
+		flag = false;
+		logger.debug("Validating subscription success popup");
+		try {
+			if (getElement(lblSubsSuccess).getText().equalsIgnoreCase(popupMsg)){
+				flag = true;
+				logger.debug("Subscription success popup loaded properly");
+			} else {
+				logger.debug("Subscription success popup not loaded properly");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating subscription popup 'isSubscriptionSuccessPopup()'" + e.getMessage());
+			throw new Exception("Exception While Validating subscription popup 'isSubscriptionSuccessPopup()'"  + e.getLocalizedMessage());
+		}
+		return flag;
 	}
 	
 	public void clickGoToSubscriber(){
