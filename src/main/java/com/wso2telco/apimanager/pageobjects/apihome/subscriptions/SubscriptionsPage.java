@@ -61,13 +61,39 @@ public class SubscriptionsPage extends BasicPageObject  {
 		return flag;
 	}
 	
-	public boolean validateNoSubscription(String msg){
+	public boolean isNoSubscriptionMsg(String msg) throws Exception{
+		flag = false;
+		logger.debug("Validating No Subscription message");
 		WebPelement lblSubscroptionMsg = defineEelement(UIType.Xpath, "//div/b");
-		return getElement(lblSubscroptionMsg).getText().trim().contains(msg);
+		try {
+			if (getElement(lblSubscroptionMsg).getText().trim().contains(msg)){
+				flag = true;
+				logger.debug("No Subscription message is visible");
+			} else {
+				logger.debug("No Subscription message is not visible");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating No Subscription message 'isNoSubscriptionMsg()'" + e.getMessage());
+			throw new Exception("Exception While Validating No Subscription message 'isNoSubscriptionMsg()'" + e.getLocalizedMessage());
+		}
+		return flag;
 	}
 	
-	public boolean validateAppsWithSubscriptions(String appname){
-		return getElement(lblAppName).getText().equalsIgnoreCase(appname);
+	public boolean isAppsWithSubscriptions(String appname) throws Exception{
+		flag = false;
+		logger.debug("Validating Applications with subscription");
+		try {
+			if (getElement(lblAppName).getText().equalsIgnoreCase(appname)){
+				flag = true;
+				logger.debug("Applications with subscription is visible");
+			} else {
+				logger.debug("Applications with subscription is visible");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Applications with subscription 'isAppsWithSubscriptions()'" + e.getMessage());
+			throw new Exception("Exception While Validating Applications with subscription 'isAppsWithSubscriptions()'" + e.getLocalizedMessage());
+		}
+		return flag;
 	}
 	
 	public void enterTokenValidityProd(String validity){
