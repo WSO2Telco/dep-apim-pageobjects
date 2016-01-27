@@ -1,11 +1,16 @@
 package com.wso2telco.apimanager.pageobjects.login;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
+
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
+import com.wso2telco.apimanager.pageobjects.apihome.subscriptions.SubscriptionsPage;
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
 
 public class LoginPage extends BasicPageObject {
+	
+	Logger logger = Logger.getLogger(SubscriptionsPage.class);
 	
 	private WebPelement btnSignUp = defineEelement(UIType.Xpath, "//a[@id='register-link']");
 	
@@ -38,8 +43,26 @@ public class LoginPage extends BasicPageObject {
     	getElement(linkLogin).click();
 	}
 	
-	public boolean validateLoginHeader(){
-		return getElement(lblLogin).getText().equalsIgnoreCase("Login");
+	public boolean isLoginDisplayed(String header) throws Exception {
+
+		flag = false;
+		logger.debug("Validating Login pop up header");
+		Thread.sleep(10000);
+		try {
+			if (header.contains(getElement(lblLogin).getText())) {
+				flag = true;
+				logger.debug("Validating Login pop up header completed");
+			} else {
+				logger.debug("Login pop up header is Not Matched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Login pop up header Page Title 'isLoginDisplayed()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating Login pop up header Page Title 'isLoginDisplayed()'"
+							+ e.getLocalizedMessage());
+		}
+		return flag;
 	}
 	
 	public void enterLoginUserName(String userName){
