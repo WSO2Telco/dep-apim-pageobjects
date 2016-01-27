@@ -1,12 +1,16 @@
 package com.wso2telco.apimanager.pageobjects.signup;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
+
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
+import com.wso2telco.apimanager.pageobjects.apihome.subscriptions.SubscriptionsPage;
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
 
 public class SignUpPage extends BasicPageObject {
 	
+	Logger logger = Logger.getLogger(SubscriptionsPage.class);
 
 	private WebPelement titleSignUp = defineEelement(UIType.Xpath, "//div[@class='title-section']/h2");
 	
@@ -32,8 +36,21 @@ public class SignUpPage extends BasicPageObject {
 		super(driver);
 	}
 	
-	public boolean validateSignUpHeader(){
-		return getElement(titleSignUp).getText().equalsIgnoreCase("Sign - Up for a New Account");
+	public boolean isSignUpHeader(String signupHeader) throws Exception{
+		flag = false;
+		logger.debug("Validating Signup header");
+		try {
+			if (getElement(titleSignUp).getText().equalsIgnoreCase(signupHeader)){
+				flag = true;
+				logger.debug("Signup header matched");
+			} else {
+				logger.debug("Signup header mismatched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating signup header 'isSignUpHeader()'" + e.getMessage());
+			throw new Exception("Exception While Validating signup header 'isSignUpHeader()'" + e.getLocalizedMessage());
+		}
+		return flag;
 	}
 	
 	public void enterNewUName(String userName){
@@ -64,8 +81,21 @@ public class SignUpPage extends BasicPageObject {
 		getElement(btnSubmit).click();
 	}
 	
-	public boolean validateSuccessMsg(String message){
-		return getElement(msgSuccess).getText().contains(message);
+	public boolean isUserSignupSuccessMsg(String message) throws Exception{
+		flag = false;
+		logger.debug("Validating user sginup success message");
+		try {
+			if (getElement(msgSuccess).getText().contains(message)){
+				flag = true;
+				logger.debug("User sginup success message matched");
+			} else {
+				logger.debug("User sginup success message mismatched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating User sginup success messager 'isUserSignupSuccessMsg()'" + e.getMessage());
+			throw new Exception("Exception While Validating User sginup success message 'isUserSignupSuccessMsg()'" + e.getLocalizedMessage());
+		}
+		return flag;
 	}
 	
 	public void clickOk(){
