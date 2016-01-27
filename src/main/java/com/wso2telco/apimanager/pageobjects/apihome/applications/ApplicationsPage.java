@@ -1,11 +1,16 @@
 package com.wso2telco.apimanager.pageobjects.apihome.applications;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
+
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
+import com.wso2telco.apimanager.pageobjects.apihome.HomePage;
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
 
 public class ApplicationsPage extends BasicPageObject  {
+	
+	Logger logger = Logger.getLogger(HomePage.class);
 
 	private WebPelement lblApplications = defineEelement(UIType.Xpath, "//div[@class='title-section']/h2");
 	
@@ -33,12 +38,38 @@ public class ApplicationsPage extends BasicPageObject  {
 		super(driver);
 	}
 	
-	public boolean validateApplicationPage(){
-		return getElement(lblApplications).getText().equalsIgnoreCase("Applications");
+	public boolean isApplicationPageHeader(String pageHeader) throws Exception{
+		flag = false;
+		logger.debug("Validating Application page hedaer");
+		try {
+			if (getElement(lblApplications).getText().equalsIgnoreCase(pageHeader)){
+				flag = true;
+				logger.debug("Application page hedaer matched");
+			} else {
+				logger.debug("Application page hedaer mismatch");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Application page header 'isApplicationPageHeader()'" + e.getMessage());
+			throw new Exception("Exception While Validating Application page header 'isApplicationPageHeader()'" + e.getLocalizedMessage());
+		}
+		return flag;
 	}
 	
-	public boolean validateApplicationFormHeader(){
-		return  getElement(lblApplicationForm).getText().trim().equalsIgnoreCase("Add New Application");
+	public boolean isApplicationFormHeader(String formHeader) throws Exception{
+		flag = false;
+		logger.debug("Validating Application form hedaer");
+		try {
+			if (getElement(lblApplicationForm).getText().trim().equalsIgnoreCase(formHeader)){
+				flag = true;
+				logger.debug("Application form hedaer matched");
+			} else {
+				logger.debug("Application form hedaer mismatched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Application form hedaer 'isApplicationFormHeader()'" + e.getMessage());
+			throw new Exception("Exception While Validating Application form hedaer 'isApplicationFormHeader()'" + e.getLocalizedMessage());
+		}
+		return flag;
 	}
 	
 	public void enterAppllicationName(String applicationName){
@@ -57,24 +88,89 @@ public class ApplicationsPage extends BasicPageObject  {
 		getElement(btnAppAdd).click();
 	}
 	
-	public boolean validateApplicationName(String appName){
-		return getElement(lblApplicationName).getText().trim().contains(appName);
+	public boolean isApplicationName(String appName) throws Exception{
+		flag = false;
+		logger.debug("Validating Application name");
+		try {
+			if (getElement(lblApplicationName).getText().trim().contains(appName)){
+				flag = true;
+				logger.debug("Application name matched");
+			} else {
+				logger.debug("Application name mismatched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Application name 'isApplicationName()'" + e.getMessage());
+			throw new Exception("Exception While Validating Application name 'isApplicationName()'" + e.getLocalizedMessage());
+		}
+		return flag;
 	}
 	
-	public boolean validateTeirname(String teir){
-		return getElement(ddlTier).getText().trim().contains(teir);
+	public boolean isTeirname(String teir) throws Exception{
+		flag = false;
+		logger.debug("Validating tier name");
+		try {
+			if (getElement(ddlTier).getText().trim().contains(teir)){
+				flag = true;
+				logger.debug("Application tier matched");
+			} else {
+				logger.debug("Application tier mismatched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Application tier 'isTeirname()'" + e.getMessage());
+			throw new Exception("Exception While Validating Application tier 'isTeirname()'" + e.getLocalizedMessage());
+		}
+		return flag;
 	}
 	
-	public boolean validateStatus(String status){
-		return getElement(lblStatus).getText().trim().contains(status);
+	public boolean isApplicationStatus(String status) throws Exception{
+		flag = false;
+		logger.debug("Validating application status");
+		try {
+			if (getElement(lblStatus).getText().trim().contains(status)){
+				flag = true;
+				logger.debug("Application status matched");
+			} else {
+				logger.debug("Application status mismatched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Application status 'isApplicationStatus()'" + e.getMessage());
+			throw new Exception("Exception While Validating Application status 'isApplicationStatus()'" + e.getLocalizedMessage());
+		}
+		return flag;
 	}
 	
-	public boolean validateCallbackurl(String url){
-		return getElement(lblCallbackurl).getText().trim().contains(url);
+	public boolean isCallbackurl(String url) throws Exception{
+		flag = false;
+		logger.debug("Validating application callback url");
+		try {
+			if (getElement(lblCallbackurl).getText().trim().contains(url)){
+				flag = true;
+				logger.debug("Application callback url matched");
+			} else {
+				logger.debug("Application callback url mismatched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Application callback url 'isCallbackurl()'" + e.getMessage());
+			throw new Exception("Exception While Validating Application callback url 'isCallbackurl()'" + e.getLocalizedMessage());
+		}
+		return flag;
 	}
 	
-	public boolean validateDescription(String description){
-		return getElement(lblDescription).getText().trim().contains(description);
+	public boolean validateDescription(String description) throws Exception{
+		flag = false;
+		logger.debug("Validating application cdescription");
+		try {
+			if (getElement(lblDescription).getText().trim().contains(description)){
+				flag = true;
+				logger.debug("Application description matched");
+			} else {
+				logger.debug("Application description mismatched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Application description 'isCallbackurl()'" + e.getMessage());
+			throw new Exception("Exception While Validating Application description 'isCallbackurl()'" + e.getLocalizedMessage());
+		}
+		return flag;
 	}
 
 }

@@ -32,19 +32,19 @@ public class APIsPage extends BasicPageObject {
 		super(driver);
 	}
 
-	public boolean isAPIPage() throws Exception{
+	public boolean isAPIPage(String apiHeader) throws Exception{
 		flag = false;
 		logger.debug("Validating API page loaded properly");
 		try {
-			if (getElement(lblAPIs).getText().equalsIgnoreCase("APIs")){
+			if (getElement(lblAPIs).getText().equalsIgnoreCase(apiHeader)){
 				flag = true;
 				logger.debug("API page loaded properly");
 			} else {
 				logger.debug("API page did not load properly");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating Answer Security Questions Page Title 'isAnswerSecurityQuestionsPage()'" + e.getMessage());
-			throw new Exception("Exception While Validating Answer Security Questions Page Title 'isAnswerSecurityQuestionsPage()'" + e.getLocalizedMessage());
+			logger.debug("Exception While Validating API page header 'isAPIPage()'" + e.getMessage());
+			throw new Exception("Exception While Validating API page header 'isAPIPage()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
