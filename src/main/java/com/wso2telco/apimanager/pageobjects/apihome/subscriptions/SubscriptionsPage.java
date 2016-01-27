@@ -1,5 +1,6 @@
 package com.wso2telco.apimanager.pageobjects.apihome.subscriptions;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
@@ -7,6 +8,8 @@ import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
 
 public class SubscriptionsPage extends BasicPageObject  {
+	
+	Logger logger = Logger.getLogger(SubscriptionsPage.class);
 	
 	private WebPelement lblSubscriptions = defineEelement(UIType.Xpath, "//div[@class='title-section']/h2");
 	
@@ -65,22 +68,22 @@ public class SubscriptionsPage extends BasicPageObject  {
 		getElement(txtTokenValiditySand).clearAndSendkeys(validity);
 	}
 	
-	public String validateConsKeyProd(){
+	public String getConsKeyProd(){
 		String ConsKeyProd = getElement(lblConsKeyProd).getText();
 		return ConsKeyProd;
 	}
 	
-	public String validateSecKeyProd(){
+	public String geteSecKeyProd(){
 		String SecKeyProd = getElement(lblSecKeyProd).getText();
 		return SecKeyProd;
 	}
 	
-	public String validateConsKeySand(){
+	public String getConsKeySand(){
 		String ConsKeySand = getElement(lblConsKeySand).getText();
 		return ConsKeySand;
 	}
 	
-	public String validateSecKeySand(){
+	public String getSecKeySand(){
 		String SecKeySand = getElement(lblSecKeySand).getText();
 		return SecKeySand;
 	}
@@ -93,9 +96,48 @@ public class SubscriptionsPage extends BasicPageObject  {
 		getElement(btnReGenerateSand).click();
 	}
 	
-	public String isTokenValidityProd(){
-		String validity = getElement(txtTokenValiditySand).getText();
-		return validity;
+	public boolean isTokenValidityProd(String validity) throws Exception {
+
+		flag = false;
+		logger.debug("Validating Token Validity of Production");
+		Thread.sleep(10000);
+		try {
+			if (validity.contains(getElement(txtTokenValidityProd).getText())) {
+				flag = true;
+				logger.debug("Validating Token Validity of Production completed");
+			} else {
+				logger.debug("Token Validity of Production is Not Matched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Token Validity of Production Page Title 'isTokenValidityProd()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating Token Validity of Production Page Title 'isTokenValidityProd()'"
+							+ e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
+	public boolean isTokenValiditySand(String validity) throws Exception {
+
+		flag = false;
+		logger.debug("Validating Token Validity of Sandbox");
+		Thread.sleep(10000);
+		try {
+			if (validity.contains(getElement(txtTokenValiditySand).getText())) {
+				flag = true;
+				logger.debug("Validating Token Validity of Sandbox completed");
+			} else {
+				logger.debug("Token Validity of Sandbox is Not Matched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Token Validity of Sandbox Page Title 'isTokenValiditySand()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating Token Validity of Sandbox Page Title 'isTokenValiditySand()'"
+							+ e.getLocalizedMessage());
+		}
+		return flag;
 	}
 }
 
