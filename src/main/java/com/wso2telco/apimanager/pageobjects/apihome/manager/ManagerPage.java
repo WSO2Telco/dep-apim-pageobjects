@@ -51,6 +51,7 @@ public class ManagerPage extends BasicPageObject {
 	public boolean isManagerPage(String managerHeader) throws Exception{
 		flag = false;
 		logger.debug("Validating Manager page hedaer");
+		Thread.sleep(5000);
 		try {
 			if (getElement(lblManager).getText().equalsIgnoreCase(managerHeader)){
 				flag = true;

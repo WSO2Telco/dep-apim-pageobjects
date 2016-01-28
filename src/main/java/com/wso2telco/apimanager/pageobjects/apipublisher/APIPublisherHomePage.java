@@ -1,7 +1,11 @@
 package com.wso2telco.apimanager.pageobjects.apipublisher;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
 import com.wso2telco.apimanager.pageobjects.apihome.subscriptions.SubscriptionsPage;
@@ -15,6 +19,10 @@ public class APIPublisherHomePage extends BasicPageObject {
 	private WebPelement lblUsername = defineEelement(UIType.Xpath, "//a[@id='userMenu']");
 	
 	private WebPelement lnkAPIAdd = defineEelement(UIType.Xpath, "//li/a[text()[contains(.,'Add')]]");
+	
+	private WebPelement txtAPISearch = defineEelement(UIType.Xpath, "//form/input[@class='input-xlarge search-query']");
+	
+	private WebPelement btnSearch = defineEelement(UIType.Xpath, "//button[text()[contains(.,'Search')]]");
 	
 	private WebPelement txtApiName = defineEelement(UIType.Xpath, "//input[@id='name']");
 	
@@ -95,6 +103,25 @@ public class APIPublisherHomePage extends BasicPageObject {
 		return flag;
 	}
 	
+	public void enterAPINameSearch(String apiName){
+		getElement(txtAPISearch).clearAndSendkeys(apiName);
+	}
+	
+	public void clickSearch(){
+		getElement(btnSearch).click();
+	}
+	
+	public void deleteExistingAPI(String apiName){
+		String xpath = "//div/h5/a[contains(@title,'" + apiName + "')]";
+		String closeXpath = "//div/h5/a[contains(@title,'" + apiName + "')]/../../../button[@type='button']";
+		WebPelement lnkclose = defineEelement(UIType.Xpath, closeXpath);
+		List<WebElement> countAPI = driver.findElements(By.xpath(xpath));
+		int count = countAPI.size();
+		if(count != 0){
+			getElement(lnkclose).click();
+		}
+	}
+	
 	public void clickApiAdd(){
 		getElement(lnkAPIAdd).click();
 	}
@@ -116,7 +143,8 @@ public class APIPublisherHomePage extends BasicPageObject {
 	}
 	
 	public void setUrlType(String type){
-		String xpath = "//label[text()[contains(.,'" + type + "')]]/input";
+		String Type = type.toUpperCase();
+		String xpath = "//label[text()[contains(.,'" + Type + "')]]/input";
 		WebPelement chkType = defineEelement(UIType.Xpath, xpath);
 		getElement(chkType).click();
 	}
