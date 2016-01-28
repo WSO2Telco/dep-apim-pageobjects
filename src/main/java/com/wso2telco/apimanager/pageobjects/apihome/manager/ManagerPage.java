@@ -214,7 +214,7 @@ public class ManagerPage extends BasicPageObject {
 	}
 	
 	public void selectTier(String tier, String appname){
-		String xpath = "//tr/td/div/label[text()[contains(.,'" + appname + "')]]/../../div/div/select[@id='tiers_list_89026']";
+		String xpath = "//td[@id='desc0']/div[4]/div[1]/select/option[@value='Unlimited']";
 		WebPelement ddlTier = defineEelement(UIType.Xpath, xpath);
 		getElement(ddlTier).sendKeys(tier);
 		getElement(ddlTier).sendEnter();
