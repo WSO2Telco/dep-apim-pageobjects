@@ -24,7 +24,7 @@ public class APIsPage extends BasicPageObject {
 	
 	private WebPelement btnSubscribe = defineEelement(UIType.Xpath, "//button[@id='subscribe-button']");
 	
-	private WebPelement lblSubsSuccess = defineEelement(UIType.Xpath, "//h3[contains(text(),'Subscription Successful')]");
+	private WebPelement lblSubsSuccess = defineEelement(UIType.Xpath, "//div[@id='messageModal']/div[1]/h3");
 	
 	private WebPelement btnGoToSubscriber = defineEelement(UIType.Xpath, "//a[contains(text(),'Go to My Subscriptions')]");
 	
@@ -117,12 +117,15 @@ public class APIsPage extends BasicPageObject {
 		flag = false;
 		logger.debug("Validating created application name after approving");
 		List<WebElement> tabs = driver.findElements(By.xpath("//select[@id='application-list']//option"));
+		int tabCount = tabs.size();
 		try {
-			if (tabs.contains(appname)) {
-				flag = true;
-				logger.debug("Application name is visible after approving");
-			} else {
-				logger.debug("Application name is not visible after approving");
+			for (int x = 0; x < tabCount; x++) {
+				if (tabs.get(x).getText().trim().contains(appname)) {
+					flag = true;
+					logger.debug("Application name is visible after approving");
+				} else {
+					logger.debug("Application name is not visible after approving");
+				}
 			}
 		} catch (Exception e) {
 			logger.debug("Exception While Validating created Application visible in API 'isApplicationNameVisible()'" + e.getMessage());

@@ -33,7 +33,7 @@ public class ManagerPage extends BasicPageObject {
 	
 	private WebPelement lnkApplicationCreation = defineEelement(UIType.Xpath, "//li/a[text()[contains(.,'Application Creation')]]");
 	
-	private WebPelement lblApproveReject = defineEelement(UIType.Xpath, "//div/div/a/../h3");
+	private WebPelement lblApproveReject = defineEelement(UIType.Xpath, "//div[@class='modal-header']/h3");
 	
 	private WebPelement txtApproveReject = defineEelement(UIType.Xpath, "//div/form/input[@type='text']");
 	

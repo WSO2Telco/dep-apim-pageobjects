@@ -1,6 +1,7 @@
 package com.wso2telco.apimanager.pageobjects.apihome.applications;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
@@ -33,6 +34,9 @@ public class ApplicationsPage extends BasicPageObject  {
 	private WebPelement lblCallbackurl = defineEelement(UIType.Xpath, "//table[@id='applicationTable']//tr[1]/td[4]");
 	
 	private WebPelement lblDescription = defineEelement(UIType.Xpath, "//table[@id='applicationTable']//tr[1]/td[5]");
+	
+	private WebPelement btnYes = defineEelement(UIType.Xpath, ".//*[@id='messageModal']/div[3]/a[contains(.,'Yes')]");
+	
 	
 	public ApplicationsPage(WebDriver driver) {
 		super(driver);
@@ -172,5 +176,34 @@ public class ApplicationsPage extends BasicPageObject  {
 		}
 		return flag;
 	}
-
+	
+	 public boolean isAppAvailable(String app, String username) throws Exception{
+			
+			flag = false;
+			logger.debug("Validating app is visible");
+			String xpath = "//td[text()[contains(.,'" + username + "_" + app + "')]]";
+			int elements = driver.findElements(By.xpath(xpath)).size();
+			try {
+				if (elements != 0){
+					flag = true;
+					logger.debug("App is visible");
+				} else {
+					logger.debug("App is not visible");
+				}
+			} catch (Exception e) {
+				logger.debug("Exception While Validating app is visible 'isAppAvailable()'" + e.getMessage());
+				throw new Exception("Exception While Validating app is visible 'isAppAvailable()'" + e.getLocalizedMessage());
+			}
+			return flag;
+		}
+		
+	 public void clickDelete(String app){
+		String xpath = "//td[contains(.,'"+app+"')]/following-sibling::td[5]/a";
+		WebPelement lnkDelete = defineEelement(UIType.Xpath, xpath);
+		getElement(lnkDelete).click();
+	 }
+	 
+	 public void clickYes(){
+		 getElement(btnYes).click();
+	 }
 }
