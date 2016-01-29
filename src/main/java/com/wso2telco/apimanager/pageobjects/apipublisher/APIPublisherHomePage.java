@@ -62,7 +62,7 @@ public class APIPublisherHomePage extends BasicPageObject {
 	
 	private WebPelement btnSubmitRequired = defineEelement(UIType.Xpath, "//td[5]/..//div//button[@type='submit']");
 	
-	private WebPelement btnImplement = defineEelement(UIType.Xpath, "//a[text()[contains(.,'Implement')]]");
+	private WebPelement btnImplement = defineEelement(UIType.Xpath, "//a[text()='Implement']");
 	
 	private WebPelement ddlEndpointType = defineEelement(UIType.Xpath, "//select[@id='endpoint_type']");
 	
@@ -111,14 +111,17 @@ public class APIPublisherHomePage extends BasicPageObject {
 		getElement(btnSearch).click();
 	}
 	
-	public void deleteExistingAPI(String apiName){
+	public void deleteExistingAPI(String apiName) throws InterruptedException{
 		String xpath = "//div/h5/a[contains(@title,'" + apiName + "')]";
 		String closeXpath = "//div/h5/a[contains(@title,'" + apiName + "')]/../../../button[@type='button']";
 		WebPelement lnkclose = defineEelement(UIType.Xpath, closeXpath);
+		WebPelement btnYes = defineEelement(UIType.Xpath, "//a[text()='Yes']");
 		List<WebElement> countAPI = driver.findElements(By.xpath(xpath));
 		int count = countAPI.size();
 		if(count != 0){
 			getElement(lnkclose).click();
+			Thread.sleep(2000);
+			getElement(btnYes).click();
 		}
 	}
 	
@@ -185,7 +188,7 @@ public class APIPublisherHomePage extends BasicPageObject {
 	
 	public void selectParameterType(String value){
 		getElement(ddlParameterTypeList).sendKeys(value);
-		getElement(ddlParameterTypeList).sendEnter();
+		//getElement(ddlParameterTypeList).sendEnter();
 	}
 	
 	public void submitParameterType(){
@@ -210,7 +213,7 @@ public class APIPublisherHomePage extends BasicPageObject {
 	
 	public void SelectRequiredType(String value){
 		getElement(ddlRequiredType).sendKeys(value);
-		getElement(ddlRequiredType).sendEnter();
+		//getElement(ddlRequiredType).sendEnter();
 	}
 	
 	public void submitRequiredType(){
@@ -223,7 +226,7 @@ public class APIPublisherHomePage extends BasicPageObject {
 	
 	public void selectEndpointType(String endpointType){
 		getElement(ddlEndpointType).sendKeys(endpointType);
-		getElement(ddlEndpointType).sendEnter();
+		//getElement(ddlEndpointType).sendEnter();
 	}
 	
 	public void enterProdEndpoint(String prodEndpoint){
