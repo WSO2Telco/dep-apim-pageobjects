@@ -43,6 +43,8 @@ public class ManagerPage extends BasicPageObject {
 	
 	private WebPelement titleAppTasks = defineEelement(UIType.Xpath, "//div[@class='title-section']/h2");
 	
+	private String tabPath = "//div[@class='navbar-inner main-menu-navbar']/ul/li";
+	
 	
 	public ManagerPage(WebDriver driver) {
 		super(driver);
@@ -106,8 +108,7 @@ public class ManagerPage extends BasicPageObject {
 	public boolean isManagerTwoTabsAccess() throws Exception{
 		flag = false;
 		logger.debug("Validating Manager page tabs for normal users");
-		List<WebElement> tabs = driver.findElements(By.xpath("//div[@class='navbar-inner main-menu-navbar']/ul/li"));
-		int tabCount = tabs.size();		
+		int tabCount = verifyListContent(UIType.Xpath, tabPath).size();	
 		try {
 			if (tabCount <= 3){
 				flag = true;
@@ -125,8 +126,7 @@ public class ManagerPage extends BasicPageObject {
 	public boolean isAllTabsAccessible() throws Exception{
 		flag = false;
 		logger.debug("Validating Manager page tabs for admin users");
-		List<WebElement> tabs = driver.findElements(By.xpath("//div[@class='navbar-inner main-menu-navbar']/ul/li"));
-		int tabCount = tabs.size();
+		int tabCount = verifyListContent(UIType.Xpath, tabPath).size();
 		try {
 			if (tabCount <= 6){
 				flag = true;
@@ -144,8 +144,7 @@ public class ManagerPage extends BasicPageObject {
 	public boolean isThreeTabs() throws Exception{
 		flag = false;
 		logger.debug("Validating Manager page tabs for operator users");
-		List<WebElement> tabs = driver.findElements(By.xpath("//div[@class='navbar-inner main-menu-navbar']/ul/li"));
-		int tabCount = tabs.size();
+		int tabCount = verifyListContent(UIType.Xpath, tabPath).size();
 		try {
 			if (tabCount <= 4){
 				flag = true;
