@@ -27,6 +27,8 @@ public class SubscriptionsPage extends BasicPageObject  {
 	
 	private WebPelement lblSecKeyProd = defineEelement(UIType.Xpath, "//div[@class='consumerSecret']/span");
 	
+	private WebPelement ddSelectApp = defineEelement(UIType.Xpath, "//span[@class='select2-arrow']/b");
+	
     private WebPelement lblConsKeySand = defineEelement(UIType.Xpath, "//input[@id='refreshSandValidityTime']/../../div[4]/span");
 	
 	private WebPelement lblSecKeySand = defineEelement(UIType.Xpath, "//input[@id='refreshSandValidityTime']/../../div[5]/span");
@@ -182,6 +184,14 @@ public class SubscriptionsPage extends BasicPageObject  {
 							+ e.getLocalizedMessage());
 		}
 		return flag;
+	}
+	
+	public void clickSelectAppDD(){
+		getElement(ddSelectApp).click();
+	}
+	
+	public void selectApp(){
+		getElement(lblAppName).click();
 	}
 }
 
