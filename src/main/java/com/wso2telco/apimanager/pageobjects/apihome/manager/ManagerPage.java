@@ -39,7 +39,7 @@ public class ManagerPage extends BasicPageObject {
 	
 	private WebPelement btnApproveOk = defineEelement(UIType.Xpath, "//div/a[text()[contains(.,'OK')]]");
 	
-	private WebPelement btnSubCreation = defineEelement(UIType.Xpath, "//li[@class='active']/a");
+	private WebPelement btnSubCreation = defineEelement(UIType.Xpath, "//a[contains(.,'Subscriptions Creation')]");
 	
 	private WebPelement titleAppTasks = defineEelement(UIType.Xpath, "//div[@class='title-section']/h2");
 	
