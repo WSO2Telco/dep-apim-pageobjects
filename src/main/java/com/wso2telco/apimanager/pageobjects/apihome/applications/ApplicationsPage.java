@@ -92,11 +92,13 @@ public class ApplicationsPage extends BasicPageObject  {
 		getElement(btnAppAdd).click();
 	}
 	
-	public boolean isApplicationName(String appName) throws Exception{
+	public boolean isApplicationName(String username, String appName) throws Exception{
 		flag = false;
 		logger.debug("Validating Application name");
+		String appname = getElement(lblApplicationName).getText().trim();
+		String tableAppName = username + "_" + appname;
 		try {
-			if (getElement(lblApplicationName).getText().trim().contains(appName)){
+			if (tableAppName.contains(appName)){
 				flag = true;
 				logger.debug("Application name matched");
 			} else {

@@ -20,9 +20,9 @@ public class APIsPage extends BasicPageObject {
 	
 	private WebPelement lblApiStatus = defineEelement(UIType.Xpath, "//th[text()[contains(.,'Status')]]/../td");
 	
-	private WebPelement ddlApplication = defineEelement(UIType.Xpath, "//select[@id='application-list']");
+	private WebPelement ddlApplication = defineEelement(UIType.ID, "application-list");
 	
-	private WebPelement btnSubscribe = defineEelement(UIType.Xpath, "//button[@id='subscribe-button']");
+	private WebPelement btnSubscribe = defineEelement(UIType.ID, "subscribe-button");
 	
 	private WebPelement lblSubsSuccess = defineEelement(UIType.Xpath, "//div[@id='messageModal']/div[1]/h3");
 	
@@ -134,10 +134,13 @@ public class APIsPage extends BasicPageObject {
 		return flag;
 	}
 	
-	public void clickAppName(String appname){
+	public void clickAppName(String appname) throws InterruptedException{
 		String xpath = "//select[@id='application-list']//option[contains(text(),'"+appname+"')]";
 		WebPelement lblappname = defineEelement(UIType.Xpath, xpath);
+		Thread.sleep(1000);
+		getElement(ddlApplication).click();
 		getElement(lblappname).click();
+		getElement(lblappname).sendEnter();
 	}
 	
 	public void clickOperator(String operator){

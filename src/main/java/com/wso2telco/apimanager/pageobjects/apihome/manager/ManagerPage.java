@@ -190,6 +190,7 @@ public class ManagerPage extends BasicPageObject {
 	public boolean isApplicationNameVisible(String appName) throws Exception{
 		flag = false;
 		logger.debug("Validating Application name");
+		Thread.sleep(2000);
 		String xpath = "//tr/td/div/label[text()[contains(.,'" + appName + "')]]";
 		List<WebElement> appNames = driver.findElements(By.xpath(xpath));
 		int Names = appNames.size();
