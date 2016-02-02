@@ -76,13 +76,40 @@ public class ManagerPage extends BasicPageObject {
 	private WebPelement ddSelectAPI = defineEelement(UIType.Xpath, "//div[@class='well form-inline']/table/tbody/tr[2]/td/select");
 	
 	/** The lbl ussd. */
-	private WebPelement lblUSSD = defineEelement(UIType.ID, "//select[@id='apiSelect']/option[contains(.,'USSD')]");
+	private WebPelement lblUSSD = defineEelement(UIType.Xpath, "//select[@id='apiSelect']/option[contains(.,'USSD')]");
 	
 	/** The btn add new. */
 	private WebPelement btnAddNew = defineEelement(UIType.ID, "//button[@id='add-new']");
 	
 	/** The lbl admin mod error. */
 	private WebPelement lblAdminModError = defineEelement(UIType.ID, "//div[@id='messageModal']/div[1]/h3");
+	
+	/** The lnk white list. */
+	private WebPelement lnkWhiteList = defineEelement(UIType.Xpath, "//div[@class='navbar-inner main-menu-navbar']/ul/li/a[text()[contains(.,'Whitelist')]]");
+	
+	/** The lbl ap iwise white list. */
+	private WebPelement lblAPIwiseWhiteList = defineEelement(UIType.ID, "//div[@id='middle']/div[1]/h2");
+	
+	/** The dd subscriber. */
+	private WebPelement ddSubscriber = defineEelement(UIType.ID, "//select[@id='subsSelect']");
+	
+	/** The dd application. */
+	private WebPelement ddApplication = defineEelement(UIType.ID, "//select[@id='appSelect']");
+	
+	/** The dd api. */
+	private WebPelement ddAPI = defineEelement(UIType.ID, "//select[@id='apiSelect']");
+	
+	/** The lbl whitelist ussd. */
+	private WebPelement lblWhitelistUSSD = defineEelement(UIType.ID, "//select[@id='apiSelect']/option[contains(.,'ussd')]");
+	
+	/** The btn manual. */
+	private WebPelement btnManual = defineEelement(UIType.ID, "//input[@id='isManual']");
+	
+	/** The txt number. */
+	private WebPelement txtNumber = defineEelement(UIType.ID, "//input[@id='manualNumber']");
+	
+	/** The btn upload number. */
+	private WebPelement btnUploadNumber = defineEelement(UIType.ID, "//button[@id='add-manual']");
 	
 	/**
 	 * Instantiates a new manager page.
@@ -726,6 +753,152 @@ public class ManagerPage extends BasicPageObject {
 		return flag;
 	}
 	
+	/**
+	 * Click white list tab.
+	 *
+	 * @author JayaniP
+	 */
+	public void clickWhiteListTab(){
+		logger.debug("Click on White list tab");
+		getElement(lnkWhiteList).click();
+		logger.debug("Clicked on White list tab");
+	}
+	
+	/**
+	 * Checks if is AP iwise whitelist page displayed.
+	 *
+	 * @author JayaniP
+	 * @param title the title
+	 * @return true, if is AP iwise whitelist page displayed
+	 * @throws Exception the exception
+	 */
+	public boolean isAPIwiseWhitelistPageDisplayed(String title) throws Exception {
+
+		flag = false;
+		logger.debug("Validating APIwise White List Page");
+		Thread.sleep(10000);
+		try {
+			if (title.contains(getElement(lblAPIwiseWhiteList).getText())) {
+				flag = true;
+				logger.debug("Validating APIwise White List Page completed");
+			} else {
+				logger.debug("APIwise White List Page is Not Matched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating APIwise White List Page Title 'isAPIwiseWhitelistPageDisplayed()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating APIwise White List Page Title 'isAPIwiseWhitelistPageDisplayed()'"
+							+ e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
+	/**
+	 * Click subscriber drop box.
+	 *
+	 * @author JayaniP
+	 */
+	public void clickSubscriberDropBox(){
+		logger.debug("Click on Subscriber");
+		getElement(ddSubscriber).click();
+		logger.debug("Clicked on Subscriber");
+	}
+	
+    /**
+     * Select subscriber.
+     *
+     * @author JayaniP
+     * @param subscriber the subscriber
+     */
+    public void selectSubscriber(String subscriber){
+    	logger.debug("Select a Subscriber");
+    	String xpath = "//select[@id='subsSelect']/option[contains(.,'"+subscriber+"')]";
+		WebPelement lblSubscriber = defineEelement(UIType.Xpath, xpath);
+		getElement(lblSubscriber).click();
+		logger.debug("Selected a Subscriber");
+    }
+    
+    /**
+     * Click application drop box.
+     *
+     * @author JayaniP
+     */
+    public void clickApplicationDropBox(){
+    	logger.debug("Click on Application");
+    	getElement(ddApplication).click();
+		logger.debug("Clicked on Application");
+    }
+   
+    /**
+     * Select application.
+     *
+     * @author JayaniP
+     * @param appname the appname
+     */
+    public void selectApplication(String appname){
+    	logger.debug("Select an Application");
+    	String xpath = "//select[@id='appSelect']/option[contains(.,'"+appname+"')]";
+		WebPelement lblApplication = defineEelement(UIType.ID, xpath);
+		getElement(lblApplication).click();
+		logger.debug("Selected an Application");
+    }
+    
+    /**
+     * Click api drop box.
+     *
+     * @author JayaniP
+     */
+    public void clickAPIDropBox(){
+    	logger.debug("Click on API");
+    	getElement(ddAPI).click();
+		logger.debug("Clicked on API");
+    }
+    
+    /**
+     * Select white list apiussd.
+     *
+     * @author JayaniP
+     */
+    public void selectWhiteListAPIUSSD(){
+    	logger.debug("Select ussd");
+    	getElement(lblWhitelistUSSD).click();
+		logger.debug("Selected ussd");
+    }
+    
+    /**
+     * Click upload manually.
+     *
+     * @author JayaniP
+     */
+    public void clickUploadManually(){
+    	logger.debug("Select button upload manually");
+    	getElement(btnManual).click();
+		logger.debug("Selected button upload manually");
+    }
+    
+    /**
+     * Enter manual number.
+     *
+     * @author JayaniP
+     * @param number the number
+     */
+    public void enterManualNumber(String number){
+    	logger.debug("Enter Manual Number");
+    	getElement(txtNumber).clearAndSendkeys(number);
+		logger.debug("Entered Manual Number");
+    }
+    
+    /**
+     * Click upload number button.
+     *
+     * @author JayaniP
+     */
+    public void clickUploadNumberButton(){
+    	logger.debug("Click upload Number");
+    	getElement(btnUploadNumber).click();
+		logger.debug("Clicked upload Number");
+    }
 }
 
 
