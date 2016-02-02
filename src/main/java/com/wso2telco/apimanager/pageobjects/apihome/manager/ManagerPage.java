@@ -111,6 +111,24 @@ public class ManagerPage extends BasicPageObject {
 	/** The btn upload number. */
 	private WebPelement btnUploadNumber = defineEelement(UIType.ID, "//button[@id='add-manual']");
 	
+	/** The btn number range. */
+	private WebPelement btnNumberRange = defineEelement(UIType.ID, "isRange");
+	
+	/** The txt min number. */
+	private WebPelement txtMinNumber = defineEelement(UIType.ID, "minnumber");
+	
+	/** The txt max number. */
+	private WebPelement txtMaxNumber = defineEelement(UIType.ID, "maxnumber");
+	
+	/** The btn number list. */
+	private WebPelement btnNumberList = defineEelement(UIType.ID, "add-range");
+	
+	/** The btn upload number list. */
+	private WebPelement btnUploadNumberList = defineEelement(UIType.ID, "isList");
+	
+	/** The btn add number list. */
+	private WebPelement btnAddNumberList = defineEelement(UIType.ID, "add-new");
+	
 	/**
 	 * Instantiates a new manager page.
 	 *
@@ -899,6 +917,88 @@ public class ManagerPage extends BasicPageObject {
     	getElement(btnUploadNumber).click();
 		logger.debug("Clicked upload Number");
     }
+    
+    /**
+     * Click number range button.
+     *
+     * @author JayaniP
+     */
+    public void clickNumberRangeButton(){
+    	logger.debug("Click Number Range button");
+    	getElement(btnNumberRange).click();
+		logger.debug("Clicked Number Range button");
+    }
+    
+    /**
+     * Enter min number.
+     *
+     * @author JayaniP
+     * @param number the number
+     */
+    public void enterMinNumber(String number){
+    	logger.debug("Enter min number");
+    	getElement(txtMinNumber).clearAndSendkeys(number);
+		logger.debug("Min number entered");
+    }
+    
+    /**
+     * Enter max number.
+     *
+     * @author JayaniP
+     * @param number the number
+     */
+    public void enterMaxNumber(String number){
+    	logger.debug("Enter max number");
+    	getElement(txtMaxNumber).clearAndSendkeys(number);
+		logger.debug("Max number entered");
+    }
+    
+    /**
+     * Click upload number list.
+     *
+     * @author JayaniP
+     */
+    public void clickUploadNumberList(){
+    	logger.debug("Click upload number list");
+    	getElement(btnNumberList).click();
+		logger.debug("Clicked upload number list");
+    }
+    
+    /**
+     * Click upload whitelist number list.
+     *
+     * @author JayaniP
+     */
+    public void clickUploadWhitelistNumberList(){
+    	logger.debug("Click upload whitelist number list");
+    	getElement(btnUploadNumberList).click();
+		logger.debug("Clicked upload whitelist number list");
+    }
+    
+    /**
+     * Click add number list.
+     *
+     * @author JayaniP
+     */
+    public void clickAddNumberList(){
+    	logger.debug("Click add number list");
+    	getElement(btnAddNumberList).click();
+		logger.debug("Clicked add number list");
+    }
+    
+    /**
+     * Enter white list number list.
+     *
+     * @author JayaniP
+     * @param number the number
+     */
+    public void enterWhiteListNumberList(String numbers){
+		logger.debug("Enter the number list to blacklist");
+		Alert alert = driver.switchTo().alert();
+		alert.accept();
+		alert.sendKeys(numbers);
+		logger.debug("Entered the number list");
+	}
 }
 
 
