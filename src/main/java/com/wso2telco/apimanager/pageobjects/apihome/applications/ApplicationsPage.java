@@ -4,18 +4,16 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
-import com.wso2telco.apimanager.pageobjects.apihome.HomePage;
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ApplicationsPage.
  */
 public class ApplicationsPage extends BasicPageObject  {
 	
 	/** The logger. */
-	Logger logger = Logger.getLogger(HomePage.class);
+	Logger logger = Logger.getLogger(ApplicationsPage.class);
 
 	/** The lbl applications. */
 	private WebPelement lblApplications = defineEelement(UIType.Xpath, "//div[@class='title-section']/h2");

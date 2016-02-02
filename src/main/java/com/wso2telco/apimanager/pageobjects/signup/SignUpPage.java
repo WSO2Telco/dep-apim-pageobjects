@@ -4,38 +4,66 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
-import com.wso2telco.apimanager.pageobjects.apihome.subscriptions.SubscriptionsPage;
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SignUpPage.
+ */
 public class SignUpPage extends BasicPageObject {
 	
-	Logger logger = Logger.getLogger(SubscriptionsPage.class);
+	/** The logger. */
+	Logger logger = Logger.getLogger(SignUpPage.class);
 
+	/** The title sign up. */
 	private WebPelement titleSignUp = defineEelement(UIType.Xpath, "//div[@class='title-section']/h2");
 	
-	private WebPelement txtNewUName = defineEelement(UIType.Xpath, "//input[@id='newUsername']");
+	/** The txt new u name. */
+	private WebPelement txtNewUName = defineEelement(UIType.ID, "newUsername");
 	
-	private WebPelement txtPWord = defineEelement(UIType.Xpath, "//input[@id='newPassword']");
+	/** The txt p word. */
+	private WebPelement txtPWord = defineEelement(UIType.ID, "newPassword");
 	
-	private WebPelement txtReTypePWord = defineEelement(UIType.Xpath, "//input[@id='newPasswordConfirm']");
+	/** The txt re type p word. */
+	private WebPelement txtReTypePWord = defineEelement(UIType.ID, "newPasswordConfirm");
 	
-	private WebPelement txtLName = defineEelement(UIType.Xpath, "//input[@id='0.0cliamUri']");
+	/** The txt l name. */
+	private WebPelement txtLName = defineEelement(UIType.ID, "0.0cliamUri");
 	
-	private WebPelement txtFName = defineEelement(UIType.Xpath, "//input[@id='1.0cliamUri']");
+	/** The txt f name. */
+	private WebPelement txtFName = defineEelement(UIType.ID, "1.0cliamUri");
 	
-	private WebPelement txtEmail = defineEelement(UIType.Xpath, "//input[@id='2.0cliamUri']");
+	/** The txt email. */
+	private WebPelement txtEmail = defineEelement(UIType.ID, "2.0cliamUri");
 	
+	/** The btn submit. */
 	private WebPelement btnSubmit = defineEelement(UIType.Xpath, "//input[@class='submit btn btn-primary']");
 	
+	/** The msg success. */
 	private WebPelement msgSuccess = defineEelement(UIType.Xpath, "//span[@class='messageText']");
 	
+	/** The btn ok. */
 	private WebPelement btnOK = defineEelement(UIType.Xpath, "//a[@class='btn btn btn-primary']");
 	
+	/**
+	 * Instantiates a new sign up page.
+	 *
+	 * @author SulakkhanaW
+	 * @param driver the driver
+	 */
 	public SignUpPage(WebDriver driver) {
 		super(driver);
 	}
 	
+	/**
+	 * Checks if is sign up header.
+	 *
+	 * @author SulakkhanaW
+	 * @param signupHeader the signup header
+	 * @return true, if is sign up header
+	 * @throws Exception the exception
+	 */
 	public boolean isSignUpHeader(String signupHeader) throws Exception{
 		flag = false;
 		logger.debug("Validating Signup header");
@@ -53,34 +81,97 @@ public class SignUpPage extends BasicPageObject {
 		return flag;
 	}
 	
+	/**
+	 * Enter new u name.
+	 *
+	 * @author SulakkhanaW
+	 * @param userName the user name
+	 */
 	public void enterNewUName(String userName){
+		logger.debug("Entering new username");
 		getElement(txtNewUName).clearAndSendkeys(userName);
+		logger.debug("Entered new username");
 	}
 	
+	/**
+	 * Enter p word.
+	 *
+	 * @author SulakkhanaW
+	 * @param password the password
+	 */
 	public void enterPWord(String password){
+		logger.debug("Entering password");
 		getElement(txtPWord).clearAndSendkeys(password);
+		logger.debug("Entered password");
 	}
 	
+	/**
+	 * Re type p word.
+	 *
+	 * @author SulakkhanaW
+	 * @param confirmPassword the confirm password
+	 */
 	public void reTypePWord(String confirmPassword){
+		logger.debug("Entering  confirm passowrd");
 		getElement(txtReTypePWord).clearAndSendkeys(confirmPassword);
+		logger.debug("Entered confirm passowrd");
 	}
 	
+	/**
+	 * Enter l name.
+	 *
+	 * @author SulakkhanaW
+	 * @param lastName the last name
+	 */
 	public void enterLName(String lastName){
+		logger.debug("Entering  last name");
 		getElement(txtLName).clearAndSendkeys(lastName);
+		logger.debug("Entered  last name");
 	}
 	
+	/**
+	 * Enter f name.
+	 *
+	 * @author SulakkhanaW
+	 * @param firstName the first name
+	 */
 	public void enterFName(String firstName){
+		logger.debug("Entering  first name");
 		getElement(txtFName).clearAndSendkeys(firstName);
+		logger.debug("Entered  first name");
 	}
 	
+	/**
+	 * Enter email.
+	 *
+	 * @author SulakkhanaW
+	 * @param email the email
+	 */
 	public void enterEmail(String email){
+		logger.debug("Entering email");
 		getElement(txtEmail).clearAndSendkeys(email);
+		logger.debug("Entered email");
 	}
 	
+	/**
+	 * Click submit.
+	 *
+	 * @author SulakkhanaW
+	 */
 	public void clickSubmit(){
+		logger.debug("Clicking on submit");
 		getElement(btnSubmit).click();
+		logger.debug("Clicked on submit");
 	}
 	
+	/**
+	 * Checks if is user signup success msg.
+	 *
+	 * @author SulakkhanaW
+	 * @param message the message
+	 * @return true, if is user signup success msg
+	 * @throws Exception the exception
+	 */
 	public boolean isUserSignupSuccessMsg(String message) throws Exception{
 		flag = false;
 		logger.debug("Validating user sginup success message");
@@ -98,8 +189,15 @@ public class SignUpPage extends BasicPageObject {
 		return flag;
 	}
 	
+	/**
+	 * Click ok.
+	 *
+	 * @author SulakkhanaW
+	 */
 	public void clickOk(){
+		logger.debug("Clicking on ok");
 		getElement(btnOK).click();
+		logger.debug("Clicked on ok");
 	}
 
 }

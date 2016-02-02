@@ -4,18 +4,16 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
-import com.wso2telco.apimanager.pageobjects.apihome.manager.ManagerPage;
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SandBoxPage.
  */
 public class SandBoxPage extends BasicPageObject  {
 	
 	/** The logger. */
-	Logger logger = Logger.getLogger(ManagerPage.class);
+	Logger logger = Logger.getLogger(SandBoxPage.class);
 
 	/** The lbl login. */
 	private WebPelement lblLogin = defineEelement(UIType.Xpath, "//div[@class='title-section']/h2");

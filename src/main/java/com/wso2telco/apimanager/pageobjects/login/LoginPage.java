@@ -4,45 +4,85 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
-import com.wso2telco.apimanager.pageobjects.apihome.subscriptions.SubscriptionsPage;
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
 
+/**
+ * The Class LoginPage.
+ */
 public class LoginPage extends BasicPageObject {
 	
-	Logger logger = Logger.getLogger(SubscriptionsPage.class);
+	/** The logger. */
+	Logger logger = Logger.getLogger(LoginPage.class);
 	
-	private WebPelement btnSignUp = defineEelement(UIType.Xpath, "//a[@id='register-link']");
+	/** The btn sign up. */
+	private WebPelement btnSignUp = defineEelement(UIType.ID, "register-link");
 	
-	private WebPelement linkLogin = defineEelement(UIType.Xpath, "//a[@id='login-link']");
+	/** The link login. */
+	private WebPelement linkLogin = defineEelement(UIType.ID, "login-link");
 	
-	private WebPelement txtLoginUserName = defineEelement(UIType.Xpath, "//input[@id='username']");
+	/** The txt login user name. */
+	private WebPelement txtLoginUserName = defineEelement(UIType.ID, "username");
 	
-	private WebPelement txtLoginPassword = defineEelement(UIType.Xpath, "//input[@id='password']");
+	/** The txt login password. */
+	private WebPelement txtLoginPassword = defineEelement(UIType.ID, "password");
 	
-	private WebPelement btnLogin = defineEelement(UIType.Xpath, "//a[@id='loginBtn']");
+	/** The btn login. */
+	private WebPelement btnLogin = defineEelement(UIType.ID, "loginBtn");
 	
+	/** The lbl login. */
 	private WebPelement lblLogin = defineEelement(UIType.Xpath, "//div[@class='modal-header']/h3");
 	
+	/** The lbl user name. */
 	private WebPelement lblUserName = defineEelement(UIType.Xpath, "//a[@class='link-to-user dropdown-toggle']");
 	
+	/** The dd user name. */
 	private WebPelement ddUserName = defineEelement(UIType.Xpath, "//a[@class='link-to-user dropdown-toggle']/b[1]");
 	
-	private WebPelement btnLogout = defineEelement(UIType.Xpath, "//button[@id='logout-link']");
+	/** The btn logout. */
+	private WebPelement btnLogout = defineEelement(UIType.ID, "logout-link");
 	
 	
+	/**
+	 * Instantiates a new login page.
+	 *
+	 * @author SulakkhanaW
+	 * @param driver the driver
+	 */
 	public LoginPage(WebDriver driver) {
 		super(driver);
 	}
 
+	/**
+	 * Click sign up.
+	 *
+	 * @author SulakkhanaW
+	 */
 	public void clickSignUp(){
+		logger.debug("Clicking on signup");
 		getElement(btnSignUp).click();
+		logger.debug("Clicked on signup");
 	}
 	
+    /**
+     * Click log in link.
+     *
+     * @author SulakkhanaW
+     */
     public void clickLogInLink(){
+    	logger.debug("Clicking on Login");
     	getElement(linkLogin).click();
+    	logger.debug("Clicked on Login");
 	}
 	
+	/**
+	 * Checks if is login displayed.
+	 *
+	 * @author SulakkhanaW
+	 * @param header the header
+	 * @return true, if is login displayed
+	 * @throws Exception the exception
+	 */
 	public boolean isLoginDisplayed(String header) throws Exception {
 
 		flag = false;
@@ -65,18 +105,49 @@ public class LoginPage extends BasicPageObject {
 		return flag;
 	}
 	
+	/**
+	 * Enter login user name.
+	 *
+	 * @author SulakkhanaW
+	 * @param userName the user name
+	 */
 	public void enterLoginUserName(String userName){
+		logger.debug("Entering Login username");
 		getElement(txtLoginUserName).clearAndSendkeys(userName);
+		logger.debug("Entered Login username");
 	}
 	
+	/**
+	 * Enter login password.
+	 *
+	 * @author SulakkhanaW
+	 * @param password the password
+	 */
 	public void enterLoginPassword(String password){
+		logger.debug("Entering Login password");
 		getElement(txtLoginPassword).clearAndSendkeys(password);
+		logger.debug("Entered Login password");
 	}
 	
+	/**
+	 * Click log in button.
+	 *
+	 * @author SulakkhanaW
+	 */
 	public void clickLogInButton(){
+		logger.debug("Clicking on login button");
 		getElement(btnLogin).click();
+		logger.debug("Clicked on login button");
 	}
 	
+	/**
+	 * Checks if is user name.
+	 *
+	 * @author SulakkhanaW
+	 * @param username the username
+	 * @return true, if is user name
+	 * @throws Exception the exception
+	 */
 	public boolean isUserName(String username) throws Exception{
 		flag = false;
 		logger.debug("Validating user name");
@@ -94,14 +165,36 @@ public class LoginPage extends BasicPageObject {
 		return flag;
 	}
 	
+	/**
+	 * Click on user name.
+	 *
+	 * @author SulakkhanaW
+	 */
 	public void clickOnUserName(){
+		logger.debug("Clicking on username");
 		getElement(ddUserName).click();
+		logger.debug("Clicked on username");
 	}
 	
+	/**
+	 * Click logout.
+	 *
+	 * @author SulakkhanaW
+	 */
 	public void clickLogout(){
+		logger.debug("Clicking on logout");
 		getElement(btnLogout).click();
+		logger.debug("Clicked on logout");
 	}
 	
+	/**
+	 * Checks if is login.
+	 *
+	 * @author SulakkhanaW
+	 * @param value the value
+	 * @return true, if is login
+	 * @throws Exception the exception
+	 */
 	public boolean isLogin(String value) throws Exception{
 		flag = false;
 		logger.debug("Validating Login button");
@@ -119,6 +212,14 @@ public class LoginPage extends BasicPageObject {
 		return flag;
 	}
 	
+	/**
+	 * Checks if is sign up.
+	 *
+	 * @author SulakkhanaW
+	 * @param value the value
+	 * @return true, if is sign up
+	 * @throws Exception the exception
+	 */
 	public boolean isSignUp(String value) throws Exception{
 		flag = false;
 		logger.debug("Validating Signup button");

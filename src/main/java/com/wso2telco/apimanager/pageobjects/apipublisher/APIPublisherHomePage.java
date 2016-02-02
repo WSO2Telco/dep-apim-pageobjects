@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
-import com.wso2telco.apimanager.pageobjects.apihome.subscriptions.SubscriptionsPage;
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
 
@@ -14,7 +13,7 @@ import com.wso2telco.test.framework.util.UIType;
 public class APIPublisherHomePage extends BasicPageObject {
 	
 	/** The logger. */
-	Logger logger = Logger.getLogger(SubscriptionsPage.class);
+	Logger logger = Logger.getLogger(APIPublisherHomePage.class);
 	
 	/** The lbl username. */
 	private WebPelement lblUsername = defineEelement(UIType.ID, "userMenu");

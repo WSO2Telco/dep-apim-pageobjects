@@ -12,7 +12,6 @@ import com.wso2telco.apimanager.pageobjects.BasicPageObject;
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ManagerPage.
  */
@@ -25,19 +24,19 @@ public class ManagerPage extends BasicPageObject {
 	private WebPelement lblManager = defineEelement(UIType.Xpath, "//h2[@class='login-title']");
 	
 	/** The txt user name. */
-	private WebPelement txtUserName = defineEelement(UIType.Xpath, "//input[@id='username']");
+	private WebPelement txtUserName = defineEelement(UIType.ID, "username");
 	
 	/** The txt password. */
-	private WebPelement txtPassword = defineEelement(UIType.Xpath, "//input[@id='pass']");
+	private WebPelement txtPassword = defineEelement(UIType.ID, "pass");
 	
 	/** The btn log in. */
-	private WebPelement btnLogIn = defineEelement(UIType.Xpath, "//input[@id='loginButton']");
+	private WebPelement btnLogIn = defineEelement(UIType.ID, "loginButton");
 	
 	/** The lbl home. */
 	private WebPelement lblHome = defineEelement(UIType.Xpath, "//div[@class='title-section']/h2");
 	
 	/** The btn user name. */
-	private WebPelement btnUserName = defineEelement(UIType.Xpath, "//a[@id='userMenu']");
+	private WebPelement btnUserName = defineEelement(UIType.ID, "userMenu");
 	
 	/** The btn logout. */
 	private WebPelement btnLogout = defineEelement(UIType.Xpath, "//li[@class='logout-link-special']/button");
@@ -172,7 +171,9 @@ public class ManagerPage extends BasicPageObject {
 	 * @param username the username
 	 */
 	public void enterUserName(String username){
+		logger.debug("Entering username");
 		getElement(txtUserName).clearAndSendkeys(username);
+		logger.debug("Entered username");
 	}
 	
 	/**
@@ -182,7 +183,9 @@ public class ManagerPage extends BasicPageObject {
 	 * @param password the password
 	 */
 	public void enterPassword(String password){
+		logger.debug("Entering password");
 		getElement(txtPassword).clearAndSendkeys(password);
+		logger.debug("Entered password");
 	}
 	
 	/**
@@ -191,7 +194,9 @@ public class ManagerPage extends BasicPageObject {
 	 * @author JayaniP
 	 */
 	public void clickLogin(){
+		logger.debug("Clicking on login");
 		getElement(btnLogIn).click();
+		logger.debug("Clicked on login");
 	}
 	
 	/**
@@ -225,7 +230,9 @@ public class ManagerPage extends BasicPageObject {
 	 * @author JayaniP
 	 */
 	public void clickUserName(){
+		logger.debug("Clicking on username");
 		getElement(btnUserName).click();
+		logger.debug("Clicked on username");
 	}
 	
 	/**
@@ -234,7 +241,9 @@ public class ManagerPage extends BasicPageObject {
 	 * @author JayaniP
 	 */
 	public void clickLogout(){
+		logger.debug("Clicking on logout");
 		getElement(btnLogout).click();
+		logger.debug("Clickedon logout");
 	}
 	
 	/**
@@ -318,17 +327,19 @@ public class ManagerPage extends BasicPageObject {
 	 * @author JayaniP
 	 */
 	public void clickWorkflow(){
+		logger.debug("Clicking on workflow");
 		getElement(lnkWorkflow).click();
+		logger.debug("Clicked on workflow");
 	}
 	
 	/**
-	 * Checks if is apllication creation.
+	 * Checks if is application creation.
 	 *
 	 * @author JayaniP
-	 * @return true, if is apllication creation
+	 * @return true, if is application creation
 	 * @throws Exception the exception
 	 */
-	public boolean isApllicationCreation() throws Exception{
+	public boolean isApplicationCreation() throws Exception{
 		flag = false;
 		logger.debug("Validating Application creation link");
 		List<WebElement> tabs = driver.findElements(By.xpath("//li/a[text()[contains(.,'Application Creation')]]"));
@@ -348,12 +359,14 @@ public class ManagerPage extends BasicPageObject {
 	}
 	
 	/**
-	 * Click application cration.
+	 * Click application creation.
 	 *
 	 * @author JayaniP
 	 */
-	public void clickApplicationCration(){
+	public void clickApplicationCreation(){
+		logger.debug("Clicking on Application creation");
 		getElement(lnkApplicationCreation).click();
+		logger.debug("Clicked on Application creation");
 	}
 	
 	/**
@@ -394,7 +407,9 @@ public class ManagerPage extends BasicPageObject {
 	public void clickApplicationDetails(String appname){
 		String xpath = "//tr/td/div/label[text()[contains(.,'" + appname + "')]]/../../label/b[text()[contains(.,'Application Details')]]";
 		WebPelement lnkAppName = defineEelement(UIType.Xpath, xpath);
+		logger.debug("Clicking on Application details");
 		getElement(lnkAppName).click();
+		logger.debug("Clicked on Application details");
 	}
 	
 	/**
@@ -407,7 +422,9 @@ public class ManagerPage extends BasicPageObject {
 	public void selectTier(String tier, String appname){
 		String xpath = "//td[@id='desc0']/div[4]/div[1]/select/option[@value='Unlimited']";
 		WebPelement ddlTier = defineEelement(UIType.Xpath, xpath);
+		logger.debug("Selecting tier");
 		getElement(ddlTier).sendKeys(tier);
+		logger.debug("Tier selected");
 		getElement(ddlTier).sendEnter();
 	}
 	
@@ -420,7 +437,9 @@ public class ManagerPage extends BasicPageObject {
 	public void clickAssignMe(String appName){
 		String xpath = "//tr/td/div/label[text()[contains(.,'" + appName + "')]]/../../../td[5]/button[text()[contains(.,'Assign To Me')]]";
 		WebPelement btnAssignMe = defineEelement(UIType.Xpath, xpath);
+		logger.debug("Clicking on Assign me");
 		getElement(btnAssignMe).click();
+		logger.debug("Clicked on Assign me");
 	}
 	
 	/**
@@ -432,7 +451,9 @@ public class ManagerPage extends BasicPageObject {
 	public void clickStart(String appName){
 		String xpath = "//tr/td/div/label[text()[contains(.,'" + appName + "')]]/../../../td[5]/button[text()[contains(.,'Start')]]";
 		WebPelement btnStart = defineEelement(UIType.Xpath, xpath);
+		logger.debug("Clicking on start button");
 		getElement(btnStart).click();
+		logger.debug("Clicked on start button");
 	}
 	
 	/**
@@ -445,8 +466,10 @@ public class ManagerPage extends BasicPageObject {
 	public void selectCondition(String condition, String appName){
 		String xpath = "//tr/td/div/label[text()[contains(.,'" + appName + "')]]/../../../td[5]/select[@class='js_stateDropDown pull-left']";
 		WebPelement ddlCondition = defineEelement(UIType.Xpath, xpath);
+		logger.debug("Selecting condition");
 		getElement(ddlCondition).sendKeys(condition);
 		getElement(ddlCondition).sendEnter();
+		logger.debug("Condition selected");
 	}
 	
 	/**
@@ -458,7 +481,9 @@ public class ManagerPage extends BasicPageObject {
 	public void clickComplete(String appName){
 		String xpath = "//tr/td/div/label[text()[contains(.,'" + appName + "')]]/../../../td[5]/button[text()[contains(.,'Complete')]]";
 		WebPelement btnComplete = defineEelement(UIType.Xpath, xpath);
+		logger.debug("Clicking on complete");
 		getElement(btnComplete).click();
+		logger.debug("Clicked on complete");
 	}
 	
 	/**
@@ -468,7 +493,9 @@ public class ManagerPage extends BasicPageObject {
 	 * @param reason the reason
 	 */
 	public void enterApproveRejectReason(String reason){
+		logger.debug("Entering approve reject reason");
 		getElement(txtApproveReject).clearAndSendkeys(reason);
+		logger.debug("Entered approve reject reason");
 	}
 	
 	/**
@@ -477,7 +504,9 @@ public class ManagerPage extends BasicPageObject {
 	 * @author JayaniP
 	 */
 	public void clickApproveOK(){
+		logger.debug("Clicking on Approve ok button");
 		getElement(btnApproveOk).click();
+		logger.debug("Clicked on Approve ok button");
 	}
 	
 	/**
@@ -492,8 +521,7 @@ public class ManagerPage extends BasicPageObject {
 		flag = false;
 		logger.debug("Validating Application name not visible");
 		String xpath = "//tr/td/div/label[text()[contains(.,'" + appName + "')]]";
-		List<WebElement> appNames = driver.findElements(By.xpath(xpath));
-		int Names = appNames.size();
+		int Names = verifyListContent(UIType.Xpath, xpath).size();
 		try {
 			if (Names < 1){
 				flag = true;
@@ -509,12 +537,14 @@ public class ManagerPage extends BasicPageObject {
 	}
 	
 	/**
-	 * Click sub creation.
+	 * Click subscription creation.
 	 *
 	 * @author JayaniP
 	 */
 	public void clickSubCreation(){
+		logger.debug("Clicking on Subscription creation");
 		getElement(btnSubCreation).click();
+		logger.debug("Clicked on Subscription creation");
 	}
 	
 	/**
@@ -855,9 +885,9 @@ public class ManagerPage extends BasicPageObject {
      * @param appname the appname
      */
     public void selectApplication(String appname){
-    	logger.debug("Select an Application");
     	String xpath = "//select[@id='appSelect']/option[contains(.,'"+appname+"')]";
 		WebPelement lblApplication = defineEelement(UIType.Xpath, xpath);
+		logger.debug("Selecting an Application");
 		getElement(lblApplication).click();
 		logger.debug("Selected an Application");
     }

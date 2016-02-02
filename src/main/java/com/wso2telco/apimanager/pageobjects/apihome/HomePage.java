@@ -12,7 +12,6 @@ import com.wso2telco.apimanager.pageobjects.apihome.subscriptions.SubscriptionsP
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class HomePage.
  */
