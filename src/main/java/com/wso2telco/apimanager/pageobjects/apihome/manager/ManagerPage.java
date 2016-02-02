@@ -725,7 +725,7 @@ public class ManagerPage extends BasicPageObject {
 		String xpath = " //td[text()='"+number+"']";
 		WebPelement lblAddedNumber = defineEelement(UIType.Xpath, xpath);
 		try {
-			if (getElement(lblAddedNumber).getText().contains(number)) {
+			if (number.contains(getElement(lblAddedNumber).getText())) {
 				flag = true;
 				logger.debug("Validating added number in table completed");
 			} else {
@@ -998,6 +998,27 @@ public class ManagerPage extends BasicPageObject {
 		alert.accept();
 		alert.sendKeys(numbers);
 		logger.debug("Entered the number list");
+	}
+    
+    public void clearBlacklistNumber(String number) throws Exception{
+		logger.debug("Remove blacklist number if available");
+		
+		String xpathlblNumber = "//td[text()='" + number + "']";
+		int countWhiteListNumber = verifyListContent(UIType.Xpath, xpathlblNumber).size();
+		
+		String xpathRemoveNumber = "//td[text()='" + number + "']/following-sibling::td[1]/div/a";
+		WebPelement btnRemoveNumber = defineEelement(UIType.Xpath, xpathRemoveNumber);
+		
+		try {
+			if (countWhiteListNumber == 1){
+				logger.debug("Click remove number");
+				getElement(btnRemoveNumber).click();
+				logger.debug("Clicked remove number");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While removing blacklist number 'clearBlacklistNumber()'" + e.getMessage());
+			throw new Exception("Exception While removing blacklist number 'clearBlacklistNumber()'" + e.getLocalizedMessage());
+		}
 	}
 }
 
