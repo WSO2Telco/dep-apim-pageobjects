@@ -79,37 +79,37 @@ public class ManagerPage extends BasicPageObject {
 	private WebPelement lblUSSD = defineEelement(UIType.Xpath, "//select[@id='apiSelect']/option[contains(.,'USSD')]");
 	
 	/** The btn add new. */
-	private WebPelement btnAddNew = defineEelement(UIType.ID, "//button[@id='add-new']");
+	private WebPelement btnAddNew = defineEelement(UIType.ID, "add-new");
 	
 	/** The lbl admin mod error. */
-	private WebPelement lblAdminModError = defineEelement(UIType.ID, "//div[@id='messageModal']/div[1]/h3");
+	private WebPelement lblAdminModError = defineEelement(UIType.Xpath, "//div[@id='messageModal']/div[1]/h3");
 	
 	/** The lnk white list. */
 	private WebPelement lnkWhiteList = defineEelement(UIType.Xpath, "//div[@class='navbar-inner main-menu-navbar']/ul/li/a[text()[contains(.,'Whitelist')]]");
 	
 	/** The lbl ap iwise white list. */
-	private WebPelement lblAPIwiseWhiteList = defineEelement(UIType.ID, "//div[@id='middle']/div[1]/h2");
+	private WebPelement lblAPIwiseWhiteList = defineEelement(UIType.Xpath, "//div[@id='middle']/div[1]/h2");
 	
 	/** The dd subscriber. */
-	private WebPelement ddSubscriber = defineEelement(UIType.ID, "//select[@id='subsSelect']");
+	private WebPelement ddSubscriber = defineEelement(UIType.ID, "subsSelect");
 	
 	/** The dd application. */
-	private WebPelement ddApplication = defineEelement(UIType.ID, "//select[@id='appSelect']");
+	private WebPelement ddApplication = defineEelement(UIType.ID, "appSelect");
 	
 	/** The dd api. */
-	private WebPelement ddAPI = defineEelement(UIType.ID, "//select[@id='apiSelect']");
+	private WebPelement ddAPI = defineEelement(UIType.ID, "apiSelect");
 	
 	/** The lbl whitelist ussd. */
-	private WebPelement lblWhitelistUSSD = defineEelement(UIType.ID, "//select[@id='apiSelect']/option[contains(.,'ussd')]");
+	private WebPelement lblWhitelistUSSD = defineEelement(UIType.Xpath, "//select[@id='apiSelect']/option[contains(.,'ussd')]");
 	
 	/** The btn manual. */
-	private WebPelement btnManual = defineEelement(UIType.ID, "//input[@id='isManual']");
+	private WebPelement btnManual = defineEelement(UIType.ID, "isManual");
 	
 	/** The txt number. */
-	private WebPelement txtNumber = defineEelement(UIType.ID, "//input[@id='manualNumber']");
+	private WebPelement txtNumber = defineEelement(UIType.ID, "manualNumber");
 	
 	/** The btn upload number. */
-	private WebPelement btnUploadNumber = defineEelement(UIType.ID, "//button[@id='add-manual']");
+	private WebPelement btnUploadNumber = defineEelement(UIType.ID, "add-manual");
 	
 	/** The btn number range. */
 	private WebPelement btnNumberRange = defineEelement(UIType.ID, "isRange");
@@ -857,7 +857,7 @@ public class ManagerPage extends BasicPageObject {
     public void selectApplication(String appname){
     	logger.debug("Select an Application");
     	String xpath = "//select[@id='appSelect']/option[contains(.,'"+appname+"')]";
-		WebPelement lblApplication = defineEelement(UIType.ID, xpath);
+		WebPelement lblApplication = defineEelement(UIType.Xpath, xpath);
 		getElement(lblApplication).click();
 		logger.debug("Selected an Application");
     }
