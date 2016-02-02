@@ -1,7 +1,6 @@
 package com.wso2telco.apimanager.pageobjects.apihome.applications;
 
 import org.apache.log4j.Logger;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
@@ -9,39 +8,70 @@ import com.wso2telco.apimanager.pageobjects.apihome.HomePage;
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ApplicationsPage.
+ */
 public class ApplicationsPage extends BasicPageObject  {
 	
+	/** The logger. */
 	Logger logger = Logger.getLogger(HomePage.class);
 
+	/** The lbl applications. */
 	private WebPelement lblApplications = defineEelement(UIType.Xpath, "//div[@class='title-section']/h2");
 	
+	/** The lbl application form. */
 	private WebPelement lblApplicationForm = defineEelement(UIType.Xpath, "//form[@id='appAddForm']/h3");
 	
-	private WebPelement txtApplicationName = defineEelement(UIType.Xpath, "//input[@id='application-name']");
+	/** The txt application name. */
+	private WebPelement txtApplicationName = defineEelement(UIType.ID, "application-name");
 	
-	private WebPelement txtApplicationCallbackUrl = defineEelement(UIType.Xpath, "//input[@id='callback-url']");
+	/** The txt application callback url. */
+	private WebPelement txtApplicationCallbackUrl = defineEelement(UIType.ID, "callback-url");
 	
-	private WebPelement txtApplicationDescription = defineEelement(UIType.Xpath, "//textarea[@id='description']");
+	/** The txt application description. */
+	private WebPelement txtApplicationDescription = defineEelement(UIType.ID, "description");
 	
-	private WebPelement btnAppAdd = defineEelement(UIType.Xpath, "//input[@id='application-add-button']");
+	/** The btn app add. */
+	private WebPelement btnAppAdd = defineEelement(UIType.Xpath, "application-add-button");
 	
+	/** The lbl application name. */
 	private WebPelement lblApplicationName = defineEelement(UIType.Xpath, "//table[@id='applicationTable']//tr[1]/td[1]");
 	
+	/** The ddl tier. */
 	private WebPelement ddlTier = defineEelement(UIType.Xpath, "//table[@id='applicationTable']//tr[1]/td[2]/select");
 	
+	/** The lbl status. */
 	private WebPelement lblStatus = defineEelement(UIType.Xpath, "//table[@id='applicationTable']//tr[1]/td[3]");
 	
+	/** The lbl callbackurl. */
 	private WebPelement lblCallbackurl = defineEelement(UIType.Xpath, "//table[@id='applicationTable']//tr[1]/td[4]");
 	
+	/** The lbl description. */
 	private WebPelement lblDescription = defineEelement(UIType.Xpath, "//table[@id='applicationTable']//tr[1]/td[5]");
 	
+	/** The btn yes. */
 	private WebPelement btnYes = defineEelement(UIType.Xpath, ".//*[@id='messageModal']/div[3]/a[contains(.,'Yes')]");
 	
 	
+	/**
+	 * Instantiates a new applications page.
+	 *
+	 * @author SulakkhanaW
+	 * @param driver the driver
+	 */
 	public ApplicationsPage(WebDriver driver) {
 		super(driver);
 	}
 	
+	/**
+	 * Checks if is application page header.
+	 *
+	 * @author SulakkhanaW
+	 * @param pageHeader the page header
+	 * @return true, if is application page header
+	 * @throws Exception the exception
+	 */
 	public boolean isApplicationPageHeader(String pageHeader) throws Exception{
 		flag = false;
 		logger.debug("Validating Application page hedaer");
@@ -59,6 +89,14 @@ public class ApplicationsPage extends BasicPageObject  {
 		return flag;
 	}
 	
+	/**
+	 * Checks if is application form header.
+	 *
+	 * @author SulakkhanaW
+	 * @param formHeader the form header
+	 * @return true, if is application form header
+	 * @throws Exception the exception
+	 */
 	public boolean isApplicationFormHeader(String formHeader) throws Exception{
 		flag = false;
 		logger.debug("Validating Application form hedaer");
@@ -76,22 +114,62 @@ public class ApplicationsPage extends BasicPageObject  {
 		return flag;
 	}
 	
+	/**
+	 * Enter appllication name.
+	 *
+	 * @author SulakkhanaW
+	 * @param applicationName the application name
+	 */
 	public void enterAppllicationName(String applicationName){
+		logger.debug("Enter application name");
 		getElement(txtApplicationName).clearAndSendkeys(applicationName);
+		logger.debug("Application name entered Successfully");
 	}
 	
+	/**
+	 * Enter appllication callback url.
+	 *
+	 * @author SulakkhanaW
+	 * @param applicationCallbackUrl the application callback url
+	 */
 	public void enterAppllicationCallbackUrl(String applicationCallbackUrl){
+		logger.debug("Enter application callback url");
 		getElement(txtApplicationCallbackUrl).clearAndSendkeys(applicationCallbackUrl);
+		logger.debug("Application callback url entered Successfully");
 	}
 	
+	/**
+	 * Enter appllication description.
+	 *
+	 * @author SulakkhanaW
+	 * @param description the description
+	 */
 	public void enterAppllicationDescription(String description){
+		logger.debug("Enter application description");
 		getElement(txtApplicationDescription).clearAndSendkeys(description);
+		logger.debug("Application description entered Successfully");
 	}
 	
+	/**
+	 * Click application add.
+	 *
+	 * @author SulakkhanaW
+	 */
 	public void clickApplicationAdd(){
+		logger.debug("Start clicking on application Add");
 		getElement(btnAppAdd).click();
+		logger.debug("Clicked on application Add successfully");
 	}
 	
+	/**
+	 * Checks if is application name.
+	 *
+	 * @author SulakkhanaW
+	 * @param username the username
+	 * @param appName the app name
+	 * @return true, if is application name
+	 * @throws Exception the exception
+	 */
 	public boolean isApplicationName(String username, String appName) throws Exception{
 		flag = false;
 		logger.debug("Validating Application name");
@@ -111,6 +189,14 @@ public class ApplicationsPage extends BasicPageObject  {
 		return flag;
 	}
 	
+	/**
+	 * Checks if is teirname.
+	 *
+	 * @author SulakkhanaW
+	 * @param teir the teir
+	 * @return true, if is teirname
+	 * @throws Exception the exception
+	 */
 	public boolean isTeirname(String teir) throws Exception{
 		flag = false;
 		logger.debug("Validating tier name");
@@ -128,6 +214,14 @@ public class ApplicationsPage extends BasicPageObject  {
 		return flag;
 	}
 	
+	/**
+	 * Checks if is application status.
+	 *
+	 * @author SulakkhanaW
+	 * @param status the status
+	 * @return true, if is application status
+	 * @throws Exception the exception
+	 */
 	public boolean isApplicationStatus(String status) throws Exception{
 		flag = false;
 		logger.debug("Validating application status");
@@ -145,6 +239,14 @@ public class ApplicationsPage extends BasicPageObject  {
 		return flag;
 	}
 	
+	/**
+	 * Checks if is callbackurl.
+	 *
+	 * @author SulakkhanaW
+	 * @param url the url
+	 * @return true, if is callbackurl
+	 * @throws Exception the exception
+	 */
 	public boolean isCallbackurl(String url) throws Exception{
 		flag = false;
 		logger.debug("Validating application callback url");
@@ -162,6 +264,14 @@ public class ApplicationsPage extends BasicPageObject  {
 		return flag;
 	}
 	
+	/**
+	 * Validate description.
+	 *
+	 * @author SulakkhanaW
+	 * @param description the description
+	 * @return true, if successful
+	 * @throws Exception the exception
+	 */
 	public boolean validateDescription(String description) throws Exception{
 		flag = false;
 		logger.debug("Validating application cdescription");
@@ -179,12 +289,21 @@ public class ApplicationsPage extends BasicPageObject  {
 		return flag;
 	}
 	
-	 public boolean isAppAvailable(String app, String username) throws Exception{
+	 /**
+ 	 * Checks if is app available.
+ 	 *
+ 	 * @author SulakkhanaW
+ 	 * @param app the app
+ 	 * @param username the username
+ 	 * @return true, if is app available
+ 	 * @throws Exception the exception
+ 	 */
+ 	public boolean isAppAvailable(String app, String username) throws Exception{
 			
 			flag = false;
 			logger.debug("Validating app is visible");
 			String xpath = "//td[text()[contains(.,'" + username + "_" + app + "')]]";
-			int elements = driver.findElements(By.xpath(xpath)).size();
+			int elements = verifyListContent(UIType.Xpath, xpath).size();
 			try {
 				if (elements != 0){
 					flag = true;
@@ -199,13 +318,24 @@ public class ApplicationsPage extends BasicPageObject  {
 			return flag;
 		}
 		
-	 public void clickDelete(String app){
+	 /**
+ 	 * Click delete.
+ 	 *
+ 	 * @author SulakkhanaW
+ 	 * @param app the app
+ 	 */
+ 	public void clickDelete(String app){
 		String xpath = "//td[contains(.,'"+app+"')]/following-sibling::td[5]/a";
 		WebPelement lnkDelete = defineEelement(UIType.Xpath, xpath);
 		getElement(lnkDelete).click();
 	 }
 	 
-	 public void clickYes(){
+	 /**
+ 	 * Click yes.
+ 	 *
+ 	 * @author SulakkhanaW
+ 	 */
+ 	public void clickYes(){
 		 getElement(btnYes).click();
 	 }
 }
