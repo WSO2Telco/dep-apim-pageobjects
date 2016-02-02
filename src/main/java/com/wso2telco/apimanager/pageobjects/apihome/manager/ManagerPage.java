@@ -3,6 +3,7 @@ package com.wso2telco.apimanager.pageobjects.apihome.manager;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,45 +12,96 @@ import com.wso2telco.apimanager.pageobjects.BasicPageObject;
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ManagerPage.
+ */
 public class ManagerPage extends BasicPageObject {
 
+	/** The logger. */
 	Logger logger = Logger.getLogger(ManagerPage.class);
 	
+	/** The lbl manager. */
 	private WebPelement lblManager = defineEelement(UIType.Xpath, "//h2[@class='login-title']");
 	
+	/** The txt user name. */
 	private WebPelement txtUserName = defineEelement(UIType.Xpath, "//input[@id='username']");
 	
+	/** The txt password. */
 	private WebPelement txtPassword = defineEelement(UIType.Xpath, "//input[@id='pass']");
 	
+	/** The btn log in. */
 	private WebPelement btnLogIn = defineEelement(UIType.Xpath, "//input[@id='loginButton']");
 	
+	/** The lbl home. */
 	private WebPelement lblHome = defineEelement(UIType.Xpath, "//div[@class='title-section']/h2");
 	
+	/** The btn user name. */
 	private WebPelement btnUserName = defineEelement(UIType.Xpath, "//a[@id='userMenu']");
 	
+	/** The btn logout. */
 	private WebPelement btnLogout = defineEelement(UIType.Xpath, "//li[@class='logout-link-special']/button");
 
+	/** The lnk workflow. */
 	private WebPelement lnkWorkflow = defineEelement(UIType.Xpath, "//div[@class='navbar-inner main-menu-navbar']/ul/li/a[text()[contains(.,'Workflow')]]");
 	
+	/** The lnk application creation. */
 	private WebPelement lnkApplicationCreation = defineEelement(UIType.Xpath, "//li/a[text()[contains(.,'Application Creation')]]");
 	
+	/** The lbl approve reject. */
 	private WebPelement lblApproveReject = defineEelement(UIType.Xpath, "//div[@class='modal-header']/h3");
 	
+	/** The txt approve reject. */
 	private WebPelement txtApproveReject = defineEelement(UIType.Xpath, "//div/form/input[@type='text']");
 	
+	/** The btn approve ok. */
 	private WebPelement btnApproveOk = defineEelement(UIType.Xpath, "//div/a[text()[contains(.,'OK')]]");
 	
+	/** The btn sub creation. */
 	private WebPelement btnSubCreation = defineEelement(UIType.Xpath, "//a[contains(.,'Subscriptions Creation')]");
 	
+	/** The title app tasks. */
 	private WebPelement titleAppTasks = defineEelement(UIType.Xpath, "//div[@class='title-section']/h2");
 	
+	/** The tab path. */
 	private String tabPath = "//div[@class='navbar-inner main-menu-navbar']/ul/li";
 	
+	/** The lnk black list. */
+	private WebPelement lnkBlackList = defineEelement(UIType.Xpath, "//div[@class='navbar-inner main-menu-navbar']/ul/li/a[text()[contains(.,'Blacklist')]]");
 	
+	/** The lbl api black list. */
+	private WebPelement lblAPIBlackList = defineEelement(UIType.Xpath, "//div[@class='title-section']");
+	
+	/** The dd select api. */
+	private WebPelement ddSelectAPI = defineEelement(UIType.Xpath, "//div[@class='well form-inline']/table/tbody/tr[2]/td/select");
+	
+	/** The lbl ussd. */
+	private WebPelement lblUSSD = defineEelement(UIType.ID, "//select[@id='apiSelect']/option[contains(.,'USSD')]");
+	
+	/** The btn add new. */
+	private WebPelement btnAddNew = defineEelement(UIType.ID, "//button[@id='add-new']");
+	
+	/** The lbl admin mod error. */
+	private WebPelement lblAdminModError = defineEelement(UIType.ID, "//div[@id='messageModal']/div[1]/h3");
+	
+	/**
+	 * Instantiates a new manager page.
+	 *
+	 * @author JayaniP
+	 * @param driver the driver
+	 */
 	public ManagerPage(WebDriver driver) {
 		super(driver);
 	}
 
+	/**
+	 * Checks if is manager page.
+	 *
+	 * @author JayaniP
+	 * @param managerHeader the manager header
+	 * @return true, if is manager page
+	 * @throws Exception the exception
+	 */
 	public boolean isManagerPage(String managerHeader) throws Exception{
 		flag = false;
 		logger.debug("Validating Manager page hedaer");
@@ -68,18 +120,43 @@ public class ManagerPage extends BasicPageObject {
 		return flag;
 	}
 	
+	/**
+	 * Enter user name.
+	 *
+	 * @author JayaniP
+	 * @param username the username
+	 */
 	public void enterUserName(String username){
 		getElement(txtUserName).clearAndSendkeys(username);
 	}
 	
+	/**
+	 * Enter password.
+	 *
+	 * @author JayaniP
+	 * @param password the password
+	 */
 	public void enterPassword(String password){
 		getElement(txtPassword).clearAndSendkeys(password);
 	}
 	
+	/**
+	 * Click login.
+	 *
+	 * @author JayaniP
+	 */
 	public void clickLogin(){
 		getElement(btnLogIn).click();
 	}
 	
+	/**
+	 * Checks if is home page.
+	 *
+	 * @author JayaniP
+	 * @param homeHeader the home header
+	 * @return true, if is home page
+	 * @throws Exception the exception
+	 */
 	public boolean isHomePage(String homeHeader) throws Exception{
 		flag = false;
 		logger.debug("Validating Home page hedaer");
@@ -97,14 +174,31 @@ public class ManagerPage extends BasicPageObject {
 		return flag;
 	}
 	
+	/**
+	 * Click user name.
+	 *
+	 * @author JayaniP
+	 */
 	public void clickUserName(){
 		getElement(btnUserName).click();
 	}
 	
+	/**
+	 * Click logout.
+	 *
+	 * @author JayaniP
+	 */
 	public void clickLogout(){
 		getElement(btnLogout).click();
 	}
 	
+	/**
+	 * Checks if is manager two tabs access.
+	 *
+	 * @author JayaniP
+	 * @return true, if is manager two tabs access
+	 * @throws Exception the exception
+	 */
 	public boolean isManagerTwoTabsAccess() throws Exception{
 		flag = false;
 		logger.debug("Validating Manager page tabs for normal users");
@@ -123,6 +217,13 @@ public class ManagerPage extends BasicPageObject {
 		return flag;
 	}
 	
+	/**
+	 * Checks if is all tabs accessible.
+	 *
+	 * @author JayaniP
+	 * @return true, if is all tabs accessible
+	 * @throws Exception the exception
+	 */
 	public boolean isAllTabsAccessible() throws Exception{
 		flag = false;
 		logger.debug("Validating Manager page tabs for admin users");
@@ -141,6 +242,13 @@ public class ManagerPage extends BasicPageObject {
 		return flag;
 	}
 	
+	/**
+	 * Checks if is three tabs.
+	 *
+	 * @author JayaniP
+	 * @return true, if is three tabs
+	 * @throws Exception the exception
+	 */
 	public boolean isThreeTabs() throws Exception{
 		flag = false;
 		logger.debug("Validating Manager page tabs for operator users");
@@ -159,10 +267,22 @@ public class ManagerPage extends BasicPageObject {
 		return flag;
 	}
 	
+	/**
+	 * Click workflow.
+	 *
+	 * @author JayaniP
+	 */
 	public void clickWorkflow(){
 		getElement(lnkWorkflow).click();
 	}
 	
+	/**
+	 * Checks if is apllication creation.
+	 *
+	 * @author JayaniP
+	 * @return true, if is apllication creation
+	 * @throws Exception the exception
+	 */
 	public boolean isApllicationCreation() throws Exception{
 		flag = false;
 		logger.debug("Validating Application creation link");
@@ -182,10 +302,23 @@ public class ManagerPage extends BasicPageObject {
 		return flag;
 	}
 	
+	/**
+	 * Click application cration.
+	 *
+	 * @author JayaniP
+	 */
 	public void clickApplicationCration(){
 		getElement(lnkApplicationCreation).click();
 	}
 	
+	/**
+	 * Checks if is application name visible.
+	 *
+	 * @author JayaniP
+	 * @param appName the app name
+	 * @return true, if is application name visible
+	 * @throws Exception the exception
+	 */
 	public boolean isApplicationNameVisible(String appName) throws Exception{
 		flag = false;
 		logger.debug("Validating Application name");
@@ -207,12 +340,25 @@ public class ManagerPage extends BasicPageObject {
 		return flag;
 	}
 	
+	/**
+	 * Click application details.
+	 *
+	 * @author JayaniP
+	 * @param appname the appname
+	 */
 	public void clickApplicationDetails(String appname){
 		String xpath = "//tr/td/div/label[text()[contains(.,'" + appname + "')]]/../../label/b[text()[contains(.,'Application Details')]]";
 		WebPelement lnkAppName = defineEelement(UIType.Xpath, xpath);
 		getElement(lnkAppName).click();
 	}
 	
+	/**
+	 * Select tier.
+	 *
+	 * @author JayaniP
+	 * @param tier the tier
+	 * @param appname the appname
+	 */
 	public void selectTier(String tier, String appname){
 		String xpath = "//td[@id='desc0']/div[4]/div[1]/select/option[@value='Unlimited']";
 		WebPelement ddlTier = defineEelement(UIType.Xpath, xpath);
@@ -220,18 +366,37 @@ public class ManagerPage extends BasicPageObject {
 		getElement(ddlTier).sendEnter();
 	}
 	
+	/**
+	 * Click assign me.
+	 *
+	 * @author JayaniP
+	 * @param appName the app name
+	 */
 	public void clickAssignMe(String appName){
 		String xpath = "//tr/td/div/label[text()[contains(.,'" + appName + "')]]/../../../td[5]/button[text()[contains(.,'Assign To Me')]]";
 		WebPelement btnAssignMe = defineEelement(UIType.Xpath, xpath);
 		getElement(btnAssignMe).click();
 	}
 	
+	/**
+	 * Click start.
+	 *
+	 * @author JayaniP
+	 * @param appName the app name
+	 */
 	public void clickStart(String appName){
 		String xpath = "//tr/td/div/label[text()[contains(.,'" + appName + "')]]/../../../td[5]/button[text()[contains(.,'Start')]]";
 		WebPelement btnStart = defineEelement(UIType.Xpath, xpath);
 		getElement(btnStart).click();
 	}
 	
+	/**
+	 * Select condition.
+	 *
+	 * @author JayaniP
+	 * @param condition the condition
+	 * @param appName the app name
+	 */
 	public void selectCondition(String condition, String appName){
 		String xpath = "//tr/td/div/label[text()[contains(.,'" + appName + "')]]/../../../td[5]/select[@class='js_stateDropDown pull-left']";
 		WebPelement ddlCondition = defineEelement(UIType.Xpath, xpath);
@@ -239,20 +404,45 @@ public class ManagerPage extends BasicPageObject {
 		getElement(ddlCondition).sendEnter();
 	}
 	
+	/**
+	 * Click complete.
+	 *
+	 * @author JayaniP
+	 * @param appName the app name
+	 */
 	public void clickComplete(String appName){
 		String xpath = "//tr/td/div/label[text()[contains(.,'" + appName + "')]]/../../../td[5]/button[text()[contains(.,'Complete')]]";
 		WebPelement btnComplete = defineEelement(UIType.Xpath, xpath);
 		getElement(btnComplete).click();
 	}
 	
+	/**
+	 * Enter approve reject reason.
+	 *
+	 * @author JayaniP
+	 * @param reason the reason
+	 */
 	public void enterApproveRejectReason(String reason){
 		getElement(txtApproveReject).clearAndSendkeys(reason);
 	}
 	
+	/**
+	 * Click approve ok.
+	 *
+	 * @author JayaniP
+	 */
 	public void clickApproveOK(){
 		getElement(btnApproveOk).click();
 	}
 	
+	/**
+	 * Checks if is application name not visible.
+	 *
+	 * @author JayaniP
+	 * @param appName the app name
+	 * @return true, if is application name not visible
+	 * @throws Exception the exception
+	 */
 	public boolean isApplicationNameNotVisible(String appName) throws Exception{
 		flag = false;
 		logger.debug("Validating Application name not visible");
@@ -273,10 +463,23 @@ public class ManagerPage extends BasicPageObject {
 		return flag;
 	}
 	
+	/**
+	 * Click sub creation.
+	 *
+	 * @author JayaniP
+	 */
 	public void clickSubCreation(){
 		getElement(btnSubCreation).click();
 	}
 	
+	/**
+	 * Checks if is approval task displayed.
+	 *
+	 * @author JayaniP
+	 * @param title the title
+	 * @return true, if is approval task displayed
+	 * @throws Exception the exception
+	 */
 	public boolean isApprovalTaskDisplayed(String title) throws Exception {
 
 		flag = false;
@@ -299,6 +502,14 @@ public class ManagerPage extends BasicPageObject {
 		return flag;
 	}
 	
+	/**
+	 * Checks if is approve reject popup displayed.
+	 *
+	 * @author JayaniP
+	 * @param title the title
+	 * @return true, if is approve reject popup displayed
+	 * @throws Exception the exception
+	 */
 	public boolean isApproveRejectPopupDisplayed(String title) throws Exception {
 
 		flag = false;
@@ -320,6 +531,201 @@ public class ManagerPage extends BasicPageObject {
 		}
 		return flag;
 	}
+	
+	/**
+	 * Click black list.
+	 *
+	 * @author JayaniP
+	 */
+	public void clickBlackList(){
+		logger.debug("Click on Black List Tab");
+		getElement(lnkBlackList).click();
+		logger.debug("Error while clicking on BlackList tab");
+	}
+	
+	/**
+	 * Checks if is API blacklist page displayed.
+	 *
+	 * @author JayaniP
+	 * @param title the title
+	 * @return true, if is API blacklist page displayed
+	 * @throws Exception the exception
+	 */
+	public boolean isAPIBlacklistPageDisplayed(String title) throws Exception {
+
+		flag = false;
+		logger.debug("Validating title APIwise Blacklist");
+		Thread.sleep(10000);
+		try {
+			if (title.contains(getElement(lblAPIBlackList).getText())) {
+				flag = true;
+				logger.debug("Validating title APIwise Blacklist completed");
+			} else {
+				logger.debug("APIwise Blacklist title is Not Matched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating title APIwise Blacklist Page Title 'isAPIBlacklistPageDisplayed()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating title APIwise Blacklist Page Title 'isAPIBlacklistPageDisplayed()'"
+							+ e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
+	/**
+	 * Click api drop down.
+	 *
+	 * @author JayaniP
+	 */
+	public void clickAPIDropDown(){
+		logger.debug("Click on API Drop box");
+		getElement(ddSelectAPI).click();
+		logger.debug("Clicked on API Drop box");
+	}
+	
+	/**
+	 * Select ussd.
+	 *
+	 * @author JayaniP
+	 */
+	public void selectUSSD(){
+		logger.debug("Select USSD");
+		getElement(lblUSSD).click();
+		logger.debug("USSD selected");
+	}
+	
+	/**
+	 * Click add new button.
+	 *
+	 * @author JayaniP
+	 */
+	public void clickAddNewButton(){
+		logger.debug("Click on Add new button");
+		getElement(btnAddNew).click();
+		logger.debug("Clicked on Add new button");
+	}
+	
+	/**
+	 * Checks if is adds the number alert displayed.
+	 *
+	 * @author JayaniP
+	 * @param title the title
+	 * @return true, if is adds the number alert displayed
+	 * @throws Exception the exception
+	 */
+	public boolean isAddNumberAlertDisplayed(String title) throws Exception {
+
+		flag = false;
+		logger.debug("Validating add number alert");
+		Thread.sleep(2000);
+		try {
+			Alert alert = driver.switchTo().alert();
+			alert.accept();
+			if (title.contains(alert.getText())) {
+				flag = true;
+				logger.debug("Validating add number alert completed");
+			} else {
+				logger.debug("Add number alert title is Not Matched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating add number alert Page Title 'isAddNumberAlertDisplayed()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating add number alert Page Title 'isAddNumberAlertDisplayed()'"
+							+ e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
+	/**
+	 * Enter black list number.
+	 *
+	 * @author JayaniP
+	 * @param number the number
+	 */
+	public void enterBlackListNumber(String number){
+		logger.debug("Enter the number to blacklist");
+		Alert alert = driver.switchTo().alert();
+		alert.accept();
+		alert.sendKeys(number);
+		logger.debug("Entered the number");
+	}
+	
+	/**
+	 * Click alert ok button.
+	 *
+	 * @author JayaniP
+	 */
+	public void clickAlertOKButton(){
+		logger.debug("Click on Ok button");
+		Alert alert = driver.switchTo().alert();
+		alert.accept();
+		logger.debug("Clicked on OK button");
+	}
+	
+	/**
+	 * Checks if is added number displayed.
+	 *
+	 * @author JayaniP
+	 * @param number the number
+	 * @return true, if is added number displayed
+	 * @throws Exception the exception
+	 */
+	public boolean isAddedNumberDisplayed(String number) throws Exception {
+
+		flag = false;
+		logger.debug("Validating added number in table");
+		Thread.sleep(2000);
+		String xpath = " //td[text()='"+number+"']";
+		WebPelement lblAddedNumber = defineEelement(UIType.Xpath, xpath);
+		try {
+			if (getElement(lblAddedNumber).getText().contains(number)) {
+				flag = true;
+				logger.debug("Validating added number in table completed");
+			} else {
+				logger.debug("added number is Not Matched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating added number in table Page Title 'isAddedNumberDisplayed()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating added number in table Page Title 'isAddedNumberDisplayed()'"
+							+ e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
+	/**
+	 * Checks if is API manager admin module error popup displayed.
+	 *
+	 * @author JayaniP
+	 * @param title the title
+	 * @return true, if is API manager admin module error popup displayed
+	 * @throws Exception the exception
+	 */
+	public boolean isAPIManagerAdminModuleErrorPopupDisplayed(String title) throws Exception {
+
+		flag = false;
+		logger.debug("Validating API Manager Error Popup");
+		Thread.sleep(10000);
+		try {
+			if (title.contains(getElement(lblAdminModError).getText())) {
+				flag = true;
+				logger.debug("Validating API Manager Error Popup completed");
+			} else {
+				logger.debug("API Manager Error Popup title is Not Matched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating title API Manager Error Popup Page Title 'isAPIManagerAdminModuleErrorPopupDisplayed()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating title API Manager Error Popup Page Title 'isAPIManagerAdminModuleErrorPopupDisplayed()'"
+							+ e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
 }
 
 
