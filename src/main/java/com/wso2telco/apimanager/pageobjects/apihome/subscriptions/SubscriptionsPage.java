@@ -76,7 +76,7 @@ public class SubscriptionsPage extends BasicPageObject  {
 
 		flag = false;
 		logger.debug("Validating Subscription Header");
-		Thread.sleep(10000);
+		Thread.sleep(sleepTime);
 		try {
 			if (header.contains(getElement(lblSubscriptions).getText())) {
 				flag = true;
@@ -277,7 +277,7 @@ public class SubscriptionsPage extends BasicPageObject  {
 
 		flag = false;
 		logger.debug("Validating Token Validity of Production");
-		Thread.sleep(10000);
+		Thread.sleep(sleepTime);
 		try {
 			if (validity.contains(getElement(txtTokenValidityProd).getText())) {
 				flag = true;
@@ -307,7 +307,7 @@ public class SubscriptionsPage extends BasicPageObject  {
 
 		flag = false;
 		logger.debug("Validating Token Validity of Sandbox");
-		Thread.sleep(10000);
+		Thread.sleep(sleepTime);
 		try {
 			if (validity.contains(getElement(txtTokenValiditySand).getText())) {
 				flag = true;

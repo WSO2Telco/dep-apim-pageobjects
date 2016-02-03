@@ -87,7 +87,7 @@ public class LoginPage extends BasicPageObject {
 
 		flag = false;
 		logger.debug("Validating Login pop up header");
-		Thread.sleep(10000);
+		Thread.sleep(sleepTime);
 		try {
 			if (header.contains(getElement(lblLogin).getText())) {
 				flag = true;

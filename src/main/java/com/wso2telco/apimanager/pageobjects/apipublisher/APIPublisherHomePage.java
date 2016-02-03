@@ -215,7 +215,7 @@ public class APIPublisherHomePage extends BasicPageObject {
 				logger.debug("API exist");
 				getElement(lnkclose).click();
 				logger.debug("Clicked on delete button");
-				Thread.sleep(2000);
+				Thread.sleep(sleepTime);
 				getElement(btnYes).click();
 				logger.debug("Clicked on delete warining popup yes button");
 			}

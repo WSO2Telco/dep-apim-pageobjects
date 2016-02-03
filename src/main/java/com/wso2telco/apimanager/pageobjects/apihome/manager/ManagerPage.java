@@ -206,7 +206,7 @@ public class ManagerPage extends BasicPageObject {
 	public boolean isManagerPage(String managerHeader) throws Exception{
 		flag = false;
 		logger.debug("Validating Manager page hedaer");
-		Thread.sleep(5000);
+		Thread.sleep(sleepTime);
 		try {
 			if (getElement(lblManager).getText().equalsIgnoreCase(managerHeader)){
 				flag = true;
@@ -436,7 +436,7 @@ public class ManagerPage extends BasicPageObject {
 	public boolean isApplicationNameVisible(String appName) throws Exception{
 		flag = false;
 		logger.debug("Validating Application name");
-		Thread.sleep(2000);
+		Thread.sleep(sleepTime);
 		String xpath = String.format(lblApplicationName, appName);
 		int Names = verifyListContent(UIType.Xpath, xpath).size();
 		try {
@@ -612,7 +612,7 @@ public class ManagerPage extends BasicPageObject {
 
 		flag = false;
 		logger.debug("Validating Approval Task Title");
-		Thread.sleep(10000);
+		Thread.sleep(sleepTime);
 		try {
 			if (title.contains(getElement(titleAppTasks).getText())) {
 				flag = true;
@@ -642,7 +642,7 @@ public class ManagerPage extends BasicPageObject {
 
 		flag = false;
 		logger.debug("Validating Approve/Reject popup");
-		Thread.sleep(10000);
+		Thread.sleep(sleepTime);
 		try {
 			if (title.contains(getElement(lblApproveReject).getText())) {
 				flag = true;
@@ -683,7 +683,7 @@ public class ManagerPage extends BasicPageObject {
 
 		flag = false;
 		logger.debug("Validating title APIwise Blacklist");
-		Thread.sleep(10000);
+		Thread.sleep(sleepTime);
 		try {
 			if (title.contains(getElement(lblAPIBlackList).getText())) {
 				flag = true;
@@ -746,7 +746,7 @@ public class ManagerPage extends BasicPageObject {
 
 		flag = false;
 		logger.debug("Validating add number alert");
-		Thread.sleep(2000);
+		Thread.sleep(sleepTime);
 		try {
 			Alert alert = driver.switchTo().alert();
 			alert.accept();
@@ -804,7 +804,7 @@ public class ManagerPage extends BasicPageObject {
 
 		flag = false;
 		logger.debug("Validating added number in table");
-		Thread.sleep(2000);
+		Thread.sleep(sleepTime);
 		String xpath = String.format(lblNumber, number);
 		WebPelement lblAddedNumber = defineEelement(UIType.Xpath, xpath);
 		try {
@@ -836,7 +836,7 @@ public class ManagerPage extends BasicPageObject {
 
 		flag = false;
 		logger.debug("Validating API Manager Error Popup");
-		Thread.sleep(10000);
+		Thread.sleep(sleepTime);
 		try {
 			if (title.contains(getElement(lblAdminModError).getText())) {
 				flag = true;
@@ -877,7 +877,7 @@ public class ManagerPage extends BasicPageObject {
 
 		flag = false;
 		logger.debug("Validating APIwise White List Page");
-		Thread.sleep(10000);
+		Thread.sleep(sleepTime);
 		try {
 			if (title.contains(getElement(lblAPIwiseWhiteList).getText())) {
 				flag = true;
