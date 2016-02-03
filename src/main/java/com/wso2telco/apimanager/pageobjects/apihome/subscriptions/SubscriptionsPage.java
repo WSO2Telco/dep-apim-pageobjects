@@ -7,6 +7,7 @@ import com.wso2telco.apimanager.pageobjects.BasicPageObject;
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class SubscriptionsPage.
  */
@@ -205,6 +206,30 @@ public class SubscriptionsPage extends BasicPageObject  {
 	}
 	
 	/**
+	 * Checks if is production consumer key.
+	 *
+	 * @author SulakkhanaW
+	 * @return true, if is production consumer key
+	 * @throws Exception the exception
+	 */
+	public boolean isProductionConsumerKey() throws Exception{
+		flag = false;
+		logger.debug("Validating production consumer key is displayed");
+		try {
+			if (getElement(lblConsKeyProd).isDisplayed()){
+				flag = true;
+				logger.debug("Production consumer key is displayed");
+			} else {
+				logger.debug("Production consumer key is not displayed");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Production consumer key is displayed 'isProductionConsumerKey()'" + e.getMessage());
+			throw new Exception("Exception While Validating Production consumer key is displayed 'isProductionConsumerKey()'" + e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
+	/**
 	 * Gets the e sec key prod.
 	 *
 	 * @author SulakkhanaW
@@ -215,6 +240,30 @@ public class SubscriptionsPage extends BasicPageObject  {
 		String secKeyProd = getElement(lblSecKeyProd).getText();
 		logger.debug("Production consumer secrect key found");
 		return secKeyProd;
+	}
+	
+	/**
+	 * Checks if is production consumer secrect key.
+	 *
+	 * @author SulakkhanaW
+	 * @return true, if is production consumer secrect key
+	 * @throws Exception the exception
+	 */
+	public boolean isProductionConsumerSecrectKey() throws Exception{
+		flag = false;
+		logger.debug("Validating production consumer secrect key is displayed");
+		try {
+			if (getElement(lblSecKeyProd).isDisplayed()){
+				flag = true;
+				logger.debug("Production consumer secrect key is displayed");
+			} else {
+				logger.debug("Production consumer secrect key is not displayed");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Production consumer secrect key 'isProductionConsumerSecrectKey()'" + e.getMessage());
+			throw new Exception("Exception While Validating Production consumer secrect key 'isProductionConsumerSecrectKey()'" + e.getLocalizedMessage());
+		}
+		return flag;
 	}
 	
 	/**
@@ -231,6 +280,30 @@ public class SubscriptionsPage extends BasicPageObject  {
 	}
 	
 	/**
+	 * Checks if is sandbox consumer key.
+	 *
+	 * @author SulakkhanaW
+	 * @return true, if is sandbox consumer key
+	 * @throws Exception the exception
+	 */
+	public boolean isSandboxConsumerKey() throws Exception{
+			flag = false;
+			logger.debug("Validating Sandbox consumer key is displayed");
+			try {
+				if (getElement(lblConsKeySand).isDisplayed()){
+					flag = true;
+					logger.debug("Sandbox consumer key is displayed");
+				} else {
+					logger.debug("Sandbox consumer key is not displayed");
+				}
+			} catch (Exception e) {
+				logger.debug("Exception While Validating Sandbox consumer key is displayed 'isSandboxConsumerKey()'" + e.getMessage());
+				throw new Exception("Exception While Validating Sandbox consumer key is displayed 'isSandboxConsumerKey()'" + e.getLocalizedMessage());
+			}
+			return flag;
+		}
+	
+	/**
 	 * Gets the sec key sand.
 	 *
 	 * @author SulakkhanaW
@@ -241,6 +314,31 @@ public class SubscriptionsPage extends BasicPageObject  {
 		String secKeySand = getElement(lblSecKeySand).getText();
 		logger.debug("Sandbox consumer secrect key found");
 		return secKeySand;
+	}
+	
+
+	/**
+	 * Checks if is sandbox secrect key.
+	 *
+	 * @author SulakkhanaW
+	 * @return true, if is sandbox secrect key
+	 * @throws Exception the exception
+	 */
+	public boolean isSandboxSecrectKey() throws Exception{
+		flag = false;
+		logger.debug("Validating sandbox consumer secrect key is displayed");
+		try {
+			if (getElement(lblSecKeySand).isDisplayed()){
+				flag = true;
+				logger.debug("Production sandbox secrect key is displayed");
+			} else {
+				logger.debug("Production sandbox secrect key is not displayed");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating sandbox consumer secrect key 'isProductionSandboxSecrectKey()'" + e.getMessage());
+			throw new Exception("Exception While Validating sandbox consumer secrect key 'isProductionSandboxSecrectKey()'" + e.getLocalizedMessage());
+		}
+		return flag;
 	}
 	
 	/**
