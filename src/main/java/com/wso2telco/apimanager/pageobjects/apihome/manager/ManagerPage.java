@@ -99,7 +99,7 @@ public class ManagerPage extends BasicPageObject {
 	private WebPelement ddAPI = defineEelement(UIType.ID, "apiSelect");
 	
 	/** The lbl whitelist ussd. */
-	private WebPelement lblWhitelistUSSD = defineEelement(UIType.Xpath, "//select[@id='apiSelect']/option[contains(.,'ussd')]");
+	private WebPelement lblWhitelistAPI = defineEelement(UIType.Xpath, "//select[@id='apiSelect']/option[contains(.,'AuxAppTest')]");
 	
 	/** The btn manual. */
 	private WebPelement btnManual = defineEelement(UIType.ID, "isManual");
@@ -908,9 +908,9 @@ public class ManagerPage extends BasicPageObject {
      *
      * @author JayaniP
      */
-    public void selectWhiteListAPIUSSD(){
+    public void selectWhiteListAPI(){
     	logger.debug("Select ussd");
-    	getElement(lblWhitelistUSSD).click();
+    	getElement(lblWhitelistAPI).click();
 		logger.debug("Selected ussd");
     }
     
