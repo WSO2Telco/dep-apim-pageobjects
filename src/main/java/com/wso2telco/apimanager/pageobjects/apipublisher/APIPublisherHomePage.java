@@ -113,6 +113,31 @@ public class APIPublisherHomePage extends BasicPageObject {
 	
 	/** The lbl tier availability. */
 	private WebPelement lblTierAvailability = defineEelement(UIType.Xpath, "//td[text()[contains(.,'Tier Availability')]]/../td[@id='tierAvb']");
+	
+	/** The lbl api name. 
+	 * %s = apiName
+	 **/
+	private String lblAPIName = "//div/h5/a[contains(@title,'%s')]";
+	
+	/** The btn api close. 
+	 * %s_1 = apiName
+	 **/
+	private String btnAPIClose = "//div/h5/a[contains(@title,'%s')]/../../../button[@type='button']";
+	
+	/** The chk url type. 
+	 * %s_1 = type
+	 **/
+	private String chkURLType = "//label[text()[contains(.,'%s')]]/input";
+	
+	/** The btn add parameter. 
+	 * %s_1 = AddParameter
+	 **/
+	private String btnAddParameter = "//a[text()[contains(.,'%s')]]";
+	
+	/** The lbl tier availability drop. 
+	 * %s_1 = tier
+	 **/
+	private String lblTierAvailabilityDrop = "//div/div/ul/li/a/label[text()[contains(.,'%s')]]/input[@type='checkbox']";
 
 	/**
 	 * Instantiates a new API publisher home page.
@@ -180,8 +205,8 @@ public class APIPublisherHomePage extends BasicPageObject {
 	 * @throws Exception the exception
 	 */
 	public void deleteExistingAPI(String apiName) throws Exception{
-		String xpath = "//div/h5/a[contains(@title,'" + apiName + "')]";
-		String closeXpath = "//div/h5/a[contains(@title,'" + apiName + "')]/../../../button[@type='button']";
+		String xpath = String.format(lblAPIName, apiName);
+		String closeXpath = String.format(btnAPIClose, apiName);
 		WebPelement lnkclose = defineEelement(UIType.Xpath, closeXpath);
 		WebPelement btnYes = defineEelement(UIType.Xpath, "//a[text()='Yes']");
 		int count = verifyListContent(UIType.Xpath, xpath).size();
@@ -268,7 +293,7 @@ public class APIPublisherHomePage extends BasicPageObject {
 	 */
 	public void setUrlType(String type){
 		String Type = type.toUpperCase();
-		String xpath = "//label[text()[contains(.,'" + Type + "')]]/input";
+		String xpath = String.format(chkURLType, Type);
 		WebPelement chkType = defineEelement(UIType.Xpath, xpath);
 		logger.debug("Entering API URL type");
 		getElement(chkType).click();
@@ -316,7 +341,7 @@ public class APIPublisherHomePage extends BasicPageObject {
 	 * @param addparameter the addparameter
 	 */
 	public void clickAddParameter(String addparameter){
-		String xpath = "//a[text()[contains(.,'" + addparameter + "')]]";
+		String xpath = String.format(btnAddParameter, addparameter);
 		WebPelement btnAddParameter = defineEelement(UIType.Xpath, xpath);
 		logger.debug("Clicking on Add parameter");
 		getElement(btnAddParameter).click();
@@ -527,7 +552,7 @@ public class APIPublisherHomePage extends BasicPageObject {
 		logger.debug("Clicking Tier availabilty drop down");
 		getElement(btnTierAvailability).click();
 		logger.debug("Clicked Tier availabilty drop down");
-		String xpath = "//div/div/ul/li/a/label[text()[contains(.,'" + tier + "')]]/input[@type='checkbox']";
+		String xpath = String.format(lblTierAvailabilityDrop, tier);
 		WebPelement lblTier = defineEelement(UIType.Xpath, xpath);
 		logger.debug("Selecting Tier");
 		getElement(lblTier).click();
