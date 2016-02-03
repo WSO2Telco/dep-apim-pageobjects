@@ -50,6 +50,17 @@ public class ApplicationsPage extends BasicPageObject  {
 	
 	/** The btn yes. */
 	private WebPelement btnYes = defineEelement(UIType.Xpath, ".//*[@id='messageModal']/div[3]/a[contains(.,'Yes')]");
+ 	
+ 	/** The lbl app available. 
+ 	 * %s_1 = username
+ 	 * %s_2 = app
+ 	 **/
+	private String lblAppAvailable = "//td[text()[contains(.,'%s_%s')]]";
+	 
+	 /** The btn app delete. 
+	  * %s = app
+	  * */
+	private String btnAppDelete = "//td[contains(.,'%s')]/following-sibling::td[5]/a";
 	
 	
 	/**
@@ -300,7 +311,7 @@ public class ApplicationsPage extends BasicPageObject  {
 			
 			flag = false;
 			logger.debug("Validating app is visible");
-			String xpath = "//td[text()[contains(.,'" + username + "_" + app + "')]]";
+			String xpath = String.format(lblAppAvailable, username, app);
 			int elements = verifyListContent(UIType.Xpath, xpath).size();
 			try {
 				if (elements != 0){
@@ -314,7 +325,7 @@ public class ApplicationsPage extends BasicPageObject  {
 				throw new Exception("Exception While Validating app is visible 'isAppAvailable()'" + e.getLocalizedMessage());
 			}
 			return flag;
-		}
+	}
 		
 	 /**
  	 * Click delete.
@@ -323,10 +334,10 @@ public class ApplicationsPage extends BasicPageObject  {
  	 * @param app the app
  	 */
  	public void clickDelete(String app){
-		String xpath = "//td[contains(.,'"+app+"')]/following-sibling::td[5]/a";
+		String xpath = String.format(btnAppDelete, app);
 		WebPelement lnkDelete = defineEelement(UIType.Xpath, xpath);
 		getElement(lnkDelete).click();
-	 }
+	}
 	 
 	 /**
  	 * Click yes.

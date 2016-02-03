@@ -1,12 +1,8 @@
 package com.wso2telco.apimanager.pageobjects.apihome.manager;
 
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
 import com.wso2telco.test.framework.core.WebPelement;
@@ -46,6 +42,9 @@ public class ManagerPage extends BasicPageObject {
 	
 	/** The lnk application creation. */
 	private WebPelement lnkApplicationCreation = defineEelement(UIType.Xpath, "//li/a[text()[contains(.,'Application Creation')]]");
+	
+	/** The lnk app craeation. */
+	private String lnkAppCraeation = "//li/a[text()[contains(.,'Application Creation')]]";
 	
 	/** The lbl approve reject. */
 	private WebPelement lblApproveReject = defineEelement(UIType.Xpath, "//div[@class='modal-header']/h3");
@@ -127,6 +126,64 @@ public class ManagerPage extends BasicPageObject {
 	
 	/** The btn add number list. */
 	private WebPelement btnAddNumberList = defineEelement(UIType.ID, "add-new");
+	
+	/** The lbl application name. 
+	 * %s_1 = appName
+	 **/
+	private String lblApplicationName = "//tr/td/div/label[text()[contains(.,'%s')]]";
+	
+	/** The lnk application details. 
+	 * %s_1 = appname
+	 **/
+	private String lnkApplicationDetails = "//tr/td/div/label[text()[contains(.,'%s')]]/../../label/b[text()[contains(.,'Application Details')]]";
+	
+	/** The ddl tier. */
+	private WebPelement ddlTier = defineEelement(UIType.Xpath, "//td[@id='desc0']/div[4]/div[1]/select/option[@value='Unlimited']");
+	
+	/** The btn assign me. 
+	 * %s_1 = appName
+	 **/
+	private String btnAssignMe = "//tr/td/div/label[text()[contains(.,'%s')]]/../../../td[5]/button[text()[contains(.,'Assign To Me')]]";
+	
+	/** The btn start. 
+	 * %s_1 = appname
+	 **/
+	private String btnStart = "//tr/td/div/label[text()[contains(.,'%s')]]/../../../td[5]/button[text()[contains(.,'Start')]]";
+	
+	/** The ddl condition list. 
+	 * %s_1 = appName
+	 **/
+	private String ddlConditionList = "//tr/td/div/label[text()[contains(.,'%s')]]/../../../td[5]/select[@class='js_stateDropDown pull-left']";
+	
+	/** The btn complete. 
+	 * %s_1 = appName
+	 **/
+	private String btnComplete = "//tr/td/div/label[text()[contains(.,'%s')]]/../../../td[5]/button[text()[contains(.,'Complete')]]";
+	
+	/** The lbl number. 
+	 * %s_1 = number
+	 **/
+	private String lblNumber = "//td[text()='%s']";
+    
+    /** The lbl subscriber name. 
+     * %S_1 = subscriber
+     **/
+    private String lblSubscriberName = "//select[@id='subsSelect']/option[contains(.,'%s')]";
+    
+    /** The ddl application name. 
+     * %s_1 = appName
+     **/
+    private String ddlApplicationName = "//select[@id='appSelect']/option[contains(.,'%s')]";
+    
+    /** The lbl white list numbers. 
+     * %s_1 = number
+     **/
+    private String lblWhiteListNumbers = "//td[text()='%s']";
+    
+    /** The btn remove number. 
+     * %s_1 = number
+     **/
+    private String btnRemoveNumber = "//td[text()='%s']/following-sibling::td[1]/div/a";
 	
 	/**
 	 * Instantiates a new manager page.
@@ -342,8 +399,7 @@ public class ManagerPage extends BasicPageObject {
 	public boolean isApplicationCreation() throws Exception{
 		flag = false;
 		logger.debug("Validating Application creation link");
-		List<WebElement> tabs = driver.findElements(By.xpath("//li/a[text()[contains(.,'Application Creation')]]"));
-		int tabCount = tabs.size();
+		int tabCount = verifyListContent(UIType.Xpath, lnkAppCraeation).size();
 		try {
 			if (tabCount <= 1){
 				flag = true;
@@ -381,9 +437,8 @@ public class ManagerPage extends BasicPageObject {
 		flag = false;
 		logger.debug("Validating Application name");
 		Thread.sleep(2000);
-		String xpath = "//tr/td/div/label[text()[contains(.,'" + appName + "')]]";
-		List<WebElement> appNames = driver.findElements(By.xpath(xpath));
-		int Names = appNames.size();
+		String xpath = String.format(lblApplicationName, appName);
+		int Names = verifyListContent(UIType.Xpath, xpath).size();
 		try {
 			if (Names == 1){
 				flag = true;
@@ -405,7 +460,7 @@ public class ManagerPage extends BasicPageObject {
 	 * @param appname the appname
 	 */
 	public void clickApplicationDetails(String appname){
-		String xpath = "//tr/td/div/label[text()[contains(.,'" + appname + "')]]/../../label/b[text()[contains(.,'Application Details')]]";
+		String xpath = String.format(lnkApplicationDetails, appname);
 		WebPelement lnkAppName = defineEelement(UIType.Xpath, xpath);
 		logger.debug("Clicking on Application details");
 		getElement(lnkAppName).click();
@@ -420,8 +475,6 @@ public class ManagerPage extends BasicPageObject {
 	 * @param appname the appname
 	 */
 	public void selectTier(String tier, String appname){
-		String xpath = "//td[@id='desc0']/div[4]/div[1]/select/option[@value='Unlimited']";
-		WebPelement ddlTier = defineEelement(UIType.Xpath, xpath);
 		logger.debug("Selecting tier");
 		getElement(ddlTier).sendKeys(tier);
 		logger.debug("Tier selected");
@@ -435,7 +488,7 @@ public class ManagerPage extends BasicPageObject {
 	 * @param appName the app name
 	 */
 	public void clickAssignMe(String appName){
-		String xpath = "//tr/td/div/label[text()[contains(.,'" + appName + "')]]/../../../td[5]/button[text()[contains(.,'Assign To Me')]]";
+		String xpath = String.format(btnAssignMe, appName);
 		WebPelement btnAssignMe = defineEelement(UIType.Xpath, xpath);
 		logger.debug("Clicking on Assign me");
 		getElement(btnAssignMe).click();
@@ -449,7 +502,7 @@ public class ManagerPage extends BasicPageObject {
 	 * @param appName the app name
 	 */
 	public void clickStart(String appName){
-		String xpath = "//tr/td/div/label[text()[contains(.,'" + appName + "')]]/../../../td[5]/button[text()[contains(.,'Start')]]";
+		String xpath = String.format(btnStart, appName);
 		WebPelement btnStart = defineEelement(UIType.Xpath, xpath);
 		logger.debug("Clicking on start button");
 		getElement(btnStart).click();
@@ -464,7 +517,7 @@ public class ManagerPage extends BasicPageObject {
 	 * @param appName the app name
 	 */
 	public void selectCondition(String condition, String appName){
-		String xpath = "//tr/td/div/label[text()[contains(.,'" + appName + "')]]/../../../td[5]/select[@class='js_stateDropDown pull-left']";
+		String xpath = String.format(ddlConditionList, appName);
 		WebPelement ddlCondition = defineEelement(UIType.Xpath, xpath);
 		logger.debug("Selecting condition");
 		getElement(ddlCondition).sendKeys(condition);
@@ -479,7 +532,7 @@ public class ManagerPage extends BasicPageObject {
 	 * @param appName the app name
 	 */
 	public void clickComplete(String appName){
-		String xpath = "//tr/td/div/label[text()[contains(.,'" + appName + "')]]/../../../td[5]/button[text()[contains(.,'Complete')]]";
+		String xpath = String.format(btnComplete, appName);
 		WebPelement btnComplete = defineEelement(UIType.Xpath, xpath);
 		logger.debug("Clicking on complete");
 		getElement(btnComplete).click();
@@ -520,7 +573,7 @@ public class ManagerPage extends BasicPageObject {
 	public boolean isApplicationNameNotVisible(String appName) throws Exception{
 		flag = false;
 		logger.debug("Validating Application name not visible");
-		String xpath = "//tr/td/div/label[text()[contains(.,'" + appName + "')]]";
+		String xpath = String.format(lblApplicationName, appName);
 		int Names = verifyListContent(UIType.Xpath, xpath).size();
 		try {
 			if (Names < 1){
@@ -752,7 +805,7 @@ public class ManagerPage extends BasicPageObject {
 		flag = false;
 		logger.debug("Validating added number in table");
 		Thread.sleep(2000);
-		String xpath = " //td[text()='"+number+"']";
+		String xpath = String.format(lblNumber, number);
 		WebPelement lblAddedNumber = defineEelement(UIType.Xpath, xpath);
 		try {
 			if (number.contains(getElement(lblAddedNumber).getText())) {
@@ -861,7 +914,7 @@ public class ManagerPage extends BasicPageObject {
      */
     public void selectSubscriber(String subscriber){
     	logger.debug("Select a Subscriber");
-    	String xpath = "//select[@id='subsSelect']/option[contains(.,'"+subscriber+"')]";
+    	String xpath = String.format(lblSubscriberName, subscriber);
 		WebPelement lblSubscriber = defineEelement(UIType.Xpath, xpath);
 		getElement(lblSubscriber).click();
 		logger.debug("Selected a Subscriber");
@@ -885,7 +938,7 @@ public class ManagerPage extends BasicPageObject {
      * @param appname the appname
      */
     public void selectApplication(String appname){
-    	String xpath = "//select[@id='appSelect']/option[contains(.,'"+appname+"')]";
+    	String xpath = String.format(ddlApplicationName, appname);
 		WebPelement lblApplication = defineEelement(UIType.Xpath, xpath);
 		logger.debug("Selecting an Application");
 		getElement(lblApplication).click();
@@ -1033,10 +1086,10 @@ public class ManagerPage extends BasicPageObject {
     public void clearBlacklistNumber(String number) throws Exception{
 		logger.debug("Remove blacklist number if available");
 		
-		String xpathlblNumber = "//td[text()='" + number + "']";
+		String xpathlblNumber = String.format(lblWhiteListNumbers, number);
 		int countWhiteListNumber = verifyListContent(UIType.Xpath, xpathlblNumber).size();
 		
-		String xpathRemoveNumber = "//td[text()='" + number + "']/following-sibling::td[1]/div/a";
+		String xpathRemoveNumber = String.format(btnRemoveNumber, number);
 		WebPelement btnRemoveNumber = defineEelement(UIType.Xpath, xpathRemoveNumber);
 		
 		try {

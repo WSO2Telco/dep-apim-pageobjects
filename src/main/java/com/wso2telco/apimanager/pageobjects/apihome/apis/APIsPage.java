@@ -38,6 +38,21 @@ public class APIsPage extends BasicPageObject {
 	/** The ddl tabs. */
 	private String ddlTabs = "//select[@id='application-list']//option";
 	
+	/** The lnk api name.
+	 * %_1 = apiName
+	 **/
+	private String lnkAPIName = "//a[text()[contains(.,'%s')]]";
+	
+	/** The lbl app name. 
+	 * %s_1 = appName
+	 **/
+	private String lblAppName = "//select[@id='application-list']//option[contains(text(),'%s')]";
+	
+	/** The ddl operator.
+	 * %s_1 = operator
+	 **/
+	private String ddlOperator = "//select[@id='operators']/option[contains(text(),'%s')]";
+	
 	/**
 	 * Instantiates a new AP is page.
 	 *
@@ -84,7 +99,7 @@ public class APIsPage extends BasicPageObject {
 	public boolean isCreatedAPI(String apiName) throws Exception{
 		flag = false;
 		logger.debug("Validating created API");
-		String xpath = "//a[text()[contains(.,'" + apiName + "')]]";		
+		String xpath = String.format(lnkAPIName, apiName);		
 		WebPelement lnkCreatedAPI = defineEelement(UIType.Xpath, xpath);
 		try {
 			if (getElement(lnkCreatedAPI).getText().trim().contains(apiName)){
@@ -107,7 +122,7 @@ public class APIsPage extends BasicPageObject {
 	 * @param apiName the api name
 	 */
 	public void clickCreatedAPI(String apiName){
-		String xpath = "//a[text()[contains(.,'" + apiName + "')]]";		
+		String xpath = String.format(lnkAPIName, apiName);		
 		WebPelement lnkCreatedAPI = defineEelement(UIType.Xpath, xpath);
 		logger.debug("Clicking on create API");
 		getElement(lnkCreatedAPI).click();
@@ -213,7 +228,7 @@ public class APIsPage extends BasicPageObject {
 	 * @throws InterruptedException the interrupted exception
 	 */
 	public void clickAppName(String appname) throws InterruptedException{
-		String xpath = "//select[@id='application-list']//option[contains(text(),'"+appname+"')]";
+		String xpath = String.format(lblAppName, appname);
 		WebPelement lblappname = defineEelement(UIType.Xpath, xpath);
 		Thread.sleep(1000);
 		logger.debug("Clicking on Application name drop down");
@@ -234,7 +249,7 @@ public class APIsPage extends BasicPageObject {
 	 * @param operator the operator
 	 */
 	public void clickOperator(String operator){
-		String xpath = "//select[@id='operators']/option[contains(text(),'"+operator+"')]";
+		String xpath = String.format(ddlOperator, operator);
 		WebPelement lbloperator = defineEelement(UIType.Xpath, xpath);
 		logger.debug("Clicking on operator");
 		getElement(lbloperator).click();
