@@ -1,8 +1,12 @@
 package com.wso2telco.apimanager.pageobjects.apihome.manager;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
 import com.wso2telco.test.framework.core.WebPelement;
@@ -1087,7 +1091,11 @@ public class ManagerPage extends BasicPageObject {
 		logger.debug("Remove blacklist number if available");
 		
 		String xpathlblNumber = String.format(lblWhiteListNumbers, number);
-		int countWhiteListNumber = verifyListContent(UIType.Xpath, xpathlblNumber).size();
+		List<WebElement> whitelistNum = driver.findElements(By.xpath(xpathlblNumber));
+		int countWhiteListNumber = whitelistNum.size();
+		
+		//System.out.println(verifyListContent(UIType.Xpath, xpathlblNumber));
+		//int countWhiteListNumber = verifyListContent(UIType.Xpath, xpathlblNumber).size();
 		
 		String xpathRemoveNumber = String.format(btnRemoveNumber, number);
 		WebPelement btnRemoveNumber = defineEelement(UIType.Xpath, xpathRemoveNumber);
