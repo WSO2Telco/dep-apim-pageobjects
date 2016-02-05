@@ -753,7 +753,6 @@ public class ManagerPage extends BasicPageObject {
 		Thread.sleep(sleepTime);
 		try {
 			Alert alert = driver.switchTo().alert();
-			alert.accept();
 			if (title.contains(alert.getText())) {
 				flag = true;
 				logger.debug("Validating add number alert completed");
@@ -779,7 +778,6 @@ public class ManagerPage extends BasicPageObject {
 	public void enterBlackListNumber(String number){
 		logger.debug("Enter the number to blacklist");
 		Alert alert = driver.switchTo().alert();
-		alert.accept();
 		alert.sendKeys(number);
 		logger.debug("Entered the number");
 	}
