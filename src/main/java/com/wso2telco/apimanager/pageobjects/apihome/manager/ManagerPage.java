@@ -12,6 +12,7 @@ import com.wso2telco.apimanager.pageobjects.BasicPageObject;
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ManagerPage.
  */
@@ -194,7 +195,48 @@ public class ManagerPage extends BasicPageObject {
      * %s_1 = number
      **/
     private String btnRemoveNumber = "//td[text()='%s']/following-sibling::td[1]/div/a";
+    
+    /** The lnk billing and metering. */
+    private WebPelement lnkBillingAndMetering = defineEelement(UIType.Xpath, "//div[@class='navbar-inner main-menu-navbar']/ul/li/a[text()[contains(.,'Billing & Metering')]]");
 	
+    
+    /** The lbl total api traffic. */
+    private WebPelement lblTotalAPITraffic = defineEelement(UIType.Xpath, "//div[@id='middle']/div[1]/h2");
+    
+    /** The txt total api traffic from date. */
+    private WebPelement txtTotalAPITrafficFromDate = defineEelement(UIType.ID, "from_date");
+    
+    /** The txt total api traffic to date. */
+    private WebPelement txtTotalAPITrafficToDate = defineEelement(UIType.ID, "to_date");
+    
+    /** The dd total api traffic operator. */
+    private WebPelement ddTotalAPITrafficOperator = defineEelement(UIType.ID, "operator");
+    
+    /** The lbl total api traffic operator. */
+    private String lblTotalAPITrafficOperator = "//select[@id='operator']/option[contains(.,'%s')]";
+    
+    /** The dd total api traffic service provider. */
+    private WebPelement ddTotalAPITrafficServiceProvider = defineEelement(UIType.ID, "subscriber");
+    
+    /** The lbl total api traffic service provider. */
+    private String lblTotalAPITrafficServiceProvider = "//select[@id='app']/option[contains(.,'%s')]";
+    
+    /** The dd total api traffic application. */
+    private WebPelement ddTotalAPITrafficApplication = defineEelement(UIType.ID, "app");
+    
+    /** The lbl total api traffic application. */
+    private String lblTotalAPITrafficApplication = "//select[@id='app']/option[contains(.,'%s')]";
+    
+    /** The dd total api traffic api. */
+    private WebPelement ddTotalAPITrafficAPI = defineEelement(UIType.ID, "api");
+    
+    /** The lbl total api traffic api. */
+    private String lblTotalAPITrafficAPI = "//select[@id='api']/option[contains(.,'%s')]";
+    
+    /** The btn generate. */
+    private WebPelement btnGenerate = defineEelement(UIType.ID, "generate");
+    
+    
 	/**
 	 * Instantiates a new manager page.
 	 *
@@ -448,7 +490,7 @@ public class ManagerPage extends BasicPageObject {
 		logger.debug("Validating Application name");
 		Thread.sleep(sleepTime);
 		String xpath = String.format(lblApplicationName, appName);
-		int Names = verifyContent(UIType.Xpath, xpath).size();
+		int Names = verifyListContent(UIType.Xpath, xpath).size();
 		try {
 			if (Names == 1){
 				flag = true;
@@ -733,20 +775,38 @@ public class ManagerPage extends BasicPageObject {
 		logger.debug("USSD selected");
 	}
 	
+	/**
+	 * Select api.
+	 *
+	 * @author JayaniP
+	 * @param apiType the api type
+	 * @throws InterruptedException the interrupted exception
+	 */
 	public void selectAPI(String apiType) throws InterruptedException{
 		Thread.sleep(sleepTime);
+		
 		logger.debug("Start clicking on API Drop down");
 		getElement(ddlAPIList).click();
+		logger.debug("Clicked on API Drop down");
+		
+		logger.debug("Start typing api type");
 		getElement(ddlAPIList).sendKeys(apiType);
+		logger.debug("Typed api type");
+		
+		logger.debug("Start click enter");
 		getElement(ddlAPIList).sendEnter();
+		logger.debug("Clicked enter");
+		
+		logger.debug("Start clicking view button");
 		getElement(btnView).click();
+		logger.debug("Clicked view button");
 	}
 	
 	/**
 	 * Click add new button.
 	 *
 	 * @author JayaniP
-	 * @throws InterruptedException 
+	 * @throws InterruptedException the interrupted exception
 	 */
 	public void clickAddNewButton() throws InterruptedException{
 		Thread.sleep(sleepTime);
@@ -1092,7 +1152,7 @@ public class ManagerPage extends BasicPageObject {
      * Enter white list number list.
      *
      * @author JayaniP
-     * @param number the number
+     * @param numbers the numbers
      */
     public void enterWhiteListNumberList(String numbers){
 		logger.debug("Enter the number list to blacklist");
@@ -1102,6 +1162,13 @@ public class ManagerPage extends BasicPageObject {
 		logger.debug("Entered the number list");
 	}
     
+    /**
+     * Clear blacklist number.
+     *
+     * @author JayaniP
+     * @param number the number
+     * @throws Exception the exception
+     */
     public void clearBlacklistNumber(String number) throws Exception{
 		logger.debug("Remove blacklist number if available");
 		
@@ -1126,6 +1193,182 @@ public class ManagerPage extends BasicPageObject {
 			throw new Exception("Exception While removing blacklist number 'clearBlacklistNumber()'" + e.getLocalizedMessage());
 		}
 	}
+    
+    /**
+     * Click on billingand metering.
+     *
+     * @author JayaniP
+     */
+    public void clickOnBillingandMetering(){
+    	logger.debug("Click billing and metering");
+    	getElement(lnkBillingAndMetering).click();
+		logger.debug("Clicked on billing and metering");
+    }
+    
+    /**
+     * Checks if is total api traffic page displayed.
+     *
+     * @author JayaniP
+     * @param title the title
+     * @return true, if is total api traffic page displayed
+     * @throws Exception the exception
+     */
+    public boolean isTotalAPITrafficPageDisplayed(String title) throws Exception {
+
+		flag = false;
+		logger.debug("Validating Total API Traffic Page");
+		Thread.sleep(sleepTime);
+		try {
+			if (title.contains(getElement(lblTotalAPITraffic).getText())) {
+				flag = true;
+				logger.debug("Validating Total API Traffic Page completed");
+			} else {
+				logger.debug("Total API Traffic Page is Not Matched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Total API Traffic Page Title 'isTotalAPITrafficPageDisplayed()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating Total API Traffic Page Title 'isTotalAPITrafficPageDisplayed()'"
+							+ e.getLocalizedMessage());
+		}
+		return flag;
+	}
+    
+    /**
+     * Enter api traffic from date.
+     *
+     * @author JayaniP
+     * @param fromDate the from date
+     */
+    public void enterAPITrafficFromDate(String fromDate){
+    	logger.debug("Enter Total API traffic From date");
+    	getElement(txtTotalAPITrafficFromDate).clearAndSendkeys(fromDate);
+		logger.debug("Entered Total API traffic From date");
+    }
+    
+    /**
+     * Enter api traffic to date.
+     *
+     * @author JayaniP
+     * @param toDate the to date
+     */
+    public void enterAPITrafficToDate(String toDate){
+    	logger.debug("Enter Total API traffic To date");
+    	getElement(txtTotalAPITrafficToDate).clearAndSendkeys(toDate);
+		logger.debug("Entered Total API traffic To date");
+    }
+    
+    /**
+     * Click api traffic operator drop down.
+     *
+     * @author JayaniP
+     */
+    public void clickAPITrafficOperatorDropDown(){
+    	logger.debug("Click Total API traffic operator");
+    	getElement(ddTotalAPITrafficOperator).click();
+		logger.debug("Clicked Total API traffic operator");
+    }
+    
+    /**
+     * Select total api traffic operator.
+     *
+     * @author JayaniP
+     * @param operator the operator
+     */
+    public void selectTotalAPITrafficOperator(String operator){
+    	String xpath = String.format(lblTotalAPITrafficOperator, operator);
+		WebPelement lblOperator = defineEelement(UIType.Xpath, xpath);
+		logger.debug("Clicking on operator");
+		getElement(lblOperator).click();
+		logger.debug("Clicked on operator");
+    }
+    
+    /**
+     * Click api traffic service provider drop down.
+     *
+     * @author JayaniP
+     */
+    public void clickAPITrafficServiceProviderDropDown(){
+    	logger.debug("Click Total API traffic Service provider");
+    	getElement(ddTotalAPITrafficServiceProvider).click();
+		logger.debug("Clicked Total API traffic Service provider");
+    }
+    
+    /**
+     * Select total api traffic service provider.
+     *
+     * @author JayaniP
+     * @param sprovider the sprovider
+     */
+    public void selectTotalAPITrafficServiceProvider(String sprovider){
+    	String xpath = String.format(lblTotalAPITrafficServiceProvider, sprovider);
+		WebPelement lblSprovider = defineEelement(UIType.Xpath, xpath);
+		logger.debug("Clicking on operator");
+		getElement(lblSprovider).click();
+		logger.debug("Clicked on operator");
+    }
+    
+    /**
+     * Click api traffic application drop down.
+     *
+     * @author JayaniP
+     */
+    public void clickAPITrafficApplicationDropDown(){
+    	logger.debug("Click Total API traffic Application");
+    	getElement(ddTotalAPITrafficApplication).click();
+		logger.debug("Clicked Total API traffic Application");
+    }
+    
+    /**
+     * Select total api traffic application.
+     *
+     * @author JayaniP
+     * @param app the app
+     */
+    public void selectTotalAPITrafficApplication(String app){
+    	String xpath = String.format(lblTotalAPITrafficApplication, app);
+		WebPelement lblApp = defineEelement(UIType.Xpath, xpath);
+		logger.debug("Clicking on application");
+		getElement(lblApp).click();
+		logger.debug("Clicked on application");
+    }
+    
+    /**
+     * Click api traffic application api.
+     *
+     * @author JayaniP
+     */
+    public void clickAPITrafficAPIDropDown(){
+    	logger.debug("Click Total API traffic API");
+    	getElement(ddTotalAPITrafficAPI).click();
+		logger.debug("Clicked Total API traffic API");
+    }
+    
+    /**
+     * Select total api traffic api.
+     *
+     * @author JayaniP
+     * @param api the api
+     */
+    public void selectTotalAPITrafficAPI(String api){
+    	String xpath = String.format(lblTotalAPITrafficAPI, api);
+		WebPelement lblAPI = defineEelement(UIType.Xpath, xpath);
+		logger.debug("Clicking on api");
+		getElement(lblAPI).click();
+		logger.debug("Clicked on api");
+    }
+    
+    /**
+     * Click on generate.
+     *
+     * @author JayaniP
+     */
+    public void clickOnGenerate(){
+    	logger.debug("Click on Generate");
+    	getElement(btnGenerate).click();
+		logger.debug("Clicked on Generate");
+    }
 }
 
 
