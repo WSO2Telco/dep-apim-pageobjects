@@ -1,9 +1,13 @@
 package com.wso2telco.apimanager.pageobjects.apihome.apis;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
@@ -46,7 +50,7 @@ public class APIsPage extends BasicPageObject {
 	/** The lbl app name. 
 	 * %s_1 = appName
 	 **/
-	private String lblAppName = "//select[@id='application-list']//option[contains(text(),'%s')]";
+	//private String lblAppName = "//select[@id='application-list']//option[contains(text(),'%s')]";
 	
 	/** The ddl operator.
 	 * %s_1 = operator
@@ -202,12 +206,17 @@ public class APIsPage extends BasicPageObject {
 	public boolean isApplicationNameVisible(String appname) throws Exception{
 		flag = false;
 		logger.debug("Validating created application name after approving");
-		ArrayList<String> tabs = verifyListContent(UIType.Xpath, ddlTabs);
-		int tabCount = tabs.size();
+		ArrayList<String> actFirstSecQstList = new ArrayList<String>();
+		WebElement select = getElement(UIType.Xpath, ddlTabs);
+		List<WebElement> options = select.findElements(By.xpath(ddlTabs));
 		try {
-			for (int x = 0; x < tabCount; x++) {
-				if (tabs.get(x).trim().contains(appname)) {
+			for (WebElement option : options) {
+				actFirstSecQstList.add(option.getText());
+				}
+			for (int x = 0; x < actFirstSecQstList.size(); x++) {
+				if (actFirstSecQstList.get(x).trim().contains(appname)) {
 					flag = true;
+					getElement(ddlApplication).sendKeys(Keys.ESCAPE);
 					logger.debug("Application name is visible after approving");
 				} else {
 					logger.debug("Application name is not visible after approving");
@@ -228,17 +237,12 @@ public class APIsPage extends BasicPageObject {
 	 * @throws InterruptedException the interrupted exception
 	 */
 	public void clickAppName(String appname) throws InterruptedException{
-		String xpath = String.format(lblAppName, appname);
-		WebPelement lblappname = defineEelement(UIType.Xpath, xpath);
 		Thread.sleep(1000);
 		logger.debug("Clicking on Application name drop down");
-		getElement(ddlApplication).click();
+		getElement(ddlApplication).sendKeys(appname);
 		logger.debug("Clicked on Application name drop down");
-		logger.debug("Clicking on Application name");
-		getElement(lblappname).click();
-		logger.debug("Clicking on Application name");
 		logger.debug("Sending enter key");
-		getElement(lblappname).sendEnter();
+		getElement(ddlApplication).sendEnter();
 		logger.debug("Send enter key");
 	}
 	
@@ -276,6 +280,7 @@ public class APIsPage extends BasicPageObject {
 	 * @throws Exception the exception
 	 */
 	public boolean isSubscriptionSuccessPopup(String popupMsg) throws Exception{
+		Thread.sleep(sleepTime);
 		flag = false;
 		logger.debug("Validating subscription success popup");
 		try {
