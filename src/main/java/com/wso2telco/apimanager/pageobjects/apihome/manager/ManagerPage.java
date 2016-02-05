@@ -80,6 +80,9 @@ public class ManagerPage extends BasicPageObject {
 	/** The lbl ussd. */
 	private WebPelement lblUSSD = defineEelement(UIType.Xpath, "//select[@id='apiSelect']/option[contains(.,'USSD')]");
 	
+	/** The ddl api. */
+	private WebPelement ddlAPIList = defineEelement(UIType.ID, "apiSelect");
+	
 	/** The btn add new. */
 	private WebPelement btnAddNew = defineEelement(UIType.ID, "add-new");
 	
@@ -100,6 +103,9 @@ public class ManagerPage extends BasicPageObject {
 	
 	/** The dd api. */
 	private WebPelement ddAPI = defineEelement(UIType.ID, "apiSelect");
+	
+	/** The btn view. */
+	private WebPelement btnView = defineEelement(UIType.ID, "view");
 	
 	/** The lbl whitelist ussd. */
 	private WebPelement lblWhitelistAPI = defineEelement(UIType.Xpath, "//select[@id='apiSelect']/option[contains(.,'AuxAppTest')]");
@@ -442,7 +448,7 @@ public class ManagerPage extends BasicPageObject {
 		logger.debug("Validating Application name");
 		Thread.sleep(sleepTime);
 		String xpath = String.format(lblApplicationName, appName);
-		int Names = verifyListContent(UIType.Xpath, xpath).size();
+		int Names = verifyContent(UIType.Xpath, xpath).size();
 		try {
 			if (Names == 1){
 				flag = true;
@@ -578,7 +584,7 @@ public class ManagerPage extends BasicPageObject {
 		flag = false;
 		logger.debug("Validating Application name not visible");
 		String xpath = String.format(lblApplicationName, appName);
-		int Names = verifyListContent(UIType.Xpath, xpath).size();
+		int Names = driver.findElements(By.xpath(xpath)).size(); // TODO : need to implement a better method in framework when checking a non existing UI element
 		try {
 			if (Names < 1){
 				flag = true;
@@ -727,12 +733,23 @@ public class ManagerPage extends BasicPageObject {
 		logger.debug("USSD selected");
 	}
 	
+	public void selectAPI(String apiType) throws InterruptedException{
+		Thread.sleep(sleepTime);
+		logger.debug("Start clicking on API Drop down");
+		getElement(ddlAPIList).click();
+		getElement(ddlAPIList).sendKeys(apiType);
+		getElement(ddlAPIList).sendEnter();
+		getElement(btnView).click();
+	}
+	
 	/**
 	 * Click add new button.
 	 *
 	 * @author JayaniP
+	 * @throws InterruptedException 
 	 */
-	public void clickAddNewButton(){
+	public void clickAddNewButton() throws InterruptedException{
+		Thread.sleep(sleepTime);
 		logger.debug("Click on Add new button");
 		getElement(btnAddNew).click();
 		logger.debug("Clicked on Add new button");

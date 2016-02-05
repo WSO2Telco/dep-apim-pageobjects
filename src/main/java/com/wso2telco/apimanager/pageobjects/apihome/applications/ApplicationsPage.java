@@ -1,6 +1,7 @@
 package com.wso2telco.apimanager.pageobjects.apihome.applications;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
@@ -31,7 +32,7 @@ public class ApplicationsPage extends BasicPageObject  {
 	private WebPelement txtApplicationDescription = defineEelement(UIType.ID, "description");
 	
 	/** The btn app add. */
-	private WebPelement btnAppAdd = defineEelement(UIType.Xpath, "application-add-button");
+	private WebPelement btnAppAdd = defineEelement(UIType.ID, "application-add-button");
 	
 	/** The lbl application name. */
 	private WebPelement lblApplicationName = defineEelement(UIType.Xpath, "//table[@id='applicationTable']//tr[1]/td[1]");
@@ -312,7 +313,7 @@ public class ApplicationsPage extends BasicPageObject  {
 			flag = false;
 			logger.debug("Validating app is visible");
 			String xpath = String.format(lblAppAvailable, username, app);
-			int elements = verifyListContent(UIType.Xpath, xpath).size();
+			int elements = driver.findElements(By.xpath(xpath)).size(); // TODO : need to implement a better method to check UI elements when its not existing
 			try {
 				if (elements != 0){
 					flag = true;
