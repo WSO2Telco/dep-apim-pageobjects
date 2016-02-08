@@ -211,31 +211,45 @@ public class ManagerPage extends BasicPageObject {
     
     /** The dd total api traffic operator. */
     private WebPelement ddTotalAPITrafficOperator = defineEelement(UIType.ID, "operator");
-    
-    /** The lbl total api traffic operator. */
-    private String lblTotalAPITrafficOperator = "//select[@id='operator']/option[contains(.,'%s')]";
-    
+
     /** The dd total api traffic service provider. */
     private WebPelement ddTotalAPITrafficServiceProvider = defineEelement(UIType.ID, "subscriber");
-    
-    /** The lbl total api traffic service provider. */
-    private String lblTotalAPITrafficServiceProvider = "//select[@id='app']/option[contains(.,'%s')]";
     
     /** The dd total api traffic application. */
     private WebPelement ddTotalAPITrafficApplication = defineEelement(UIType.ID, "app");
     
-    /** The lbl total api traffic application. */
-    private String lblTotalAPITrafficApplication = "//select[@id='app']/option[contains(.,'%s')]";
-    
     /** The dd total api traffic api. */
     private WebPelement ddTotalAPITrafficAPI = defineEelement(UIType.ID, "api");
-    
-    /** The lbl total api traffic api. */
-    private String lblTotalAPITrafficAPI = "//select[@id='api']/option[contains(.,'%s')]";
     
     /** The btn generate. */
     private WebPelement btnGenerate = defineEelement(UIType.ID, "generate");
     
+    /** The lnk transaction log. */
+    private WebPelement lnkTransactionLog = defineEelement(UIType.Xpath, "//ul[@class='nav nav-list']/li[3]/a");
+    
+    /** The lbl transaction log. */
+    private WebPelement lblTransactionLog = defineEelement(UIType.Xpath, "//div[@id='middle']/div[1]/h2");
+    
+    /** The txt transaction log from date. */
+    private WebPelement txtTransactionLogFromDate = defineEelement(UIType.ID, "from_date");
+    
+    /** The txt transaction log to date. */
+    private WebPelement txtTransactionLogToDate = defineEelement(UIType.ID, "to_date");
+    
+    /** The dd transaction log operator. */
+    private WebPelement ddTransactionLogOperator = defineEelement(UIType.ID, "operator");
+    
+    /** The dd transaction log service provider. */
+    private WebPelement ddTransactionLogServiceProvider = defineEelement(UIType.ID, "subscriber");
+    
+    /** The dd transaction log api. */
+    private WebPelement ddTransactionLogAPI = defineEelement(UIType.ID, "api");
+    
+    /** The dd transaction log status. */
+    private WebPelement ddTransactionLogStatus = defineEelement(UIType.ID, "isError");
+    
+    /** The btn download report. */
+    private WebPelement btnDownloadReport = defineEelement(UIType.Name, "download_file");
     
 	/**
 	 * Instantiates a new manager page.
@@ -1260,53 +1274,51 @@ public class ManagerPage extends BasicPageObject {
     }
     
     /**
-     * Click api traffic operator drop down.
-     *
-     * @author JayaniP
-     */
-    public void clickAPITrafficOperatorDropDown(){
-    	logger.debug("Click Total API traffic operator");
-    	getElement(ddTotalAPITrafficOperator).click();
-		logger.debug("Clicked Total API traffic operator");
-    }
-    
-    /**
-     * Select total api traffic operator.
+     * Select api traffic operator.
      *
      * @author JayaniP
      * @param operator the operator
+     * @throws InterruptedException the interrupted exception
      */
-    public void selectTotalAPITrafficOperator(String operator){
-    	String xpath = String.format(lblTotalAPITrafficOperator, operator);
-		WebPelement lblOperator = defineEelement(UIType.Xpath, xpath);
-		logger.debug("Clicking on operator");
-		getElement(lblOperator).click();
-		logger.debug("Clicked on operator");
-    }
-    
-    /**
-     * Click api traffic service provider drop down.
-     *
-     * @author JayaniP
-     */
-    public void clickAPITrafficServiceProviderDropDown(){
-    	logger.debug("Click Total API traffic Service provider");
-    	getElement(ddTotalAPITrafficServiceProvider).click();
-		logger.debug("Clicked Total API traffic Service provider");
-    }
-    
+    public void selectAPITrafficOperator(String operator) throws InterruptedException{
+		Thread.sleep(sleepTime);
+		
+		logger.debug("Start clicking on operator Drop down");
+		getElement(ddTotalAPITrafficOperator).click();
+		logger.debug("Clicked on operator Drop down");
+		
+		logger.debug("Start typing operator");
+		getElement(ddTotalAPITrafficOperator).sendKeys(operator);
+		logger.debug("Typed operator");
+		
+		logger.debug("Start click enter");
+		getElement(ddTotalAPITrafficOperator).sendEnter();
+		logger.debug("Clicked enter");
+		
+	}
     /**
      * Select total api traffic service provider.
      *
      * @author JayaniP
      * @param sprovider the sprovider
+     * @throws InterruptedException the interrupted exception
      */
-    public void selectTotalAPITrafficServiceProvider(String sprovider){
-    	String xpath = String.format(lblTotalAPITrafficServiceProvider, sprovider);
-		WebPelement lblSprovider = defineEelement(UIType.Xpath, xpath);
-		logger.debug("Clicking on operator");
-		getElement(lblSprovider).click();
-		logger.debug("Clicked on operator");
+    public void selectTotalAPITrafficServiceProvider(String sprovider) throws InterruptedException{
+    		Thread.sleep(sleepTime);
+    		
+    		logger.debug("Start clicking on Service provider Drop down");
+    		getElement(ddTotalAPITrafficServiceProvider).click();
+    		logger.debug("Clicked on Service provider Drop down");
+    		
+    		logger.debug("Start typing Service provider");
+    		getElement(ddTotalAPITrafficServiceProvider).sendKeys(sprovider);
+    		logger.debug("Typed Service provider");
+    		
+    		logger.debug("Start click enter");
+    		getElement(ddTotalAPITrafficServiceProvider).sendEnter();
+    		logger.debug("Clicked enter");
+    	
+    	
     }
     
     /**
@@ -1319,44 +1331,53 @@ public class ManagerPage extends BasicPageObject {
     	getElement(ddTotalAPITrafficApplication).click();
 		logger.debug("Clicked Total API traffic Application");
     }
-    
+   
     /**
      * Select total api traffic application.
      *
      * @author JayaniP
      * @param app the app
+     * @throws InterruptedException the interrupted exception
      */
-    public void selectTotalAPITrafficApplication(String app){
-    	String xpath = String.format(lblTotalAPITrafficApplication, app);
-		WebPelement lblApp = defineEelement(UIType.Xpath, xpath);
-		logger.debug("Clicking on application");
-		getElement(lblApp).click();
-		logger.debug("Clicked on application");
+    public void selectTotalAPITrafficApplication(String app) throws InterruptedException{
+        Thread.sleep(sleepTime);
+		
+		logger.debug("Start clicking on Application Drop down");
+		getElement(ddTotalAPITrafficApplication).click();
+		logger.debug("Clicked on API Drop down");
+		
+		logger.debug("Start typing Application");
+		getElement(ddTotalAPITrafficApplication).sendKeys(app);
+		logger.debug("Typed Application");
+		
+		logger.debug("Start click enter");
+		getElement(ddTotalAPITrafficApplication).sendEnter();
+		logger.debug("Clicked enter");
+
     }
-    
-    /**
-     * Click api traffic application api.
-     *
-     * @author JayaniP
-     */
-    public void clickAPITrafficAPIDropDown(){
-    	logger.debug("Click Total API traffic API");
-    	getElement(ddTotalAPITrafficAPI).click();
-		logger.debug("Clicked Total API traffic API");
-    }
-    
+
     /**
      * Select total api traffic api.
      *
      * @author JayaniP
      * @param api the api
+     * @throws InterruptedException the interrupted exception
      */
-    public void selectTotalAPITrafficAPI(String api){
-    	String xpath = String.format(lblTotalAPITrafficAPI, api);
-		WebPelement lblAPI = defineEelement(UIType.Xpath, xpath);
-		logger.debug("Clicking on api");
-		getElement(lblAPI).click();
-		logger.debug("Clicked on api");
+    public void selectTotalAPITrafficAPI(String api) throws InterruptedException{
+        Thread.sleep(sleepTime);
+		
+		logger.debug("Start clicking on API Drop down");
+		getElement(ddTotalAPITrafficAPI).click();
+		logger.debug("Clicked on API Drop down");
+		
+		logger.debug("Start typing api type");
+		getElement(ddTotalAPITrafficAPI).sendKeys(api);
+		logger.debug("Typed api type");
+		
+		logger.debug("Start click enter");
+		getElement(ddTotalAPITrafficAPI).sendEnter();
+		logger.debug("Clicked enter");
+
     }
     
     /**
@@ -1368,6 +1389,178 @@ public class ManagerPage extends BasicPageObject {
     	logger.debug("Click on Generate");
     	getElement(btnGenerate).click();
 		logger.debug("Clicked on Generate");
+    }
+    
+    /**
+     * Click on transaction log.
+     *
+     * @author JayaniP
+     */
+    public void clickOnTransactionLog(){
+    	logger.debug("Click on Transaction Log");
+    	getElement(lnkTransactionLog).click();
+		logger.debug("Clicked on Transaction Log");
+    }
+    
+    /**
+     * Checks if is transaction log page displayed.
+     *
+     * @author JayaniP
+     * @param title the title
+     * @return true, if is transaction log page displayed
+     * @throws Exception the exception
+     */
+    public boolean isTransactionLogPageDisplayed(String title) throws Exception {
+
+		flag = false;
+		logger.debug("Validating Transaction Log Page");
+		Thread.sleep(sleepTime);
+		try {
+			if (title.contains(getElement(lblTransactionLog).getText())) {
+				flag = true;
+				logger.debug("Validating Transaction Log Page completed");
+			} else {
+				logger.debug("Transaction Log Page is Not Matched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Transaction Log Page Title 'isTransactionLogPageDisplayed()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating Transaction Log Page Title 'isTransactionLogPageDisplayed()'"
+							+ e.getLocalizedMessage());
+		}
+		return flag;
+	}
+    
+    /**
+     * Enter transaction log from date.
+     *
+     * @author JayaniP
+     * @param fromDate the from date
+     */
+    public void enterTransactionLogFromDate(String fromDate){
+    	logger.debug("Enter Transaction Log from date");
+    	getElement(txtTransactionLogFromDate).clearAndSendkeys(fromDate);
+		logger.debug("Entered Transaction Log from date");
+    }
+    
+    /**
+     * Enter transaction log to date.
+     *
+     * @author JayaniP
+     * @param toDate the to date
+     */
+    public void enterTransactionLogToDate(String toDate){
+    	logger.debug("Enter Transaction Log to date");
+    	getElement(txtTransactionLogToDate).clearAndSendkeys(toDate);
+		logger.debug("Entered Transaction Log to date");
+    }
+   
+    /**
+     * Transaction log operator.
+     *
+     * @author JayaniP
+     * @param operator the operator
+     * @throws InterruptedException the interrupted exception
+     */
+    public void selectTransactionLogOperator(String operator) throws InterruptedException{
+		Thread.sleep(sleepTime);
+		
+		logger.debug("Start clicking on operator Drop down");
+		getElement(ddTransactionLogOperator).click();
+		logger.debug("Clicked on operator Drop down");
+		
+		logger.debug("Start typing operator");
+		getElement(ddTransactionLogOperator).sendKeys(operator);
+		logger.debug("Typed operator");
+		
+		logger.debug("Start click enter");
+		getElement(ddTransactionLogOperator).sendEnter();
+		logger.debug("Clicked enter");
+	
+	}
+    
+    /**
+     * Select transaction log service provider.
+     *
+     * @author JayaniP
+     * @param serviceProvider the service provider
+     * @throws InterruptedException the interrupted exception
+     */
+    public void selectTransactionLogServiceProvider(String serviceProvider) throws InterruptedException{
+		Thread.sleep(sleepTime);
+		
+		logger.debug("Start clicking on service provider Drop down");
+		getElement(ddTransactionLogServiceProvider).click();
+		logger.debug("Clicked on service provider Drop down");
+		
+		logger.debug("Start typing service provider");
+		getElement(ddTransactionLogServiceProvider).sendKeys(serviceProvider);
+		logger.debug("Typed service provider");
+		
+		logger.debug("Start click enter");
+		getElement(ddTransactionLogServiceProvider).sendEnter();
+		logger.debug("Clicked enter");
+	
+	}
+   
+    /**
+     * Select transaction log api.
+     *
+     * @author JayaniP
+     * @param api the api
+     * @throws InterruptedException the interrupted exception
+     */
+    public void selectTransactionLogAPI(String api) throws InterruptedException{
+		Thread.sleep(sleepTime);
+		
+		logger.debug("Start clicking on API Drop down");
+		getElement(ddTransactionLogAPI).click();
+		logger.debug("Clicked on API Drop down");
+		
+		logger.debug("Start typing API");
+		getElement(ddTransactionLogAPI).sendKeys(api);
+		logger.debug("Typed API");
+		
+		logger.debug("Start click enter");
+		getElement(ddTransactionLogAPI).sendEnter();
+		logger.debug("Clicked enter");
+	
+	}
+    
+    /**
+     * Select transaction log status.
+     *
+     * @author JayaniP
+     * @param status the status
+     * @throws InterruptedException the interrupted exception
+     */
+    public void selectTransactionLogStatus(String status) throws InterruptedException{
+ 		Thread.sleep(sleepTime);
+ 		
+ 		logger.debug("Start clicking on Status Drop down");
+ 		getElement(ddTransactionLogStatus).click();
+ 		logger.debug("Clicked on Status Drop down");
+ 		
+ 		logger.debug("Start typing Status");
+ 		getElement(ddTransactionLogStatus).sendKeys(status);
+ 		logger.debug("Typed Status");
+ 		
+ 		logger.debug("Start click enter");
+ 		getElement(ddTransactionLogStatus).sendEnter();
+ 		logger.debug("Clicked enter");
+ 	
+ 	}
+    
+    /**
+     * Click download file.
+     *
+     * @author JayaniP
+     */
+    public void clickDownloadFile(){
+    	logger.debug("Start click download file");
+ 		getElement(btnDownloadReport).click();
+ 		logger.debug("Clicked download file");
     }
 }
 
