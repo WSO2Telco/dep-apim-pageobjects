@@ -355,6 +355,30 @@ public class ManagerPage extends BasicPageObject {
     
     /** The btn api response time generate. */
     private WebPelement btnAPIResponseTimeGenerate = defineEelement(UIType.Name, "download_file");
+    
+    /** The lnk performance error rates. */
+    private WebPelement lnkPerformanceErrorRates = defineEelement(UIType.Xpath, "//ul[@class='nav nav-list']/li[10]/a");
+    
+    /** The lbl performance error rates. */
+    private WebPelement lblPerformanceErrorRates = defineEelement(UIType.Xpath, "//div[@id='middle']/div[1]/h2");
+    
+    /** The txt performance error rates from date. */
+    private WebPelement txtPerformanceErrorRatesFromDate = defineEelement(UIType.ID, "from_date");
+    
+    /** The txt performance error rates to date. */
+    private WebPelement txtPerformanceErrorRatesToDate = defineEelement(UIType.ID, "to_date");
+    
+    /** The dd performance error rates operator. */
+    private WebPelement ddPerformanceErrorRatesOperator = defineEelement(UIType.ID, "operator");
+    
+    /** The dd performance error rates service provider. */
+    private WebPelement ddPerformanceErrorRatesServiceProvider = defineEelement(UIType.ID, "subscriber");
+    
+    /** The dd performance error rates application. */
+    private WebPelement ddPerformanceErrorRatesApplication = defineEelement(UIType.ID, "app");
+    
+    /** The dd performance error rates api. */
+    private WebPelement ddPerformanceErrorRatesAPI = defineEelement(UIType.ID, "api");
 	/**
 	 * Instantiates a new manager page.
 	 *
@@ -2374,6 +2398,167 @@ public class ManagerPage extends BasicPageObject {
 		getElement(btnAPIResponseTimeGenerate).click();
 		logger.debug("Clicked generate");
     }
+    
+    /**
+     * Click on performance error rates.
+     *
+     * @author JayaniP
+     */
+    public void clickOnPerformanceErrorRates(){
+    	logger.debug("Start click Performance error rates");
+		getElement(lnkPerformanceErrorRates).click();
+		logger.debug("Clicked Performance error rates");
+    }
+    
+    /**
+     * Checks if is performance error rates page displayed.
+     *
+     * @author JayaniP
+     * @param title the title
+     * @return true, if is performance error rates page displayed
+     * @throws Exception the exception
+     */
+    public boolean isPerformanceErrorRatesPageDisplayed(String title) throws Exception {
+
+		flag = false;
+		logger.debug("Validating Performance Error Rates Page");
+		Thread.sleep(sleepTime);
+		try {
+			if (title.contains(getElement(lblPerformanceErrorRates).getText())) {
+				flag = true;
+				logger.debug("Validating Performance Error Rates completed");
+			} else {
+				logger.debug("Performance Error Rates Page is Not Matched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Performance Error Rates Page Title 'isPerformanceErrorRatesPageDisplayed()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating Performance Error Rates Page Title 'isPerformanceErrorRatesPageDisplayed()'"
+							+ e.getLocalizedMessage());
+		}
+		return flag;
+	}
+    
+    /**
+     * Enter performance error rates from date.
+     *
+     * @author JayaniP
+     * @param fromdate the fromdate
+     */
+    public void enterPerformanceErrorRatesFromDate(String fromdate){
+    	logger.debug("Start enter from date");
+		getElement(txtPerformanceErrorRatesFromDate).clearAndSendkeys(fromdate);
+		logger.debug("Entered from date");
+    }
+    
+    /**
+     * Enter performance error rates to date.
+     *
+     * @author JayaniP
+     * @param todate the todate
+     */
+    public void enterPerformanceErrorRatesToDate(String todate){
+    	logger.debug("Start enter to date");
+		getElement(txtPerformanceErrorRatesToDate).clearAndSendkeys(todate);
+		logger.debug("Entered to date");
+    }
+    
+    /**
+     * Select performance error operator.
+     *
+     * @author JayaniP
+     * @param operator the operator
+     * @throws InterruptedException the interrupted exception
+     */
+    public void selectPerformanceErrorOperator(String operator) throws InterruptedException{
+		Thread.sleep(sleepTime);
+		
+		logger.debug("Start clicking on operator Drop down");
+		getElement(ddPerformanceErrorRatesOperator).click();
+		logger.debug("Clicked on operator Drop down");
+		
+		logger.debug("Start typing operator");
+		getElement(ddPerformanceErrorRatesOperator).sendKeys(operator);
+		logger.debug("Typed operator");
+		
+		logger.debug("Start click enter");
+		getElement(ddPerformanceErrorRatesOperator).sendEnter();
+		logger.debug("Clicked enter");
+		
+	}
+    
+    /**
+     * Select performance error service provider.
+     *
+     * @author JayaniP
+     * @param serviceProvider the service provider
+     * @throws InterruptedException the interrupted exception
+     */
+    public void selectPerformanceErrorServiceProvider(String serviceProvider) throws InterruptedException{
+		Thread.sleep(sleepTime);
+		
+		logger.debug("Start clicking on service provider Drop down");
+		getElement(ddPerformanceErrorRatesServiceProvider).click();
+		logger.debug("Clicked on service provider Drop down");
+		
+		logger.debug("Start typing service provider");
+		getElement(ddPerformanceErrorRatesServiceProvider).sendKeys(serviceProvider);
+		logger.debug("Typed service provider");
+		
+		logger.debug("Start click enter");
+		getElement(ddPerformanceErrorRatesServiceProvider).sendEnter();
+		logger.debug("Clicked enter");
+		
+	}
+    
+    /**
+     * Select performance error application.
+     *
+     * @author JayaniP
+     * @param app the app
+     * @throws InterruptedException the interrupted exception
+     */
+    public void selectPerformanceErrorApplication(String app) throws InterruptedException{
+		Thread.sleep(sleepTime);
+		
+		logger.debug("Start clicking on Application Drop down");
+		getElement(ddPerformanceErrorRatesApplication).click();
+		logger.debug("Clicked on Application Drop down");
+		
+		logger.debug("Start typing Application");
+		getElement(ddPerformanceErrorRatesApplication).sendKeys(app);
+		logger.debug("Typed Application");
+		
+		logger.debug("Start click enter");
+		getElement(ddPerformanceErrorRatesApplication).sendEnter();
+		logger.debug("Clicked enter");
+		
+	}
+    
+    /**
+     * Select performance error api.
+     *
+     * @author JayaniP
+     * @param api the api
+     * @throws InterruptedException the interrupted exception
+     */
+    public void selectPerformanceErrorAPI(String api) throws InterruptedException{
+		Thread.sleep(sleepTime);
+		
+		logger.debug("Start clicking on API Drop down");
+		getElement(ddPerformanceErrorRatesAPI).click();
+		logger.debug("Clicked on API Drop down");
+		
+		logger.debug("Start typing API");
+		getElement(ddPerformanceErrorRatesAPI).sendKeys(api);
+		logger.debug("Typed API");
+		
+		logger.debug("Start click enter");
+		getElement(ddPerformanceErrorRatesAPI).sendEnter();
+		logger.debug("Clicked enter");
+		
+	}
 }
 
 
