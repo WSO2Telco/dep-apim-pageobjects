@@ -272,6 +272,41 @@ public class ManagerPage extends BasicPageObject {
     /** The dd operator api traffic application. */
     private WebPelement ddOperatorAPITrafficApplication = defineEelement(UIType.ID, "app");
     
+    /** The lnk monthly invoice. */
+    private WebPelement lnkMonthlyInvoice = defineEelement(UIType.Xpath, "//ul[@class='nav nav-list']/li[5]/a");
+    
+    /** The lbl monthly invoice. */
+    private WebPelement lblMonthlyInvoice = defineEelement(UIType.Xpath, "//div[@id='middle']/div[1]/h2");
+    
+    /** The dd monthly invoice year. */
+    private WebPelement ddMonthlyInvoiceYear = defineEelement(UIType.ID, "year");
+    
+    /** The dd monthly invoice month. */
+    private WebPelement ddMonthlyInvoiceMonth = defineEelement(UIType.ID, "month");
+    
+    /** The dd monthly invoice service provider. */
+    private WebPelement ddMonthlyInvoiceServiceProvider = defineEelement(UIType.ID, "subscriber");
+    
+    /** The lnk revenue breakdown. */
+    private WebPelement lnkRevenueBreakdown = defineEelement(UIType.Xpath, "//ul[@class='nav nav-list']/li[6]/a");
+    
+    /** The lbl revenue breakdown. */
+    private WebPelement lblRevenueBreakdown = defineEelement(UIType.Xpath, "//div[@id='middle']/div[1]/h2");
+    
+    /** The dd revenue breakdown year. */
+    private WebPelement ddRevenueBreakdownYear = defineEelement(UIType.ID, "yearSelect");
+    
+    /** The dd revenue breakdown month. */
+    private WebPelement ddRevenueBreakdownMonth = defineEelement(UIType.ID, "monthSelect");
+    
+    /** The dd revenue breakdown operator. */
+    private WebPelement ddRevenueBreakdownOperator = defineEelement(UIType.ID, "operatorSelect");
+    
+    /** The dd revenue breakdown service provider. */
+    private WebPelement ddRevenueBreakdownServiceProvider = defineEelement(UIType.ID, "subscriberSelect");
+    
+    /** The dd revenue breakdown application. */
+    private WebPelement ddRevenueBreakdownApplication = defineEelement(UIType.ID, "appSelect");
 	/**
 	 * Instantiates a new manager page.
 	 *
@@ -1717,6 +1752,280 @@ public class ManagerPage extends BasicPageObject {
  		
  		logger.debug("Start click enter");
  		getElement(ddOperatorAPITrafficAPI).sendEnter();
+ 		logger.debug("Clicked enter");
+ 		
+ 	}
+    
+    /**
+     * Click monthly invoice.
+     *
+     * @author JayaniP
+     */
+    public void clickMonthlyInvoice(){
+    	logger.debug("Start click Monthly Invoice");
+ 		getElement(lnkMonthlyInvoice).click();
+ 		logger.debug("Clicked Monthly Invoice");
+    }
+    
+    /**
+     * Checks if is monthly invoice page displayed.
+     *
+     * @author JayaniP
+     * @param title the title
+     * @return true, if is monthly invoice page displayed
+     * @throws Exception the exception
+     */
+    public boolean isMonthlyInvoicePageDisplayed(String title) throws Exception {
+
+		flag = false;
+		logger.debug("Validating Monthly Invoice Page");
+		Thread.sleep(sleepTime);
+		try {
+			if (title.contains(getElement(lblMonthlyInvoice).getText())) {
+				flag = true;
+				logger.debug("Validating Monthly Invoice Page completed");
+			} else {
+				logger.debug("Monthly Invoice Page is Not Matched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Monthly Invoice Page Title 'isMonthlyInvoicePageDisplayed()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating Monthly Invoice Page Title 'isMonthlyInvoicePageDisplayed()'"
+							+ e.getLocalizedMessage());
+		}
+		return flag;
+	}
+    
+    /**
+     * Select monthly invoice year.
+     *
+     * @author JayaniP
+     * @param year the year
+     * @throws InterruptedException the interrupted exception
+     */
+    public void selectMonthlyInvoiceYear(String year) throws InterruptedException{
+		Thread.sleep(sleepTime);
+		
+		logger.debug("Start clicking on year down");
+		getElement(ddMonthlyInvoiceYear).click();
+		logger.debug("Clicked on year Drop down");
+		
+		logger.debug("Start typing year");
+		getElement(ddMonthlyInvoiceYear).sendKeys(year);
+		logger.debug("Typed year");
+		
+		logger.debug("Start click enter");
+		getElement(ddMonthlyInvoiceYear).sendEnter();
+		logger.debug("Clicked enter");
+		
+	}
+    
+    /**
+     * Select monthly invoice month.
+     *
+     * @author JayaniP
+     * @param month the month
+     * @throws InterruptedException the interrupted exception
+     */
+    public void selectMonthlyInvoiceMonth(String month) throws InterruptedException{
+		Thread.sleep(sleepTime);
+		
+		logger.debug("Start clicking on month down");
+		getElement(ddMonthlyInvoiceMonth).click();
+		logger.debug("Clicked on month Drop down");
+		
+		logger.debug("Start typing month");
+		getElement(ddMonthlyInvoiceMonth).sendKeys(month);
+		logger.debug("Typed month");
+		
+		logger.debug("Start click enter");
+		getElement(ddMonthlyInvoiceMonth).sendEnter();
+		logger.debug("Clicked enter");
+		
+	}
+    
+    /**
+     * Select monthly invoice service provider.
+     *
+     * @author JayaniP
+     * @param serviceProvider the service provider
+     * @throws InterruptedException the interrupted exception
+     */
+    public void selectMonthlyInvoiceServiceProvider(String serviceProvider) throws InterruptedException{
+		Thread.sleep(sleepTime);
+		
+		logger.debug("Start clicking on service provider down");
+		getElement(ddMonthlyInvoiceServiceProvider).click();
+		logger.debug("Clicked on service provider Drop down");
+		
+		logger.debug("Start typing service provider");
+		getElement(ddMonthlyInvoiceServiceProvider).sendKeys(serviceProvider);
+		logger.debug("Typed service provider");
+		
+		logger.debug("Start click enter");
+		getElement(ddMonthlyInvoiceServiceProvider).sendEnter();
+		logger.debug("Clicked enter");
+		
+	}
+    
+    /**
+     * Click on rvenue breakdown.
+     *
+     * @author JayaniP
+     */
+    public void clickOnRvenueBreakdown(){
+    	logger.debug("Start click revenue breakdown");
+		getElement(lnkRevenueBreakdown).click();
+		logger.debug("Clicked revenue breakdown");
+    }
+    
+    /**
+     * Checks if is revenue breakdown page displayed.
+     *
+     * @author JayaniP
+     * @param title the title
+     * @return true, if is revenue breakdown page displayed
+     * @throws Exception the exception
+     */
+    public boolean isRevenueBreakdownPageDisplayed(String title) throws Exception {
+
+		flag = false;
+		logger.debug("Validating Revenue Break down Page");
+		Thread.sleep(sleepTime);
+		try {
+			if (title.contains(getElement(lblRevenueBreakdown).getText())) {
+				flag = true;
+				logger.debug("Validating Revenue Break down Page completed");
+			} else {
+				logger.debug("Revenue Break down Page is Not Matched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Revenue Break down Page Title 'isRevenueBreakdownPageDisplayed()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating Revenue Break down Page Title 'isRevenueBreakdownPageDisplayed()'"
+							+ e.getLocalizedMessage());
+		}
+		return flag;
+	}
+    
+    /**
+     * Select revenue breakdown year.
+     *
+     * @author JayaniP
+     * @param year the year
+     * @throws InterruptedException the interrupted exception
+     */
+    public void selectRevenueBreakdownYear(String year) throws InterruptedException{
+		Thread.sleep(sleepTime);
+		
+		logger.debug("Start clicking on year Drop down");
+		getElement(ddRevenueBreakdownYear).click();
+		logger.debug("Clicked on year Drop down");
+		
+		logger.debug("Start typing year");
+		getElement(ddRevenueBreakdownYear).sendKeys(year);
+		logger.debug("Typed year");
+		
+		logger.debug("Start click enter");
+		getElement(ddRevenueBreakdownYear).sendEnter();
+		logger.debug("Clicked enter");
+		
+	}
+    
+    /**
+     * Select revenue breakdown month.
+     *
+     * @author JayaniP
+     * @param month the month
+     * @throws InterruptedException the interrupted exception
+     */
+    public void selectRevenueBreakdownMonth(String month) throws InterruptedException{
+		Thread.sleep(sleepTime);
+		
+		logger.debug("Start clicking on month Drop down");
+		getElement(ddRevenueBreakdownMonth).click();
+		logger.debug("Clicked on month Drop down");
+		
+		logger.debug("Start typing month");
+		getElement(ddRevenueBreakdownMonth).sendKeys(month);
+		logger.debug("Typed month");
+		
+		logger.debug("Start click enter");
+		getElement(ddRevenueBreakdownMonth).sendEnter();
+		logger.debug("Clicked enter");
+		
+	}
+    
+    /**
+     * Select revenue breakdown operator.
+     *
+     * @author JayaniP
+     * @param operator the operator
+     * @throws InterruptedException the interrupted exception
+     */
+    public void selectRevenueBreakdownOperator(String operator) throws InterruptedException{
+		Thread.sleep(sleepTime);
+		
+		logger.debug("Start clicking on operator Drop down");
+		getElement(ddRevenueBreakdownOperator).click();
+		logger.debug("Clicked on operator Drop down");
+		
+		logger.debug("Start typing operator");
+		getElement(ddRevenueBreakdownOperator).sendKeys(operator);
+		logger.debug("Typed operator");
+		
+		logger.debug("Start click enter");
+		getElement(ddRevenueBreakdownOperator).sendEnter();
+		logger.debug("Clicked enter");
+		
+	}
+    
+    /**
+     * Select revenue breakdown service provider.
+     *
+     * @author JayaniP
+     * @param serviceProvider the service provider
+     * @throws InterruptedException the interrupted exception
+     */
+    public void selectRevenueBreakdownServiceProvider(String serviceProvider) throws InterruptedException{
+ 		Thread.sleep(sleepTime);
+ 		
+ 		logger.debug("Start clicking on service provider Drop down");
+ 		getElement(ddRevenueBreakdownServiceProvider).click();
+ 		logger.debug("Clicked on service provider Drop down");
+ 		
+ 		logger.debug("Start typing service provider");
+ 		getElement(ddRevenueBreakdownServiceProvider).sendKeys(serviceProvider);
+ 		logger.debug("Typed service provider");
+ 		
+ 		logger.debug("Start click enter");
+ 		getElement(ddRevenueBreakdownServiceProvider).sendEnter();
+ 		logger.debug("Clicked enter");
+ 		
+ 	}
+    
+    /**
+     * Select revenue breakdown application.
+     *
+     * @author JayaniP
+     * @param app the app
+     * @throws InterruptedException the interrupted exception
+     */
+    public void selectRevenueBreakdownApplication(String app) throws InterruptedException{
+ 		Thread.sleep(sleepTime);
+ 		
+ 		logger.debug("Start clicking on application Drop down");
+ 		getElement(ddRevenueBreakdownApplication).click();
+ 		logger.debug("Clicked on application Drop down");
+ 		
+ 		logger.debug("Start typing application");
+ 		getElement(ddRevenueBreakdownApplication).sendKeys(app);
+ 		logger.debug("Typed application");
+ 		
+ 		logger.debug("Start click enter");
+ 		getElement(ddRevenueBreakdownApplication).sendEnter();
  		logger.debug("Clicked enter");
  		
  	}
