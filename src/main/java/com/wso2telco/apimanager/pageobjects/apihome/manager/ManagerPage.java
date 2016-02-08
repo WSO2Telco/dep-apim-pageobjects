@@ -307,6 +307,30 @@ public class ManagerPage extends BasicPageObject {
     
     /** The dd revenue breakdown application. */
     private WebPelement ddRevenueBreakdownApplication = defineEelement(UIType.ID, "appSelect");
+    
+    /** The lnk customer care. */
+    private WebPelement lnkCustomerCare = defineEelement(UIType.Xpath, "//ul[@class='nav nav-list']/li[7]/a");
+    
+    /** The lbl customer care. */
+    private WebPelement lblCustomerCare = defineEelement(UIType.Xpath, "//div[@id='middle']/div[1]/h2");
+    
+    /** The txt customer care from date. */
+    private WebPelement txtCustomerCareFromDate = defineEelement(UIType.ID, "from_date");
+    
+    /** The txt customer care to date. */
+    private WebPelement txtCustomerCareToDate = defineEelement(UIType.ID, "to_date");
+    
+    /** The txt customer care msisdn. */
+    private WebPelement txtCustomerCareMSISDN = defineEelement(UIType.ID, "msisdnText");
+    
+    /** The dd customer care operator. */
+    private WebPelement ddCustomerCareOperator = defineEelement(UIType.ID, "operatorSelect");
+    
+    /** The dd customer care service provider. */
+    private WebPelement ddCustomerCareServiceProvider = defineEelement(UIType.ID, "subscriberSelect");
+    
+    /** The dd customer care application. */
+    private WebPelement ddCustomerCareApplication = defineEelement(UIType.ID, "appSelect");
 	/**
 	 * Instantiates a new manager page.
 	 *
@@ -2029,6 +2053,155 @@ public class ManagerPage extends BasicPageObject {
  		logger.debug("Clicked enter");
  		
  	}
+    
+    /**
+     * Click on customer care.
+     *
+     * @author JayaniP
+     */
+    public void clickOnCustomerCare(){
+    	logger.debug("Start click customer care");
+ 		getElement(lnkCustomerCare).click();
+ 		logger.debug("Clicked customer care");
+    }
+    
+    /**
+     * Checks if is customer care page displayed.
+     *
+     * @author JayaniP
+     * @param title the title
+     * @return true, if is customer care page displayed
+     * @throws Exception the exception
+     */
+    public boolean isCustomerCarePageDisplayed(String title) throws Exception {
+
+		flag = false;
+		logger.debug("Validating customer care Page");
+		Thread.sleep(sleepTime);
+		try {
+			if (title.contains(getElement(lblCustomerCare).getText())) {
+				flag = true;
+				logger.debug("Validating customer care Page completed");
+			} else {
+				logger.debug("customer care Page is Not Matched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating customer care Page Title 'isCustomerCarePageDisplayed()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating customer care Page Title 'isCustomerCarePageDisplayed()'"
+							+ e.getLocalizedMessage());
+		}
+		return flag;
+	}
+    
+    /**
+     * Enter customer care from date.
+     *
+     * @author JayaniP
+     * @param fromDate the from date
+     */
+    public void enterCustomerCareFromDate(String fromDate){
+    	logger.debug("Start enter customer care from date");
+ 		getElement(txtCustomerCareFromDate).clearAndSendkeys(fromDate);
+ 		logger.debug("Entered customer care from date");
+    }
+    
+    /**
+     * Enter customer care to date.
+     *
+     * @author JayaniP
+     * @param toDate the to date
+     */
+    public void enterCustomerCareToDate(String toDate){
+    	logger.debug("Start enter customer care To date");
+ 		getElement(txtCustomerCareToDate).clearAndSendkeys(toDate);
+ 		logger.debug("Entered customer care To date");
+    }
+    
+    /**
+     * Enter customer care msisdn.
+     *
+     * @author JayaniP
+     * @param msisdn the msisdn
+     */
+    public void enterCustomerCareMSISDN(String msisdn){
+    	logger.debug("Start enter customer care MSISDN");
+ 		getElement(txtCustomerCareMSISDN).clearAndSendkeys(msisdn);
+ 		logger.debug("Entered customer care MSISDN");
+    }
+    
+    /**
+     * Select customer care operator.
+     *
+     * @author JayaniP
+     * @param operator the operator
+     * @throws InterruptedException the interrupted exception
+     */
+    public void selectCustomerCareOperator(String operator) throws InterruptedException{
+		Thread.sleep(sleepTime);
+		
+		logger.debug("Start clicking on operator Drop down");
+		getElement(ddCustomerCareOperator).click();
+		logger.debug("Clicked on operator Drop down");
+		
+		logger.debug("Start typing operator");
+		getElement(ddCustomerCareOperator).sendKeys(operator);
+		logger.debug("Typed operator");
+		
+		logger.debug("Start click enter");
+		getElement(ddCustomerCareOperator).sendEnter();
+		logger.debug("Clicked enter");
+		
+	}
+    
+    /**
+     * Select customer care service provider.
+     *
+     * @author JayaniP
+     * @param serviceProvider the service provider
+     * @throws InterruptedException the interrupted exception
+     */
+    public void selectCustomerCareServiceProvider(String serviceProvider) throws InterruptedException{
+		Thread.sleep(sleepTime);
+		
+		logger.debug("Start clicking on service provider Drop down");
+		getElement(ddCustomerCareServiceProvider).click();
+		logger.debug("Clicked on service provider Drop down");
+		
+		logger.debug("Start typing service provider");
+		getElement(ddCustomerCareServiceProvider).sendKeys(serviceProvider);
+		logger.debug("Typed service provider");
+		
+		logger.debug("Start click enter");
+		getElement(ddCustomerCareServiceProvider).sendEnter();
+		logger.debug("Clicked enter");
+		
+	}
+    
+    /**
+     * Select customer care service application.
+     *
+     * @author JayaniP
+     * @param app the app
+     * @throws InterruptedException the interrupted exception
+     */
+    public void selectCustomerCareApplication(String app) throws InterruptedException{
+		Thread.sleep(sleepTime);
+		
+		logger.debug("Start clicking on application Drop down");
+		getElement(ddCustomerCareApplication).click();
+		logger.debug("Clicked on application Drop down");
+		
+		logger.debug("Start typing application");
+		getElement(ddCustomerCareApplication).sendKeys(app);
+		logger.debug("Typed application");
+		
+		logger.debug("Start click enter");
+		getElement(ddCustomerCareApplication).sendEnter();
+		logger.debug("Clicked enter");
+		
+	}
 }
 
 
