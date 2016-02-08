@@ -7,7 +7,6 @@ import com.wso2telco.apimanager.pageobjects.BasicPageObject;
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SubscriptionsPage.
  */
@@ -21,6 +20,9 @@ public class SubscriptionsPage extends BasicPageObject  {
 	
 	/** The lbl app name. */
 	private WebPelement lblAppName = defineEelement(UIType.Xpath, "//div[@id='s2id_appListSelected']/a/span[1]");
+	
+	/** The txt app search. */
+	private WebPelement txtAppSearch = defineEelement(UIType.Xpath, "//div[@id='select2-drop']/div/input");
 	
 	/** The txt token validity prod. */
 	private WebPelement txtTokenValidityProd = defineEelement(UIType.ID, "refreshProdValidityTime");
@@ -39,9 +41,6 @@ public class SubscriptionsPage extends BasicPageObject  {
 	
 	/** The lbl sec key prod. */
 	private WebPelement lblSecKeyProd = defineEelement(UIType.Xpath, "//div[@class='consumerSecret']/span");
-	
-	/** The dd select app. */
-	private WebPelement ddSelectApp = defineEelement(UIType.Xpath, "//span[@class='select2-arrow']/b");
 	
     /** The lbl cons key sand. */
     private WebPelement lblConsKeySand = defineEelement(UIType.Xpath, "//input[@id='refreshSandValidityTime']/../../div[4]/span");
@@ -132,6 +131,8 @@ public class SubscriptionsPage extends BasicPageObject  {
 	public boolean isAppsWithSubscriptions(String appname) throws Exception{
 		flag = false;
 		logger.debug("Validating Applications with subscription");
+		Thread.sleep(sleepTime);
+		clickSelectAppDD(appname);
 		try {
 			if (getElement(lblAppName).getText().equalsIgnoreCase(appname)){
 				flag = true;
@@ -151,19 +152,24 @@ public class SubscriptionsPage extends BasicPageObject  {
 	 *
 	 * @author SulakkhanaW
 	 * @param validity the validity
+	 * @throws InterruptedException 
 	 */
-	public void enterTokenValidityProd(String validity){
+	public void enterTokenValidityProd(String validity) throws InterruptedException{
+		Thread.sleep(sleepTime);
 		logger.debug("Start typing token validity period for production");
 		getElement(txtTokenValidityProd).clearAndSendkeys(validity);
 		logger.debug("Entered token validity period for production");
+		Thread.sleep(sleepTime);
 	}
 	
 	/**
 	 * Click prod gen.
 	 *
 	 * @author SulakkhanaW
+	 * @throws InterruptedException 
 	 */
-	public void clickProdGen(){
+	public void clickProdGen() throws InterruptedException{
+		Thread.sleep(sleepTime);
 		logger.debug("Start clicking on production key generate button");
 		getElement(btnGenerateProd).click();
 		logger.debug("Clicked on production key generate button");
@@ -173,8 +179,10 @@ public class SubscriptionsPage extends BasicPageObject  {
 	 * Click sand gen.
 	 *
 	 * @author SulakkhanaW
+	 * @throws InterruptedException 
 	 */
-	public void clickSandGen(){
+	public void clickSandGen() throws InterruptedException{
+		Thread.sleep(sleepTime);
 		logger.debug("Start clicking on Sandbox key generate button");
 		getElement(btnGenerateSand).click();
 		logger.debug("Clicked on Sandbox key generate button");
@@ -185,8 +193,10 @@ public class SubscriptionsPage extends BasicPageObject  {
 	 *
 	 * @author SulakkhanaW
 	 * @param validity the validity
+	 * @throws InterruptedException 
 	 */
-	public void enterTokenValiditySand(String validity){
+	public void enterTokenValiditySand(String validity) throws InterruptedException{
+		Thread.sleep(sleepTime);
 		logger.debug("Start typing token validity period for sandbox");
 		getElement(txtTokenValiditySand).clearAndSendkeys(validity);
 		logger.debug("Typed token validity period for sandbox");
@@ -271,8 +281,10 @@ public class SubscriptionsPage extends BasicPageObject  {
 	 *
 	 * @author SulakkhanaW
 	 * @return the cons key sand
+	 * @throws InterruptedException 
 	 */
-	public String getConsKeySand(){
+	public String getConsKeySand() throws InterruptedException{
+		Thread.sleep(sleepTime);
 		logger.debug("Finding Sandbox consumer key");
 		String consKeySand = getElement(lblConsKeySand).getText();
 		logger.debug("Sandbox consumer key found");
@@ -308,8 +320,10 @@ public class SubscriptionsPage extends BasicPageObject  {
 	 *
 	 * @author SulakkhanaW
 	 * @return the sec key sand
+	 * @throws InterruptedException 
 	 */
-	public String getSecKeySand(){
+	public String getSecKeySand() throws InterruptedException{
+		Thread.sleep(sleepTime);
 		logger.debug("Finding sandbox consumer secrect key");
 		String secKeySand = getElement(lblSecKeySand).getText();
 		logger.debug("Sandbox consumer secrect key found");
@@ -427,17 +441,19 @@ public class SubscriptionsPage extends BasicPageObject  {
 	 * Click select app dd.
 	 *
 	 * @author SulakkhanaW
+	 * @param appname the appname
+	 * @throws InterruptedException 
 	 */
-	public void clickSelectAppDD(){
+	public void clickSelectAppDD(String appname) throws InterruptedException{
+		Thread.sleep(sleepTime);
 		logger.debug("Start clicking on Application with subscription down arrow");
-		getElement(ddSelectApp).click();
-		// TODO : need to implement this method with the step definitions 
-		logger.debug("Clicked on Application with subscription down arrow");
-	}
-	
-/*	public void selectApp(){
 		getElement(lblAppName).click();
-		//TODO : need to implement this method with the step definitions 
-	}*/
+		logger.debug("Clicked on Application with subscription down arrow");
+		getElement(txtAppSearch).clearAndSendkeys(appname);
+		logger.debug("Searching by application name");
+		getElement(txtAppSearch).sendEnter();
+		logger.debug("Press enter key");
+		Thread.sleep(sleepTime);
+	}
 }
 

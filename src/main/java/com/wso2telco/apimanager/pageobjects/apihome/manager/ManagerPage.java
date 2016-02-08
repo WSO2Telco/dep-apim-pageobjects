@@ -389,6 +389,7 @@ public class ManagerPage extends BasicPageObject {
 	 */
 	public boolean isAllTabsAccessible() throws Exception{
 		flag = false;
+		Thread.sleep(sleepTime);
 		logger.debug("Validating Manager page tabs for admin users");
 		int tabCount = verifyListContent(UIType.Xpath, tabPath).size();
 		try {
@@ -434,10 +435,13 @@ public class ManagerPage extends BasicPageObject {
 	 * Click workflow.
 	 *
 	 * @author JayaniP
+	 * @throws InterruptedException 
 	 */
-	public void clickWorkflow(){
+	public void clickWorkflow() throws InterruptedException{
+		Thread.sleep(sleepTime);
 		logger.debug("Clicking on workflow");
 		getElement(lnkWorkflow).click();
+		Thread.sleep(sleepTime);
 		logger.debug("Clicked on workflow");
 	}
 	
@@ -490,7 +494,7 @@ public class ManagerPage extends BasicPageObject {
 		logger.debug("Validating Application name");
 		Thread.sleep(sleepTime);
 		String xpath = String.format(lblApplicationName, appName);
-		int Names = verifyListContent(UIType.Xpath, xpath).size();
+		int Names = driver.findElements(By.xpath(xpath)).size();
 		try {
 			if (Names == 1){
 				flag = true;
