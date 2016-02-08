@@ -331,6 +331,30 @@ public class ManagerPage extends BasicPageObject {
     
     /** The dd customer care application. */
     private WebPelement ddCustomerCareApplication = defineEelement(UIType.ID, "appSelect");
+    
+    /** The lnk api response time. */
+    private WebPelement lnkAPIResponseTime = defineEelement(UIType.Xpath, "//ul[@class='nav nav-list']/li[9]/a");
+    
+    /** The lbl api response time. */
+    private WebPelement lblAPIResponseTime = defineEelement(UIType.Xpath, "//div[@id='middle']/div[1]/h2");
+    
+    /** The txt api response time from date. */
+    private WebPelement txtAPIResponseTimeFromDate = defineEelement(UIType.ID, "from_date");
+    
+    /** The txt api response time to date. */
+    private WebPelement txtAPIResponseTimeToDate = defineEelement(UIType.ID, "to_date");
+    
+    /** The dd api response time operator. */
+    private WebPelement ddAPIResponseTimeOperator = defineEelement(UIType.ID, "operatorSelect");
+    
+    /** The dd api response time service provider. */
+    private WebPelement ddAPIResponseTimeServiceProvider = defineEelement(UIType.ID, "subscriberSelect");
+    
+    /** The dd api response time application. */
+    private WebPelement ddAPIResponseTimeApplication = defineEelement(UIType.ID, "appSelect");
+    
+    /** The btn api response time generate. */
+    private WebPelement btnAPIResponseTimeGenerate = defineEelement(UIType.Name, "download_file");
 	/**
 	 * Instantiates a new manager page.
 	 *
@@ -2202,6 +2226,154 @@ public class ManagerPage extends BasicPageObject {
 		logger.debug("Clicked enter");
 		
 	}
+    
+    /**
+     * Click on api response time.
+     *
+     * @author JayaniP
+     */
+    public void clickOnAPIResponseTime(){
+    	logger.debug("Start click API response time");
+ 		getElement(lnkAPIResponseTime).click();
+ 		logger.debug("Clicked API response time");
+    }
+    
+    /**
+     * Checks if is API response time page displayed.
+     *
+     * @author JayaniP
+     * @param title the title
+     * @return true, if is API response time page displayed
+     * @throws Exception the exception
+     */
+    public boolean isAPIResponseTimePageDisplayed(String title) throws Exception {
+
+		flag = false;
+		logger.debug("Validating API Response Time Page");
+		Thread.sleep(sleepTime);
+		try {
+			if (title.contains(getElement(lblAPIResponseTime).getText())) {
+				flag = true;
+				logger.debug("Validating API Response Time Page completed");
+			} else {
+				logger.debug("API Response Time Page is Not Matched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating API Response Time Page Title 'isAPIResponseTimePageDisplayed()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating API Response Time Page Title 'isAPIResponseTimePageDisplayed()'"
+							+ e.getLocalizedMessage());
+		}
+		return flag;
+	}
+    
+    /**
+     * Enter api response time from date.
+     *
+     * @author JayaniP
+     * @param fromDate the from date
+     */
+    public void enterAPIResponseTimeFromDate(String fromDate){
+    	logger.debug("Start enter API response time from date");
+ 		getElement(txtAPIResponseTimeFromDate).clearAndSendkeys(fromDate);
+ 		logger.debug("Entered API response time from date");
+    }
+    
+    /**
+     * Enter api response time to date.
+     *
+     * @author JayaniP
+     * @param toDate the to date
+     */
+    public void enterAPIResponseTimeToDate(String toDate){
+    	logger.debug("Start enter API response time to date");
+ 		getElement(txtAPIResponseTimeToDate).clearAndSendkeys(toDate);
+ 		logger.debug("Entered API response time to date");
+    }
+    
+    /**
+     * Select api response times operator.
+     *
+     * @author JayaniP
+     * @param operator the operator
+     * @throws InterruptedException the interrupted exception
+     */
+    public void selectAPIResponseTimesOperator(String operator) throws InterruptedException{
+		Thread.sleep(sleepTime);
+		
+		logger.debug("Start clicking on operator Drop down");
+		getElement(ddAPIResponseTimeOperator).click();
+		logger.debug("Clicked on operator Drop down");
+		
+		logger.debug("Start typing operator");
+		getElement(ddAPIResponseTimeOperator).sendKeys(operator);
+		logger.debug("Typed operator");
+		
+		logger.debug("Start click enter");
+		getElement(ddAPIResponseTimeOperator).sendEnter();
+		logger.debug("Clicked enter");
+		
+	}
+    
+    /**
+     * Select api response times service provider.
+     *
+     * @author JayaniP
+     * @param serviceProvider the service provider
+     * @throws InterruptedException the interrupted exception
+     */
+    public void selectAPIResponseTimesServiceProvider(String serviceProvider) throws InterruptedException{
+		Thread.sleep(sleepTime);
+		
+		logger.debug("Start clicking on service provider Drop down");
+		getElement(ddAPIResponseTimeServiceProvider).click();
+		logger.debug("Clicked on service provider Drop down");
+		
+		logger.debug("Start typing service provider");
+		getElement(ddAPIResponseTimeServiceProvider).sendKeys(serviceProvider);
+		logger.debug("Typed service provider");
+		
+		logger.debug("Start click enter");
+		getElement(ddAPIResponseTimeServiceProvider).sendEnter();
+		logger.debug("Clicked enter");
+		
+	}
+    
+    /**
+     * Select api response times application.
+     *
+     * @author JayaniP
+     * @param app the app
+     * @throws InterruptedException the interrupted exception
+     */
+    public void selectAPIResponseTimesApplication(String app) throws InterruptedException{
+		Thread.sleep(sleepTime);
+		
+		logger.debug("Start clicking on application Drop down");
+		getElement(ddAPIResponseTimeApplication).click();
+		logger.debug("Clicked on application Drop down");
+		
+		logger.debug("Start typing application");
+		getElement(ddAPIResponseTimeApplication).sendKeys(app);
+		logger.debug("Typed application");
+		
+		logger.debug("Start click enter");
+		getElement(ddAPIResponseTimeApplication).sendEnter();
+		logger.debug("Clicked enter");
+		
+	}
+    
+    /**
+     * Click on api response time generate.
+     *
+     * @author JayaniP
+     */
+    public void clickOnAPIResponseTimeGenerate(){
+    	logger.debug("Start click generate");
+		getElement(btnAPIResponseTimeGenerate).click();
+		logger.debug("Clicked generate");
+    }
 }
 
 
