@@ -379,6 +379,9 @@ public class ManagerPage extends BasicPageObject {
     
     /** The dd performance error rates api. */
     private WebPelement ddPerformanceErrorRatesAPI = defineEelement(UIType.ID, "api");
+    
+    /** The btn monthly invoice download report. */
+    private WebPelement btnMonthlyInvoiceDownloadReport = defineEelement(UIType.Xpath, "//div[@id='userKey']/button");
 	/**
 	 * Instantiates a new manager page.
 	 *
@@ -2559,6 +2562,17 @@ public class ManagerPage extends BasicPageObject {
 		logger.debug("Clicked enter");
 		
 	}
+    
+    /**
+     * Click on monthly invoice download report.
+     *
+     * @author JayaniP
+     */
+    public void clickOnMonthlyInvoiceDownloadReport(){
+    	logger.debug("Start click Download Report");
+		getElement(btnMonthlyInvoiceDownloadReport).click();
+		logger.debug("Clicked Download Report");
+    }
 }
 
 
