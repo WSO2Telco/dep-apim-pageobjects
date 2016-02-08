@@ -251,6 +251,27 @@ public class ManagerPage extends BasicPageObject {
     /** The btn download report. */
     private WebPelement btnDownloadReport = defineEelement(UIType.Name, "download_file");
     
+    /** The lnk operator api traffic. */
+    private WebPelement lnkOperatorAPITraffic = defineEelement(UIType.Xpath, "//ul[@class='nav nav-list']/li[4]/a");
+    
+    /** The lbl operator api traffic. */
+    private WebPelement lblOperatorAPITraffic = defineEelement(UIType.Xpath, "//div[@id='middle']/div[1]/h2");
+    
+    /** The txt operator api traffic from date. */
+    private WebPelement txtOperatorAPITrafficFromDate = defineEelement(UIType.ID, "from_date");
+ 
+    /** The txt operator api traffic to date. */
+    private WebPelement txtOperatorAPITrafficToDate = defineEelement(UIType.ID, "to_date");
+    
+    /** The dd operator api traffic service provider. */
+    private WebPelement ddOperatorAPITrafficServiceProvider = defineEelement(UIType.ID, "subscriber");
+    
+    /** The dd operator api traffic api. */
+    private WebPelement ddOperatorAPITrafficAPI = defineEelement(UIType.ID, "api");
+    
+    /** The dd operator api traffic application. */
+    private WebPelement ddOperatorAPITrafficApplication = defineEelement(UIType.ID, "app");
+    
 	/**
 	 * Instantiates a new manager page.
 	 *
@@ -1562,6 +1583,143 @@ public class ManagerPage extends BasicPageObject {
  		getElement(btnDownloadReport).click();
  		logger.debug("Clicked download file");
     }
+    
+    /**
+     * Click operator api traffic.
+     *
+     * @author JayaniP
+     */
+    public void clickOperatorAPITraffic(){
+    	logger.debug("Start click Operator API Traffic");
+ 		getElement(lnkOperatorAPITraffic).click();
+ 		logger.debug("Clicked Operator API Traffic");
+    }
+    
+    /**
+     * Checks if is operator api traffic page displayed.
+     *
+     * @author JayaniP
+     * @param title the title
+     * @return true, if is operator api traffic page displayed
+     * @throws Exception the exception
+     */
+    public boolean isOperatorAPITrafficPageDisplayed(String title) throws Exception {
+
+		flag = false;
+		logger.debug("Validating Operator API Traffic Page");
+		Thread.sleep(sleepTime);
+		try {
+			if (title.contains(getElement(lblOperatorAPITraffic).getText())) {
+				flag = true;
+				logger.debug("Validating Operator API Traffic Page completed");
+			} else {
+				logger.debug("Operator API Traffic Page is Not Matched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Operator API Traffic Page Title 'isOperatorAPITrafficPageDisplayed()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating Operator API Traffic Page Title 'isOperatorAPITrafficPageDisplayed()'"
+							+ e.getLocalizedMessage());
+		}
+		return flag;
+	}
+    
+    /**
+     * Enter operator api traffic from date.
+     *
+     * @author JayaniP
+     * @param fromDate the from date
+     */
+    public void enterOperatorAPITrafficFromDate(String fromDate){
+    	logger.debug("Enter Operator API Traffic From Date");
+ 		getElement(txtOperatorAPITrafficFromDate).clearAndSendkeys(fromDate);
+ 		logger.debug("Entered Operator API Traffic From Date");
+    }
+    
+    /**
+     * Enter operator api traffic to date.
+     *
+     * @author JayaniP
+     * @param toDate the to date
+     */
+    public void enterOperatorAPITrafficToDate(String toDate){
+    	logger.debug("Enter Operator API Traffic To Date");
+ 		getElement(txtOperatorAPITrafficToDate).clearAndSendkeys(toDate);
+ 		logger.debug("Entered Operator API Traffic To Date");
+    }
+    
+    /**
+     * Select operator api traffic service provider.
+     *
+     * @author JayaniP
+     * @param serviceProvider the service provider
+     * @throws InterruptedException the interrupted exception
+     */
+    public void selectOperatorAPITrafficServiceProvider(String serviceProvider) throws InterruptedException{
+		Thread.sleep(sleepTime);
+		
+		logger.debug("Start clicking on service provider Drop down");
+		getElement(ddOperatorAPITrafficServiceProvider).click();
+		logger.debug("Clicked on service provider Drop down");
+		
+		logger.debug("Start typing service provider");
+		getElement(ddOperatorAPITrafficServiceProvider).sendKeys(serviceProvider);
+		logger.debug("Typed service provider");
+		
+		logger.debug("Start click enter");
+		getElement(ddOperatorAPITrafficServiceProvider).sendEnter();
+		logger.debug("Clicked enter");
+		
+	}
+    
+    /**
+     * Select operator api traffic application.
+     *
+     * @author JayaniP
+     * @param app the app
+     * @throws InterruptedException the interrupted exception
+     */
+    public void selectOperatorAPITrafficApplication(String app) throws InterruptedException{
+		Thread.sleep(sleepTime);
+		
+		logger.debug("Start clicking on application Drop down");
+		getElement(ddOperatorAPITrafficApplication).click();
+		logger.debug("Clicked on application Drop down");
+		
+		logger.debug("Start typing application");
+		getElement(ddOperatorAPITrafficApplication).sendKeys(app);
+		logger.debug("Typed application");
+		
+		logger.debug("Start click enter");
+		getElement(ddOperatorAPITrafficApplication).sendEnter();
+		logger.debug("Clicked enter");
+		
+	}
+    
+    /**
+     * Select operator api traffic api.
+     *
+     * @author JayaniP
+     * @param api the api
+     * @throws InterruptedException the interrupted exception
+     */
+    public void selectOperatorAPITrafficAPI(String api) throws InterruptedException{
+ 		Thread.sleep(sleepTime);
+ 		
+ 		logger.debug("Start clicking on api Drop down");
+ 		getElement(ddOperatorAPITrafficAPI).click();
+ 		logger.debug("Clicked on api Drop down");
+ 		
+ 		logger.debug("Start typing api");
+ 		getElement(ddOperatorAPITrafficAPI).sendKeys(api);
+ 		logger.debug("Typed api");
+ 		
+ 		logger.debug("Start click enter");
+ 		getElement(ddOperatorAPITrafficAPI).sendEnter();
+ 		logger.debug("Clicked enter");
+ 		
+ 	}
 }
 
 
