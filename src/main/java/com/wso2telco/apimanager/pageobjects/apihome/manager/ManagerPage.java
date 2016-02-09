@@ -108,9 +108,6 @@ public class ManagerPage extends BasicPageObject {
 	/** The btn view. */
 	private WebPelement btnView = defineEelement(UIType.ID, "view");
 	
-	/** The lbl whitelist ussd. */
-	private WebPelement lblWhitelistAPI = defineEelement(UIType.Xpath, "//select[@id='apiSelect']/option[contains(.,'AuxAppTest')]");
-	
 	/** The btn manual. */
 	private WebPelement btnManual = defineEelement(UIType.ID, "isManual");
 	
@@ -175,17 +172,7 @@ public class ManagerPage extends BasicPageObject {
 	 * %s_1 = number
 	 **/
 	private String lblNumber = "//td[text()='%s']";
-    
-    /** The lbl subscriber name. 
-     * %S_1 = subscriber
-     **/
-    private String lblSubscriberName = "//select[@id='subsSelect']/option[contains(.,'%s')]";
-    
-    /** The ddl application name. 
-     * %s_1 = appName
-     **/
-    private String ddlApplicationName = "//select[@id='appSelect']/option[contains(.,'%s')]";
-    
+
     /** The lbl white list numbers. 
      * %s_1 = number
      **/
@@ -1122,55 +1109,49 @@ public class ManagerPage extends BasicPageObject {
 		}
 		return flag;
 	}
-	
-	/**
-	 * Click subscriber drop box.
-	 *
-	 * @author JayaniP
-	 */
-	public void clickSubscriberDropBox(){
-		logger.debug("Click on Subscriber");
-		getElement(ddSubscriber).click();
-		logger.debug("Clicked on Subscriber");
-	}
-	
+
     /**
      * Select subscriber.
      *
      * @author JayaniP
      * @param subscriber the subscriber
      */
-    public void selectSubscriber(String subscriber){
-    	logger.debug("Select a Subscriber");
-    	String xpath = String.format(lblSubscriberName, subscriber);
-		WebPelement lblSubscriber = defineEelement(UIType.Xpath, xpath);
-		getElement(lblSubscriber).click();
-		logger.debug("Selected a Subscriber");
+    public void selectSubscriber(String subscriber) throws InterruptedException{
+    	logger.debug("Start clicking on Subscriber Drop down");
+		getElement(ddSubscriber).click();
+		logger.debug("Clicked on Subscriber Drop down");
+		
+		logger.debug("Start typing Subscriber type");
+		getElement(ddSubscriber).sendKeys(subscriber);
+		logger.debug("Typed Subscriber type");
+		
+		logger.debug("Start click enter");
+		getElement(ddSubscriber).sendEnter();
+		logger.debug("Clicked enter");
+
     }
-    
-    /**
-     * Click application drop box.
-     *
-     * @author JayaniP
-     */
-    public void clickApplicationDropBox(){
-    	logger.debug("Click on Application");
-    	getElement(ddApplication).click();
-		logger.debug("Clicked on Application");
-    }
-   
+
     /**
      * Select application.
      *
      * @author JayaniP
      * @param appname the appname
      */
-    public void selectApplication(String appname){
-    	String xpath = String.format(ddlApplicationName, appname);
-		WebPelement lblApplication = defineEelement(UIType.Xpath, xpath);
-		logger.debug("Selecting an Application");
-		getElement(lblApplication).click();
-		logger.debug("Selected an Application");
+    public void selectApplication(String appname) throws InterruptedException{
+        Thread.sleep(sleepTime);
+		
+		logger.debug("Start clicking on application Drop down");
+		getElement(ddApplication).click();
+		logger.debug("Clicked on application Drop down");
+		
+		logger.debug("Start typing application type");
+		getElement(ddApplication).sendKeys(appname);
+		logger.debug("Typed application type");
+		
+		logger.debug("Start click enter");
+		getElement(ddApplication).sendEnter();
+		logger.debug("Clicked enter");
+
     }
     
     /**
@@ -1189,10 +1170,21 @@ public class ManagerPage extends BasicPageObject {
      *
      * @author JayaniP
      */
-    public void selectWhiteListAPI(){
-    	logger.debug("Select ussd");
-    	getElement(lblWhitelistAPI).click();
-		logger.debug("Selected ussd");
+    public void selectWhiteListAPI(String api) throws InterruptedException{
+        Thread.sleep(sleepTime);
+		
+		logger.debug("Start clicking on API Drop down");
+		getElement(ddAPI).click();
+		logger.debug("Clicked on API Drop down");
+		
+		logger.debug("Start typing api type");
+		getElement(ddAPI).sendKeys(api);
+		logger.debug("Typed api type");
+		
+		logger.debug("Start click enter");
+		getElement(ddAPI).sendEnter();
+		logger.debug("Clicked enter");
+
     }
     
     /**
@@ -1306,7 +1298,6 @@ public class ManagerPage extends BasicPageObject {
     public void enterWhiteListNumberList(String numbers){
 		logger.debug("Enter the number list to blacklist");
 		Alert alert = driver.switchTo().alert();
-		alert.accept();
 		alert.sendKeys(numbers);
 		logger.debug("Entered the number list");
 	}

@@ -35,19 +35,19 @@ public class ApplicationsPage extends BasicPageObject  {
 	private WebPelement btnAppAdd = defineEelement(UIType.ID, "application-add-button");
 	
 	/** The lbl application name. */
-	private WebPelement lblApplicationName = defineEelement(UIType.Xpath, "//table[@id='applicationTable']//tr[1]/td[1]");
+	private String lblApplicationName = "//td[contains(.,'%s_%s')]";
 	
 	/** The ddl tier. */
-	private WebPelement ddlTier = defineEelement(UIType.Xpath, "//table[@id='applicationTable']//tr[1]/td[2]/select");
+	private String ddlTier = "//td[contains(.,'%s_%s')]/following-sibling::td[1]/select";
 	
 	/** The lbl status. */
-	private WebPelement lblStatus = defineEelement(UIType.Xpath, "//table[@id='applicationTable']//tr[1]/td[3]");
+	private String lblStatus = "//td[contains(.,'%s_%s')]/following-sibling::td[2]";
 	
 	/** The lbl callbackurl. */
-	private WebPelement lblCallbackurl = defineEelement(UIType.Xpath, "//table[@id='applicationTable']//tr[1]/td[4]");
+	private String lblCallbackurl = "//td[contains(.,'%s_%s')]/following-sibling::td[3]";
 	
 	/** The lbl description. */
-	private WebPelement lblDescription = defineEelement(UIType.Xpath, "//table[@id='applicationTable']//tr[1]/td[5]");
+	private String lblDescription = "//td[contains(.,'%s_%s')]/following-sibling::td[4]";
 	
 	/** The btn yes. */
 	private WebPelement btnYes = defineEelement(UIType.Xpath, ".//*[@id='messageModal']/div[3]/a[contains(.,'Yes')]");
@@ -183,7 +183,9 @@ public class ApplicationsPage extends BasicPageObject  {
 	public boolean isApplicationName(String username, String appName) throws Exception{
 		flag = false;
 		logger.debug("Validating Application name");
-		String appname = getElement(lblApplicationName).getText().trim();
+		String xpath = String.format(lblApplicationName, username, appName);
+		WebPelement applicationName = defineEelement(UIType.Xpath, xpath);
+		String appname = getElement(applicationName).getText().trim();
 		String tableAppName = username + "_" + appname;
 		try {
 			if (tableAppName.contains(appName)){
@@ -207,11 +209,13 @@ public class ApplicationsPage extends BasicPageObject  {
 	 * @return true, if is teirname
 	 * @throws Exception the exception
 	 */
-	public boolean isTeirname(String teir) throws Exception{
+	public boolean isTeirname(String teir,String username,String appname) throws Exception{
 		flag = false;
 		logger.debug("Validating tier name");
+		String xpath = String.format(ddlTier, username, appname);
+		WebPelement tierName = defineEelement(UIType.Xpath, xpath);
 		try {
-			if (getElement(ddlTier).getText().trim().contains(teir)){
+			if (tierName.getText().trim().contains(teir)){
 				flag = true;
 				logger.debug("Application tier matched");
 			} else {
@@ -232,11 +236,13 @@ public class ApplicationsPage extends BasicPageObject  {
 	 * @return true, if is application status
 	 * @throws Exception the exception
 	 */
-	public boolean isApplicationStatus(String status) throws Exception{
+	public boolean isApplicationStatus(String status,String username,String appname) throws Exception{
 		flag = false;
 		logger.debug("Validating application status");
+		String xpath = String.format(lblStatus, username, appname);
+		WebPelement statusName = defineEelement(UIType.Xpath, xpath);
 		try {
-			if (getElement(lblStatus).getText().trim().contains(status)){
+			if (statusName.getText().trim().contains(status)){
 				flag = true;
 				logger.debug("Application status matched");
 			} else {
@@ -257,11 +263,13 @@ public class ApplicationsPage extends BasicPageObject  {
 	 * @return true, if is callbackurl
 	 * @throws Exception the exception
 	 */
-	public boolean isCallbackurl(String url) throws Exception{
+	public boolean isCallbackurl(String url,String username,String appname) throws Exception{
 		flag = false;
 		logger.debug("Validating application callback url");
+		String xpath = String.format(lblCallbackurl, username, appname);
+		WebPelement callbackURL = defineEelement(UIType.Xpath, xpath);
 		try {
-			if (getElement(lblCallbackurl).getText().trim().contains(url)){
+			if (callbackURL.getText().trim().contains(url)){
 				flag = true;
 				logger.debug("Application callback url matched");
 			} else {
@@ -282,11 +290,13 @@ public class ApplicationsPage extends BasicPageObject  {
 	 * @return true, if successful
 	 * @throws Exception the exception
 	 */
-	public boolean validateDescription(String description) throws Exception{
+	public boolean validateDescription(String description,String username,String appname) throws Exception{
 		flag = false;
 		logger.debug("Validating application cdescription");
+		String xpath = String.format(lblDescription, username, appname);
+		WebPelement textDescription = defineEelement(UIType.Xpath, xpath);
 		try {
-			if (getElement(lblDescription).getText().trim().contains(description)){
+			if (textDescription.getText().trim().contains(description)){
 				flag = true;
 				logger.debug("Application description matched");
 			} else {
