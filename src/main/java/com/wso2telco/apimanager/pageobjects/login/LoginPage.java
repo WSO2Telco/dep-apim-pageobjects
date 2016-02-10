@@ -21,6 +21,9 @@ public class LoginPage extends BasicPageObject {
 	/** The link login. */
 	private WebPelement linkLogin = defineEelement(UIType.ID, "login-link");
 	
+	/** The link login_ ie. */
+	private WebPelement linkLogin_IE = defineEelement(UIType.Xpath, "//a[@id='login-link']");
+	
 	/** The txt login user name. */
 	private WebPelement txtLoginUserName = defineEelement(UIType.ID, "username");
 	
@@ -69,10 +72,23 @@ public class LoginPage extends BasicPageObject {
      *
      * @author SulakkhanaW
      */
-    public void clickLogInLink(){
+    public void clickLogInLink() throws Exception{
     	logger.debug("Clicking on Login");
-    	getElement(linkLogin).click();
-    	logger.debug("Clicked on Login");
+    	WebPelement eleLogin = linkLogin;
+    	try {
+    	if (config.getValue("browser").equalsIgnoreCase("INTERNETEXPLORER")){
+    		eleLogin = linkLogin_IE;
+    		logger.debug("Clicked on Login");
+    	}
+    	else{
+    		getElement(eleLogin).click();
+    		logger.debug("Clicked on Login");
+    	}
+    	} catch (Exception e) {
+    	logger.debug("Exception While Clicking on Login 'clickLogInLink()'" + e.getMessage());
+    	throw new Exception("Exception While Clicking on Login 'clickLogInLink()'" + e.getLocalizedMessage());
+    	}
+    	
 	}
 	
 	/**
@@ -199,7 +215,11 @@ public class LoginPage extends BasicPageObject {
 		flag = false;
 		logger.debug("Validating Login button");
 		try {
-			if (getElement(linkLogin).getText().equalsIgnoreCase(value)){
+			WebPelement eleLogin = linkLogin;
+			if (config.getValue("browser").equalsIgnoreCase("INTERNETEXPLORER")){
+				eleLogin = linkLogin_IE;
+				}
+			if (getElement(eleLogin).getText().equalsIgnoreCase(value)){
 				flag = true;
 				logger.debug("Login button visible");
 			} else {
