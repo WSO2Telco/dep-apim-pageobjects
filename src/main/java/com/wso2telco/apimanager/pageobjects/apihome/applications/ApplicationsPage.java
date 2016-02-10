@@ -185,8 +185,8 @@ public class ApplicationsPage extends BasicPageObject  {
 		logger.debug("Validating Application name");
 		String xpath = String.format(lblApplicationName, username, appName);
 		WebPelement applicationName = defineEelement(UIType.Xpath, xpath);
-		String appname = getElement(applicationName).getText().trim();
-		String tableAppName = username + "_" + appname;
+		String applicationname = getElement(applicationName).getText().trim();
+		String tableAppName = username + "_" + applicationname;
 		try {
 			if (tableAppName.contains(appName)){
 				flag = true;
@@ -209,13 +209,14 @@ public class ApplicationsPage extends BasicPageObject  {
 	 * @return true, if is teirname
 	 * @throws Exception the exception
 	 */
-	public boolean isTeirname(String teir,String username,String appname) throws Exception{
+	public boolean isTeirname(String username,String appname,String teir) throws Exception{
 		flag = false;
 		logger.debug("Validating tier name");
 		String xpath = String.format(ddlTier, username, appname);
 		WebPelement tierName = defineEelement(UIType.Xpath, xpath);
+		
 		try {
-			if (tierName.getText().trim().contains(teir)){
+			if (getElement(tierName).getAttribute("value").trim().contains(teir)){
 				flag = true;
 				logger.debug("Application tier matched");
 			} else {
@@ -236,13 +237,13 @@ public class ApplicationsPage extends BasicPageObject  {
 	 * @return true, if is application status
 	 * @throws Exception the exception
 	 */
-	public boolean isApplicationStatus(String status,String username,String appname) throws Exception{
+	public boolean isApplicationStatus(String username,String appname,String status) throws Exception{
 		flag = false;
 		logger.debug("Validating application status");
 		String xpath = String.format(lblStatus, username, appname);
 		WebPelement statusName = defineEelement(UIType.Xpath, xpath);
 		try {
-			if (statusName.getText().trim().contains(status)){
+			if (getElement(statusName).getText().trim().contains(status)){
 				flag = true;
 				logger.debug("Application status matched");
 			} else {
@@ -290,13 +291,13 @@ public class ApplicationsPage extends BasicPageObject  {
 	 * @return true, if successful
 	 * @throws Exception the exception
 	 */
-	public boolean validateDescription(String description,String username,String appname) throws Exception{
+	public boolean validateDescription(String username,String appname,String description) throws Exception{
 		flag = false;
 		logger.debug("Validating application cdescription");
 		String xpath = String.format(lblDescription, username, appname);
 		WebPelement textDescription = defineEelement(UIType.Xpath, xpath);
 		try {
-			if (textDescription.getText().trim().contains(description)){
+			if (getElement(textDescription).getText().trim().contains(description)){
 				flag = true;
 				logger.debug("Application description matched");
 			} else {
