@@ -1,12 +1,15 @@
 package com.wso2telco.apimanager.pageobjects.apipublisher;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class APIPublisherHomePage.
  */
@@ -39,6 +42,9 @@ public class APIPublisherHomePage extends BasicPageObject {
 	/** The txt api url. */
 	private WebPelement txtApiURL = defineEelement(UIType.ID, "resource_url_pattern");
 	
+	/** The txt resource name. */
+	private WebPelement txtResourceName = defineEelement(UIType.ID, "inputResource");
+	
 	/** The btn add new resource. */
 	private WebPelement btnAddNewResource = defineEelement(UIType.ID, "add_resource");
 	
@@ -46,7 +52,7 @@ public class APIPublisherHomePage extends BasicPageObject {
 	private WebPelement lnkResource = defineEelement(UIType.Xpath, "//tr[2]/td[2]/a");
 	
 	/** The txt parameter name. */
-	private WebPelement txtParameterName = defineEelement(UIType.ID, "parameter_name");
+	private WebPelement txtParameterName = defineEelement(UIType.ClassName, "parameter_name");
 	
 	/** The lnk add description. */
 	private WebPelement lnkAddDescription = defineEelement(UIType.Xpath, "//tr[2]/td[2]/a[@class='param_desc editable editable-click editable-empty']");
@@ -159,6 +165,7 @@ public class APIPublisherHomePage extends BasicPageObject {
 	 */
 	public boolean isUserLogin(String username) throws Exception{
 		flag = false;
+		Thread.sleep(sleepTime);
 		logger.debug("Validating User login");
 		try {
 			if (getElement(lblUsername).getText().trim().equalsIgnoreCase(username)){
@@ -209,7 +216,7 @@ public class APIPublisherHomePage extends BasicPageObject {
 		String closeXpath = String.format(btnAPIClose, apiName);
 		WebPelement lnkclose = defineEelement(UIType.Xpath, closeXpath);
 		WebPelement btnYes = defineEelement(UIType.Xpath, "//a[text()='Yes']");
-		int count = verifyListContent(UIType.Xpath, xpath).size();
+		int count = driver.findElements(By.xpath(xpath)).size();//verifyListContent(UIType.Xpath, xpath).size();
 		try {
 			if(count != 0){
 				logger.debug("API exist");
@@ -230,10 +237,12 @@ public class APIPublisherHomePage extends BasicPageObject {
 	 * Click api add.
 	 *
 	 * @author SulakkhanaW
+	 * @throws InterruptedException the interrupted exception
 	 */
-	public void clickApiAdd(){
+	public void clickApiAdd() throws InterruptedException{
 		logger.debug("Clicking on API add");
 		getElement(lnkAPIAdd).click();
+		Thread.sleep(sleepTime);
 		logger.debug("Clicked on API add");
 	}
 	
@@ -242,9 +251,11 @@ public class APIPublisherHomePage extends BasicPageObject {
 	 *
 	 * @author SulakkhanaW
 	 * @param apiName the api name
+	 * @throws InterruptedException the interrupted exception
 	 */
-	public void enterAPIName(String apiName){
+	public void enterAPIName(String apiName) throws InterruptedException{
 		logger.debug("Entering API name");
+		Thread.sleep(sleepTime);
 		getElement(txtApiName).clearAndSendkeys(apiName);
 		logger.debug("Entered API name");
 	}
@@ -283,6 +294,20 @@ public class APIPublisherHomePage extends BasicPageObject {
 		logger.debug("Entering API URL");
 		getElement(txtApiURL).clearAndSendkeys(url);
 		logger.debug("Entered API URL");
+	}
+	
+	/**
+	 * Enter resource name.
+	 *
+	 * @author SulakkhanaW
+	 * @param resourceName the resource name
+	 * @throws InterruptedException the interrupted exception
+	 */
+	public void enterResourceName(String resourceName) throws InterruptedException{
+		logger.debug("Entering Resource name");
+		getElement(txtResourceName).clearAndSendkeys(resourceName);
+		logger.debug("Entered Resource name");
+		Thread.sleep(sleepTime);
 	}
 	
 	/**
@@ -547,8 +572,9 @@ public class APIPublisherHomePage extends BasicPageObject {
 	 *
 	 * @author SulakkhanaW
 	 * @param tier the tier
+	 * @throws InterruptedException 
 	 */
-	public void selectTierAvailability(String tier){
+	public void selectTierAvailability(String tier) throws InterruptedException{
 		logger.debug("Clicking Tier availabilty drop down");
 		getElement(btnTierAvailability).click();
 		logger.debug("Clicked Tier availabilty drop down");
@@ -557,15 +583,19 @@ public class APIPublisherHomePage extends BasicPageObject {
 		logger.debug("Selecting Tier");
 		getElement(lblTier).click();
 		logger.debug("Tier Selected");
+		Thread.sleep(sleepTime);
+		getElement(lblTier).sendKeys(Keys.ESCAPE);
 	}
 	
 	/**
 	 * Click save publish.
 	 *
 	 * @author SulakkhanaW
+	 * @throws InterruptedException 
 	 */
-	public void clickSavePublish(){
+	public void clickSavePublish() throws InterruptedException{
 		logger.debug("Clicking on Publish");
+		Thread.sleep(sleepTime);
 		getElement(btnSavePublish).click();
 		logger.debug("Clicked on Publish");
 	}
