@@ -54,6 +54,12 @@ public class SubscriptionsPage extends BasicPageObject  {
 	/** The btn re generate sand. */
 	private WebPelement btnReGenerateSand = defineEelement(UIType.Xpath, "//input[@id='refreshSandValidityTime']/../../div[3]/button");
 	
+	/** The lbl access token prod. */
+	private WebPelement lblAccessTokenProd = defineEelement(UIType.Xpath, "//div[@class='consumerKey']/../div[1]/span");
+	
+	/** The lbl access token sand. */
+	private WebPelement lblAccessTokenSand = defineEelement(UIType.Xpath, "//input[@id='refreshSandValidityTime']/../../div[1]/span");
+	
 	/**
 	 * Instantiates a new subscriptions page.
 	 *
@@ -251,6 +257,7 @@ public class SubscriptionsPage extends BasicPageObject  {
 		logger.debug("Production consumer secrect key found");
 		return secKeyProd;
 	}
+
 	
 	/**
 	 * Checks if is production consumer secrect key.
@@ -455,5 +462,37 @@ public class SubscriptionsPage extends BasicPageObject  {
 		logger.debug("Press enter key");
 		Thread.sleep(sleepTime);
 	}
+	
+	/**
+	 * Gets the access token prod.
+	 *
+	 * @author JayaniP
+	 * @return the access token prod
+	 * @throws InterruptedException the interrupted exception
+	 */
+	public String getAccessTokenProd() throws InterruptedException{
+		Thread.sleep(sleepTime);
+		logger.debug("Finding production access token");
+		String tokenProd = getElement(lblAccessTokenProd).getText();
+		logger.debug("Production access token found");
+		return tokenProd;
+	}
+	
+	/**
+	 * Gets the access token sand.
+	 *
+	 * @author JayaniP
+	 * @return the access token sand
+	 * @throws InterruptedException the interrupted exception
+	 */
+	public String getAccessTokenSand() throws InterruptedException{
+		Thread.sleep(sleepTime);
+		logger.debug("Finding SandBox access token");
+		String tokenSand = getElement(lblAccessTokenSand).getText();
+		logger.debug("SandBox access token found");
+		return tokenSand;
+	}
+	
+	
 }
 
