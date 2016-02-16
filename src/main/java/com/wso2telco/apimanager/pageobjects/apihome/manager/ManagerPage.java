@@ -369,6 +369,16 @@ public class ManagerPage extends BasicPageObject {
     
     /** The btn monthly invoice download report. */
     private WebPelement btnMonthlyInvoiceDownloadReport = defineEelement(UIType.Xpath, "//div[@id='userKey']/button");
+    
+    /** The lbl white list added popup. */
+    private WebPelement lblWhiteListAddedPopup = defineEelement(UIType.Xpath, "//span[@class='messageText']");
+    
+    /** The btn white list added popup ok. */
+    private WebPelement btnWhiteListAddedPopupOK = defineEelement(UIType.Xpath, "//a[contains(text(),'OK')]");
+    
+    /** The lbl white list error popup. */
+    private WebPelement lblWhiteListErrorPopup = defineEelement(UIType.Xpath, "//span[@class='messageText']");
+    
 	/**
 	 * Instantiates a new manager page.
 	 *
@@ -567,7 +577,7 @@ public class ManagerPage extends BasicPageObject {
 	 * Click workflow.
 	 *
 	 * @author JayaniP
-	 * @throws InterruptedException 
+	 * @throws InterruptedException the interrupted exception
 	 */
 	public void clickWorkflow() throws InterruptedException{
 		Thread.sleep(sleepTime);
@@ -1073,10 +1083,12 @@ public class ManagerPage extends BasicPageObject {
 	 * Click white list tab.
 	 *
 	 * @author JayaniP
+	 * @throws Exception the exception
 	 */
-	public void clickWhiteListTab(){
+	public void clickWhiteListTab() throws Exception{
 		logger.debug("Click on White list tab");
 		getElement(lnkWhiteList).click();
+		Thread.sleep(sleepTime);
 		logger.debug("Clicked on White list tab");
 	}
 	
@@ -1115,6 +1127,7 @@ public class ManagerPage extends BasicPageObject {
      *
      * @author JayaniP
      * @param subscriber the subscriber
+     * @throws InterruptedException the interrupted exception
      */
     public void selectSubscriber(String subscriber) throws InterruptedException{
     	logger.debug("Start clicking on Subscriber Drop down");
@@ -1136,6 +1149,7 @@ public class ManagerPage extends BasicPageObject {
      *
      * @author JayaniP
      * @param appname the appname
+     * @throws InterruptedException the interrupted exception
      */
     public void selectApplication(String appname) throws InterruptedException{
         Thread.sleep(sleepTime);
@@ -1169,6 +1183,8 @@ public class ManagerPage extends BasicPageObject {
      * Select white list apiussd.
      *
      * @author JayaniP
+     * @param api the api
+     * @throws InterruptedException the interrupted exception
      */
     public void selectWhiteListAPI(String api) throws InterruptedException{
         Thread.sleep(sleepTime);
@@ -2568,6 +2584,79 @@ public class ManagerPage extends BasicPageObject {
 		getElement(btnMonthlyInvoiceDownloadReport).click();
 		logger.debug("Clicked Download Report");
     }
+    
+    /**
+     * Checks if is white list added successfully popup displayed.
+     *
+     * @author JayaniP
+     * @param title the title
+     * @return true, if is white list added successfully popup displayed
+     * @throws Exception the exception
+     */
+    public boolean isWhiteListAddedSuccessfullyPopupDisplayed(String title) throws Exception {
+
+		flag = false;
+		logger.debug("Validating Success Pop up");
+		Thread.sleep(sleepTime);
+		try {
+			if (title.contains(getElement(lblWhiteListAddedPopup).getText())) {
+				flag = true;
+				logger.debug("Validating Success Pop up completed");
+			} else {
+				logger.debug("Success Pop up is Not Matched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Success Pop up Title 'isWhiteListAddedSuccessfullyPopupDisplayed()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating Success Pop up Title 'isWhiteListAddedSuccessfullyPopupDisplayed()'"
+							+ e.getLocalizedMessage());
+		}
+		return flag;
+	}
+    
+    /**
+     * Click ok.
+     *
+     * @author JayaniP
+     * @throws Exception the exception
+     */
+    public void clickOK() throws Exception{
+    	logger.debug("Start clicking on OK");
+		getElement(btnWhiteListAddedPopupOK).click();
+		Thread.sleep(sleepTime);
+		logger.debug("Clicked OK");
+    }
+    
+    /**
+     * Checks if is white list error popup displayed.
+     *
+     * @author JayaniP
+     * @param title the title
+     * @return true, if is white list error popup displayed
+     * @throws Exception the exception
+     */
+    public boolean isWhiteListErrorPopupDisplayed(String title) throws Exception {
+
+		flag = false;
+		logger.debug("Validating Error Pop up");
+		Thread.sleep(sleepTime);
+		try {
+			if (title.contains(getElement(lblWhiteListErrorPopup).getText())) {
+				flag = true;
+				logger.debug("Validating Error Pop up completed");
+			} else {
+				logger.debug("Error Pop up is Not Matched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Error Pop up Title 'isWhiteListErrorPopupDisplayed()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating Error Pop up Title 'isWhiteListErrorPopupDisplayed()'"
+							+ e.getLocalizedMessage());
+		}
+		return flag;
+	}
 }
 
 
