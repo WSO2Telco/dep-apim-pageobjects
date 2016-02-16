@@ -345,10 +345,11 @@ public class ApplicationsPage extends BasicPageObject  {
  	 * @author SulakkhanaW
  	 * @param app the app
  	 */
- 	public void clickDelete(String app){
+ 	public void clickDelete(String app) throws Exception{
 		String xpath = String.format(btnAppDelete, app);
 		WebPelement lnkDelete = defineEelement(UIType.Xpath, xpath);
 		getElement(lnkDelete).click();
+		Thread.sleep(sleepTime);
 	}
 	 
 	 /**
