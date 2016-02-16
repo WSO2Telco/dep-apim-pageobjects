@@ -493,6 +493,22 @@ public class SubscriptionsPage extends BasicPageObject  {
 		return tokenSand;
 	}
 	
-	
+	public boolean isAccessKeyRegenerated(String existingKey, String regeneratedKey) throws Exception{
+		flag = false;
+		logger.debug("Validating renerated access token key");
+		try {
+			if (!(existingKey.equalsIgnoreCase(regeneratedKey))){
+				flag = true;
+				logger.debug("Access token key regenerated");
+			} else {
+				logger.debug("Access token key is not regenerated");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating  renerated access token key  'isAccessKeyRegenerated()'" + e.getMessage());
+			throw new Exception("Exception While Validating  renerated access token key 'isAccessKeyRegenerated()'" + e.getLocalizedMessage());
+		}
+		return flag;
+	}
+
 }
 
