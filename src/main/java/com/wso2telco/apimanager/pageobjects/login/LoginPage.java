@@ -149,9 +149,11 @@ public class LoginPage extends BasicPageObject {
 	 * Click log in button.
 	 *
 	 * @author SulakkhanaW
+	 * @throws InterruptedException 
 	 */
-	public void clickLogInButton(){
+	public void clickLogInButton() throws InterruptedException{
 		logger.debug("Clicking on login button");
+		Thread.sleep(sleepTime);
 		getElement(btnLogin).click();
 		logger.debug("Clicked on login button");
 	}
@@ -185,9 +187,11 @@ public class LoginPage extends BasicPageObject {
 	 * Click on user name.
 	 *
 	 * @author SulakkhanaW
+	 * @throws InterruptedException 
 	 */
-	public void clickOnUserName(){
+	public void clickOnUserName() throws InterruptedException{
 		logger.debug("Clicking on username");
+		Thread.sleep(sleepTime);
 		getElement(ddUserName).click();
 		logger.debug("Clicked on username");
 	}
@@ -196,10 +200,13 @@ public class LoginPage extends BasicPageObject {
 	 * Click logout.
 	 *
 	 * @author SulakkhanaW
+	 * @throws InterruptedException 
 	 */
-	public void clickLogout(){
+	public void clickLogout() throws InterruptedException{
 		logger.debug("Clicking on logout");
+		Thread.sleep(sleepTime);
 		getElement(btnLogout).click();
+		Thread.sleep(sleepTime);
 		logger.debug("Clicked on logout");
 	}
 	
@@ -214,12 +221,12 @@ public class LoginPage extends BasicPageObject {
 	public boolean isLogin(String value) throws Exception{
 		flag = false;
 		logger.debug("Validating Login button");
-		try {
+		try {/*
 			WebPelement eleLogin = linkLogin;
 			if (config.getValue("browser").equalsIgnoreCase("INTERNETEXPLORER")){
 				eleLogin = linkLogin_IE;
-				}
-			if (getElement(eleLogin).getText().equalsIgnoreCase(value)){
+				}*/
+			if (getElement(linkLogin).getText().equalsIgnoreCase(value)){
 				flag = true;
 				logger.debug("Login button visible");
 			} else {
