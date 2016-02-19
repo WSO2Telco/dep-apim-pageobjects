@@ -1,6 +1,7 @@
 package com.wso2telco.apimanager.pageobjects.apihome.sandbox;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
@@ -76,10 +77,15 @@ public class SandBoxPage extends BasicPageObject  {
 	 *
 	 * @author SulakkhanaW
 	 * @param username the username
+	 * @throws InterruptedException 
 	 */
-	public void enterUserName(String username){
+	public void enterUserName(String username) throws InterruptedException{
 		logger.debug("Entering Username");
+		Thread.sleep(sleepTime);
 		getElement(txtUserName).clearAndSendkeys(username);
+		//driver.findElement(By.xpath("//form[@id='loginForm']/input[1]")).sendKeys(username);
+		
+		driver.findElement(By.xpath("//*[@id='username']")).sendKeys("dsds");
 		logger.debug("Entered Username successfully");
 	}
 	
@@ -88,10 +94,13 @@ public class SandBoxPage extends BasicPageObject  {
 	 *
 	 * @author SulakkhanaW
 	 * @param password the password
+	 * @throws InterruptedException 
 	 */
-	public void enterPassword(String password){
+	public void enterPassword(String password) throws InterruptedException{
 		logger.debug("Entering password");
-		getElement(txtPassword).clearAndSendkeys(password);
+		Thread.sleep(sleepTime);
+		//getElement(txtPassword).clearAndSendkeys(password);
+		driver.findElement(By.xpath("//form[@id='loginForm']/input[2]")).sendKeys(password);
 		logger.debug("Entered password successfully");
 	}
 	

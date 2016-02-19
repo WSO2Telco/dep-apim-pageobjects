@@ -22,7 +22,7 @@ public class LoginPage extends BasicPageObject {
 	private WebPelement linkLogin = defineEelement(UIType.ID, "login-link");
 	
 	/** The link login_ ie. */
-	private WebPelement linkLogin_IE = defineEelement(UIType.Xpath, "//a[@id='login-link']");
+	//private WebPelement linkLogin_IE = defineEelement(UIType.Xpath, "//a[@id='login-link']");
 	
 	/** The txt login user name. */
 	private WebPelement txtLoginUserName = defineEelement(UIType.ID, "username");
@@ -74,20 +74,20 @@ public class LoginPage extends BasicPageObject {
      */
     public void clickLogInLink() throws Exception{
     	logger.debug("Clicking on Login");
-    	WebPelement eleLogin = linkLogin;
+/*    	WebPelement eleLogin = linkLogin;
     	try {
     	if (config.getValue("browser").equalsIgnoreCase("INTERNETEXPLORER")){
     		eleLogin = linkLogin_IE;
     		logger.debug("Clicked on Login");
     	}
-    	else{
-    		getElement(eleLogin).click();
+    	else{*/
+    		getElement(linkLogin).click();
     		logger.debug("Clicked on Login");
-    	}
+/*    	}
     	} catch (Exception e) {
     	logger.debug("Exception While Clicking on Login 'clickLogInLink()'" + e.getMessage());
     	throw new Exception("Exception While Clicking on Login 'clickLogInLink()'" + e.getLocalizedMessage());
-    	}
+    	}*/
     	
 	}
 	
@@ -155,6 +155,7 @@ public class LoginPage extends BasicPageObject {
 		logger.debug("Clicking on login button");
 		Thread.sleep(sleepTime);
 		getElement(btnLogin).click();
+		Thread.sleep(sleepTime);
 		logger.debug("Clicked on login button");
 	}
 	

@@ -1,5 +1,8 @@
 package com.wso2telco.apimanager.pageobjects.apihome;
 
+import java.util.ArrayList;
+import java.util.Set;
+
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
@@ -31,6 +34,8 @@ public class HomePage extends BasicPageObject {
 	
 	/** The link manage. */
 	private WebPelement linkManage = defineEelement(UIType.Xpath, "//ul[@class='nav orderFix']/li[5]/a");
+	
+	
 	
 	/** The link sand box. */
 	private WebPelement linkSandBox = defineEelement(UIType.Xpath, "//ul[@class='nav orderFix']/li[6]/a");
@@ -108,10 +113,81 @@ public class HomePage extends BasicPageObject {
 	 *
 	 * @author SulakkhanaW
 	 * @return the manager page
+	 * @throws InterruptedException 
 	 */
-	public ManagerPage clickManageLink(){
+	public ManagerPage clickManageLink() throws InterruptedException{
 		logger.debug("Start clicking on Manage link");
+		
+		
+		
+		String parent = driver.getWindowHandle();
+
+		Thread.sleep(sleepTime);
 		getElement(linkManage).click();
+		Thread.sleep(sleepTime);
+		
+		
+		
+		//------------------
+		String win1=null;
+		String win2=null;
+		
+		
+		
+		Set<String> availableWindows = driver.getWindowHandles();
+		ArrayList<String> elements = new ArrayList<>();
+		for (String winNum : availableWindows) {
+			elements.add(winNum);
+		}
+		
+		if (elements.size() > 2){
+			if (elements.contains(parent)){
+				int getParentArray = elements.indexOf(parent);
+				elements.remove(getParentArray);
+			}
+			if (elements.size() == 2){
+				win1 = elements.get(0);
+				win2 = elements.get(1);
+				driver.switchTo().window(win1);
+				driver.close();
+				driver.switchTo().window(win2);
+			}
+		}
+/*
+		if (availableWindows.size() > 2){
+		for (String windowHandle : availableWindows) {
+			if (availableWindows.contains(parent)){
+				for (int i=0;i<3;i++){
+					if (availableWindows.contains(windowHandle)){
+						availableWindows.remove(windowHandle);
+					}
+				}
+			}
+			if (availableWindows.size() > 1){
+				win1 = windowHandle;
+			}
+			if((!(parent.equalsIgnoreCase(windowHandle)))&&(win1==null)){
+				
+				win1=windowHandle;
+			
+		            
+		    }
+			else if(parent !=windowHandle) {
+				win2=windowHandle;
+			}
+			
+		}
+		}
+		driver.switchTo().window(win2);
+		driver.close();
+		driver.switchTo().window(win1);*/
+		
+	
+		
+		//-------------------------
+		
+		
+		
 		logger.debug("Clicked on Manage link");
 		return new ManagerPage(driver);
 	}
@@ -121,10 +197,47 @@ public class HomePage extends BasicPageObject {
 	 *
 	 * @author SulakkhanaW
 	 * @return the sand box page
+	 * @throws InterruptedException 
 	 */
-	public SandBoxPage clickSandBoxLink(){
+	public SandBoxPage clickSandBoxLink() throws InterruptedException{
 		logger.debug("Start clicking on Sandbox link");
+
+
+		String parent = driver.getWindowHandle();
+
+		Thread.sleep(sleepTime);
 		getElement(linkSandBox).click();
+		Thread.sleep(sleepTime);
+		
+		
+		
+		//------------------
+		String win1=null;
+		String win2=null;
+		
+		
+		
+		Set<String> availableWindows = driver.getWindowHandles();
+		ArrayList<String> elements = new ArrayList<>();
+		for (String winNum : availableWindows) {
+			elements.add(winNum);
+		}
+		
+		if (elements.size() > 2){
+			if (elements.contains(parent)){
+				int getParentArray = elements.indexOf(parent);
+				elements.remove(getParentArray);
+			}
+			if (elements.size() == 2){
+				win1 = elements.get(0);
+				win2 = elements.get(1);
+				driver.switchTo().window(win1);
+				driver.close();
+				driver.switchTo().window(win2);
+			}
+		}
+		
+		
 		logger.debug("Clicked on Sandbox link");
 		return new SandBoxPage(driver);
 	}

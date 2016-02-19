@@ -443,11 +443,14 @@ public class ManagerPage extends BasicPageObject {
 	 * Click login.
 	 *
 	 * @author JayaniP
+	 * @throws InterruptedException 
 	 */
-	public void clickLogin(){
+	public void clickLogin() throws InterruptedException{
 		logger.debug("Clicking on login");
 		getElement(btnLogIn).click();
 		logger.debug("Clicked on login");
+		Thread.sleep(sleepTime);
+		Thread.sleep(sleepTime);
 	}
 	
 	/**
