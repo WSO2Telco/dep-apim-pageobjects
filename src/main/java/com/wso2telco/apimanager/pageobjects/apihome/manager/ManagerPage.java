@@ -1,5 +1,6 @@
 package com.wso2telco.apimanager.pageobjects.apihome.manager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -9,10 +10,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
+import com.wso2telco.apimanager.pageobjects.db.queries.SQLQuery;
 import com.wso2telco.test.framework.core.WebPelement;
+import com.wso2telco.test.framework.db.connection.executers.SQLExecuter;
+import com.wso2telco.test.framework.db.connection.sql.QueryResult;
 import com.wso2telco.test.framework.util.UIType;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ManagerPage.
  */
@@ -379,6 +382,9 @@ public class ManagerPage extends BasicPageObject {
     /** The lbl white list error popup. */
     private WebPelement lblWhiteListErrorPopup = defineEelement(UIType.Xpath, "//span[@class='messageText']");
     
+	/** The pie chart. */
+	String pieChart = "//div[@id='total-api-traffic-pie-chart']/div/div";
+    
 	/**
 	 * Instantiates a new manager page.
 	 *
@@ -443,7 +449,7 @@ public class ManagerPage extends BasicPageObject {
 	 * Click login.
 	 *
 	 * @author JayaniP
-	 * @throws InterruptedException 
+	 * @throws InterruptedException the interrupted exception
 	 */
 	public void clickLogin() throws InterruptedException{
 		logger.debug("Clicking on login");
@@ -2660,6 +2666,90 @@ public class ManagerPage extends BasicPageObject {
 		}
 		return flag;
 	}
+
+    /**
+     * Checks if is pie graph.
+     *
+     * @author SulakkhanaW
+     * @param fromDate the from date
+     * @param toDate the to date
+     * @param operatorId the operator id
+     * @param serviceProvider the service provider
+     * @return true, if is pie graph
+     * @throws Exception the exception
+     */
+    public boolean isPieGraph(String fromDate, String toDate, String operatorId, String serviceProvider) throws Exception {
+    	flag = false;
+		ArrayList<String> apiList = new ArrayList<String>();
+		WebElement select;
+		try {
+			select = getElement(UIType.Xpath, pieChart);
+			List<WebElement> options = select.findElements(By.xpath(pieChart));
+			for (WebElement option : options) {
+				apiList.add(option.getText());
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating graphs data 'isPieGraph()'" + e.getMessage());
+			throw new Exception("Exception While Validating graphs data 'isPieGraph()'" + e.getLocalizedMessage());
+		}
+		int count = apiList.size();
+		String apiListDetails[][] = new String[count][2];
+		for (int i = 0; i < count; i++){
+			String element = apiList.get(i);
+			int openParanthis = element.indexOf("(") + 1;
+			int closeParanthis = element.indexOf(")");
+			String value = element.substring(openParanthis, closeParanthis);
+			String apiName = element.substring(0, openParanthis - 1).trim();
+			apiListDetails[i][0] = apiName;
+			apiListDetails[i][1] = value;
+		}
+    	try {
+			flag = dbReturningData(apiListDetails, fromDate, toDate, operatorId, serviceProvider);
+		} catch (Exception e) {
+			logger.debug("Exception While Validating matching data 'dbReturningData()'" + e.getMessage());
+			throw new Exception("Exception While Validating matching data 'dbReturningData()'" + e.getLocalizedMessage());
+		}
+    	return flag;
+    }
+    
+    /**
+     * Db returning data.
+     *
+     * @author SulakkhanaW
+     * @param apiTrafficListUI the api traffic list ui
+     * @param fromDate the from date
+     * @param toDate the to date
+     * @param operatorId the operator id
+     * @param serviceProvider the service provider
+     * @return true, if successful
+     * @throws Exception the exception
+     */
+    public boolean dbReturningData(String[][] apiTrafficListUI, String fromDate, String toDate, String operatorId, String serviceProvider) throws Exception {
+    	flag = false;
+    	String query = String.format(SQLQuery.TOTAL_API_TRAFFIC, fromDate, toDate, operatorId, serviceProvider);
+		QueryResult qsApiTotalTraffic;
+		try {
+			qsApiTotalTraffic = SQLExecuter.getQueryResults(query);
+
+			if (qsApiTotalTraffic.numOfResult() == apiTrafficListUI.length) {
+				int rowCount = qsApiTotalTraffic.numOfResult();
+				for (int x = 0; x < rowCount;) {
+					String uiApiName = apiTrafficListUI[x][0];
+					String uiApiCount = apiTrafficListUI[x][1];
+					String dbApiCount = qsApiTotalTraffic.getValueFromCondition("trafficCount", "api", uiApiName);
+					if (!uiApiCount.equals(dbApiCount)) {
+						flag = false;
+					}
+					x++;
+				}
+				flag = true;
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating matching datae 'dbReturningData()'" + e.getMessage());
+			throw new Exception("Exception While Validating matching data 'dbReturningData()'" + e.getLocalizedMessage());
+		}
+		return flag;
+    }
 }
 
 
