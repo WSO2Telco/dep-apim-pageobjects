@@ -2818,7 +2818,7 @@ public class ManagerPage extends BasicPageObject {
      * @param toDate the to date
      * @param serviceProvider the service provider
      * @return true, if successful
-     * @throws Exception 
+     * @throws Exception the exception
      */
     public boolean dbRetuningDataOperatorTraffic(String[][] apiTrafficListUI,String fromDate, String toDate, String serviceProvider) throws Exception{
     	String query = String.format(SQLQuery.OPERATOR_API_TRAFFIC, fromDate, toDate, serviceProvider);
@@ -2899,6 +2899,34 @@ public class ManagerPage extends BasicPageObject {
 		}
 		return flag;
     }
+  
+    /**
+     * Checks if is manager page usename password text boxes displayed.
+     *
+     * @return true, if is manager page usename password text boxes displayed
+     * @throws Exception the exception
+     */
+    public boolean isManagerPageUsenamePasswordTextBoxesDisplayed() throws Exception {
+
+		flag = false;
+		logger.debug("Validating User name and password text boxes");
+		Thread.sleep(sleepTime);
+		try {
+			if (getElement(txtUserName).isDisplayed() && getElement(txtPassword).isDisplayed()) {
+				flag = true;
+				logger.debug("Validating User name and password text boxes completed");
+			} else {
+				logger.debug("User name and password text boxes are Not Matched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating User name and password text boxes Title 'isManagerPageUsenamePasswordTextBoxesDisplayed()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating User name and password text boxes Title 'isManagerPageUsenamePasswordTextBoxesDisplayed()'"
+							+ e.getLocalizedMessage());
+		}
+		return flag;
+	}
 }
 
 

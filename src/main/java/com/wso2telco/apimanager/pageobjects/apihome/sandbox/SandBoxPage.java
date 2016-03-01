@@ -23,7 +23,7 @@ public class SandBoxPage extends BasicPageObject  {
 	private WebPelement txtUserName = defineEelement(UIType.Xpath, "//form[@id='loginForm']/input[1]");
 	
 	/** The txt password. */
-	private WebPelement txtPassword = defineEelement(UIType.Xpath, "//form[@id='loginForm']/input[2]");
+	//private WebPelement txtPassword = defineEelement(UIType.Xpath, "//form[@id='loginForm']/input[2]");
 	
 	/** The btn log in. */
 	private WebPelement btnLogIn = defineEelement(UIType.ID, "loginButton");
@@ -83,9 +83,6 @@ public class SandBoxPage extends BasicPageObject  {
 		logger.debug("Entering Username");
 		Thread.sleep(sleepTime);
 		getElement(txtUserName).clearAndSendkeys(username);
-		//driver.findElement(By.xpath("//form[@id='loginForm']/input[1]")).sendKeys(username);
-		
-		driver.findElement(By.xpath("//*[@id='username']")).sendKeys("dsds");
 		logger.debug("Entered Username successfully");
 	}
 	
