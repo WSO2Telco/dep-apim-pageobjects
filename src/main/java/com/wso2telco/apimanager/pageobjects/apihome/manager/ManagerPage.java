@@ -14,9 +14,9 @@ import com.wso2telco.apimanager.pageobjects.db.queries.SQLQuery;
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.db.connection.executers.SQLExecuter;
 import com.wso2telco.test.framework.db.connection.sql.QueryResult;
+import com.wso2telco.test.framework.element.table.Table;
 import com.wso2telco.test.framework.util.UIType;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ManagerPage.
  */
@@ -388,6 +388,12 @@ public class ManagerPage extends BasicPageObject {
 	
 	/** The pie chart operator api traffic. */
 	String pieChartOperatorAPITraffic = "//div[@id='operator-wise-api-traffic-pie-chart']/div/div";
+	
+	/** The tbl customer care. */
+	String tblCustomerCare = "//div[@id='customer_care_tbl_div']/table";
+	
+	/** The report pagination. */
+	String reportPagination = "//div[@id='pagination-demo']/ul/li";
     
 	/**
 	 * Instantiates a new manager page.
@@ -2841,6 +2847,57 @@ public class ManagerPage extends BasicPageObject {
 			throw new Exception("Exception While Validating matching data 'dbRetuningDataOperatorTraffic() UICount : " + uiApiCount + " and DBCount : " + dbApiCount + e.getLocalizedMessage());
 		}
     	return flag;
+    }
+    
+    /**
+     * Checks if is customer care report.
+     *
+     * @author SulakkhanaW
+     * @param column the column
+     * @param dbColumn the db column
+     * @return true, if is customer care report
+     * @throws Exception the exception
+     */
+    public boolean isCustomerCareReport(String column, String dbColumn) throws Exception{
+    	flag = false;
+    	String query = String.format(SQLQuery.OPERATOR_API_TRAFFIC, "");// TODO : need the correct query
+    	QueryResult qsOperatorAPITraffic;
+		try {
+			qsOperatorAPITraffic = SQLExecuter.getQueryResults(query);
+			ArrayList<WebElement> pageination = (ArrayList<WebElement>) driver.findElements(By.xpath(reportPagination));
+			if (pageination.get(0).getText().contains("Prev")) {
+				pageination.remove(0);
+			}
+			if (pageination.get(pageination.size() - 1).getText().contains("Next")) {
+				pageination.remove(pageination.size() - 1);
+			}
+			int count = pageination.size();
+			for (int i = 0; i < count;) {
+				pageination.get(i).click();
+				Thread.sleep(sleepTime);
+				WebElement table = driver.findElement(By.xpath(tblCustomerCare));
+				Table tableContent = new Table(table);
+				int rowCount = tableContent.body().getAllRows().size();
+				int columnCount = tableContent.head().getColumnIndex(column);
+				int matchingColumnCount = tableContent.head().getColumnIndex("Date");
+				ArrayList<WebElement> matchingRowElements = (ArrayList<WebElement>) tableContent.body().getCellsFromColumn(matchingColumnCount);
+				for (int x = 0; x < rowCount;) {
+					String rowValue = tableContent.body().getCellFromRowIndexColumnIndex(x, columnCount).getText();
+					String rowMatchingValue = matchingRowElements.get(x).getText();
+					String dbRowVale = qsOperatorAPITraffic.getValueFromCondition(dbColumn, "Date", rowMatchingValue);
+					if (!rowValue.equalsIgnoreCase(dbRowVale)) {
+						return false;
+					}
+					x++;
+				}
+				i++;
+				flag = true;
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating customer care report against DB 'dbRetuningDataOperatorTraffic()'" + e.getMessage());
+			throw new Exception("Exception While Validating customer care report against DB 'dbRetuningDataOperatorTraffic()" + e.getMessage());
+		}
+		return flag;
     }
 }
 
