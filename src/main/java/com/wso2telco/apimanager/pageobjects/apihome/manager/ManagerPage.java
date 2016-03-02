@@ -1,7 +1,12 @@
 package com.wso2telco.apimanager.pageobjects.apihome.manager;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.Alert;
@@ -16,7 +21,7 @@ import com.wso2telco.test.framework.db.connection.executers.SQLExecuter;
 import com.wso2telco.test.framework.db.connection.sql.QueryResult;
 import com.wso2telco.test.framework.element.table.Table;
 import com.wso2telco.test.framework.util.UIType;
-
+import com.wso2telco.test.framework.tools.excelfile.CSVFileReader;
 /**
  * The Class ManagerPage.
  */
@@ -2926,6 +2931,45 @@ public class ManagerPage extends BasicPageObject {
 							+ e.getLocalizedMessage());
 		}
 		return flag;
+	}
+    
+    /**
+     * Validate data.
+     *
+     * @param filePath the file path
+     * @throws IOException 
+     * @throws Exception 
+     */
+	public void validateData(String filePath, String column, String dbColumn) throws IOException {
+		
+		
+		flag = false;
+		String query = String.format(SQLQuery.TRANSACTION_LOG, "");
+		QueryResult qsTransactionLog;
+		CSVFileReader csv = new CSVFileReader();
+		//csv.removeWhiteSpaces(filePath);
+		try {
+			//qsTransactionLog = SQLExecuter.getQueryResults(query);
+			HashMap<Integer, String[]> dataMap = csv.readDataFromCSV(filePath);
+			for(int i=1;i<dataMap.size();i++){
+				for(int j=0;j<=9;j++){
+					String[][] arr = csv.getCSVValues(dataMap);
+					String result = (arr[i][j]).toString();
+					System.out.println(result);
+				}
+				
+			}
+			//csv.getCSVValues(dataMap);
+			//dataMap.get(8).toString().length();
+			//System.out.println(dataMap);
+			
+				//String dbRowValue = qsTransactionLog.getValueFromCondition(column, "", value);
+		
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 }
 

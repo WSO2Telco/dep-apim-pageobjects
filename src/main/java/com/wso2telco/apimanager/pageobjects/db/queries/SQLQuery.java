@@ -20,4 +20,6 @@ public interface SQLQuery {
 	 * */
 	String OPERATOR_API_TRAFFIC = "select sb.operatorId, COUNT(*) as trafficCount from SB_API_RESPONSE_SUMMARY sb where sb.time BETWEEN  '%s' and '%s' and sb.userId = '%s' GROUP BY sb.operatorId";
 	
+	/** The transaction log. */
+	String TRANSACTION_LOG = "";
 }
