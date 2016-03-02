@@ -1,8 +1,10 @@
 package com.wso2telco.apimanager.pageobjects.apihome.manager;
 
+
 import java.io.IOException;
-import java.util.ArrayList;
+
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -119,10 +121,7 @@ public class ManagerPage extends BasicPageObject {
 	
 	/** The btn manual. */
 	private WebPelement btnManual = defineEelement(UIType.ID, "isManual");
-	
-	/** The txt number. */
-	private WebPelement txtNumber = defineEelement(UIType.ID, "manualNumber");
-	
+
 	/** The btn upload number. */
 	private WebPelement btnUploadNumber = defineEelement(UIType.ID, "add-manual");
 	
@@ -1244,9 +1243,84 @@ public class ManagerPage extends BasicPageObject {
      * @author JayaniP
      * @param number the number
      */
+    
+    
+    /**
+     * Generate a random string for the white list number.
+     * @author IsuruM
+     * return generated value
+     */
+	public String GenWhileListNum() {
+
+		double middleNum = Math.random();
+		String middleNumCon = Double.toString(middleNum);
+		int index = middleNumCon.indexOf('.');
+		char[] myNameChars = middleNumCon.toCharArray();
+		myNameChars[index] = '7';
+		middleNumCon = String.valueOf(myNameChars);
+		char[] array2 = Arrays.copyOfRange(myNameChars, 1, 6);
+		middleNumCon = String.valueOf(array2);
+		middleNumCon = "+9477521" + middleNumCon;
+		return middleNumCon;
+	}
+
+	 /**
+     * Generate random string for the minimum number.
+     * @author IsuruM
+     * return generated value
+     */
+	
+    public String GenMinNum(){
+    	
+    	String ini="0776";
+    	double middleNum= Math.random();
+        String middleNumCon= Double.toString(middleNum);
+        int index= middleNumCon.indexOf('.');
+        char[] myNameChars = middleNumCon.toCharArray();
+        myNameChars[index] = '7';
+        middleNumCon = String.valueOf(myNameChars);
+        char[] array2 = Arrays.copyOfRange(myNameChars, 1, 6);
+        array2[(array2.length)-1]='1';
+        middleNumCon = String.valueOf(array2);
+        middleNumCon=ini+middleNumCon;
+        return 	middleNumCon;
+    }
+    
+    /**
+     * Generate random string for the maximum number.
+     * @author IsuruM
+     * return generated value
+     */
+    
+    public String GenMaxNum(String max){
+
+    	String middleNumCon;
+    	char[] myNameChars = max.toCharArray();
+        myNameChars[(myNameChars.length)-1] = '9';
+        middleNumCon = String.valueOf(myNameChars);
+        return 	middleNumCon;
+    }
+    
+    /**
+     * Enter redundent value.
+     * @author IsuruM
+     * return generated value
+     */
+    public void enterRedundentValue(String redval){
+    	
+    	logger.debug("Enter Redundent Value");
+    	driver.findElement(By.xpath("//*[@id='manualNumber']")).sendKeys(redval);
+		logger.debug("Entered Redundent Value");
+    }
+    
+    /**
+     * Enter manual number.
+     * @author IsuruM
+     * return generated value
+     */
     public void enterManualNumber(String number){
     	logger.debug("Enter Manual Number");
-    	getElement(txtNumber).clearAndSendkeys(number);
+    	driver.findElement(By.xpath("//*[@id='manualNumber']")).sendKeys(number);
 		logger.debug("Entered Manual Number");
     }
     
@@ -1257,6 +1331,7 @@ public class ManagerPage extends BasicPageObject {
      */
     public void clickUploadNumberButton(){
     	logger.debug("Click upload Number");
+    	
     	getElement(btnUploadNumber).click();
 		logger.debug("Clicked upload Number");
     }
@@ -1291,7 +1366,7 @@ public class ManagerPage extends BasicPageObject {
      * @param number the number
      */
     public void enterMaxNumber(String number){
-    	logger.debug("Enter max number");
+    	logger.debug("Enter max number");	
     	getElement(txtMaxNumber).clearAndSendkeys(number);
 		logger.debug("Max number entered");
     }
@@ -1300,9 +1375,11 @@ public class ManagerPage extends BasicPageObject {
      * Click upload number list.
      *
      * @author JayaniP
+     * @throws InterruptedException 
      */
-    public void clickUploadNumberList(){
+    public void clickUploadNumberList() throws InterruptedException{
     	logger.debug("Click upload number list");
+    	Thread.sleep(sleepTime);
     	getElement(btnNumberList).click();
 		logger.debug("Clicked upload number list");
     }
@@ -1338,7 +1415,19 @@ public class ManagerPage extends BasicPageObject {
     public void enterWhiteListNumberList(String numbers){
 		logger.debug("Enter the number list to blacklist");
 		Alert alert = driver.switchTo().alert();
-		alert.sendKeys(numbers);
+		String list;
+		String temp;
+		String append;
+		
+		append="+94776543";
+		temp =GenMinNum();
+		list = append+temp;
+		
+		
+		list =list+","+append+GenMinNum();
+		
+		
+		alert.sendKeys(list);
 		logger.debug("Entered the number list");
 	}
     
@@ -1355,9 +1444,6 @@ public class ManagerPage extends BasicPageObject {
 		String xpathlblNumber = String.format(lblWhiteListNumbers, number);
 		List<WebElement> whitelistNum = driver.findElements(By.xpath(xpathlblNumber));
 		int countWhiteListNumber = whitelistNum.size();
-		
-		//System.out.println(verifyListContent(UIType.Xpath, xpathlblNumber));
-		//int countWhiteListNumber = verifyListContent(UIType.Xpath, xpathlblNumber).size();
 		
 		String xpathRemoveNumber = String.format(btnRemoveNumber, number);
 		WebPelement btnRemoveNumber = defineEelement(UIType.Xpath, xpathRemoveNumber);

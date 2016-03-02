@@ -62,6 +62,7 @@ public class HomePage extends BasicPageObject {
 		try {
 			logger.debug("Start clicking on API link");
 			getElement(linkAPIs).click();
+			Thread.sleep(8000);
 			logger.debug("Clicked on API link successfully");
 		} catch (Exception e) {
 			logInstruction("Exception While clicking on API link 'clickApiLink()'" + e.getMessage());
@@ -81,6 +82,7 @@ public class HomePage extends BasicPageObject {
 		try {
 			logger.debug("Start clicking on My Applications link");
 			getElement(linkMyApplications).click();
+			Thread.sleep(8000);
 			logger.debug("Clicked on My Applications link");
 		} catch (Exception e) {
 			logInstruction("Exception While clicking on My Applications link 'clickMyApplicationsLink()'" + e.getMessage());
@@ -143,8 +145,8 @@ public class HomePage extends BasicPageObject {
 				}
 			}
 		} catch (Exception e) {
-			logInstruction("Exception While openning API manager page 'clickManageLink()'" + e.getMessage());
-			throw new Exception("Exception While openning API manager page 'clickManageLink()'" + e.getLocalizedMessage());
+			logInstruction("Exception While clicking on Manager link 'clickManageLink()'" + e.getMessage());
+			throw new Exception("Exception While clicking on Manager link 'clickManageLink()'" + e.getLocalizedMessage());
 		}
 		logger.debug("Clicked on Manage link");
 		return new ManagerPage(driver);
@@ -167,29 +169,32 @@ public class HomePage extends BasicPageObject {
 		String win2=null;
 		Set<String> availableWindows = driver.getWindowHandles();
 		ArrayList<String> elements = new ArrayList<>();
-		try {
+		try{
 			for (String winNum : availableWindows) {
-				elements.add(winNum);
+			elements.add(winNum);
 			}
+		
 			if (elements.size() > 2){
 				if (elements.contains(parent)){
 					int getParentArray = elements.indexOf(parent);
 					elements.remove(getParentArray);
 				}
-				if (elements.size() == 2){
-					win1 = elements.get(0);
-					win2 = elements.get(1);
-					driver.switchTo().window(win1);
-					driver.close();
-					driver.switchTo().window(win2);
-				}
 			}
-		} catch (Exception e) {
-			logInstruction("Exception While openning sandbox page 'clickSandBoxLink()'" + e.getMessage());
-			throw new Exception("Exception While openning sandbox page 'clickSandBoxLink()'" + e.getLocalizedMessage());
+			if (elements.size() == 2){
+				win1 = elements.get(0);
+				win2 = elements.get(1);
+				driver.switchTo().window(win1);
+				driver.close();
+				driver.switchTo().window(win2);
+			}	
+		}
+		catch (Exception e) {
+		logInstruction("Exception While clicking on Sandbox link 'clickSandboxLink()'" + e.getMessage());
+		throw new Exception("Exception While clicking on Sandbox link 'clickSandboxLink()'" + e.getLocalizedMessage());
 		}
 		logger.debug("Clicked on Sandbox link");
 		return new SandBoxPage(driver);
+		
 	}
 	
 }
