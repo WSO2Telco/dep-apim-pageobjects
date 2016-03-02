@@ -3,6 +3,7 @@ package com.wso2telco.apimanager.pageobjects.apihome.sandbox;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
 import com.wso2telco.test.framework.core.WebPelement;
@@ -13,17 +14,12 @@ import com.wso2telco.test.framework.util.UIType;
  */
 public class SandBoxPage extends BasicPageObject  {
 	
+	
 	/** The logger. */
 	Logger logger = Logger.getLogger(SandBoxPage.class);
 
 	/** The lbl login. */
 	private WebPelement lblLogin = defineEelement(UIType.Xpath, "//div[@class='title-section']/h2");
-	
-	/** The txt user name. */
-	private WebPelement txtUserName = defineEelement(UIType.Xpath, "//form[@id='loginForm']/input[1]");
-	
-	/** The txt password. */
-	private WebPelement txtPassword = defineEelement(UIType.Xpath, "//form[@id='loginForm']/input[2]");
 	
 	/** The btn log in. */
 	private WebPelement btnLogIn = defineEelement(UIType.ID, "loginButton");
@@ -82,10 +78,9 @@ public class SandBoxPage extends BasicPageObject  {
 	public void enterUserName(String username) throws InterruptedException{
 		logger.debug("Entering Username");
 		Thread.sleep(sleepTime);
-		getElement(txtUserName).clearAndSendkeys(username);
-		//driver.findElement(By.xpath("//form[@id='loginForm']/input[1]")).sendKeys(username);
-		
-		driver.findElement(By.xpath("//*[@id='username']")).sendKeys("dsds");
+		WebElement username1 = driver.findElement(By.xpath("/html/body/div[1]/div[4]/div/div/div/div[1]/div[2]/div[3]/div/form/input[1]"));
+		username1.sendKeys(username);
+		Thread.sleep(sleepTime);
 		logger.debug("Entered Username successfully");
 	}
 	
@@ -96,11 +91,13 @@ public class SandBoxPage extends BasicPageObject  {
 	 * @param password the password
 	 * @throws InterruptedException 
 	 */
+	
 	public void enterPassword(String password) throws InterruptedException{
 		logger.debug("Entering password");
 		Thread.sleep(sleepTime);
-		//getElement(txtPassword).clearAndSendkeys(password);
-		driver.findElement(By.xpath("//form[@id='loginForm']/input[2]")).sendKeys(password);
+		WebElement paswd=driver.findElement(By.cssSelector("#loginForm>#pass"));
+		paswd.sendKeys(password);
+		Thread.sleep(sleepTime);
 		logger.debug("Entered password successfully");
 	}
 	

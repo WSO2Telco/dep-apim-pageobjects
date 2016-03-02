@@ -47,11 +47,6 @@ public class APIsPage extends BasicPageObject {
 	 **/
 	private String lnkAPIName = "//a[text()[contains(.,'%s')]]";
 	
-	/** The lbl app name. 
-	 * %s_1 = appName
-	 **/
-	//private String lblAppName = "//select[@id='application-list']//option[contains(text(),'%s')]";
-	
 	/** The ddl operator.
 	 * %s_1 = operator
 	 **/
@@ -162,10 +157,12 @@ public class APIsPage extends BasicPageObject {
 	 * Click application drop down.
 	 *
 	 * @author SulakkhanaW
+	 * @throws InterruptedException 
 	 */
-	public void clickApplicationDropDown(){
+	public void clickApplicationDropDown() throws InterruptedException{
 		logger.debug("Clicking on Application drop down");
-		getElement(ddlApplication).click();
+		driver.findElement(By.cssSelector("#application-list")).click();
+		Thread.sleep(sleepTime);
 		logger.debug("Clicked on Application drop down");
 	}
 	

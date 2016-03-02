@@ -176,6 +176,7 @@ public class SignUpPage extends BasicPageObject {
 		flag = false;
 		logger.debug("Validating user sginup success message");
 		try {
+			Thread.sleep(sleepTime);
 			if (getElement(msgSuccess).getText().contains(message)){
 				flag = true;
 				logger.debug("User sginup success message matched");

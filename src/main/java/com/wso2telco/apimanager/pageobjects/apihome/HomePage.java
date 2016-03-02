@@ -62,6 +62,7 @@ public class HomePage extends BasicPageObject {
 		try {
 			logger.debug("Start clicking on API link");
 			getElement(linkAPIs).click();
+			Thread.sleep(8000);
 			logger.debug("Clicked on API link successfully");
 		} catch (Exception e) {
 			logInstruction("Exception While clicking on API link 'clickApiLink()'" + e.getMessage());
@@ -81,6 +82,7 @@ public class HomePage extends BasicPageObject {
 		try {
 			logger.debug("Start clicking on My Applications link");
 			getElement(linkMyApplications).click();
+			Thread.sleep(8000);
 			logger.debug("Clicked on My Applications link");
 		} catch (Exception e) {
 			logInstruction("Exception While clicking on My Applications link 'clickMyApplicationsLink()'" + e.getMessage());
@@ -113,81 +115,39 @@ public class HomePage extends BasicPageObject {
 	 *
 	 * @author SulakkhanaW
 	 * @return the manager page
-	 * @throws InterruptedException 
+	 * @throws Exception 
 	 */
-	public ManagerPage clickManageLink() throws InterruptedException{
+	public ManagerPage clickManageLink() throws Exception{
 		logger.debug("Start clicking on Manage link");
-		
-		
-		
 		String parent = driver.getWindowHandle();
-
 		Thread.sleep(sleepTime);
 		getElement(linkManage).click();
 		Thread.sleep(sleepTime);
-		
-		
-		
-		//------------------
 		String win1=null;
 		String win2=null;
-		
-		
-		
 		Set<String> availableWindows = driver.getWindowHandles();
 		ArrayList<String> elements = new ArrayList<>();
-		for (String winNum : availableWindows) {
-			elements.add(winNum);
-		}
-		
-		if (elements.size() > 2){
-			if (elements.contains(parent)){
-				int getParentArray = elements.indexOf(parent);
-				elements.remove(getParentArray);
+		try {
+			for (String winNum : availableWindows) {
+				elements.add(winNum);
 			}
-			if (elements.size() == 2){
-				win1 = elements.get(0);
-				win2 = elements.get(1);
-				driver.switchTo().window(win1);
-				driver.close();
-				driver.switchTo().window(win2);
-			}
-		}
-/*
-		if (availableWindows.size() > 2){
-		for (String windowHandle : availableWindows) {
-			if (availableWindows.contains(parent)){
-				for (int i=0;i<3;i++){
-					if (availableWindows.contains(windowHandle)){
-						availableWindows.remove(windowHandle);
-					}
+			if (elements.size() > 2){
+				if (elements.contains(parent)){
+					int getParentArray = elements.indexOf(parent);
+					elements.remove(getParentArray);
+				}
+				if (elements.size() == 2){
+					win1 = elements.get(0);
+					win2 = elements.get(1);
+					driver.switchTo().window(win1);
+					driver.close();
+					driver.switchTo().window(win2);
 				}
 			}
-			if (availableWindows.size() > 1){
-				win1 = windowHandle;
-			}
-			if((!(parent.equalsIgnoreCase(windowHandle)))&&(win1==null)){
-				
-				win1=windowHandle;
-			
-		            
-		    }
-			else if(parent !=windowHandle) {
-				win2=windowHandle;
-			}
-			
+		} catch (Exception e) {
+			logInstruction("Exception While clicking on Manager link 'clickManageLink()'" + e.getMessage());
+			throw new Exception("Exception While clicking on Manager link 'clickManageLink()'" + e.getLocalizedMessage());
 		}
-		}
-		driver.switchTo().window(win2);
-		driver.close();
-		driver.switchTo().window(win1);*/
-		
-	
-		
-		//-------------------------
-		
-		
-		
 		logger.debug("Clicked on Manage link");
 		return new ManagerPage(driver);
 	}
@@ -197,36 +157,31 @@ public class HomePage extends BasicPageObject {
 	 *
 	 * @author SulakkhanaW
 	 * @return the sand box page
-	 * @throws InterruptedException 
+	 * @throws Exception 
 	 */
-	public SandBoxPage clickSandBoxLink() throws InterruptedException{
+	public SandBoxPage clickSandBoxLink() throws Exception{
 		logger.debug("Start clicking on Sandbox link");
 
 
 		String parent = driver.getWindowHandle();
-
 		Thread.sleep(sleepTime);
 		getElement(linkSandBox).click();
 		Thread.sleep(sleepTime);
-		
-		
-		
-		//------------------
 		String win1=null;
 		String win2=null;
-		
-		
-		
 		Set<String> availableWindows = driver.getWindowHandles();
 		ArrayList<String> elements = new ArrayList<>();
-		for (String winNum : availableWindows) {
-			elements.add(winNum);
-		}
 		
-		if (elements.size() > 2){
-			if (elements.contains(parent)){
-				int getParentArray = elements.indexOf(parent);
-				elements.remove(getParentArray);
+		try{
+			for (String winNum : availableWindows) {
+			elements.add(winNum);
+			}
+		
+			if (elements.size() > 2){
+				if (elements.contains(parent)){
+					int getParentArray = elements.indexOf(parent);
+					elements.remove(getParentArray);
+				}
 			}
 			if (elements.size() == 2){
 				win1 = elements.get(0);
@@ -234,12 +189,16 @@ public class HomePage extends BasicPageObject {
 				driver.switchTo().window(win1);
 				driver.close();
 				driver.switchTo().window(win2);
-			}
+			}	
 		}
-		
-		
+		catch (Exception e) {
+		logInstruction("Exception While clicking on Sandbox link 'clickSandboxLink()'" + e.getMessage());
+		throw new Exception("Exception While clicking on Sandbox link 'clickSandboxLink()'" + e.getLocalizedMessage());
+		}
+	
 		logger.debug("Clicked on Sandbox link");
 		return new SandBoxPage(driver);
+		
 	}
 	
 }
