@@ -21,6 +21,9 @@ public class SandBoxPage extends BasicPageObject  {
 	/** The lbl login. */
 	private WebPelement lblLogin = defineEelement(UIType.Xpath, "//div[@class='title-section']/h2");
 	
+	/** The txt user name. */
+	private WebPelement txtUserName = defineEelement(UIType.Xpath, "//form[@id='loginForm']/input[1]");
+
 	/** The btn log in. */
 	private WebPelement btnLogIn = defineEelement(UIType.ID, "loginButton");
 	
@@ -78,9 +81,11 @@ public class SandBoxPage extends BasicPageObject  {
 	public void enterUserName(String username) throws InterruptedException{
 		logger.debug("Entering Username");
 		Thread.sleep(sleepTime);
+		// TODO: add a relative xpath
 		WebElement username1 = driver.findElement(By.xpath("/html/body/div[1]/div[4]/div/div/div/div[1]/div[2]/div[3]/div/form/input[1]"));
 		username1.sendKeys(username);
 		Thread.sleep(sleepTime);
+		getElement(txtUserName).clearAndSendkeys(username);
 		logger.debug("Entered Username successfully");
 	}
 	

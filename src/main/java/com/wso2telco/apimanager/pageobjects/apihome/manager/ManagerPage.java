@@ -1,6 +1,7 @@
 package com.wso2telco.apimanager.pageobjects.apihome.manager;
 
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -10,10 +11,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
+import com.wso2telco.apimanager.pageobjects.db.queries.SQLQuery;
 import com.wso2telco.test.framework.core.WebPelement;
+import com.wso2telco.test.framework.db.connection.executers.SQLExecuter;
+import com.wso2telco.test.framework.db.connection.sql.QueryResult;
+import com.wso2telco.test.framework.element.table.Table;
 import com.wso2telco.test.framework.util.UIType;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ManagerPage.
  */
@@ -377,6 +381,18 @@ public class ManagerPage extends BasicPageObject {
     /** The lbl white list error popup. */
     private WebPelement lblWhiteListErrorPopup = defineEelement(UIType.Xpath, "//span[@class='messageText']");
     
+	/** The pie chart. */
+	String pieChartTotalAPITraffic = "//div[@id='total-api-traffic-pie-chart']/div/div";
+	
+	/** The pie chart operator api traffic. */
+	String pieChartOperatorAPITraffic = "//div[@id='operator-wise-api-traffic-pie-chart']/div/div";
+	
+	/** The tbl customer care. */
+	String tblCustomerCare = "//div[@id='customer_care_tbl_div']/table";
+	
+	/** The report pagination. */
+	String reportPagination = "//div[@id='pagination-demo']/ul/li";
+    
 	/**
 	 * Instantiates a new manager page.
 	 *
@@ -441,7 +457,7 @@ public class ManagerPage extends BasicPageObject {
 	 * Click login.
 	 *
 	 * @author JayaniP
-	 * @throws InterruptedException 
+	 * @throws InterruptedException the interrupted exception
 	 */
 	public void clickLogin() throws InterruptedException{
 		logger.debug("Clicking on login");
@@ -2741,6 +2757,257 @@ public class ManagerPage extends BasicPageObject {
 					+ e.getMessage());
 			throw new Exception(
 					"Exception While Validating Error Pop up Title 'isWhiteListErrorPopupDisplayed()'"
+							+ e.getLocalizedMessage());
+		}
+		return flag;
+	}
+    
+    /**
+     * Checks if is pie graph total api traffic.
+     *
+     * @author SulakkhanaW
+     * @param fromDate the from date
+     * @param toDate the to date
+     * @param operatorId the operator id
+     * @param serviceProvider the service provider
+     * @return true, if is pie graph total api traffic
+     * @throws Exception the exception
+     */
+    public boolean isPieGraphTotalAPITraffic(String fromDate, String toDate, String operatorId, String serviceProvider) throws Exception {
+    	flag = false;
+		ArrayList<String> apiList = new ArrayList<String>();
+		WebElement select;
+		try {
+			select = getElement(UIType.Xpath, pieChartTotalAPITraffic);
+			List<WebElement> options = select.findElements(By.xpath(pieChartTotalAPITraffic));
+			for (WebElement option : options) {
+				apiList.add(option.getText());
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating graphs data 'isPieGraph()'" + e.getMessage());
+			throw new Exception("Exception While Validating graphs data 'isPieGraph()'" + e.getLocalizedMessage());
+		}
+		int count = apiList.size();
+		String apiListDetails[][] = new String[count][2];
+		for (int i = 0; i < count; i++){
+			String element = apiList.get(i);
+			int openParanthis = element.indexOf("(") + 1;
+			int closeParanthis = element.indexOf(")");
+			String value = element.substring(openParanthis, closeParanthis);
+			String apiName = element.substring(0, openParanthis - 1).trim();
+			apiListDetails[i][0] = apiName;
+			apiListDetails[i][1] = value;
+		}
+    	try {
+			flag = dbReturningDataTotalAPITraffic(apiListDetails, fromDate, toDate, operatorId, serviceProvider);
+		} catch (Exception e) {
+			logger.debug("Exception While Validating matching data 'dbReturningData()'" + e.getMessage());
+			throw new Exception("Exception While Validating matching data 'dbReturningData()'" + e.getLocalizedMessage());
+		}
+    	return flag;
+    }
+    
+    /**
+     * Db returning data total api traffic.
+     *
+     * @author SulakkhanaW
+     * @param apiTrafficListUI the api traffic list ui
+     * @param fromDate the from date
+     * @param toDate the to date
+     * @param operatorId the operator id
+     * @param serviceProvider the service provider
+     * @return true, if successful
+     * @throws Exception the exception
+     */
+    public boolean dbReturningDataTotalAPITraffic(String[][] apiTrafficListUI, String fromDate, String toDate, String operatorId, String serviceProvider) throws Exception {
+    	flag = false;
+    	String query = String.format(SQLQuery.TOTAL_API_TRAFFIC, fromDate, toDate, operatorId, serviceProvider);
+		QueryResult qsApiTotalTraffic;
+		String uiApiName = null;
+		String uiApiCount = null;
+		String dbApiCount = null;
+		try {
+			qsApiTotalTraffic = SQLExecuter.getQueryResults(query);
+
+			if (qsApiTotalTraffic.numOfResult() == apiTrafficListUI.length) {
+				int rowCount = qsApiTotalTraffic.numOfResult();
+				for (int x = 0; x < rowCount;) {
+					uiApiName = apiTrafficListUI[x][0];
+					uiApiCount = apiTrafficListUI[x][1];
+					dbApiCount = qsApiTotalTraffic.getValueFromCondition("trafficCount", "api", uiApiName);
+					if (!uiApiCount.equals(dbApiCount)) {
+						flag = false;
+					}
+					x++;
+				}
+				flag = true;
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating matching datae 'dbReturningData()' UICount : " + uiApiCount + " and DBCount : " + dbApiCount + e.getMessage());
+			throw new Exception("Exception While Validating matching data 'dbReturningData()' UICount : " + uiApiCount + " and DBCount : " + dbApiCount + e.getLocalizedMessage());
+		}
+		return flag;
+    }
+    
+    /**
+     * Checks if is pie chart operator api traffic.
+     *
+     * @author SulakkhanaW
+     * @param fromDate the from date
+     * @param toDate the to date
+     * @param serviceProvider the service provider
+     * @return true, if is pie chart operator api traffic
+     * @throws Exception the exception
+     */
+    public boolean isPieChartOperatorAPITraffic(String fromDate, String toDate, String serviceProvider) throws Exception{
+    	flag = false;
+		ArrayList<String> apiList = new ArrayList<String>();
+		WebElement select;
+		try {
+			select = getElement(UIType.Xpath, pieChartOperatorAPITraffic);
+			List<WebElement> options = select.findElements(By.xpath(pieChartOperatorAPITraffic));
+			for (WebElement option : options) {
+				apiList.add(option.getText());
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating graphs data 'isPieGraph()'" + e.getMessage());
+			throw new Exception("Exception While Validating graphs data 'isPieGraph()'" + e.getLocalizedMessage());
+		}
+
+		int count = apiList.size();
+		String apiListDetails[][] = new String[count][2];
+		for (int i = 0; i < count; i++){
+			String element = apiList.get(i);
+			int openParanthis = element.indexOf("(") + 1;
+			int closeParanthis = element.indexOf(")");
+			String value = element.substring(openParanthis, closeParanthis);
+			String apiName = element.substring(0, openParanthis - 1).trim();
+			apiListDetails[i][0] = apiName;
+			apiListDetails[i][1] = value;
+		}
+    	try {
+			flag = dbRetuningDataOperatorTraffic(apiListDetails, fromDate, toDate, serviceProvider);
+		} catch (Exception e) {
+			logger.debug("Exception While Validating matching data 'dbReturningData()'" + e.getMessage());
+			throw new Exception("Exception While Validating matching data 'dbReturningData()'" + e.getLocalizedMessage());
+		}
+    	return flag;
+    }
+    
+    /**
+     * Db retuning data operator traffic.
+     *
+     * @author SulakkhanaW
+     * @param apiTrafficListUI the api traffic list ui
+     * @param fromDate the from date
+     * @param toDate the to date
+     * @param serviceProvider the service provider
+     * @return true, if successful
+     * @throws Exception the exception
+     */
+    public boolean dbRetuningDataOperatorTraffic(String[][] apiTrafficListUI,String fromDate, String toDate, String serviceProvider) throws Exception{
+    	String query = String.format(SQLQuery.OPERATOR_API_TRAFFIC, fromDate, toDate, serviceProvider);
+		QueryResult qsOperatorAPITraffic;
+		String uiApiName = null;
+		String uiApiCount = null;
+		String dbApiCount = null;
+		try {
+			qsOperatorAPITraffic = SQLExecuter.getQueryResults(query);
+
+			if (qsOperatorAPITraffic.numOfResult() == apiTrafficListUI.length) {
+				int rowCount = qsOperatorAPITraffic.numOfResult();
+				for (int x = 0; x < rowCount;) {
+					uiApiName = apiTrafficListUI[x][0];
+					uiApiCount = apiTrafficListUI[x][1];
+					dbApiCount = qsOperatorAPITraffic.getValueFromCondition("trafficCount", "operatorId", uiApiName);
+					if (!uiApiCount.equals(dbApiCount)) {
+						flag = false;
+					}
+					x++;
+				}
+				flag = true;
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating matching datae 'dbRetuningDataOperatorTraffic()' UICount : " + uiApiCount + " and DBCount : " + dbApiCount + e.getMessage());
+			throw new Exception("Exception While Validating matching data 'dbRetuningDataOperatorTraffic() UICount : " + uiApiCount + " and DBCount : " + dbApiCount + e.getLocalizedMessage());
+		}
+    	return flag;
+    }
+    
+    /**
+     * Checks if is customer care report.
+     *
+     * @author SulakkhanaW
+     * @param column the column
+     * @param dbColumn the db column
+     * @return true, if is customer care report
+     * @throws Exception the exception
+     */
+    public boolean isCustomerCareReport(String column, String dbColumn) throws Exception{
+    	flag = false;
+    	String query = String.format(SQLQuery.OPERATOR_API_TRAFFIC, "");// TODO : need the correct query
+    	QueryResult qsOperatorAPITraffic;
+		try {
+			qsOperatorAPITraffic = SQLExecuter.getQueryResults(query);
+			ArrayList<WebElement> pageination = (ArrayList<WebElement>) driver.findElements(By.xpath(reportPagination));
+			if (pageination.get(0).getText().contains("Prev")) {
+				pageination.remove(0);
+			}
+			if (pageination.get(pageination.size() - 1).getText().contains("Next")) {
+				pageination.remove(pageination.size() - 1);
+			}
+			int count = pageination.size();
+			for (int i = 0; i < count;) {
+				pageination.get(i).click();
+				Thread.sleep(sleepTime);
+				WebElement table = driver.findElement(By.xpath(tblCustomerCare));
+				Table tableContent = new Table(table);
+				int rowCount = tableContent.body().getAllRows().size();
+				int columnCount = tableContent.head().getColumnIndex(column);
+				int matchingColumnCount = tableContent.head().getColumnIndex("Date");
+				ArrayList<WebElement> matchingRowElements = (ArrayList<WebElement>) tableContent.body().getCellsFromColumn(matchingColumnCount);
+				for (int x = 0; x < rowCount;) {
+					String rowValue = tableContent.body().getCellFromRowIndexColumnIndex(x, columnCount).getText();
+					String rowMatchingValue = matchingRowElements.get(x).getText();
+					String dbRowVale = qsOperatorAPITraffic.getValueFromCondition(dbColumn, "Date", rowMatchingValue);
+					if (!rowValue.equalsIgnoreCase(dbRowVale)) {
+						return false;
+					}
+					x++;
+				}
+				i++;
+				flag = true;
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating customer care report against DB 'dbRetuningDataOperatorTraffic()'" + e.getMessage());
+			throw new Exception("Exception While Validating customer care report against DB 'dbRetuningDataOperatorTraffic()" + e.getMessage());
+		}
+		return flag;
+    }
+  
+    /**
+     * Checks if is manager page usename password text boxes displayed.
+     *
+     * @return true, if is manager page usename password text boxes displayed
+     * @throws Exception the exception
+     */
+    public boolean isManagerPageUsenamePasswordTextBoxesDisplayed() throws Exception {
+
+		flag = false;
+		logger.debug("Validating User name and password text boxes");
+		Thread.sleep(sleepTime);
+		try {
+			if (getElement(txtUserName).isDisplayed() && getElement(txtPassword).isDisplayed()) {
+				flag = true;
+				logger.debug("Validating User name and password text boxes completed");
+			} else {
+				logger.debug("User name and password text boxes are Not Matched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating User name and password text boxes Title 'isManagerPageUsenamePasswordTextBoxesDisplayed()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating User name and password text boxes Title 'isManagerPageUsenamePasswordTextBoxesDisplayed()'"
 							+ e.getLocalizedMessage());
 		}
 		return flag;

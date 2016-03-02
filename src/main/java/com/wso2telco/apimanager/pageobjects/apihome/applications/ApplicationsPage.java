@@ -205,6 +205,8 @@ public class ApplicationsPage extends BasicPageObject  {
 	 * Checks if is teirname.
 	 *
 	 * @author SulakkhanaW
+	 * @param username the username
+	 * @param appname the appname
 	 * @param teir the teir
 	 * @return true, if is teirname
 	 * @throws Exception the exception
@@ -233,6 +235,8 @@ public class ApplicationsPage extends BasicPageObject  {
 	 * Checks if is application status.
 	 *
 	 * @author SulakkhanaW
+	 * @param username the username
+	 * @param appname the appname
 	 * @param status the status
 	 * @return true, if is application status
 	 * @throws Exception the exception
@@ -261,6 +265,8 @@ public class ApplicationsPage extends BasicPageObject  {
 	 *
 	 * @author SulakkhanaW
 	 * @param url the url
+	 * @param username the username
+	 * @param appname the appname
 	 * @return true, if is callbackurl
 	 * @throws Exception the exception
 	 */
@@ -287,6 +293,8 @@ public class ApplicationsPage extends BasicPageObject  {
 	 * Validate description.
 	 *
 	 * @author SulakkhanaW
+	 * @param username the username
+	 * @param appname the appname
 	 * @param description the description
 	 * @return true, if successful
 	 * @throws Exception the exception
@@ -344,6 +352,7 @@ public class ApplicationsPage extends BasicPageObject  {
  	 *
  	 * @author SulakkhanaW
  	 * @param app the app
+ 	 * @throws Exception the exception
  	 */
  	public void clickDelete(String app) throws Exception{
 		String xpath = String.format(btnAppDelete, app);

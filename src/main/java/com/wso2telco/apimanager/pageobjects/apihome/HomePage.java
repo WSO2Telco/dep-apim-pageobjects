@@ -161,8 +161,6 @@ public class HomePage extends BasicPageObject {
 	 */
 	public SandBoxPage clickSandBoxLink() throws Exception{
 		logger.debug("Start clicking on Sandbox link");
-
-
 		String parent = driver.getWindowHandle();
 		Thread.sleep(sleepTime);
 		getElement(linkSandBox).click();
@@ -171,7 +169,6 @@ public class HomePage extends BasicPageObject {
 		String win2=null;
 		Set<String> availableWindows = driver.getWindowHandles();
 		ArrayList<String> elements = new ArrayList<>();
-		
 		try{
 			for (String winNum : availableWindows) {
 			elements.add(winNum);
@@ -195,7 +192,6 @@ public class HomePage extends BasicPageObject {
 		logInstruction("Exception While clicking on Sandbox link 'clickSandboxLink()'" + e.getMessage());
 		throw new Exception("Exception While clicking on Sandbox link 'clickSandboxLink()'" + e.getLocalizedMessage());
 		}
-	
 		logger.debug("Clicked on Sandbox link");
 		return new SandBoxPage(driver);
 		
