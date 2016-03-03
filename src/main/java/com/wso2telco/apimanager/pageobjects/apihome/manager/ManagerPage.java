@@ -1,13 +1,9 @@
 package com.wso2telco.apimanager.pageobjects.apihome.manager;
 
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.Alert;
@@ -3025,15 +3021,12 @@ public class ManagerPage extends BasicPageObject {
      * @param filePath the file path
      * @throws Exception 
      */
-	public void validateData(String filePath, String column, String dbColumn) throws Exception {
+	public void validateData(String path, String csvName, String xlsxName,String dbColumn) throws Exception {
 		
-		String path = "C:/Users/AUX-026/Downloads/";
-		String csvName = "2015-11-18-2015-12-23-AuxLogoutUser-DIALOG-AuxAppTest.csv";
-		String xlsxName = "AuxLogoutUser-DIALOG-AuxAppTest.xlsx";
 		String xlsxPath = path + xlsxName;
 		flag = false;
-		String query = String.format(SQLQuery.TRANSACTION_LOG, "");
-		QueryResult qsTransactionLog;
+		//String query = String.format(SQLQuery.TRANSACTION_LOG, "");
+		//QueryResult qsTransactionLog;
 		CSVFileReader csv = new CSVFileReader();
 		csv.convertCSVToXLSX(path, csvName, xlsxName);
 		ExcelFileReader excelFileReader = new ExcelFileReader(xlsxPath, "sheet1");
@@ -3041,7 +3034,22 @@ public class ManagerPage extends BasicPageObject {
 		System.out.println(exceldata);
 		int rowCount = exceldata.size();
 		int columnCount = exceldata.get(0).size();
+		
+		String[][] array = new String[exceldata.size()][];
 
+		int i = 0;
+		for (List<String> nestedList : exceldata) {
+		    array[i++] = nestedList.toArray(new String[nestedList.size()]);
+		}
+		
+		for (int x = 1; x < rowCount; x++) {
+			for (int j = 0; j < columnCount; j++) {
+				String getValusFromArray = (array[x][j]).toString();
+				System.out.println(getValusFromArray);
+			}
+			//System.out.println("\n");
+		}
+		
 	}
 }
 
