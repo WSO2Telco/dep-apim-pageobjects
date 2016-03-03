@@ -3022,33 +3022,16 @@ public class ManagerPage extends BasicPageObject {
      * @throws Exception 
      */
 	public void validateData(String path, String csvName, String xlsxName,String dbColumn) throws Exception {
-		
 		String xlsxPath = path + xlsxName;
 		flag = false;
-		//String query = String.format(SQLQuery.TRANSACTION_LOG, "");
-		//QueryResult qsTransactionLog;
 		CSVFileReader csv = new CSVFileReader();
 		csv.convertCSVToXLSX(path, csvName, xlsxName);
 		ExcelFileReader excelFileReader = new ExcelFileReader(xlsxPath, "sheet1");
 		List<List<String>> exceldata = excelFileReader.readExcelFile("sheet1");
-		System.out.println(exceldata);
-		int rowCount = exceldata.size();
-		int columnCount = exceldata.get(0).size();
+		String value;
+		value = excelFileReader.getDesiredValue(exceldata, "g", " f", "MSISDN");
+		System.out.println("Expected value = "+value);
 		
-		String[][] array = new String[exceldata.size()][];
-
-		int i = 0;
-		for (List<String> nestedList : exceldata) {
-		    array[i++] = nestedList.toArray(new String[nestedList.size()]);
-		}
-		
-		for (int x = 1; x < rowCount; x++) {
-			for (int j = 0; j < columnCount; j++) {
-				String getValusFromArray = (array[x][j]).toString();
-				System.out.println(getValusFromArray);
-			}
-			//System.out.println("\n");
-		}
 		
 	}
 }
