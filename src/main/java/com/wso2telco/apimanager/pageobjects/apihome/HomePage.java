@@ -82,7 +82,7 @@ public class HomePage extends BasicPageObject {
 		try {
 			logger.debug("Start clicking on My Applications link");
 			getElement(linkMyApplications).click();
-			Thread.sleep(8000);
+			Thread.sleep(15000);
 			logger.debug("Clicked on My Applications link");
 		} catch (Exception e) {
 			logInstruction("Exception While clicking on My Applications link 'clickMyApplicationsLink()'" + e.getMessage());
@@ -102,6 +102,7 @@ public class HomePage extends BasicPageObject {
 		try {
 			logger.debug("Start clicking on My Subscriptions link");
 			getElement(linkMySubscriptions).click();
+			Thread.sleep(20000);
 			logger.debug("Clicked on My Subscriptions link");
 		} catch (Exception e) {
 			logInstruction("Exception While clicking on My Subscription link 'clickMyApplicationsLink()'" + e.getMessage());
@@ -122,7 +123,7 @@ public class HomePage extends BasicPageObject {
 		String parent = driver.getWindowHandle();
 		Thread.sleep(sleepTime);
 		getElement(linkManage).click();
-		Thread.sleep(sleepTime);
+		Thread.sleep(20000);
 		String win1=null;
 		String win2=null;
 		Set<String> availableWindows = driver.getWindowHandles();
