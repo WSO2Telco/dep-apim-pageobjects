@@ -2,7 +2,6 @@ package com.wso2telco.apimanager.pageobjects.apihome.manager;
 
 
 import java.io.IOException;
-
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,6 +23,7 @@ import com.wso2telco.test.framework.db.connection.sql.QueryResult;
 import com.wso2telco.test.framework.element.table.Table;
 import com.wso2telco.test.framework.util.UIType;
 import com.wso2telco.test.framework.tools.excelfile.CSVFileReader;
+import com.wso2telco.test.framework.tools.excelfile.ExcelFileReader;
 /**
  * The Class ManagerPage.
  */
@@ -3023,38 +3023,24 @@ public class ManagerPage extends BasicPageObject {
      * Validate data.
      *
      * @param filePath the file path
-     * @throws IOException 
      * @throws Exception 
      */
-	public void validateData(String filePath, String column, String dbColumn) throws IOException {
+	public void validateData(String filePath, String column, String dbColumn) throws Exception {
 		
-		
+		String path = "C:/Users/AUX-026/Downloads/";
+		String csvName = "2015-11-18-2015-12-23-AuxLogoutUser-DIALOG-AuxAppTest.csv";
+		String xlsxName = "AuxLogoutUser-DIALOG-AuxAppTest.xlsx";
+		String xlsxPath = path + xlsxName;
 		flag = false;
 		String query = String.format(SQLQuery.TRANSACTION_LOG, "");
 		QueryResult qsTransactionLog;
 		CSVFileReader csv = new CSVFileReader();
-		//csv.removeWhiteSpaces(filePath);
-		try {
-			//qsTransactionLog = SQLExecuter.getQueryResults(query);
-			HashMap<Integer, String[]> dataMap = csv.readDataFromCSV(filePath);
-			for(int i=1;i<dataMap.size();i++){
-				for(int j=0;j<=9;j++){
-					String[][] arr = csv.getCSVValues(dataMap);
-					String result = (arr[i][j]).toString();
-					System.out.println(result);
-				}
-				
-			}
-			//csv.getCSVValues(dataMap);
-			//dataMap.get(8).toString().length();
-			//System.out.println(dataMap);
-			
-				//String dbRowValue = qsTransactionLog.getValueFromCondition(column, "", value);
-		
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		csv.convertCSVToXLSX(path, csvName, xlsxName);
+		ExcelFileReader excelFileReader = new ExcelFileReader(xlsxPath, "sheet1");
+		List<List<String>> exceldata = excelFileReader.readExcelFile("sheet1");
+		System.out.println(exceldata);
+		int rowCount = exceldata.size();
+		int columnCount = exceldata.get(0).size();
 
 	}
 }
