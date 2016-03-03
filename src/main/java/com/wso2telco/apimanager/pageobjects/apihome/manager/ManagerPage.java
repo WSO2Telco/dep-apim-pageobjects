@@ -1,8 +1,13 @@
 package com.wso2telco.apimanager.pageobjects.apihome.manager;
 
+
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.Alert;
@@ -17,7 +22,8 @@ import com.wso2telco.test.framework.db.connection.executers.SQLExecuter;
 import com.wso2telco.test.framework.db.connection.sql.QueryResult;
 import com.wso2telco.test.framework.element.table.Table;
 import com.wso2telco.test.framework.util.UIType;
-
+import com.wso2telco.test.framework.tools.excelfile.CSVFileReader;
+import com.wso2telco.test.framework.tools.excelfile.ExcelFileReader;
 /**
  * The Class ManagerPage.
  */
@@ -3011,6 +3017,31 @@ public class ManagerPage extends BasicPageObject {
 							+ e.getLocalizedMessage());
 		}
 		return flag;
+	}
+    
+    /**
+     * Validate data.
+     *
+     * @param filePath the file path
+     * @throws Exception 
+     */
+	public void validateData(String filePath, String column, String dbColumn) throws Exception {
+		
+		String path = "C:/Users/AUX-026/Downloads/";
+		String csvName = "2015-11-18-2015-12-23-AuxLogoutUser-DIALOG-AuxAppTest.csv";
+		String xlsxName = "AuxLogoutUser-DIALOG-AuxAppTest.xlsx";
+		String xlsxPath = path + xlsxName;
+		flag = false;
+		String query = String.format(SQLQuery.TRANSACTION_LOG, "");
+		QueryResult qsTransactionLog;
+		CSVFileReader csv = new CSVFileReader();
+		csv.convertCSVToXLSX(path, csvName, xlsxName);
+		ExcelFileReader excelFileReader = new ExcelFileReader(xlsxPath, "sheet1");
+		List<List<String>> exceldata = excelFileReader.readExcelFile("sheet1");
+		System.out.println(exceldata);
+		int rowCount = exceldata.size();
+		int columnCount = exceldata.get(0).size();
+
 	}
 }
 
