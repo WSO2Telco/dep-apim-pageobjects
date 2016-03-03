@@ -2,7 +2,6 @@ package com.wso2telco.apimanager.pageobjects.login;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
-
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
@@ -126,10 +125,12 @@ public class LoginPage extends BasicPageObject {
 	 *
 	 * @author SulakkhanaW
 	 * @param userName the user name
+	 * @throws Exception 
 	 */
-	public void enterLoginUserName(String userName){
+	public void enterLoginUserName(String userName) throws Exception{
 		logger.debug("Entering Login username");
-		getElement(txtLoginUserName).clearAndSendkeys(userName);
+		typeTextBox(txtLoginUserName, userName);
+		//getElement(txtLoginUserName).clearAndSendkeys(userName);
 		logger.debug("Entered Login username");
 	}
 	
