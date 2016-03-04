@@ -3029,7 +3029,7 @@ public class ManagerPage extends BasicPageObject {
 		ExcelFileReader excelFileReader = new ExcelFileReader(xlsxPath, "sheet1");
 		List<List<String>> exceldata = excelFileReader.readExcelFile("sheet1");
 		String value;
-		value = excelFileReader.getDesiredValue(exceldata, "g", " f", "MSISDN");
+		value = excelFileReader.getDesiredValue(exceldata, "b", "f", " MSISDN");
 		System.out.println("Expected value = "+value);
 		
 		
