@@ -1,5 +1,6 @@
 package com.wso2telco.apimanager.pageobjects.apihome.manager;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
@@ -3406,49 +3407,40 @@ public class ManagerPage extends BasicPageObject {
 	 * @throws Exception
 	 *             the exception
 	 */
-	public boolean isCustomerCareReport(String column, String dbColumn)
-			throws Exception {
+	public boolean isCustomerCareReport(String column, String dbColumn)throws Exception {
 		flag = false;
-		String query = String.format(SQLQuery.OPERATOR_API_TRAFFIC, "");// TODO
-																		// :
-																		// need
-																		// the
-																		// correct
-																		// query
+		String query = String.format(SQLQuery.OPERATOR_API_TRAFFIC, "");
 		QueryResult qsOperatorAPITraffic;
 		try {
 			qsOperatorAPITraffic = SQLExecuter.getQueryResults(query);
-			ArrayList<WebElement> pageination = (ArrayList<WebElement>) driver
-					.findElements(By.xpath(reportPagination));
+			ArrayList<WebElement> pageination = new ArrayList<WebElement>(driver.findElements(By.xpath(reportPagination)));
 			if (pageination.get(0).getText().contains("Prev")) {
 				pageination.remove(0);
 			}
-			if (pageination.get(pageination.size() - 1).getText()
-					.contains("Next")) {
+			if (pageination.get(pageination.size() - 1).getText().contains("Next")) {
 				pageination.remove(pageination.size() - 1);
 			}
 			int count = pageination.size();
 			for (int i = 0; i < count;) {
 				pageination.get(i).click();
 				Thread.sleep(sleepTime);
-				WebElement table = driver
-						.findElement(By.xpath(tblCustomerCare));
+				WebElement table = driver.findElement(By.xpath(tblCustomerCare));
 				Table tableContent = new Table(table);
 				int rowCount = tableContent.body().getAllRows().size();
 				int columnCount = tableContent.head().getColumnIndex(column);
-				int matchingColumnCount = tableContent.head().getColumnIndex(
-						"Date");
-				ArrayList<WebElement> matchingRowElements = (ArrayList<WebElement>) tableContent
-						.body().getCellsFromColumn(matchingColumnCount);
+				int matchingColumnCount = tableContent.head().getColumnIndex(column);
+				ArrayList<WebElement> matchingRowElements = new ArrayList<WebElement>(tableContent.body().getCellsFromColumn(matchingColumnCount));
 				for (int x = 0; x < rowCount;) {
-					String rowValue = tableContent.body()
-							.getCellFromRowIndexColumnIndex(x, columnCount)
-							.getText();
-					String rowMatchingValue = matchingRowElements.get(x)
-							.getText();
-					String dbRowVale = qsOperatorAPITraffic
-							.getValueFromCondition(dbColumn, "Date",
-									rowMatchingValue);
+					String rowValue = tableContent.body().getCellFromRowIndexColumnIndex(x, columnCount).getText();
+					String rowMatchingValue = matchingRowElements.get(x).getText();
+					String dbRowVale;
+					if (dbColumn.equalsIgnoreCase("time")) {
+						dbRowVale = qsOperatorAPITraffic.getValueFromCondition(dbColumn, "time", rowMatchingValue);
+					} else if (dbColumn.equalsIgnoreCase("jsonBody")) {
+						dbRowVale = qsOperatorAPITraffic.getValueFromCondition(dbColumn, "jsonBody", rowMatchingValue);
+					} else {
+						dbRowVale = qsOperatorAPITraffic.getValueFromCondition(dbColumn, "api", rowMatchingValue);
+					}
 					if (!rowValue.equalsIgnoreCase(dbRowVale)) {
 						return false;
 					}
@@ -3458,11 +3450,8 @@ public class ManagerPage extends BasicPageObject {
 				flag = true;
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating customer care report against DB 'dbRetuningDataOperatorTraffic()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating customer care report against DB 'dbRetuningDataOperatorTraffic()"
-							+ e.getMessage());
+			logger.debug("Exception While Validating customer care report against DB 'dbRetuningDataOperatorTraffic()'"+ e.getMessage());
+			throw new Exception("Exception While Validating customer care report against DB 'dbRetuningDataOperatorTraffic()"+ e.getMessage());
 		}
 		return flag;
 	}
@@ -3497,26 +3486,65 @@ public class ManagerPage extends BasicPageObject {
 		}
 		return flag;
 	}
+	
+	/**
+	 * Conver csv to xlsx.
+	 *
+	 * @author IsuruM
+	 * @param path the path
+	 * @param csvName the csv name
+	 * @param xlsxName the xlsx name
+	 */
+	public void converCSVToXlsx(String path, String csvName, String xlsxName){
+		CSVFileReader csv = new CSVFileReader();
+		try {
+			csv.convertCSVToXLSX(path, csvName, xlsxName);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Validate data.
 	 *
-	 * @param filePath
-	 *            the file path
-	 * @throws Exception
+	 * @author IsuruM
+	 * @param query the query
+	 * @param xlsxName the xlsx name
+	 * @param dbColumn the db column
+	 * @param excelColumn the excel column
+	 * @return true, if successful
+	 * @throws Exception 
 	 */
-	public void validateData(String path, String csvName, String xlsxName,
-			String dbColumn) throws Exception {
-		String xlsxPath = path + xlsxName;
+	public boolean isTransactionLogData(String query, String xlsxName, String dbColumn, String excelColumn) throws Exception {
 		flag = false;
-		CSVFileReader csv = new CSVFileReader();
-		csv.convertCSVToXLSX(path, csvName, xlsxName);
-		ExcelFileReader excelFileReader = new ExcelFileReader(xlsxPath,
-				"sheet1");
-		List<List<String>> exceldata = excelFileReader.readExcelFile("sheet1");
-		String value;
-		value = excelFileReader.getDesiredValue(exceldata, "b", "f", " MSISDN");
-		System.out.println("Expected value = " + value);
-
+		try {
+			QueryResult qsTransactionLog = SQLExecuter.getQueryResults(query);
+			ExcelFileReader excelFileReader = new ExcelFileReader(xlsxName, "sheet1");
+			List<List<String>> exceldata = excelFileReader.readExcelFile("sheet1");
+			List<String> rows = qsTransactionLog.getAllValues("requestId");
+			int rowCount = rows.size();
+			for (int i = 0; i < rowCount; i++) {
+				String matchingValue = rows.get(i);
+				String dbValue = qsTransactionLog.getValueFromCondition(dbColumn, "requestId", matchingValue);
+				String excelMatchingVal = " " + matchingValue;
+				String excelValue = excelFileReader.getDesiredValue(exceldata, excelColumn, " MIFE Reference Code", excelMatchingVal);
+				double dbval = 0,excelVal = 0;
+				if(dbValue.contains(".")||excelValue.contains(".")){
+					dbval = Double.parseDouble(dbValue);
+					excelVal = Double.parseDouble(excelValue);
+					if ((Math.abs(dbval - excelVal) >= 0.01)) {
+						flag = false;
+					}
+				}
+				if (!(dbValue.equalsIgnoreCase(excelValue))) {
+					flag = false;
+				}
+			}
+			flag = true;
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Transaction log against DB 'isTransactionLogData()'"+ e.getMessage());
+			throw new Exception("Exception While Validating Transaction log against DB 'isTransactionLogData()"+ e.getMessage());
+		}
+		return flag;
 	}
 }
