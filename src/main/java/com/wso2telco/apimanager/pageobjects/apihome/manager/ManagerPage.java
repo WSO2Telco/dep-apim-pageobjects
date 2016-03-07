@@ -20,6 +20,7 @@ import com.wso2telco.test.framework.util.UIType;
 import com.wso2telco.test.framework.tools.excelfile.CSVFileReader;
 import com.wso2telco.test.framework.tools.excelfile.ExcelFileReader;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ManagerPage.
  */
@@ -470,6 +471,7 @@ public class ManagerPage extends BasicPageObject {
 	/** The pie chart. */
 	String pieChartTotalAPITraffic = "//div[@id='total-api-traffic-pie-chart']/div/div";
 
+	/** The pie chart performance error rates. */
 	String pieChartPerformanceErrorRates = "//div[@id='error-response-codes-pie-chart']/div/div";
 
 	/** The pie chart operator api traffic. */
@@ -483,6 +485,25 @@ public class ManagerPage extends BasicPageObject {
 	
 	/** The lbl reports. */
 	private String lblReports = "//div[@id='left']/div/ul/li";
+	
+	/** The lnk sp blacklist. */
+	private WebPelement lnkSPBlacklist = defineEelement(UIType.Xpath,
+			"//a[contains(.,'SP Blacklist')]");
+	
+	/** The dd sp blacklist select. */
+	private WebPelement ddSPBlacklistSelect = defineEelement(UIType.ID,"spSelect");
+	
+	/** The btn black list. */
+	private WebPelement btnBlackList = defineEelement(UIType.Xpath,"//button[contains(.,'Blacklist')]");
+	
+	/** The lbl sp black list. */
+	private WebPelement lblSPBlackList = defineEelement(UIType.Xpath,"//div[@class='title-section']/h2");
+	
+	/** The lbl admin module. */
+	private WebPelement lblAdminModule = defineEelement(UIType.Xpath,"//div[@id='messageModal']/div/h3");
+	
+	/** The btn admin module yes. */
+	private WebPelement btnAdminModuleYes = defineEelement(UIType.Xpath,"//a[contains(.,'Yes')]");
 
 	/**
 	 * Instantiates a new manager page.
@@ -1415,8 +1436,7 @@ public class ManagerPage extends BasicPageObject {
 	 * Enter manual number.
 	 *
 	 * @author JayaniP
-	 * @param number
-	 *            the number
+	 * @return the string
 	 */
 
 	/**
@@ -1440,8 +1460,9 @@ public class ManagerPage extends BasicPageObject {
 
 	/**
 	 * Generate random string for the minimum number.
-	 * 
+	 *
 	 * @author IsuruM return generated value
+	 * @return the string
 	 */
 
 	public String GenMinNum() {
@@ -1462,8 +1483,10 @@ public class ManagerPage extends BasicPageObject {
 
 	/**
 	 * Generate random string for the maximum number.
-	 * 
+	 *
 	 * @author IsuruM return generated value
+	 * @param max the max
+	 * @return the string
 	 */
 
 	public String GenMaxNum(String max) {
@@ -1477,8 +1500,9 @@ public class ManagerPage extends BasicPageObject {
 
 	/**
 	 * Enter redundent value.
-	 * 
+	 *
 	 * @author IsuruM return generated value
+	 * @param redval the redval
 	 */
 	public void enterRedundentValue(String redval) {
 
@@ -1490,8 +1514,9 @@ public class ManagerPage extends BasicPageObject {
 
 	/**
 	 * Enter manual number.
-	 * 
+	 *
 	 * @author IsuruM return generated value
+	 * @param number the number
 	 */
 	public void enterManualNumber(String number) {
 		logger.debug("Enter Manual Number");
@@ -1553,7 +1578,7 @@ public class ManagerPage extends BasicPageObject {
 	 * Click upload number list.
 	 *
 	 * @author JayaniP
-	 * @throws InterruptedException
+	 * @throws InterruptedException the interrupted exception
 	 */
 	public void clickUploadNumberList() throws InterruptedException {
 		logger.debug("Click upload number list");
@@ -3082,13 +3107,14 @@ public class ManagerPage extends BasicPageObject {
 	}
 
 	/**
-	 * 
-	 * @param fromDate
-	 * @param toDate
-	 * @param operatorId
-	 * @param serviceProvider
-	 * @return
-	 * @throws Exception
+	 * Checks if is pie graph performance error rates.
+	 *
+	 * @param fromDate the from date
+	 * @param toDate the to date
+	 * @param operatorId the operator id
+	 * @param serviceProvider the service provider
+	 * @return true, if is pie graph performance error rates
+	 * @throws Exception the exception
 	 */
 	public boolean isPieGraphPerformanceErrorRates(String fromDate, String toDate, String operatorId, String serviceProvider) throws Exception {
 		flag = false;
@@ -3184,14 +3210,15 @@ public class ManagerPage extends BasicPageObject {
 	}
 
 	/**
-	 * 
-	 * @param apiTrafficListUI
-	 * @param fromDate
-	 * @param toDate
-	 * @param operatorId
-	 * @param serviceProvider
-	 * @return
-	 * @throws Exception
+	 * Db returning data performance error rates.
+	 *
+	 * @param apiTrafficListUI the api traffic list ui
+	 * @param fromDate the from date
+	 * @param toDate the to date
+	 * @param operatorId the operator id
+	 * @param serviceProvider the service provider
+	 * @return true, if successful
+	 * @throws Exception the exception
 	 */
 	public boolean dbReturningDataPerformanceErrorRates(String[][] apiTrafficListUI, String fromDate, String toDate, String operatorId, String serviceProvider) throws Exception {
 		flag = false;
@@ -3504,9 +3531,11 @@ public class ManagerPage extends BasicPageObject {
 	/**
 	 * Validate data.
 	 *
-	 * @param filePath
-	 *            the file path
-	 * @throws Exception
+	 * @param path the path
+	 * @param csvName the csv name
+	 * @param xlsxName the xlsx name
+	 * @param dbColumn the db column
+	 * @throws Exception the exception
 	 */
 	public void validateData(String path, String csvName, String xlsxName,
 			String dbColumn) throws Exception {
@@ -3523,6 +3552,13 @@ public class ManagerPage extends BasicPageObject {
 
 	}
 	
+	/**
+	 * Checks if is report accessing.
+	 *
+	 * @param reportName the report name
+	 * @return true, if is report accessing
+	 * @throws Exception the exception
+	 */
 	public boolean isReportAccessing(String reportName) throws Exception {
 		flag = false;
 		ArrayList<String> reportList = new ArrayList<String>();
@@ -3549,5 +3585,103 @@ public class ManagerPage extends BasicPageObject {
 							+ e.getMessage());
 		} 
 		return flag;
+	}
+	
+	/**
+	 * Click on sp black list.
+	 */
+	public void clickOnSPBlackList(){
+		logger.debug("Start clicking on SP Blacklist");
+		getElement(lnkSPBlacklist).click();
+		logger.debug("Clicked on SP Blacklist");
+	}
+	
+	/**
+	 * Select sp blacklist application.
+	 *
+	 * @param appname the appname
+	 */
+	public void selectSPBlacklistApplication(String appname){
+		logger.debug("Start selecting on SP Blacklist application");
+		getElement(ddSPBlacklistSelect).clearAndSendkeys(appname);
+		logger.debug("Selected SP Blacklist application");
+	}
+	
+	/**
+	 * Click on black list.
+	 */
+	public void clickOnSPBlackListButton(){
+		logger.debug("Start clicking on Blacklist");
+		getElement(btnBlackList).click();
+		logger.debug("Clicked on Blacklist");
+	}
+	
+	/**
+	 * Checks if is SP blacklist page displayed.
+	 *
+	 * @param title the title
+	 * @return true, if is SP blacklist page displayed
+	 * @throws Exception the exception
+	 */
+	public boolean isSPBlacklistPageDisplayed(String title)
+			throws Exception {
+
+		flag = false;
+		logger.debug("Validating SP Blacklist Page");
+		Thread.sleep(sleepTime);
+		try {
+			if (title.contains(getElement(lblSPBlackList).getText())) {
+				flag = true;
+				logger.debug("Validating SP Blacklist page completed");
+			} else {
+				logger.debug("SP Blacklist Page is Not Matched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating SP Blacklist Page Title 'isSPBlacklistPageDisplayed()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating SP Blacklist Page Title 'isSPBlacklistPageDisplayed()'"
+							+ e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
+	/**
+	 * Checks if is SP blacklist api admin module page displayed.
+	 *
+	 * @param title the title
+	 * @return true, if is SP blacklist api admin module page displayed
+	 * @throws Exception the exception
+	 */
+	public boolean isSPBlacklistAPIAdminModulePageDisplayed(String title)
+			throws Exception {
+
+		flag = false;
+		logger.debug("Validating SP Blacklist API Admin Module Page");
+		Thread.sleep(sleepTime);
+		try {
+			if (title.contains(getElement(lblAdminModule).getText())) {
+				flag = true;
+				logger.debug("Validating SP Blacklist API Admin Module page completed");
+			} else {
+				logger.debug("SP Blacklist Page API Admin Module is Not Matched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating SP Blacklist API Admin Module Page Title 'isSPBlacklistAPIAdminModulePageDisplayed()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating SP Blacklist API Admin Module Page Title 'isSPBlacklistAPIAdminModulePageDisplayed()'"
+							+ e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
+	/**
+	 * Click admin module yes.
+	 */
+	public void clickAdminModuleYes(){
+		logger.debug("Start clicking on admin module yes");
+		getElement(btnAdminModuleYes).click();
+		logger.debug("Clicked on admin module yes");
 	}
 }
