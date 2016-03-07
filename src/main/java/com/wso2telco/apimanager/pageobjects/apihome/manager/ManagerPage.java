@@ -480,6 +480,9 @@ public class ManagerPage extends BasicPageObject {
 
 	/** The report pagination. */
 	String reportPagination = "//div[@id='pagination-demo']/ul/li";
+	
+	/** The lbl reports. */
+	private String lblReports = "//div[@id='left']/div/ul/li";
 
 	/**
 	 * Instantiates a new manager page.
@@ -3518,5 +3521,33 @@ public class ManagerPage extends BasicPageObject {
 		value = excelFileReader.getDesiredValue(exceldata, "b", "f", " MSISDN");
 		System.out.println("Expected value = " + value);
 
+	}
+	
+	public boolean isReportAccessing(String reportName) throws Exception {
+		flag = false;
+		ArrayList<String> reportList = new ArrayList<String>();
+		WebElement select;
+		try {
+			select = getElement(UIType.Xpath, lblReports);
+			List<WebElement> options = select.findElements(By.xpath(lblReports));
+			for (WebElement option : options) {
+				reportList.add(option.getText().trim());
+			}
+			logger.debug("Validating Report Access");
+			Thread.sleep(sleepTime);
+			if (reportList.contains(reportName)){
+				flag = true;
+				logger.debug("Validating Report Access completed");
+			} else {
+				logger.debug("Report is Not Matched");
+			}
+		} catch (InterruptedException e) {
+			logger.debug("Exception While Validating Report Access 'isReportAccessing()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating Report Access 'isReportAccessing()"
+							+ e.getMessage());
+		} 
+		return flag;
 	}
 }
