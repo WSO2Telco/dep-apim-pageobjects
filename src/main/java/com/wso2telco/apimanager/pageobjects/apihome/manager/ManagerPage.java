@@ -3370,24 +3370,16 @@ public class ManagerPage extends BasicPageObject {
 	/**
 	 * Db retuning data operator traffic.
 	 *
-	 * @author SulakkhanaW
-	 * @param apiTrafficListUI
-	 *            the api traffic list ui
-	 * @param fromDate
-	 *            the from date
-	 * @param toDate
-	 *            the to date
-	 * @param serviceProvider
-	 *            the service provider
+	 * @author IsuruM
+	 * @param apiTrafficListUI the api traffic list ui
+	 * @param fromDate the from date
+	 * @param toDate the to date
+	 * @param serviceProvider the service provider
 	 * @return true, if successful
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
-	public boolean dbRetuningDataOperatorTraffic(String[][] apiTrafficListUI,
-			String fromDate, String toDate, String serviceProvider)
-			throws Exception {
-		String query = String.format(SQLQuery.OPERATOR_API_TRAFFIC, fromDate,
-				toDate, serviceProvider);
+	public boolean dbRetuningDataOperatorTraffic(String[][] apiTrafficListUI, String fromDate, String toDate, String serviceProvider) throws Exception {
+		String query = String.format(SQLQuery.OPERATOR_API_TRAFFIC, fromDate, toDate, serviceProvider);
 		QueryResult qsOperatorAPITraffic;
 		String uiApiName = null;
 		String uiApiCount = null;
@@ -3535,23 +3527,15 @@ public class ManagerPage extends BasicPageObject {
 	}
 
 	/**
-	 * Validate data.
+	 * Checks if is transaction log data.
 	 *
-<<<<<<< HEAD
 	 * @author IsuruM
 	 * @param query the query
 	 * @param xlsxName the xlsx name
 	 * @param dbColumn the db column
 	 * @param excelColumn the excel column
-	 * @return true, if successful
-	 * @throws Exception 
-=======
-	 * @param path the path
-	 * @param csvName the csv name
-	 * @param xlsxName the xlsx name
-	 * @param dbColumn the db column
+	 * @return true, if is transaction log data
 	 * @throws Exception the exception
->>>>>>> 891b51ff7d4dd332ccab86a0b246941f89897feb
 	 */
 	public boolean isTransactionLogData(String query, String xlsxName, String dbColumn, String excelColumn) throws Exception {
 		flag = false;
