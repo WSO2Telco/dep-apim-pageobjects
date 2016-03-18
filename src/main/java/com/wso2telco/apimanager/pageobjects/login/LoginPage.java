@@ -72,22 +72,9 @@ public class LoginPage extends BasicPageObject {
      * @author SulakkhanaW
      */
     public void clickLogInLink() throws Exception{
-    	logger.debug("Clicking on Login");
-/*    	WebPelement eleLogin = linkLogin;
-    	try {
-    	if (config.getValue("browser").equalsIgnoreCase("INTERNETEXPLORER")){
-    		eleLogin = linkLogin_IE;
-    		logger.debug("Clicked on Login");
-    	}
-    	else{*/
-    		getElement(linkLogin).click();
-    		logger.debug("Clicked on Login");
-/*    	}
-    	} catch (Exception e) {
-    	logger.debug("Exception While Clicking on Login 'clickLogInLink()'" + e.getMessage());
-    	throw new Exception("Exception While Clicking on Login 'clickLogInLink()'" + e.getLocalizedMessage());
-    	}*/
-    	
+		logger.debug("Clicking on Login");
+		getElement(linkLogin).click();
+		logger.debug("Clicked on Login");
 	}
 	
 	/**
@@ -130,7 +117,6 @@ public class LoginPage extends BasicPageObject {
 	public void enterLoginUserName(String userName) throws Exception{
 		logger.debug("Entering Login username");
 		typeTextBox(txtLoginUserName, userName);
-		//getElement(txtLoginUserName).clearAndSendkeys(userName);
 		logger.debug("Entered Login username");
 	}
 	
@@ -223,11 +209,7 @@ public class LoginPage extends BasicPageObject {
 	public boolean isLogin(String value) throws Exception{
 		flag = false;
 		logger.debug("Validating Login button");
-		try {/*
-			WebPelement eleLogin = linkLogin;
-			if (config.getValue("browser").equalsIgnoreCase("INTERNETEXPLORER")){
-				eleLogin = linkLogin_IE;
-				}*/
+		try {
 			if (getElement(linkLogin).getText().equalsIgnoreCase(value)){
 				flag = true;
 				logger.debug("Login button visible");

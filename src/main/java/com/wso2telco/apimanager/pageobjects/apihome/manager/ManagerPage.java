@@ -3429,12 +3429,10 @@ public class ManagerPage extends BasicPageObject {
 	 * @throws Exception
 	 *             the exception
 	 */
-	public boolean isCustomerCareReport(String column, String dbColumn)throws Exception {
+	public boolean isCustomerCareReport(String query, String column, String dbColumn)throws Exception {
 		flag = false;
-		String query = String.format(SQLQuery.OPERATOR_API_TRAFFIC, "");
-		QueryResult qsOperatorAPITraffic;
 		try {
-			qsOperatorAPITraffic = SQLExecuter.getQueryResults(query);
+			QueryResult qsOperatorAPITraffic = SQLExecuter.getQueryResults(query);
 			ArrayList<WebElement> pageination = new ArrayList<WebElement>(driver.findElements(By.xpath(reportPagination)));
 			if (pageination.get(0).getText().contains("Prev")) {
 				pageination.remove(0);
@@ -3450,19 +3448,15 @@ public class ManagerPage extends BasicPageObject {
 				Table tableContent = new Table(table);
 				int rowCount = tableContent.body().getAllRows().size();
 				int columnCount = tableContent.head().getColumnIndex(column);
-				int matchingColumnCount = tableContent.head().getColumnIndex(column);
+				int matchingColumnCount = tableContent.head().getColumnIndex("Date");
 				ArrayList<WebElement> matchingRowElements = new ArrayList<WebElement>(tableContent.body().getCellsFromColumn(matchingColumnCount));
+				if (!(rowCount == qsOperatorAPITraffic.getResultSize())){
+					return flag = false;
+				}
 				for (int x = 0; x < rowCount;) {
 					String rowValue = tableContent.body().getCellFromRowIndexColumnIndex(x, columnCount).getText();
 					String rowMatchingValue = matchingRowElements.get(x).getText();
-					String dbRowVale;
-					if (dbColumn.equalsIgnoreCase("time")) {
-						dbRowVale = qsOperatorAPITraffic.getValueFromCondition(dbColumn, "time", rowMatchingValue);
-					} else if (dbColumn.equalsIgnoreCase("jsonBody")) {
-						dbRowVale = qsOperatorAPITraffic.getValueFromCondition(dbColumn, "jsonBody", rowMatchingValue);
-					} else {
-						dbRowVale = qsOperatorAPITraffic.getValueFromCondition(dbColumn, "api", rowMatchingValue);
-					}
+					String dbRowVale = qsOperatorAPITraffic.getValueFromCondition(dbColumn, "time", rowMatchingValue);
 					if (!rowValue.equalsIgnoreCase(dbRowVale)) {
 						return false;
 					}
@@ -3472,8 +3466,8 @@ public class ManagerPage extends BasicPageObject {
 				flag = true;
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating customer care report against DB 'dbRetuningDataOperatorTraffic()'"+ e.getMessage());
-			throw new Exception("Exception While Validating customer care report against DB 'dbRetuningDataOperatorTraffic()"+ e.getMessage());
+			logger.debug("Exception While Validating customer care report against DB 'isCustomerCareReport()'"+ e.getMessage());
+			throw new Exception("Exception While Validating customer care report against DB 'isCustomerCareReport()"+ e.getMessage());
 		}
 		return flag;
 	}

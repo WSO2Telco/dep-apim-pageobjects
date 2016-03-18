@@ -26,7 +26,7 @@ public interface SQLQuery {
 	 * %s_4 - userId
 	 * */
 	//String OPERATOR_API_TRAFFIC = "select sb.operatorId, COUNT(*) as trafficCount from SB_API_RESPONSE_SUMMARY sb where sb.time BETWEEN  '%s' and '%s' and sb.userId = '%s' GROUP BY sb.operatorId";
-	String OPERATOR_API_TRAFFIC="select sb.time, sb.jsonBody, sb.api from SB_API_RESPONSE_SUMMARY sb where sb.time BETWEEN '2015-12-26 00:00:01' and '2015-12-30 23:59:59' and sb.operatorId = 'DIALOG'";
+	String OPERATOR_API_TRAFFIC="select sb.time, sb.jsonBody, sb.api from SB_API_RESPONSE_SUMMARY sb where sb.time BETWEEN '%s' and '%s' and sb.operatorId = '%s'";
 	
 	/** The transaction log. 
 	 * %s_1 - fromDate
