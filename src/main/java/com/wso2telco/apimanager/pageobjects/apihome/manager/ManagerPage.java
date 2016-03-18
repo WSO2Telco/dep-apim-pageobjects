@@ -1,5 +1,6 @@
 package com.wso2telco.apimanager.pageobjects.apihome.manager;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.ArrayList;
@@ -3695,5 +3696,34 @@ public class ManagerPage extends BasicPageObject {
 		logger.debug("Start clicking on admin module yes");
 		getElement(btnAdminModuleYes).click();
 		logger.debug("Clicked on admin module yes");
+	}
+	
+	/**
+	 * Checks if is CSV file exists.
+	 *
+	 * @author SulakkhanaW
+	 * @param filePath the file path
+	 * @return true, if is CSV file exists
+	 * @throws Exception the exception
+	 */
+	public boolean isCSVFileExists(String filePath) throws Exception{
+		logger.debug("Validating CSV file exists");
+		flag = false;
+		File file = new File(filePath);
+		try {
+			if (file.exists()){
+				logger.debug("CSV file exists");
+				file.delete();
+				flag = true;
+				logger.debug("CSV file deleted");
+			} else {
+				flag = true;
+				logger.debug("CSV file is not exists");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While deleteing CSV file 'isCSVFileExists()'" + e.getMessage());
+			throw new Exception("Exception While deleteing CSV file 'isCSVFileExists()'" + e.getLocalizedMessage());
+		}
+		return flag;
 	}
 }
