@@ -26,7 +26,8 @@ public interface SQLQuery {
 	 * %s_4 - userId
 	 * */
 	//String OPERATOR_API_TRAFFIC = "select sb.operatorId, COUNT(*) as trafficCount from SB_API_RESPONSE_SUMMARY sb where sb.time BETWEEN  '%s' and '%s' and sb.userId = '%s' GROUP BY sb.operatorId";
-	String OPERATOR_API_TRAFFIC="select sb.time, sb.jsonBody, sb.api from SB_API_RESPONSE_SUMMARY sb where sb.time BETWEEN '%s' and '%s' and sb.operatorId = '%s'";
+	//String OPERATOR_API_TRAFFIC="select sb.time, sb.jsonBody, sb.api from SB_API_RESPONSE_SUMMARY sb where sb.time BETWEEN '%s' and '%s' and sb.operatorId = '%s'";
+	String OPERATOR_API_TRAFFIC="SELECT CONCAT(DATE(sb.time),' ',time(CONVERT_TZ(sb.time , '+00:00', '+05:30'))) as time,sb.jsonBody, sb.api, sb.responseCode FROM qadbApiStats.SB_API_RESPONSE_SUMMARY sb,qadbApiMgt.AM_APPLICATION app,qadbApiMgt.AM_APPLICATION_KEY_MAPPING appkey where app.APPLICATION_ID=appkey.APPLICATION_ID and appkey.CONSUMER_KEY=sb.consumerKey and appkey.KEY_TYPE='PRODUCTION' and sb.time BETWEEN '%s' and '%s' and sb.operatorId='%s' and sb.userId='%s' and app.NAME='%s'";
 	
 	/** The transaction log. 
 	 * %s_1 - fromDate
