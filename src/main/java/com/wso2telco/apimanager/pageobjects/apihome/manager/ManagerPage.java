@@ -251,6 +251,10 @@ public class ManagerPage extends BasicPageObject {
 	/** The lnk transaction log. */
 	private WebPelement lnkTransactionLog = defineEelement(UIType.Xpath,
 			"//ul[@class='nav nav-list']/li[3]/a");
+	
+	/** The lnk transaction logNB. */
+	private WebPelement lnkTransactionLogNB = defineEelement(UIType.Xpath,
+			"//div[@id='left']/div/ul/li[4]/a");
 
 	/** The lbl transaction log. */
 	private WebPelement lblTransactionLog = defineEelement(UIType.Xpath,
@@ -273,12 +277,12 @@ public class ManagerPage extends BasicPageObject {
 			UIType.ID, "subscriber");
 
 	/** The dd transaction log api. */
-	private WebPelement ddTransactionLogAPI = defineEelement(UIType.ID, "api");
+	private WebPelement ddTransactionLogOperationType = defineEelement(UIType.ID, "api");
 
 	/** The dd transaction log status. */
-	private WebPelement ddTransactionLogStatus = defineEelement(UIType.ID,
-			"isError");
-
+	private WebPelement ddTransactionLogRecordsType = defineEelement(UIType.ID,
+			"ResType");
+	
 	/** The btn download report. */
 	private WebPelement btnDownloadReport = defineEelement(UIType.Name,
 			"download_file");
@@ -1872,7 +1876,7 @@ public class ManagerPage extends BasicPageObject {
 	}
 
 	/**
-	 * Click on transaction log.
+	 * Click on transaction logSB.
 	 *
 	 * @author JayaniP
 	 */
@@ -1880,6 +1884,17 @@ public class ManagerPage extends BasicPageObject {
 		logger.debug("Click on Transaction Log");
 		getElement(lnkTransactionLog).click();
 		logger.debug("Clicked on Transaction Log");
+	}
+	
+	/**
+	 * Click on transaction logNB.
+	 *
+	 * @author Suji
+	 */
+	public void clickOnTransactionLogNB() {
+		logger.debug("Click on Transaction LogNB");
+		getElement(lnkTransactionLogNB).click();
+		logger.debug("Clicked on Transaction LogNB");
 	}
 
 	/**
@@ -2003,19 +2018,19 @@ public class ManagerPage extends BasicPageObject {
 	 * @throws InterruptedException
 	 *             the interrupted exception
 	 */
-	public void selectTransactionLogAPI(String api) throws InterruptedException {
+	public void selectTransactionLogOperationType(String operationType) throws InterruptedException {
 		Thread.sleep(sleepTime);
 
-		logger.debug("Start clicking on API Drop down");
-		getElement(ddTransactionLogAPI).click();
+		logger.debug("Start clicking on OperationType Drop down");
+		getElement(ddTransactionLogOperationType).click();
 		logger.debug("Clicked on API Drop down");
 
-		logger.debug("Start typing API");
-		getElement(ddTransactionLogAPI).sendKeys(api);
+		logger.debug("Start typing OperationType");
+		getElement(ddTransactionLogOperationType).sendKeys(operationType);
 		logger.debug("Typed API");
 
 		logger.debug("Start click enter");
-		getElement(ddTransactionLogAPI).sendEnter();
+		getElement(ddTransactionLogOperationType).sendEnter();
 		logger.debug("Clicked enter");
 
 	}
@@ -2029,20 +2044,20 @@ public class ManagerPage extends BasicPageObject {
 	 * @throws InterruptedException
 	 *             the interrupted exception
 	 */
-	public void selectTransactionLogStatus(String status)
+	public void selectTransactionLogRecordsType(String status)
 			throws InterruptedException {
 		Thread.sleep(sleepTime);
 
-		logger.debug("Start clicking on Status Drop down");
-		getElement(ddTransactionLogStatus).click();
-		logger.debug("Clicked on Status Drop down");
+		logger.debug("Start clicking on RecordsType Drop down");
+		getElement(ddTransactionLogRecordsType).click();
+		logger.debug("Clicked on RecordsType Drop down");
 
 		logger.debug("Start typing Status");
-		getElement(ddTransactionLogStatus).sendKeys(status);
+		getElement(ddTransactionLogRecordsType).sendKeys(status);
 		logger.debug("Typed Status");
 
 		logger.debug("Start click enter");
-		getElement(ddTransactionLogStatus).sendEnter();
+		getElement(ddTransactionLogRecordsType).sendEnter();
 		logger.debug("Clicked enter");
 
 	}
