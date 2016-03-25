@@ -3823,7 +3823,7 @@ public class ManagerPage extends BasicPageObject {
 	 * @param columnName the column name
 	 * @return the southbound total amount
 	 */
-	public String getSouthboundTotalAmount(String appName, String columnName){
+	public String getSouthboundTotalAmount(String columnName){
 		WebElement invoiceTableSB = driver.findElement(By.xpath(sbMonthlyInvoiceTable));
 		Table sbInvoiceTable = new Table(invoiceTableSB);
 		String returnValue = null;
