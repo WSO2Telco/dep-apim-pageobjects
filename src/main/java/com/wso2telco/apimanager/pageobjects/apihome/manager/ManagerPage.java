@@ -323,12 +323,10 @@ public class ManagerPage extends BasicPageObject {
 	private WebPelement ddMonthlyInvoiceYear = defineEelement(UIType.ID, "year");
 
 	/** The dd monthly invoice month. */
-	private WebPelement ddMonthlyInvoiceMonth = defineEelement(UIType.ID,
-			"month");
+	private WebPelement ddMonthlyInvoiceMonth = defineEelement(UIType.ID, "month");
 
 	/** The dd monthly invoice service provider. */
-	private WebPelement ddMonthlyInvoiceServiceProvider = defineEelement(
-			UIType.ID, "subscriber");
+	private WebPelement ddMonthlyInvoiceServiceProvider = defineEelement(UIType.ID, "subscriber");
 
 	/** The lnk revenue breakdown. */
 	private WebPelement lnkRevenueBreakdown = defineEelement(UIType.Xpath,
@@ -506,6 +504,12 @@ public class ManagerPage extends BasicPageObject {
 	
 	/** The btn admin module yes. */
 	private WebPelement btnAdminModuleYes = defineEelement(UIType.Xpath,"//a[contains(.,'Yes')]");
+	
+	/** The lnk monthly invoice nb. */
+	private WebPelement lnkMonthlyInvoiceNB = defineEelement(UIType.Xpath, "//ul[@class='nav nav-list']/li/a[text()[contains(.,'Monthly Invoice NB')]]");
+	
+	/** The nb monthly invoice table. */
+	private WebElement nbMonthlyInvoiceTable = driver.findElement(By.id("reportTable"));
 
 	/**
 	 * Instantiates a new manager page.
@@ -2220,6 +2224,17 @@ public class ManagerPage extends BasicPageObject {
 		getElement(lnkMonthlyInvoice).click();
 		logger.debug("Clicked Monthly Invoice");
 	}
+	
+	/**
+	 * Click monthly invoice nb.
+	 *
+	 * @author SulakkhanaW
+	 */
+	public void clickMonthlyInvoiceNB(){
+		logger.debug("Start click Monthly Invoice NB");
+		getElement(lnkMonthlyInvoiceNB).click();
+		logger.debug("Clicked Monthly Invoice NB");
+	}
 
 	/**
 	 * Checks if is monthly invoice page displayed.
@@ -2262,8 +2277,7 @@ public class ManagerPage extends BasicPageObject {
 	 * @throws InterruptedException
 	 *             the interrupted exception
 	 */
-	public void selectMonthlyInvoiceYear(String year)
-			throws InterruptedException {
+	public void selectMonthlyInvoiceYear(String year) throws InterruptedException {
 		Thread.sleep(sleepTime);
 
 		logger.debug("Start clicking on year down");
@@ -3725,5 +3739,124 @@ public class ManagerPage extends BasicPageObject {
 			throw new Exception("Exception While deleteing CSV file 'isCSVFileExists()'" + e.getLocalizedMessage());
 		}
 		return flag;
+	}
+
+	/**
+	 * App row count.
+	 *
+	 * @author SulakkhanaW
+	 * @param appName the app name
+	 * @return the int
+	 */
+	private int appRowCount(String appName){
+		Table invoiceTable = new Table(nbMonthlyInvoiceTable);
+		int appRows = invoiceTable.body().getAllRows().size();
+		int appRowNumber = invoiceTable.body().getRowIndex(appName);
+		for (int x = appRowNumber; x < appRows; x++){
+			WebElement columnTotalAmount = invoiceTable.body().getRow(x).findElement(By.xpath("./td[7]"));
+			if (columnTotalAmount.getText().equals("Total Amount")){
+				return x;
+			}
+		}
+		return appRows;
+	}
+	
+	/**
+	 * Gets the total amount.
+	 *
+	 * @author SulakkhanaW
+	 * @param appName the app name
+	 * @param columnName the column name
+	 * @return the total amount
+	 */
+	public String getTotalAmount(String appName, String columnName){
+		Table invoiceTable = new Table(nbMonthlyInvoiceTable);
+		String returnValue = null;
+		int rowCountTotalAmount = appRowCount(appName);
+		WebElement rowTotalAmount = invoiceTable.body().getRow(rowCountTotalAmount);
+		if(rowTotalAmount != null){
+			switch (columnName) {
+			case "Usage Charge":
+				returnValue = rowTotalAmount.findElement(By.xpath("./td[8]")).getText().trim();
+				break;
+				
+			case "Tax":
+				returnValue = rowTotalAmount.findElement(By.xpath("./td[9]")).getText().trim();
+				break;
+				
+			case "Credit":
+				returnValue = rowTotalAmount.findElement(By.xpath("./td[10]")).getText().trim();
+				break;
+				
+			case "Grand Total":
+				returnValue = rowTotalAmount.findElement(By.xpath("./td[11]")).getText().trim();
+				break;
+								
+			default:
+				break;
+			}
+		}
+		return returnValue;
+	}
+	
+	/**
+	 * Gets the value invoice.
+	 *
+	 * @author SulakkhanaW
+	 * @param appName the app name
+	 * @param apiName the api name
+	 * @param operation the operation
+	 * @param columnName the column name
+	 * @return the value invoice
+	 */
+	public String getValueInvoice(String appName,String apiName,String operation,String columnName){
+		String returnValue = null;
+		Table invoiceTable = new Table(nbMonthlyInvoiceTable);
+		invoiceTable.body().getRowContainingText(appName);
+		int appRowNumber = invoiceTable.body().getRowIndex(appName);
+		int appRowCount = appRowCount(appName);
+		for (int x = appRowNumber; x <= appRowCount; x++){
+			WebElement columnApi = invoiceTable.body().getRow(x).findElement(By.xpath("./td[3]"));
+			if (columnApi.getText().equals(apiName)){
+				WebElement currentRow = invoiceTable.body().getRow(x);
+				if(currentRow != null){
+					switch (columnName) {
+					case "Charging Plan":
+						return returnValue = currentRow.findElement(By.xpath("./td[6]")).getText().trim();
+						
+					case "Count":
+						return returnValue = currentRow.findElement(By.xpath("./td[7]")).getText().trim();
+						
+					case "Usage Charge":
+						return returnValue = currentRow.findElement(By.xpath("./td[8]")).getText().trim();
+						
+					case "Tax":
+						return returnValue = currentRow.findElement(By.xpath("./td[9]")).getText().trim();
+						
+					case "Credit":
+						return returnValue = currentRow.findElement(By.xpath("./td[10]")).getText().trim();
+
+					case "Grand Total":
+						return returnValue = currentRow.findElement(By.xpath("./td[11]")).getText().trim();
+									
+					default:
+						break;
+					}
+				}				
+			}
+		}
+		return returnValue;
+	}
+	
+	/**
+	 * Compare string.
+	 *
+	 * @author SulakkhanaW
+	 * @param valueOne the value one
+	 * @param valueTwo the value two
+	 * @return true, if successful
+	 */
+	public boolean compareString(String valueOne, String valueTwo){
+		return valueOne.equalsIgnoreCase(valueTwo);
 	}
 }
