@@ -3918,31 +3918,36 @@ public class ManagerPage extends BasicPageObject {
 		for (int x = appRowNumber; x <= appRowCount; x++){
 			WebElement columnApi = invoiceTable.body().getRow(x).findElement(By.xpath("./td[3]"));
 			if (columnApi.getText().equals(apiName)){
-				WebElement currentRow = invoiceTable.body().getRow(x);
-				if(currentRow != null){
-					switch (columnName) {
-					case "Charging Plan":
-						return returnValue = currentRow.findElement(By.xpath("./td[6]")).getText().trim();
+				for (int y = x; x <= appRowCount; y++){
+					WebElement columnOperation = invoiceTable.body().getRow(y).findElement(By.xpath("./td[5]"));
+					if (columnOperation.getText().equals(operation)){
+						WebElement currentRow = invoiceTable.body().getRow(y);
+						if (currentRow != null) {
+							switch (columnName) {
+							case "Charging Plan":
+								return returnValue = currentRow.findElement(By.xpath("./td[6]")).getText().trim();
 						
-					case "Count":
-						return returnValue = currentRow.findElement(By.xpath("./td[7]")).getText().trim();
+							case "Count":
+								return returnValue = currentRow.findElement(By.xpath("./td[7]")).getText().trim();
 						
-					case "Usage Charge":
-						return returnValue = currentRow.findElement(By.xpath("./td[8]")).getText().trim();
+							case "Usage Charge":
+								return returnValue = currentRow.findElement(By.xpath("./td[8]")).getText().trim();
 						
-					case "Tax":
-						return returnValue = currentRow.findElement(By.xpath("./td[9]")).getText().trim();
+							case "Tax":
+								return returnValue = currentRow.findElement(By.xpath("./td[9]")).getText().trim();
 						
-					case "Credit":
-						return returnValue = currentRow.findElement(By.xpath("./td[10]")).getText().trim();
+							case "Credit":
+								return returnValue = currentRow.findElement(By.xpath("./td[10]")).getText().trim();
 
-					case "Grand Total":
-						return returnValue = currentRow.findElement(By.xpath("./td[11]")).getText().trim();
+							case "Grand Total":
+								return returnValue = currentRow.findElement(By.xpath("./td[11]")).getText().trim();
 									
-					default:
-						break;
+							default:
+								break;
+							}
+						}
 					}
-				}				
+				}
 			}
 		}
 		return returnValue;
