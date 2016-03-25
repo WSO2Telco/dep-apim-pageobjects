@@ -3325,7 +3325,7 @@ public class ManagerPage extends BasicPageObject {
 	 *             the exception
 	 */
 	public boolean isPieChartOperatorAPITraffic(String fromDate, String toDate,
-			String serviceProvider) throws Exception {
+			String serviceProvider, String application, String api) throws Exception {
 		flag = false;
 		ArrayList<String> apiList = new ArrayList<String>();
 		WebElement select;
@@ -3357,7 +3357,7 @@ public class ManagerPage extends BasicPageObject {
 		}
 		try {
 			flag = dbRetuningDataOperatorTraffic(apiListDetails, fromDate,
-					toDate, serviceProvider);
+					toDate, serviceProvider, application, api);
 		} catch (Exception e) {
 			logger.debug("Exception While Validating matching data 'dbReturningData()'"
 					+ e.getMessage());
@@ -3379,8 +3379,8 @@ public class ManagerPage extends BasicPageObject {
 	 * @return true, if successful
 	 * @throws Exception the exception
 	 */
-	public boolean dbRetuningDataOperatorTraffic(String[][] apiTrafficListUI, String fromDate, String toDate, String serviceProvider) throws Exception {
-		String query = String.format(SQLQuery.OPERATOR_API_TRAFFIC, fromDate, toDate, serviceProvider);
+	public boolean dbRetuningDataOperatorTraffic(String[][] apiTrafficListUI, String fromDate, String toDate, String serviceProvider, String application, String api) throws Exception {
+		String query = String.format(SQLQuery.OPERATOR_API_TRAFFIC, fromDate, toDate, serviceProvider, application, api );
 		QueryResult qsOperatorAPITraffic;
 		String uiApiName = null;
 		String uiApiCount = null;
@@ -3465,7 +3465,6 @@ public class ManagerPage extends BasicPageObject {
 				}
 				i++;
 				flag = true;
-				String asd="asd";
 			}
 		} catch (Exception e) {
 			logger.debug("Exception While Validating customer care report against DB 'isCustomerCareReport()'"+ e.getMessage());
