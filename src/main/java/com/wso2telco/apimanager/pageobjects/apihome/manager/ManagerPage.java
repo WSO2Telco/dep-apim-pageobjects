@@ -512,8 +512,14 @@ public class ManagerPage extends BasicPageObject {
 	/** The lnk monthly invoice nb. */
 	private WebPelement lnkMonthlyInvoiceNB = defineEelement(UIType.Xpath, "//ul[@class='nav nav-list']/li/a[text()[contains(.,'Monthly Invoice NB')]]");
 	
+	/** The lnk monthly invoice sb. */
+	private WebPelement lnkMonthlyInvoiceSB = defineEelement(UIType.Xpath, "//ul[@class='nav nav-list']/li/a[text()[contains(.,'Monthly Invoice SB')]]");
+	
 	/** The nb monthly invoice table. */
-	private WebElement nbMonthlyInvoiceTable = driver.findElement(By.id("reportTable"));
+	private String nbMonthlyInvoiceTable = "//*[@id='reportTable']";
+	
+	/** The sb monthly invoice table. */
+	private String sbMonthlyInvoiceTable = "//div[@id='usageDiv']/div/table";
 
 	/**
 	 * Instantiates a new manager page.
@@ -2250,6 +2256,17 @@ public class ManagerPage extends BasicPageObject {
 		getElement(lnkMonthlyInvoiceNB).click();
 		logger.debug("Clicked Monthly Invoice NB");
 	}
+	
+	/**
+	 * Click monthly invoice sb.
+	 *
+	 * @author SulakkhanaW
+	 */
+	public void clickMonthlyInvoiceSB(){
+		logger.debug("Start click Monthly Invoice NB");
+		getElement(lnkMonthlyInvoiceSB).click();
+		logger.debug("Clicked Monthly Invoice NB");
+	}
 
 	/**
 	 * Checks if is monthly invoice page displayed.
@@ -3755,16 +3772,24 @@ public class ManagerPage extends BasicPageObject {
 		}
 		return flag;
 	}
+	
+/*	private int appRowCountSouthboundTable(String appName){
+		WebElement invoiceTableSB = driver.findElement(By.xpath("sbMonthlyInvoiceTable"));
+		Table sbInvoiceTable = new Table(invoiceTableSB);
+		int 
+		return 0;
+	}*/
 
 	/**
-	 * App row count.
+	 * App row count nb table.
 	 *
 	 * @author SulakkhanaW
 	 * @param appName the app name
 	 * @return the int
 	 */
-	private int appRowCount(String appName){
-		Table invoiceTable = new Table(nbMonthlyInvoiceTable);
+	private int appRowCountNbTable(String appName){
+		WebElement invoiceTableNB = driver.findElement(By.xpath(nbMonthlyInvoiceTable));
+		Table invoiceTable = new Table(invoiceTableNB);
 		int appRows = invoiceTable.body().getAllRows().size();
 		int appRowNumber = invoiceTable.body().getRowIndex(appName);
 		for (int x = appRowNumber; x < appRows; x++){
@@ -3777,17 +3802,18 @@ public class ManagerPage extends BasicPageObject {
 	}
 	
 	/**
-	 * Gets the total amount.
+	 * Gets the nb total amount.
 	 *
 	 * @author SulakkhanaW
 	 * @param appName the app name
 	 * @param columnName the column name
-	 * @return the total amount
+	 * @return the nb total amount
 	 */
-	public String getTotalAmount(String appName, String columnName){
-		Table invoiceTable = new Table(nbMonthlyInvoiceTable);
+	public String getNbTotalAmount(String appName, String columnName){
+		WebElement invoiceTableNB = driver.findElement(By.xpath(nbMonthlyInvoiceTable));
+		Table invoiceTable = new Table(invoiceTableNB);
 		String returnValue = null;
-		int rowCountTotalAmount = appRowCount(appName);
+		int rowCountTotalAmount = appRowCountNbTable(appName);
 		WebElement rowTotalAmount = invoiceTable.body().getRow(rowCountTotalAmount);
 		if(rowTotalAmount != null){
 			switch (columnName) {
@@ -3813,23 +3839,24 @@ public class ManagerPage extends BasicPageObject {
 		}
 		return returnValue;
 	}
-	
+
 	/**
-	 * Gets the value invoice.
+	 * Gets the nb value invoice.
 	 *
 	 * @author SulakkhanaW
 	 * @param appName the app name
 	 * @param apiName the api name
 	 * @param operation the operation
 	 * @param columnName the column name
-	 * @return the value invoice
+	 * @return the nb value invoice
 	 */
-	public String getValueInvoice(String appName,String apiName,String operation,String columnName){
+	public String getNbValueInvoice(String appName,String apiName,String operation,String columnName){
 		String returnValue = null;
-		Table invoiceTable = new Table(nbMonthlyInvoiceTable);
+		WebElement invoiceTableNB = driver.findElement(By.xpath(nbMonthlyInvoiceTable));
+		Table invoiceTable = new Table(invoiceTableNB);
 		invoiceTable.body().getRowContainingText(appName);
 		int appRowNumber = invoiceTable.body().getRowIndex(appName);
-		int appRowCount = appRowCount(appName);
+		int appRowCount = appRowCountNbTable(appName);
 		for (int x = appRowNumber; x <= appRowCount; x++){
 			WebElement columnApi = invoiceTable.body().getRow(x).findElement(By.xpath("./td[3]"));
 			if (columnApi.getText().equals(apiName)){
