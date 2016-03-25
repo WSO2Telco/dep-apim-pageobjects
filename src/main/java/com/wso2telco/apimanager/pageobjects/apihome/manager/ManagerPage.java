@@ -289,7 +289,7 @@ public class ManagerPage extends BasicPageObject {
 
 	/** The lnk operator api traffic. */
 	private WebPelement lnkOperatorAPITraffic = defineEelement(UIType.Xpath,
-			"//ul[@class='nav nav-list']/li[4]/a");
+			"//ul[@class='nav nav-list']/li[5]/a");
 
 	/** The lbl operator api traffic. */
 	private WebPelement lblOperatorAPITraffic = defineEelement(UIType.Xpath,
@@ -364,7 +364,7 @@ public class ManagerPage extends BasicPageObject {
 
 	/** The lnk customer care. */
 	private WebPelement lnkCustomerCare = defineEelement(UIType.Xpath,
-			"//ul[@class='nav nav-list']/li[7]/a");
+			"//ul[@class='nav nav-list']/li[10]/a");
 
 	/** The lbl customer care. */
 	private WebPelement lblCustomerCare = defineEelement(UIType.Xpath,
@@ -3340,7 +3340,7 @@ public class ManagerPage extends BasicPageObject {
 	 *             the exception
 	 */
 	public boolean isPieChartOperatorAPITraffic(String fromDate, String toDate,
-			String serviceProvider) throws Exception {
+			String serviceProvider, String application, String api) throws Exception {
 		flag = false;
 		ArrayList<String> apiList = new ArrayList<String>();
 		WebElement select;
@@ -3372,7 +3372,7 @@ public class ManagerPage extends BasicPageObject {
 		}
 		try {
 			flag = dbRetuningDataOperatorTraffic(apiListDetails, fromDate,
-					toDate, serviceProvider);
+					toDate, serviceProvider, application, api);
 		} catch (Exception e) {
 			logger.debug("Exception While Validating matching data 'dbReturningData()'"
 					+ e.getMessage());
@@ -3394,8 +3394,8 @@ public class ManagerPage extends BasicPageObject {
 	 * @return true, if successful
 	 * @throws Exception the exception
 	 */
-	public boolean dbRetuningDataOperatorTraffic(String[][] apiTrafficListUI, String fromDate, String toDate, String serviceProvider) throws Exception {
-		String query = String.format(SQLQuery.OPERATOR_API_TRAFFIC, fromDate, toDate, serviceProvider);
+	public boolean dbRetuningDataOperatorTraffic(String[][] apiTrafficListUI, String fromDate, String toDate, String serviceProvider, String application, String api) throws Exception {
+		String query = String.format(SQLQuery.OPERATOR_API_TRAFFIC, fromDate, toDate, serviceProvider, application, api );
 		QueryResult qsOperatorAPITraffic;
 		String uiApiName = null;
 		String uiApiCount = null;
@@ -3466,9 +3466,9 @@ public class ManagerPage extends BasicPageObject {
 				int columnCount = tableContent.head().getColumnIndex(column);
 				int matchingColumnCount = tableContent.head().getColumnIndex("Date");
 				ArrayList<WebElement> matchingRowElements = new ArrayList<WebElement>(tableContent.body().getCellsFromColumn(matchingColumnCount));
-				if (!(rowCount == qsOperatorAPITraffic.getResultSize())){
+				/*if (!(rowCount == qsOperatorAPITraffic.getResultSize())){
 					return flag = false;
-				}
+				}*/
 				for (int x = 0; x < rowCount;) {
 					String rowValue = tableContent.body().getCellFromRowIndexColumnIndex(x, columnCount).getText();
 					String rowMatchingValue = matchingRowElements.get(x).getText();
