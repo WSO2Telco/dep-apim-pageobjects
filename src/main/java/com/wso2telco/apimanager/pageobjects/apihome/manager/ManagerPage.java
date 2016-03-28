@@ -2023,10 +2023,8 @@ public class ManagerPage extends BasicPageObject {
 	 * Select transaction log api.
 	 *
 	 * @author JayaniP
-	 * @param api
-	 *            the api
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @param operationType the operation type
+	 * @throws InterruptedException             the interrupted exception
 	 */
 	public void selectTransactionLogOperationType(String operationType) throws InterruptedException {
 		Thread.sleep(sleepTime);
@@ -3360,15 +3358,13 @@ public class ManagerPage extends BasicPageObject {
 	 * Checks if is pie chart operator api traffic.
 	 *
 	 * @author SulakkhanaW
-	 * @param fromDate
-	 *            the from date
-	 * @param toDate
-	 *            the to date
-	 * @param serviceProvider
-	 *            the service provider
+	 * @param fromDate            the from date
+	 * @param toDate            the to date
+	 * @param serviceProvider            the service provider
+	 * @param application the application
+	 * @param api the api
 	 * @return true, if is pie chart operator api traffic
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception             the exception
 	 */
 	public boolean isPieChartOperatorAPITraffic(String fromDate, String toDate,
 			String serviceProvider, String application, String api) throws Exception {
@@ -3422,6 +3418,8 @@ public class ManagerPage extends BasicPageObject {
 	 * @param fromDate the from date
 	 * @param toDate the to date
 	 * @param serviceProvider the service provider
+	 * @param application the application
+	 * @param api the api
 	 * @return true, if successful
 	 * @throws Exception the exception
 	 */
@@ -3468,13 +3466,11 @@ public class ManagerPage extends BasicPageObject {
 	 * Checks if is customer care report.
 	 *
 	 * @author SulakkhanaW
-	 * @param column
-	 *            the column
-	 * @param dbColumn
-	 *            the db column
+	 * @param query the query
+	 * @param column            the column
+	 * @param dbColumn            the db column
 	 * @return true, if is customer care report
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception             the exception
 	 */
 	public boolean isCustomerCareReport(String query, String column, String dbColumn)throws Exception {
 		flag = false;
@@ -3773,6 +3769,12 @@ public class ManagerPage extends BasicPageObject {
 		return flag;
 	}
 	
+	/**
+	 * App row count southbound table.
+	 *
+	 * @param appName the app name
+	 * @return the int
+	 */
 	private int appRowCountSouthboundTable(String appName){
 		WebElement invoiceTableSB = driver.findElement(By.xpath("sbMonthlyInvoiceTable"));
 		Table sbInvoiceTable = new Table(invoiceTableSB);
@@ -3847,6 +3849,16 @@ public class ManagerPage extends BasicPageObject {
 		return returnValue;
 	}
 	
+	/**
+	 * Gets the southbound invoic value.
+	 *
+	 * @param appName the app name
+	 * @param apiName the api name
+	 * @param operator the operator
+	 * @param operation the operation
+	 * @param columnName the column name
+	 * @return the southbound invoic value
+	 */
 	public String getSouthboundInvoicValue(String appName,String apiName,String operator, String operation,String columnName){
 		String returnValue = null;
 		WebElement invoiceTableSB = driver.findElement(By.xpath(sbMonthlyInvoiceTable));
@@ -3964,4 +3976,33 @@ public class ManagerPage extends BasicPageObject {
 	public boolean compareString(String valueOne, String valueTwo){
 		return valueOne.equalsIgnoreCase(valueTwo);
 	}
+	
+	/**
+	 * Checks if is subscription_rates.
+	 *
+	 * @param query the query
+	 * @return true, if is subscription_rates
+	 * @throws Exception the exception
+	 */
+	public boolean issubscription_ratestablesUpdated(String query) throws Exception{
+		logger.debug("Validating subscription_rates table");
+		flag = false;
+		QueryResult qsTransactionLog = SQLExecuter.getQueryResults(query);
+		try {
+			if(qsTransactionLog.isOnlyOneRecord()){
+				flag = true;
+				logger.debug("subscription_rates table is updated");
+			}else{
+				flag = false;
+				logger.debug("subscription_rates table is updated");
+			}
+			
+		} catch (Exception e) {
+			logger.debug("Exception While validating subscription_rates'issubscription_rates()'" + e.getMessage());
+			throw new Exception("Exception While validating subscription_rates 'issubscription_rates()'" + e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
+	
 }
