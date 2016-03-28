@@ -39,4 +39,12 @@ public interface SQLQuery {
 	 * %s_4 - api
 	 * */
 	String TRANSACTION_LOG = "select sb.time, sb.userId, sb.operatorId, sb.api, sb.requestId, sb.msisdn, sb.chargeAmount, sb.responseCode, sb.purchaseCategoryCode from SB_API_RESPONSE_SUMMARY sb where sb.time BETWEEN  '%s' and '%s' and operatorId = '%s' and sb.api = '%s' and exceptionId IS NULL";
+	
+	
+	/** The subscription rates nb. */
+	String SUBSCRIPTION_RATES_NB = "select srnb.application_id from qadbApiStats.subscription_rates_nb srnb, qadbApiMgt.AM_APPLICATION app  where app.APPLICATION_ID=srnb.application_id and app.NAME='%s' and operation_id='200'";
+	
+	
+	/** The subscription rates. */
+	String SUBSCRIPTION_RATES = "select sr.application_id from qadbApiStats.subscription_rates sr, qadbApiMgt.AM_APPLICATION app  where app.APPLICATION_ID=sr.application_id and app.NAME='%s' and operation_id='200'";
 }

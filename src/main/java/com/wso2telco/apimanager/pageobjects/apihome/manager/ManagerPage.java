@@ -2023,10 +2023,8 @@ public class ManagerPage extends BasicPageObject {
 	 * Select transaction log api.
 	 *
 	 * @author JayaniP
-	 * @param api
-	 *            the api
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @param operationType the operation type
+	 * @throws InterruptedException             the interrupted exception
 	 */
 	public void selectTransactionLogOperationType(String operationType) throws InterruptedException {
 		Thread.sleep(sleepTime);
@@ -3360,15 +3358,13 @@ public class ManagerPage extends BasicPageObject {
 	 * Checks if is pie chart operator api traffic.
 	 *
 	 * @author SulakkhanaW
-	 * @param fromDate
-	 *            the from date
-	 * @param toDate
-	 *            the to date
-	 * @param serviceProvider
-	 *            the service provider
+	 * @param fromDate            the from date
+	 * @param toDate            the to date
+	 * @param serviceProvider            the service provider
+	 * @param application the application
+	 * @param api the api
 	 * @return true, if is pie chart operator api traffic
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception             the exception
 	 */
 	public boolean isPieChartOperatorAPITraffic(String fromDate, String toDate,
 			String serviceProvider, String application, String api) throws Exception {
@@ -3422,6 +3418,8 @@ public class ManagerPage extends BasicPageObject {
 	 * @param fromDate the from date
 	 * @param toDate the to date
 	 * @param serviceProvider the service provider
+	 * @param application the application
+	 * @param api the api
 	 * @return true, if successful
 	 * @throws Exception the exception
 	 */
@@ -3468,13 +3466,11 @@ public class ManagerPage extends BasicPageObject {
 	 * Checks if is customer care report.
 	 *
 	 * @author SulakkhanaW
-	 * @param column
-	 *            the column
-	 * @param dbColumn
-	 *            the db column
+	 * @param query the query
+	 * @param column            the column
+	 * @param dbColumn            the db column
 	 * @return true, if is customer care report
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception             the exception
 	 */
 	public boolean isCustomerCareReport(String query, String column, String dbColumn)throws Exception {
 		flag = false;
@@ -4145,5 +4141,25 @@ public class ManagerPage extends BasicPageObject {
 			break;
 		}
 		return returnValue;
+	}
+
+	public boolean issubscription_ratestablesUpdated(String query) throws Exception{
+		logger.debug("Validating subscription_rates table");
+		flag = false;
+		QueryResult qsTransactionLog = SQLExecuter.getQueryResults(query);
+		try {
+			if(qsTransactionLog.isOnlyOneRecord()){
+				flag = true;
+				logger.debug("subscription_rates table is updated");
+			}else{
+				flag = false;
+				logger.debug("subscription_rates table is updated");
+			}
+			
+		} catch (Exception e) {
+			logger.debug("Exception While validating subscription_rates'issubscription_rates()'" + e.getMessage());
+			throw new Exception("Exception While validating subscription_rates 'issubscription_rates()'" + e.getLocalizedMessage());
+		}
+		return flag;
 	}
 }
