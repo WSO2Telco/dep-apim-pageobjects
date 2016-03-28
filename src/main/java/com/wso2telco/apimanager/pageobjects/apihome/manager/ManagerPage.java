@@ -3772,6 +3772,7 @@ public class ManagerPage extends BasicPageObject {
 	/**
 	 * App row count southbound table.
 	 *
+	 * @author SulakkhanaW
 	 * @param appName the app name
 	 * @return the int
 	 */
@@ -3808,6 +3809,45 @@ public class ManagerPage extends BasicPageObject {
 			}
 		}
 		return appRows;
+	}
+	
+	/**
+	 * Gets the southbound total amount.
+	 *
+	 * @author SulakkhanaW
+	 * @param appName the app name
+	 * @param columnName the column name
+	 * @return the southbound total amount
+	 */
+	public String getSouthboundTotalAmount(String columnName){
+		WebElement invoiceTableSB = driver.findElement(By.xpath(sbMonthlyInvoiceTable));
+		Table sbInvoiceTable = new Table(invoiceTableSB);
+		String returnValue = null;
+		int rowCountTotalAmount = sbInvoiceTable.body().getAllColumn().size();
+		WebElement rowTotalAmount = sbInvoiceTable.body().getRow(rowCountTotalAmount - 1);
+		if(rowTotalAmount != null){
+			switch (columnName) {
+			case "Usage Charge":
+				returnValue = rowTotalAmount.findElement(By.xpath("./td[10]")).getText().trim();
+				break;
+				
+			case "Tax":
+				returnValue = rowTotalAmount.findElement(By.xpath("./td[11]")).getText().trim();
+				break;
+				
+			case "Credit":
+				returnValue = rowTotalAmount.findElement(By.xpath("./td[12]")).getText().trim();
+				break;
+				
+			case "Grand Total":
+				returnValue = rowTotalAmount.findElement(By.xpath("./td[13]")).getText().trim();
+				break;
+								
+			default:
+				break;
+			}
+		}
+		return returnValue;
 	}
 	
 	/**
@@ -3852,6 +3892,7 @@ public class ManagerPage extends BasicPageObject {
 	/**
 	 * Gets the southbound invoic value.
 	 *
+	 * @author SulakkhanaW
 	 * @param appName the app name
 	 * @param apiName the api name
 	 * @param operator the operator
