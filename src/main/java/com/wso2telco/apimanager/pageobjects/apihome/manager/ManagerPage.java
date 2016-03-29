@@ -89,6 +89,10 @@ public class ManagerPage extends BasicPageObject {
 
 	/** The tab path. */
 	private String tabPath = "//div[@class='navbar-inner main-menu-navbar']/ul/li";
+	
+	
+	/** The monthly invoice sb. */
+	private String monthlyInvoiceSBpath = "//div[@class='sidebar-nav left-menu-back01']/ul/li";
 
 	/** The lnk black list. */
 	private WebPelement lnkBlackList = defineEelement(
@@ -3788,7 +3792,7 @@ public class ManagerPage extends BasicPageObject {
 	 * @return the int
 	 */
 	private int appRowCountSouthboundTable(String appName){
-		WebElement invoiceTableSB = driver.findElement(By.xpath("sbMonthlyInvoiceTable"));
+		WebElement invoiceTableSB = driver.findElement(By.xpath(sbMonthlyInvoiceTable));
 		Table sbInvoiceTable = new Table(invoiceTableSB);
 		int appRows = sbInvoiceTable.body().getAllRows().size();
 		int appRowNumber = sbInvoiceTable.body().getRowIndex(appName);
@@ -3826,7 +3830,6 @@ public class ManagerPage extends BasicPageObject {
 	 * Gets the southbound total amount.
 	 *
 	 * @author SulakkhanaW
-	 * @param appName the app name
 	 * @param columnName the column name
 	 * @return the southbound total amount
 	 */
@@ -3834,7 +3837,7 @@ public class ManagerPage extends BasicPageObject {
 		WebElement invoiceTableSB = driver.findElement(By.xpath(sbMonthlyInvoiceTable));
 		Table sbInvoiceTable = new Table(invoiceTableSB);
 		String returnValue = null;
-		int rowCountTotalAmount = sbInvoiceTable.body().getAllColumn().size();
+		int rowCountTotalAmount = sbInvoiceTable.body().getAllRows().size();
 		WebElement rowTotalAmount = sbInvoiceTable.body().getRow(rowCountTotalAmount - 1);
 		if(rowTotalAmount != null){
 			switch (columnName) {
@@ -4217,4 +4220,61 @@ public class ManagerPage extends BasicPageObject {
 		return flag;
 	}
 	
+	public boolean isMonthlyInvoiceSBShowed() throws Exception {
+		flag = false;
+		logger.debug("Validating monthly invoice SB");
+		List<WebElement> allElements = driver.findElements(By.xpath(monthlyInvoiceSBpath)); 
+		List<String> stringList = new ArrayList<>();
+		for (WebElement element: allElements) {
+		      stringList.add(element.getText());
+		}
+		
+		try {
+			if (stringList.toString().contains("Monthly Invoice SB")) {
+				flag = true;
+				logger.debug("Monthly Invoice SB is showed");
+			} else {
+				logger.debug("Monthly Invoice SB is not showed");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Monthly Invoice SB 'isMonthlyInvoiceSBShowed()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating Monthly Invoice SB 'isMonthlyInvoiceSBShowed()'"
+							+ e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
+	/**
+	 * Checks if is monthly invoice nb showed.
+	 *
+	 * @return true, if is monthly invoice nb showed
+	 * @throws Exception the exception
+	 */
+	public boolean isMonthlyInvoiceNBShowed() throws Exception {
+		flag = false;
+		logger.debug("Validating monthly invoice SB");
+		List<WebElement> allElements = driver.findElements(By.xpath(monthlyInvoiceSBpath)); 
+		List<String> stringList = new ArrayList<>();
+		for (WebElement element: allElements) {
+		      stringList.add(element.getText());
+		}
+		
+		try {
+			if (!stringList.toString().contains("Monthly Invoice NB")) {
+				flag = true;
+				logger.debug("Monthly Invoice NB is not showed");
+			} else {
+				logger.debug("Monthly Invoice SB is showed");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Monthly Invoice SB 'isMonthlyInvoiceNBShowed()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating Monthly Invoice SB 'isMonthlyInvoiceNBShowed()'"
+							+ e.getLocalizedMessage());
+		}
+		return flag;
+	}
 }
