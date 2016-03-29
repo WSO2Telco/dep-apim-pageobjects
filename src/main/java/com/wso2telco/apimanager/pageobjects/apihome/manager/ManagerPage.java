@@ -4030,12 +4030,130 @@ public class ManagerPage extends BasicPageObject {
 	}
 	
 	/**
-	 * Checks if is subscription_rates.
+	 * Gets the app row number.
 	 *
-	 * @param query the query
-	 * @return true, if is subscription_rates
+	 * @author SulakkhanaW
+	 * @param exceldata the exceldata
+	 * @param appName the app name
+	 * @param rowCount the row count
+	 * @return the app row number
+	 */
+	private int getAppRowNumber(List<List<String>> exceldata, String appName, int rowCount){
+		int appNameRowNumber = 0;
+		for (int a = 0; a < rowCount; a++){
+			if (exceldata.get(a).get(1).trim().equalsIgnoreCase(appName)){
+				appNameRowNumber = a;
+			}
+		}
+		return appNameRowNumber;
+	}
+	
+	/**
+	 * Gets the app details end row.
+	 *
+	 * @author SulakkhanaW
+	 * @param exceldata the exceldata
+	 * @param appNameRowNumber the app name row number
+	 * @param rowCount the row count
+	 * @return the app details end row
+	 */
+	private int getAppDetailsEndRow(List<List<String>> exceldata, int appNameRowNumber, int rowCount){
+		int appDetailsEndRow = 0;
+		appNameRowNumber++;
+		for (int s = appNameRowNumber; s < rowCount; s++){
+			if (!(exceldata.get(s).get(1).trim().isEmpty())){
+				appDetailsEndRow = s - 1;
+			}
+		}
+		return appDetailsEndRow;
+	}
+	
+	/**
+	 * Gets the api row number.
+	 *
+	 * @author SulakkhanaW
+	 * @param exceldata the exceldata
+	 * @param appNameRowNumber the app name row number
+	 * @param appDetailsEndRow the app details end row
+	 * @param apiName the api name
+	 * @return the api row number
+	 */
+	private int getApiRowNumber(List<List<String>> exceldata, int appNameRowNumber, int appDetailsEndRow, String apiName){
+		int apiRowNumber = 0;
+		for (int x = appNameRowNumber; x <= appDetailsEndRow; x++){
+			if (exceldata.get(x).get(2).trim().equalsIgnoreCase(apiName)){
+				apiRowNumber = x;
+			}
+		}
+		return apiRowNumber;
+	}
+	
+	/**
+	 * Gets the operation row number.
+	 *
+	 * @author SulakkhanaW
+	 * @param exceldata the exceldata
+	 * @param apiRowNumber the api row number
+	 * @param appDetailsEndRow the app details end row
+	 * @param operation the operation
+	 * @return the operation row number
+	 */
+	private int getOperationRowNumber(List<List<String>> exceldata, int apiRowNumber, int appDetailsEndRow, String operation){
+		int operationRowNumber = 0;
+		for (int y = apiRowNumber; y <= appDetailsEndRow; y++){
+			if (exceldata.get(y).get(4).equalsIgnoreCase(operation)){
+				operationRowNumber = y;
+			}
+		}
+		return operationRowNumber;
+	}
+	
+	/**
+	 * Gets the value from nb excel.
+	 *
+	 * @author SulakkhanaW
+	 * @param appName the app name
+	 * @param apiName the api name
+	 * @param operation the operation
+	 * @param columnName the column name
+	 * @param xlsxName the xlsx name
+	 * @return the value from nb excel
 	 * @throws Exception the exception
 	 */
+	public String getValueFromNBExcel(String appName,String apiName,String operation,String columnName, String xlsxName) throws Exception{
+		ExcelFileReader excelFileReader = new ExcelFileReader(xlsxName, "sheet1");
+		List<List<String>> exceldata = excelFileReader.readExcelFile("sheet1");
+		String returnValue = null;
+		int rowCount = exceldata.size();
+		int appNameRowNumber = getAppRowNumber(exceldata, appName, rowCount);
+		int appDetailsEndRow = getAppDetailsEndRow(exceldata, appNameRowNumber, rowCount);
+		int apiRowNumber = getApiRowNumber(exceldata, appNameRowNumber, appDetailsEndRow, apiName);
+		int operationRowNumber = getOperationRowNumber(exceldata, apiRowNumber, appDetailsEndRow, operation);
+		switch (columnName) {
+		case "Plan":
+			return returnValue = exceldata.get(operationRowNumber).get(5);
+
+		case "Count":
+			return returnValue = exceldata.get(operationRowNumber).get(11);
+
+		case "Usage Charge":
+			return returnValue = exceldata.get(operationRowNumber).get(13);
+
+		case "Tax":
+			return returnValue = exceldata.get(operationRowNumber).get(14);
+
+		case "Credit":
+			return returnValue = exceldata.get(operationRowNumber).get(15);
+
+		case "Grand Total":
+			return returnValue = exceldata.get(operationRowNumber).get(16);
+
+		default:
+			break;
+		}
+		return returnValue;
+	}
+
 	public boolean issubscription_ratestablesUpdated(String query) throws Exception{
 		logger.debug("Validating subscription_rates table");
 		flag = false;
@@ -4055,8 +4173,7 @@ public class ManagerPage extends BasicPageObject {
 		}
 		return flag;
 	}
-	
-	
+
 	public boolean isPieGraphRevenueBreakdownSB(String fromDate, String toDate,
 			String operatorId, String serviceProvider, String application) throws Exception {
 		flag = false;
