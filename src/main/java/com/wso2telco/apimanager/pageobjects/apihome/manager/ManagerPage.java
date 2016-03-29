@@ -3866,8 +3866,8 @@ public class ManagerPage extends BasicPageObject {
 	private int getSbOPerationRowNumber(List<List<String>> exceldata, int operatorRowNumber, int appDetailsEndRow, String operation){
 		int operationNumber = 0;
 		for (int x = operatorRowNumber; x <= appDetailsEndRow; x++){
-			if (exceldata.get(x).get(5).equalsIgnoreCase(operation)){
-				operationNumber = x;
+			if (exceldata.get(x).get(5).trim().equalsIgnoreCase(operation)){
+				return operationNumber = x;
 			}
 		}
 		return operationNumber;
@@ -3886,7 +3886,7 @@ public class ManagerPage extends BasicPageObject {
 	private int getSbOperatorRowNumber(List<List<String>> exceldata, int apiRowNumber, int appDetailsEndRow, String operator){
 		int operatorNumber = 0;
 		for (int x = apiRowNumber; x <= appDetailsEndRow; x++){
-			if (exceldata.get(x).get(4).equalsIgnoreCase(operator)){
+			if (exceldata.get(x).get(4).trim().equalsIgnoreCase(operator)){
 				return operatorNumber = x;
 			}
 		}
