@@ -3797,6 +3797,97 @@ public class ManagerPage extends BasicPageObject {
 		}
 		return returnValue;
 	}
+	
+	/**
+	 * Gets the value from sb excel.
+	 *
+	 * @author SulakkhanaW
+	 * @param appName the app name
+	 * @param apiName the api name
+	 * @param operator the operator
+	 * @param operation the operation
+	 * @param columnName the column name
+	 * @param xlsxName the xlsx name
+	 * @return the value from sb excel
+	 * @throws Exception the exception
+	 */
+	public String getValueFromSBExcel(String appName,String apiName,String operator, String operation,String columnName, String xlsxName) throws Exception{
+		ExcelFileReader excelFileReader = new ExcelFileReader(xlsxName, "sheet1");
+		List<List<String>> exceldata = excelFileReader.readExcelFile("sheet1");
+		String returnValue = null;
+		int rowCount = exceldata.size();
+		int appNameRowNumber = getAppRowNumber(exceldata, appName, rowCount);
+		int appDetailsEndRow = getAppDetailsEndRow(exceldata, appNameRowNumber, rowCount);
+		int apiRowNumber = getApiRowNumber(exceldata, appNameRowNumber, appDetailsEndRow, apiName);
+		int operatorRowNumber = getSbOperatorRowNumber(exceldata, apiRowNumber, appDetailsEndRow, operator);
+		int operationRowNumber = getSbOPerationRowNumber(exceldata, operatorRowNumber, appDetailsEndRow, operation);
+		switch (columnName) {
+		case "Plan":
+			return returnValue = exceldata.get(operationRowNumber).get(6);
+
+		case "Count":
+			return returnValue = exceldata.get(operationRowNumber).get(12);
+
+		case "Operator Charges":
+			return returnValue = exceldata.get(operationRowNumber).get(13);
+			
+		case "Usage Charge":
+			return returnValue = exceldata.get(operationRowNumber).get(14);
+
+		case "Tax":
+			return returnValue = exceldata.get(operationRowNumber).get(15);
+
+		case "Credit":
+			return returnValue = exceldata.get(operationRowNumber).get(16);
+
+		case "Grand Total":
+			return returnValue = exceldata.get(operationRowNumber).get(17);
+
+		default:
+			break;
+		}
+		return returnValue;
+	}
+	
+	/**
+	 * Gets the sb o peration row number.
+	 *
+	 * @author SulakkhanaW
+	 * @param exceldata the exceldata
+	 * @param operatorRowNumber the operator row number
+	 * @param appDetailsEndRow the app details end row
+	 * @param operation the operation
+	 * @return the sb o peration row number
+	 */
+	private int getSbOPerationRowNumber(List<List<String>> exceldata, int operatorRowNumber, int appDetailsEndRow, String operation){
+		int operationNumber = 0;
+		for (int x = operatorRowNumber; x <= appDetailsEndRow; x++){
+			if (exceldata.get(x).get(5).equalsIgnoreCase(operation)){
+				operationNumber = x;
+			}
+		}
+		return operationNumber;
+	}
+	
+	/**
+	 * Gets the sb operator row number.
+	 *
+	 * @author SulakkhanaW
+	 * @param exceldata the exceldata
+	 * @param apiRowNumber the api row number
+	 * @param appDetailsEndRow the app details end row
+	 * @param operator the operator
+	 * @return the sb operator row number
+	 */
+	private int getSbOperatorRowNumber(List<List<String>> exceldata, int apiRowNumber, int appDetailsEndRow, String operator){
+		int operatorNumber = 0;
+		for (int x = apiRowNumber; x <= appDetailsEndRow; x++){
+			if (exceldata.get(x).get(4).equalsIgnoreCase(operator)){
+				return operatorNumber = x;
+			}
+		}
+		return operatorNumber;
+	}
 
 	/**
 	 * Checks if is subscription rates tables updated.
@@ -3826,8 +3917,19 @@ public class ManagerPage extends BasicPageObject {
 		return flag;
 	}
 
-	public boolean isPieGraphRevenueBreakdownSB(String fromDate, String toDate,
-			String operatorId, String serviceProvider, String application) throws Exception {
+	/**
+	 * Checks if is pie graph revenue breakdown sb.
+	 *
+	 * @author JayaniP
+	 * @param fromDate the from date
+	 * @param toDate the to date
+	 * @param operatorId the operator id
+	 * @param serviceProvider the service provider
+	 * @param application the application
+	 * @return true, if is pie graph revenue breakdown sb
+	 * @throws Exception the exception
+	 */
+	public boolean isPieGraphRevenueBreakdownSB(String fromDate, String toDate, String operatorId, String serviceProvider, String application) throws Exception {
 		flag = false;
 		ArrayList<String> apiList = new ArrayList<String>();
 		WebElement select;
