@@ -22,7 +22,6 @@ import com.wso2telco.test.framework.util.UIType;
 import com.wso2telco.test.framework.tools.excelfile.CSVFileReader;
 import com.wso2telco.test.framework.tools.excelfile.ExcelFileReader;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ManagerPage.
  */
@@ -289,6 +288,9 @@ public class ManagerPage extends BasicPageObject {
 
 	/** The lnk revenue breakdown. */
 	private WebPelement lnkRevenueBreakdown = defineEelement(UIType.Xpath, "//ul[@class='nav nav-list']/li[6]/a");
+	
+	/** The lnk revenue breakdown nb. */
+	private WebPelement lnkRevenueBreakdownNB = defineEelement(UIType.Xpath, "//ul[@class='nav nav-list']/li[7]/a");
 
 	/** The lbl revenue breakdown. */
 	private WebPelement lblRevenueBreakdown = defineEelement(UIType.Xpath, "//div[@id='middle']/div[1]/h2");
@@ -394,6 +396,9 @@ public class ManagerPage extends BasicPageObject {
 
 	/** The pie chart. */
 	String pieChartTotalAPITraffic = "//div[@id='total-api-traffic-pie-chart']/div/div";
+	
+	/** The pie chart rvenue breakdown sb. */
+	String pieChartRvenueBreakdownSB = "//div[@id='apiUsageGraph']/div/div";
 
 	/** The pie chart performance error rates. */
 	String pieChartPerformanceErrorRates = "//div[@id='error-response-codes-pie-chart']/div/div";
@@ -2120,12 +2125,17 @@ public class ManagerPage extends BasicPageObject {
 	 *
 	 * @author JayaniP
 	 */
-	public void clickOnRvenueBreakdown() {
+	public void clickOnRvenueBreakdownSB() {
 		logger.debug("Start click revenue breakdown");
 		getElement(lnkRevenueBreakdown).click();
 		logger.debug("Clicked revenue breakdown");
 	}
 
+	public void clickOnRvenueBreakdownNB() {
+		logger.debug("Start click revenue breakdown");
+		getElement(lnkRevenueBreakdownNB).click();
+		logger.debug("Clicked revenue breakdown");
+	}
 	/**
 	 * Checks if is revenue breakdown page displayed.
 	 *
@@ -3815,4 +3825,48 @@ public class ManagerPage extends BasicPageObject {
 		}
 		return flag;
 	}
+
+	public boolean isPieGraphRevenueBreakdownSB(String fromDate, String toDate,
+			String operatorId, String serviceProvider, String application) throws Exception {
+		flag = false;
+		ArrayList<String> apiList = new ArrayList<String>();
+		WebElement select;
+		try {
+			select = getElement(UIType.Xpath, pieChartRvenueBreakdownSB);
+			List<WebElement> options = select.findElements(By
+					.xpath(pieChartRvenueBreakdownSB));
+			for (WebElement option : options) {
+				apiList.add(option.getText());
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating graphs data 'isPieGraph()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating graphs data 'isPieGraph()'"
+							+ e.getLocalizedMessage());
+		}
+		int count = apiList.size();
+		String apiListDetails[][] = new String[count][2];
+		for (int i = 0; i < count; i++) {
+			String element = apiList.get(i);
+			int openParanthis = element.indexOf("(") + 1;
+			int closeParanthis = element.indexOf(")");
+			String value = element.substring(openParanthis, closeParanthis);
+			String apiName = element.substring(0, openParanthis - 1).trim();
+			apiListDetails[i][0] = apiName;
+			apiListDetails[i][1] = value;
+		}
+		try {
+			flag = dbReturningDataTotalAPITraffic(apiListDetails, fromDate,
+					toDate, operatorId, serviceProvider);
+		} catch (Exception e) {
+			logger.debug("Exception While Validating matching data 'dbReturningData()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating matching data 'dbReturningData()'"
+							+ e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
 }
