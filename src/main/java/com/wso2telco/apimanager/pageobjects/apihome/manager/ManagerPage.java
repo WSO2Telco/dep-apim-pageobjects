@@ -22,7 +22,6 @@ import com.wso2telco.test.framework.util.UIType;
 import com.wso2telco.test.framework.tools.excelfile.CSVFileReader;
 import com.wso2telco.test.framework.tools.excelfile.ExcelFileReader;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ManagerPage.
  */
@@ -52,40 +51,31 @@ public class ManagerPage extends BasicPageObject {
 	private WebPelement btnUserName = defineEelement(UIType.ID, "userMenu");
 
 	/** The btn logout. */
-	private WebPelement btnLogout = defineEelement(UIType.Xpath,
-			"//li[@class='logout-link-special']/button");
+	private WebPelement btnLogout = defineEelement(UIType.Xpath, "//li[@class='logout-link-special']/button");
 
 	/** The lnk workflow. */
-	private WebPelement lnkWorkflow = defineEelement(
-			UIType.Xpath,
-			"//div[@class='navbar-inner main-menu-navbar']/ul/li/a[text()[contains(.,'Workflow')]]");
+	private WebPelement lnkWorkflow = defineEelement(UIType.Xpath, "//div[@class='navbar-inner main-menu-navbar']/ul/li/a[text()[contains(.,'Workflow')]]");
 
 	/** The lnk application creation. */
-	private WebPelement lnkApplicationCreation = defineEelement(UIType.Xpath,
-			"//li/a[text()[contains(.,'Application Creation')]]");
+	private WebPelement lnkApplicationCreation = defineEelement(UIType.Xpath, "//li/a[text()[contains(.,'Application Creation')]]");
 
 	/** The lnk app craeation. */
 	private String lnkAppCraeation = "//li/a[text()[contains(.,'Application Creation')]]";
 
 	/** The lbl approve reject. */
-	private WebPelement lblApproveReject = defineEelement(UIType.Xpath,
-			"//div[@class='modal-header']/h3");
+	private WebPelement lblApproveReject = defineEelement(UIType.Xpath, "//div[@class='modal-header']/h3");
 
 	/** The txt approve reject. */
-	private WebPelement txtApproveReject = defineEelement(UIType.Xpath,
-			"//div/form/input[@type='text']");
+	private WebPelement txtApproveReject = defineEelement(UIType.Xpath, "//div/form/input[@type='text']");
 
 	/** The btn approve ok. */
-	private WebPelement btnApproveOk = defineEelement(UIType.Xpath,
-			"//div/a[text()[contains(.,'OK')]]");
+	private WebPelement btnApproveOk = defineEelement(UIType.Xpath, "//div/a[text()[contains(.,'OK')]]");
 
 	/** The btn sub creation. */
-	private WebPelement btnSubCreation = defineEelement(UIType.Xpath,
-			"//a[contains(.,'Subscriptions Creation')]");
+	private WebPelement btnSubCreation = defineEelement(UIType.Xpath, "//a[contains(.,'Subscriptions Creation')]");
 
 	/** The title app tasks. */
-	private WebPelement titleAppTasks = defineEelement(UIType.Xpath,
-			"//div[@class='title-section']/h2");
+	private WebPelement titleAppTasks = defineEelement(UIType.Xpath, "//div[@class='title-section']/h2");
 
 	/** The tab path. */
 	private String tabPath = "//div[@class='navbar-inner main-menu-navbar']/ul/li";
@@ -95,21 +85,16 @@ public class ManagerPage extends BasicPageObject {
 	private String monthlyInvoiceSBpath = "//div[@class='sidebar-nav left-menu-back01']/ul/li";
 
 	/** The lnk black list. */
-	private WebPelement lnkBlackList = defineEelement(
-			UIType.Xpath,
-			"//div[@class='navbar-inner main-menu-navbar']/ul/li/a[text()[contains(.,'Blacklist')]]");
+	private WebPelement lnkBlackList = defineEelement(UIType.Xpath, "//div[@class='navbar-inner main-menu-navbar']/ul/li/a[text()[contains(.,'Blacklist')]]");
 
 	/** The lbl api black list. */
-	private WebPelement lblAPIBlackList = defineEelement(UIType.Xpath,
-			"//div[@class='title-section']");
+	private WebPelement lblAPIBlackList = defineEelement(UIType.Xpath, "//div[@class='title-section']");
 
 	/** The dd select api. */
-	private WebPelement ddSelectAPI = defineEelement(UIType.Xpath,
-			"//div[@class='well form-inline']/table/tbody/tr[2]/td/select");
+	private WebPelement ddSelectAPI = defineEelement(UIType.Xpath, "//div[@class='well form-inline']/table/tbody/tr[2]/td/select");
 
 	/** The lbl ussd. */
-	private WebPelement lblUSSD = defineEelement(UIType.Xpath,
-			"//select[@id='apiSelect']/option[contains(.,'USSD')]");
+	private WebPelement lblUSSD = defineEelement(UIType.Xpath, "//select[@id='apiSelect']/option[contains(.,'USSD')]");
 
 	/** The ddl api. */
 	private WebPelement ddlAPIList = defineEelement(UIType.ID, "apiSelect");
@@ -118,17 +103,13 @@ public class ManagerPage extends BasicPageObject {
 	private WebPelement btnAddNew = defineEelement(UIType.ID, "add-new");
 
 	/** The lbl admin mod error. */
-	private WebPelement lblAdminModError = defineEelement(UIType.Xpath,
-			"//div[@id='messageModal']/div[1]/h3");
+	private WebPelement lblAdminModError = defineEelement(UIType.Xpath, "//div[@id='messageModal']/div[1]/h3");
 
 	/** The lnk white list. */
-	private WebPelement lnkWhiteList = defineEelement(
-			UIType.Xpath,
-			"//div[@class='navbar-inner main-menu-navbar']/ul/li/a[text()[contains(.,'Whitelist')]]");
+	private WebPelement lnkWhiteList = defineEelement(UIType.Xpath, "//div[@class='navbar-inner main-menu-navbar']/ul/li/a[text()[contains(.,'Whitelist')]]");
 
 	/** The lbl ap iwise white list. */
-	private WebPelement lblAPIwiseWhiteList = defineEelement(UIType.Xpath,
-			"//div[@id='middle']/div[1]/h2");
+	private WebPelement lblAPIwiseWhiteList = defineEelement(UIType.Xpath, "//div[@id='middle']/div[1]/h2");
 
 	/** The dd subscriber. */
 	private WebPelement ddSubscriber = defineEelement(UIType.ID, "subsSelect");
@@ -179,8 +160,7 @@ public class ManagerPage extends BasicPageObject {
 	private String lnkApplicationDetails = "//tr/td/div/label[text()[contains(.,'%s')]]/../../label/b[text()[contains(.,'Application Details')]]";
 
 	/** The ddl tier. */
-	private WebPelement ddlTier = defineEelement(UIType.Xpath,
-			"//td[@id='desc0']/div[4]/div[1]/select/option[@value='Unlimited']");
+	private WebPelement ddlTier = defineEelement(UIType.Xpath, "//td[@id='desc0']/div[4]/div[1]/select/option[@value='Unlimited']");
 
 	/**
 	 * The btn assign me. %s_1 = appName
@@ -218,33 +198,25 @@ public class ManagerPage extends BasicPageObject {
 	private String btnRemoveNumber = "//td[text()='%s']/following-sibling::td[1]/div/a";
 
 	/** The lnk billing and metering. */
-	private WebPelement lnkBillingAndMetering = defineEelement(
-			UIType.Xpath,
-			"//div[@class='navbar-inner main-menu-navbar']/ul/li/a[text()[contains(.,'Billing & Metering')]]");
+	private WebPelement lnkBillingAndMetering = defineEelement(UIType.Xpath, "//div[@class='navbar-inner main-menu-navbar']/ul/li/a[text()[contains(.,'Billing & Metering')]]");
 
 	/** The lbl total api traffic. */
-	private WebPelement lblTotalAPITraffic = defineEelement(UIType.Xpath,
-			"//div[@id='middle']/div[1]/h2");
+	private WebPelement lblTotalAPITraffic = defineEelement(UIType.Xpath, "//div[@id='middle']/div[1]/h2");
 
 	/** The txt total api traffic from date. */
-	private WebPelement txtTotalAPITrafficFromDate = defineEelement(UIType.ID,
-			"from_date");
+	private WebPelement txtTotalAPITrafficFromDate = defineEelement(UIType.ID, "from_date");
 
 	/** The txt total api traffic to date. */
-	private WebPelement txtTotalAPITrafficToDate = defineEelement(UIType.ID,
-			"to_date");
+	private WebPelement txtTotalAPITrafficToDate = defineEelement(UIType.ID, "to_date");
 
 	/** The dd total api traffic operator. */
-	private WebPelement ddTotalAPITrafficOperator = defineEelement(UIType.ID,
-			"operator");
+	private WebPelement ddTotalAPITrafficOperator = defineEelement(UIType.ID, "operator");
 
 	/** The dd total api traffic service provider. */
-	private WebPelement ddTotalAPITrafficServiceProvider = defineEelement(
-			UIType.ID, "subscriber");
+	private WebPelement ddTotalAPITrafficServiceProvider = defineEelement(UIType.ID, "subscriber");
 
 	/** The dd total api traffic application. */
-	private WebPelement ddTotalAPITrafficApplication = defineEelement(
-			UIType.ID, "app");
+	private WebPelement ddTotalAPITrafficApplication = defineEelement(UIType.ID, "app");
 
 	/** The dd total api traffic api. */
 	private WebPelement ddTotalAPITrafficAPI = defineEelement(UIType.ID, "api");
@@ -253,79 +225,61 @@ public class ManagerPage extends BasicPageObject {
 	private WebPelement btnGenerate = defineEelement(UIType.ID, "generate");
 
 	/** The lnk transaction log. */
-	private WebPelement lnkTransactionLog = defineEelement(UIType.Xpath,
-			"//ul[@class='nav nav-list']/li[3]/a");
+	private WebPelement lnkTransactionLog = defineEelement(UIType.Xpath, "//ul[@class='nav nav-list']/li[3]/a");
 	
 	/** The lnk transaction logNB. */
-	private WebPelement lnkTransactionLogNB = defineEelement(UIType.Xpath,
-			"//div[@id='left']/div/ul/li[4]/a");
+	private WebPelement lnkTransactionLogNB = defineEelement(UIType.Xpath, "//div[@id='left']/div/ul/li[4]/a");
 
 	/** The lbl transaction log. */
-	private WebPelement lblTransactionLog = defineEelement(UIType.Xpath,
-			"//div[@id='middle']/div[1]/h2");
+	private WebPelement lblTransactionLog = defineEelement(UIType.Xpath, "//div[@id='middle']/div[1]/h2");
 
 	/** The txt transaction log from date. */
-	private WebPelement txtTransactionLogFromDate = defineEelement(UIType.ID,
-			"from_date");
+	private WebPelement txtTransactionLogFromDate = defineEelement(UIType.ID, "from_date");
 
 	/** The txt transaction log to date. */
-	private WebPelement txtTransactionLogToDate = defineEelement(UIType.ID,
-			"to_date");
+	private WebPelement txtTransactionLogToDate = defineEelement(UIType.ID, "to_date");
 
 	/** The dd transaction log operator. */
-	private WebPelement ddTransactionLogOperator = defineEelement(UIType.ID,
-			"operator");
+	private WebPelement ddTransactionLogOperator = defineEelement(UIType.ID, "operator");
 
 	/** The dd transaction log service provider. */
-	private WebPelement ddTransactionLogServiceProvider = defineEelement(
-			UIType.ID, "subscriber");
+	private WebPelement ddTransactionLogServiceProvider = defineEelement(UIType.ID, "subscriber");
 
 	/** The dd transaction log api. */
 	private WebPelement ddTransactionLogOperationType = defineEelement(UIType.ID, "api");
 
 	/** The dd transaction log status. */
-	private WebPelement ddTransactionLogRecordsType = defineEelement(UIType.ID,
-			"ResType");
+	private WebPelement ddTransactionLogRecordsType = defineEelement(UIType.ID, "ResType");
 	
 	/** The btn download report. */
-	private WebPelement btnDownloadReport = defineEelement(UIType.Name,
-			"download_file");
+	private WebPelement btnDownloadReport = defineEelement(UIType.Name, "download_file");
 
 	/** The lnk operator api traffic. */
-	private WebPelement lnkOperatorAPITraffic = defineEelement(UIType.Xpath,
-			"//ul[@class='nav nav-list']/li[5]/a");
+	private WebPelement lnkOperatorAPITraffic = defineEelement(UIType.Xpath, "//ul[@class='nav nav-list']/li[5]/a");
 
 	/** The lbl operator api traffic. */
-	private WebPelement lblOperatorAPITraffic = defineEelement(UIType.Xpath,
-			"//div[@id='middle']/div[1]/h2");
+	private WebPelement lblOperatorAPITraffic = defineEelement(UIType.Xpath, "//div[@id='middle']/div[1]/h2");
 
 	/** The txt operator api traffic from date. */
-	private WebPelement txtOperatorAPITrafficFromDate = defineEelement(
-			UIType.ID, "from_date");
+	private WebPelement txtOperatorAPITrafficFromDate = defineEelement(UIType.ID, "from_date");
 
 	/** The txt operator api traffic to date. */
-	private WebPelement txtOperatorAPITrafficToDate = defineEelement(UIType.ID,
-			"to_date");
+	private WebPelement txtOperatorAPITrafficToDate = defineEelement(UIType.ID, "to_date");
 
 	/** The dd operator api traffic service provider. */
-	private WebPelement ddOperatorAPITrafficServiceProvider = defineEelement(
-			UIType.ID, "subscriber");
+	private WebPelement ddOperatorAPITrafficServiceProvider = defineEelement(UIType.ID, "subscriber");
 
 	/** The dd operator api traffic api. */
-	private WebPelement ddOperatorAPITrafficAPI = defineEelement(UIType.ID,
-			"api");
+	private WebPelement ddOperatorAPITrafficAPI = defineEelement(UIType.ID, "api");
 
 	/** The dd operator api traffic application. */
-	private WebPelement ddOperatorAPITrafficApplication = defineEelement(
-			UIType.ID, "app");
+	private WebPelement ddOperatorAPITrafficApplication = defineEelement(UIType.ID, "app");
 
 	/** The lnk monthly invoice. */
-	private WebPelement lnkMonthlyInvoice = defineEelement(UIType.Xpath,
-			"//ul[@class='nav nav-list']/li[5]/a");
+	private WebPelement lnkMonthlyInvoice = defineEelement(UIType.Xpath, "//ul[@class='nav nav-list']/li[5]/a");
 
 	/** The lbl monthly invoice. */
-	private WebPelement lblMonthlyInvoice = defineEelement(UIType.Xpath,
-			"//div[@id='middle']/div[1]/h2");
+	private WebPelement lblMonthlyInvoice = defineEelement(UIType.Xpath, "//div[@id='middle']/div[1]/h2");
 
 	/** The dd monthly invoice year. */
 	private WebPelement ddMonthlyInvoiceYear = defineEelement(UIType.ID, "year");
@@ -337,147 +291,112 @@ public class ManagerPage extends BasicPageObject {
 	private WebPelement ddMonthlyInvoiceServiceProvider = defineEelement(UIType.ID, "subscriber");
 
 	/** The lnk revenue breakdown. */
-	private WebPelement lnkRevenueBreakdown = defineEelement(UIType.Xpath,
-			"//ul[@class='nav nav-list']/li[6]/a");
+	private WebPelement lnkRevenueBreakdown = defineEelement(UIType.Xpath, "//ul[@class='nav nav-list']/li[6]/a");
 	
-	private WebPelement lnkRevenueBreakdownNB = defineEelement(UIType.Xpath,
-			"//ul[@class='nav nav-list']/li[7]/a");
+	/** The lnk revenue breakdown nb. */
+	private WebPelement lnkRevenueBreakdownNB = defineEelement(UIType.Xpath, "//ul[@class='nav nav-list']/li[7]/a");
 
 	/** The lbl revenue breakdown. */
-	private WebPelement lblRevenueBreakdown = defineEelement(UIType.Xpath,
-			"//div[@id='middle']/div[1]/h2");
+	private WebPelement lblRevenueBreakdown = defineEelement(UIType.Xpath, "//div[@id='middle']/div[1]/h2");
 
 	/** The dd revenue breakdown year. */
-	private WebPelement ddRevenueBreakdownYear = defineEelement(UIType.ID,
-			"yearSelect");
+	private WebPelement ddRevenueBreakdownYear = defineEelement(UIType.ID, "yearSelect");
 
 	/** The dd revenue breakdown month. */
-	private WebPelement ddRevenueBreakdownMonth = defineEelement(UIType.ID,
-			"monthSelect");
+	private WebPelement ddRevenueBreakdownMonth = defineEelement(UIType.ID, "monthSelect");
 
 	/** The dd revenue breakdown operator. */
-	private WebPelement ddRevenueBreakdownOperator = defineEelement(UIType.ID,
-			"operatorSelect");
+	private WebPelement ddRevenueBreakdownOperator = defineEelement(UIType.ID, "operatorSelect");
 
 	/** The dd revenue breakdown service provider. */
-	private WebPelement ddRevenueBreakdownServiceProvider = defineEelement(
-			UIType.ID, "subscriberSelect");
+	private WebPelement ddRevenueBreakdownServiceProvider = defineEelement(UIType.ID, "subscriberSelect");
 
 	/** The dd revenue breakdown application. */
-	private WebPelement ddRevenueBreakdownApplication = defineEelement(
-			UIType.ID, "appSelect");
+	private WebPelement ddRevenueBreakdownApplication = defineEelement(UIType.ID, "appSelect");
 
 	/** The lnk customer care. */
-	private WebPelement lnkCustomerCare = defineEelement(UIType.Xpath,
-			"//ul[@class='nav nav-list']/li[10]/a");
+	private WebPelement lnkCustomerCare = defineEelement(UIType.Xpath, "//ul[@class='nav nav-list']/li[10]/a");
 
 	/** The lbl customer care. */
-	private WebPelement lblCustomerCare = defineEelement(UIType.Xpath,
-			"//div[@id='middle']/div[1]/h2");
+	private WebPelement lblCustomerCare = defineEelement(UIType.Xpath, "//div[@id='middle']/div[1]/h2");
 
 	/** The txt customer care from date. */
-	private WebPelement txtCustomerCareFromDate = defineEelement(UIType.ID,
-			"from_date");
+	private WebPelement txtCustomerCareFromDate = defineEelement(UIType.ID, "from_date");
 
 	/** The txt customer care to date. */
-	private WebPelement txtCustomerCareToDate = defineEelement(UIType.ID,
-			"to_date");
+	private WebPelement txtCustomerCareToDate = defineEelement(UIType.ID, "to_date");
 
 	/** The txt customer care msisdn. */
-	private WebPelement txtCustomerCareMSISDN = defineEelement(UIType.ID,
-			"msisdnText");
+	private WebPelement txtCustomerCareMSISDN = defineEelement(UIType.ID, "msisdnText");
 
 	/** The dd customer care operator. */
-	private WebPelement ddCustomerCareOperator = defineEelement(UIType.ID,
-			"operatorSelect");
+	private WebPelement ddCustomerCareOperator = defineEelement(UIType.ID, "operatorSelect");
 
 	/** The dd customer care service provider. */
-	private WebPelement ddCustomerCareServiceProvider = defineEelement(
-			UIType.ID, "subscriberSelect");
+	private WebPelement ddCustomerCareServiceProvider = defineEelement(UIType.ID, "subscriberSelect");
 
 	/** The dd customer care application. */
-	private WebPelement ddCustomerCareApplication = defineEelement(UIType.ID,
-			"appSelect");
+	private WebPelement ddCustomerCareApplication = defineEelement(UIType.ID, "appSelect");
 
 	/** The lnk api response time. */
-	private WebPelement lnkAPIResponseTime = defineEelement(UIType.Xpath,
-			"//ul[@class='nav nav-list']/li[9]/a");
+	private WebPelement lnkAPIResponseTime = defineEelement(UIType.Xpath, "//ul[@class='nav nav-list']/li[9]/a");
 
 	/** The lbl api response time. */
-	private WebPelement lblAPIResponseTime = defineEelement(UIType.Xpath,
-			"//div[@id='middle']/div[1]/h2");
+	private WebPelement lblAPIResponseTime = defineEelement(UIType.Xpath, "//div[@id='middle']/div[1]/h2");
 
 	/** The txt api response time from date. */
-	private WebPelement txtAPIResponseTimeFromDate = defineEelement(UIType.ID,
-			"from_date");
+	private WebPelement txtAPIResponseTimeFromDate = defineEelement(UIType.ID, "from_date");
 
 	/** The txt api response time to date. */
-	private WebPelement txtAPIResponseTimeToDate = defineEelement(UIType.ID,
-			"to_date");
+	private WebPelement txtAPIResponseTimeToDate = defineEelement(UIType.ID, "to_date");
 
 	/** The dd api response time operator. */
-	private WebPelement ddAPIResponseTimeOperator = defineEelement(UIType.ID,
-			"operatorSelect");
+	private WebPelement ddAPIResponseTimeOperator = defineEelement(UIType.ID, "operatorSelect");
 
 	/** The dd api response time service provider. */
-	private WebPelement ddAPIResponseTimeServiceProvider = defineEelement(
-			UIType.ID, "subscriberSelect");
+	private WebPelement ddAPIResponseTimeServiceProvider = defineEelement(UIType.ID, "subscriberSelect");
 
 	/** The dd api response time application. */
-	private WebPelement ddAPIResponseTimeApplication = defineEelement(
-			UIType.ID, "appSelect");
+	private WebPelement ddAPIResponseTimeApplication = defineEelement(UIType.ID, "appSelect");
 
 	/** The btn api response time generate. */
-	private WebPelement btnAPIResponseTimeGenerate = defineEelement(
-			UIType.Name, "download_file");
+	private WebPelement btnAPIResponseTimeGenerate = defineEelement(UIType.Name, "download_file");
 
 	/** The lnk performance error rates. */
-	private WebPelement lnkPerformanceErrorRates = defineEelement(UIType.Xpath,
-			"//ul[@class='nav nav-list']/li[10]/a");
+	private WebPelement lnkPerformanceErrorRates = defineEelement(UIType.Xpath, "//ul[@class='nav nav-list']/li[10]/a");
 
 	/** The lbl performance error rates. */
-	private WebPelement lblPerformanceErrorRates = defineEelement(UIType.Xpath,
-			"//div[@id='middle']/div[1]/h2");
+	private WebPelement lblPerformanceErrorRates = defineEelement(UIType.Xpath, "//div[@id='middle']/div[1]/h2");
 
 	/** The txt performance error rates from date. */
-	private WebPelement txtPerformanceErrorRatesFromDate = defineEelement(
-			UIType.ID, "from_date");
+	private WebPelement txtPerformanceErrorRatesFromDate = defineEelement(UIType.ID, "from_date");
 
 	/** The txt performance error rates to date. */
-	private WebPelement txtPerformanceErrorRatesToDate = defineEelement(
-			UIType.ID, "to_date");
+	private WebPelement txtPerformanceErrorRatesToDate = defineEelement(UIType.ID, "to_date");
 
 	/** The dd performance error rates operator. */
-	private WebPelement ddPerformanceErrorRatesOperator = defineEelement(
-			UIType.ID, "operator");
+	private WebPelement ddPerformanceErrorRatesOperator = defineEelement(UIType.ID, "operator");
 
 	/** The dd performance error rates service provider. */
-	private WebPelement ddPerformanceErrorRatesServiceProvider = defineEelement(
-			UIType.ID, "subscriber");
+	private WebPelement ddPerformanceErrorRatesServiceProvider = defineEelement(UIType.ID, "subscriber");
 
 	/** The dd performance error rates application. */
-	private WebPelement ddPerformanceErrorRatesApplication = defineEelement(
-			UIType.ID, "app");
+	private WebPelement ddPerformanceErrorRatesApplication = defineEelement(UIType.ID, "app");
 
 	/** The dd performance error rates api. */
-	private WebPelement ddPerformanceErrorRatesAPI = defineEelement(UIType.ID,
-			"api");
+	private WebPelement ddPerformanceErrorRatesAPI = defineEelement(UIType.ID, "api");
 
 	/** The btn monthly invoice download report. */
-	private WebPelement btnMonthlyInvoiceDownloadReport = defineEelement(
-			UIType.Xpath, "//div[@id='userKey']/button");
+	private WebPelement btnMonthlyInvoiceDownloadReport = defineEelement(UIType.Xpath, "//div[@id='userKey']/button");
 
 	/** The lbl white list added popup. */
-	private WebPelement lblWhiteListAddedPopup = defineEelement(UIType.Xpath,
-			"//span[@class='messageText']");
+	private WebPelement lblWhiteListAddedPopup = defineEelement(UIType.Xpath, "//span[@class='messageText']");
 
 	/** The btn white list added popup ok. */
-	private WebPelement btnWhiteListAddedPopupOK = defineEelement(UIType.Xpath,
-			"//a[contains(text(),'OK')]");
+	private WebPelement btnWhiteListAddedPopupOK = defineEelement(UIType.Xpath, "//a[contains(text(),'OK')]");
 
 	/** The lbl white list error popup. */
-	private WebPelement lblWhiteListErrorPopup = defineEelement(UIType.Xpath,
-			"//span[@class='messageText']");
+	private WebPelement lblWhiteListErrorPopup = defineEelement(UIType.Xpath, "//span[@class='messageText']");
 
 	/** The pie chart. */
 	String pieChartTotalAPITraffic = "//div[@id='total-api-traffic-pie-chart']/div/div";
@@ -501,8 +420,7 @@ public class ManagerPage extends BasicPageObject {
 	private String lblReports = "//div[@id='left']/div/ul/li";
 	
 	/** The lnk sp blacklist. */
-	private WebPelement lnkSPBlacklist = defineEelement(UIType.Xpath,
-			"//a[contains(.,'SP Blacklist')]");
+	private WebPelement lnkSPBlacklist = defineEelement(UIType.Xpath, "//a[contains(.,'SP Blacklist')]");
 	
 	/** The dd sp blacklist select. */
 	private WebPelement ddSPBlacklistSelect = defineEelement(UIType.ID,"spSelect");
@@ -535,8 +453,7 @@ public class ManagerPage extends BasicPageObject {
 	 * Instantiates a new manager page.
 	 *
 	 * @author JayaniP
-	 * @param driver
-	 *            the driver
+	 * @param driver the driver
 	 */
 	public ManagerPage(WebDriver driver) {
 		super(driver);
@@ -546,11 +463,9 @@ public class ManagerPage extends BasicPageObject {
 	 * Checks if is manager page.
 	 *
 	 * @author JayaniP
-	 * @param managerHeader
-	 *            the manager header
+	 * @param managerHeader the manager header
 	 * @return true, if is manager page
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
 	public boolean isManagerPage(String managerHeader) throws Exception {
 		flag = false;
@@ -565,11 +480,8 @@ public class ManagerPage extends BasicPageObject {
 				logger.debug("Manager page hedaer mismatched");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating Manager page header 'isManagerPage()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating Manager page header 'isManagerPage()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating Manager page header 'isManagerPage()'" + e.getMessage());
+			throw new Exception("Exception While Validating Manager page header 'isManagerPage()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
@@ -578,8 +490,7 @@ public class ManagerPage extends BasicPageObject {
 	 * Enter user name.
 	 *
 	 * @author JayaniP
-	 * @param username
-	 *            the username
+	 * @param username the username
 	 */
 	public void enterUserName(String username) {
 		logger.debug("Entering username");
@@ -591,8 +502,7 @@ public class ManagerPage extends BasicPageObject {
 	 * Enter password.
 	 *
 	 * @author JayaniP
-	 * @param password
-	 *            the password
+	 * @param password the password
 	 */
 	public void enterPassword(String password) {
 		logger.debug("Entering password");
@@ -603,27 +513,23 @@ public class ManagerPage extends BasicPageObject {
 	/**
 	 * Click login.
 	 *
-	 * @author JayaniP
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @author SulakkhanaW
+	 * @throws InterruptedException the interrupted exception
 	 */
 	public void clickLogin() throws InterruptedException {
 		logger.debug("Clicking on login");
 		getElement(btnLogIn).click();
 		logger.debug("Clicked on login");
 		Thread.sleep(sleepTime);
-		Thread.sleep(sleepTime);
 	}
 
 	/**
 	 * Checks if is home page.
 	 *
-	 * @author JayaniP
-	 * @param homeHeader
-	 *            the home header
+	 * @author SulakkhanaW
+	 * @param homeHeader the home header
 	 * @return true, if is home page
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
 	public boolean isHomePage(String homeHeader) throws Exception {
 		flag = false;
@@ -636,11 +542,8 @@ public class ManagerPage extends BasicPageObject {
 				logger.debug("Home page hedaer mismatched");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating Home page header 'isHomePage()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating Home page header 'isHomePage()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating Home page header 'isHomePage()'" + e.getMessage());
+			throw new Exception("Exception While Validating Home page header 'isHomePage()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
@@ -672,8 +575,7 @@ public class ManagerPage extends BasicPageObject {
 	 *
 	 * @author JayaniP
 	 * @return true, if is manager two tabs access
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
 	public boolean isManagerTwoTabsAccess() throws Exception {
 		flag = false;
@@ -687,11 +589,8 @@ public class ManagerPage extends BasicPageObject {
 				logger.debug("User has access for more than 2 tabs");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating Manager page tabs 'isManagerTwoTabsAccess()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating Manager page tabs 'isManagerTwoTabsAccess()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating Manager page tabs 'isManagerTwoTabsAccess()'" + e.getMessage());
+			throw new Exception("Exception While Validating Manager page tabs 'isManagerTwoTabsAccess()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
@@ -701,8 +600,7 @@ public class ManagerPage extends BasicPageObject {
 	 *
 	 * @author JayaniP
 	 * @return true, if is all tabs accessible
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
 	public boolean isAllTabsAccessible() throws Exception {
 		flag = false;
@@ -717,11 +615,8 @@ public class ManagerPage extends BasicPageObject {
 				logger.debug("User has access for less than 5 tabs");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating Manager page tabs 'isAllTabsAccessible()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating Manager page tabs 'isAllTabsAccessible()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating Manager page tabs 'isAllTabsAccessible()'" + e.getMessage());
+			throw new Exception("Exception While Validating Manager page tabs 'isAllTabsAccessible()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
@@ -731,8 +626,7 @@ public class ManagerPage extends BasicPageObject {
 	 *
 	 * @author JayaniP
 	 * @return true, if is three tabs
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
 	public boolean isThreeTabs() throws Exception {
 		flag = false;
@@ -746,11 +640,8 @@ public class ManagerPage extends BasicPageObject {
 				logger.debug("Operator user has access for less/more than three tabs");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating Manager page tabs 'isThreeTabs()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating Manager page tabs 'isThreeTabs()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating Manager page tabs 'isThreeTabs()'" + e.getMessage());
+			throw new Exception("Exception While Validating Manager page tabs 'isThreeTabs()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
@@ -759,8 +650,7 @@ public class ManagerPage extends BasicPageObject {
 	 * Click workflow.
 	 *
 	 * @author JayaniP
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @throws InterruptedException the interrupted exception
 	 */
 	public void clickWorkflow() throws InterruptedException {
 		Thread.sleep(sleepTime);
@@ -775,8 +665,7 @@ public class ManagerPage extends BasicPageObject {
 	 *
 	 * @author JayaniP
 	 * @return true, if is application creation
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
 	public boolean isApplicationCreation() throws Exception {
 		flag = false;
@@ -790,11 +679,8 @@ public class ManagerPage extends BasicPageObject {
 				logger.debug("Application creation link is not visible");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating Application creation link 'isApllicationCreation()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating Application creation link 'isApllicationCreation()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating Application creation link 'isApllicationCreation()'" + e.getMessage());
+			throw new Exception("Exception While Validating Application creation link 'isApllicationCreation()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
@@ -814,11 +700,9 @@ public class ManagerPage extends BasicPageObject {
 	 * Checks if is application name visible.
 	 *
 	 * @author JayaniP
-	 * @param appName
-	 *            the app name
+	 * @param appName the app name
 	 * @return true, if is application name visible
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
 	public boolean isApplicationNameVisible(String appName) throws Exception {
 		flag = false;
@@ -834,11 +718,8 @@ public class ManagerPage extends BasicPageObject {
 				logger.debug("Application creation name is not visible");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating Application name 'isApplicationNameVisible()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating Application name 'isApplicationNameVisible()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating Application name 'isApplicationNameVisible()'" + e.getMessage());
+			throw new Exception("Exception While Validating Application name 'isApplicationNameVisible()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
@@ -847,8 +728,7 @@ public class ManagerPage extends BasicPageObject {
 	 * Click application details.
 	 *
 	 * @author JayaniP
-	 * @param appname
-	 *            the appname
+	 * @param appname the appname
 	 */
 	public void clickApplicationDetails(String appname) {
 		String xpath = String.format(lnkApplicationDetails, appname);
@@ -862,10 +742,8 @@ public class ManagerPage extends BasicPageObject {
 	 * Select tier.
 	 *
 	 * @author JayaniP
-	 * @param tier
-	 *            the tier
-	 * @param appname
-	 *            the appname
+	 * @param tier the tier
+	 * @param appname the appname
 	 */
 	public void selectTier(String tier, String appname) {
 		logger.debug("Selecting tier");
@@ -878,8 +756,7 @@ public class ManagerPage extends BasicPageObject {
 	 * Click assign me.
 	 *
 	 * @author JayaniP
-	 * @param appName
-	 *            the app name
+	 * @param appName the app name
 	 */
 	public void clickAssignMe(String appName) {
 		String xpath = String.format(btnAssignMe, appName);
@@ -893,8 +770,7 @@ public class ManagerPage extends BasicPageObject {
 	 * Click start.
 	 *
 	 * @author JayaniP
-	 * @param appName
-	 *            the app name
+	 * @param appName the app name
 	 */
 	public void clickStart(String appName) {
 		String xpath = String.format(btnStart, appName);
@@ -908,10 +784,8 @@ public class ManagerPage extends BasicPageObject {
 	 * Select condition.
 	 *
 	 * @author JayaniP
-	 * @param condition
-	 *            the condition
-	 * @param appName
-	 *            the app name
+	 * @param condition the condition
+	 * @param appName the app name
 	 */
 	public void selectCondition(String condition, String appName) {
 		String xpath = String.format(ddlConditionList, appName);
@@ -926,8 +800,7 @@ public class ManagerPage extends BasicPageObject {
 	 * Click complete.
 	 *
 	 * @author JayaniP
-	 * @param appName
-	 *            the app name
+	 * @param appName the app name
 	 */
 	public void clickComplete(String appName) {
 		String xpath = String.format(btnComplete, appName);
@@ -941,8 +814,7 @@ public class ManagerPage extends BasicPageObject {
 	 * Enter approve reject reason.
 	 *
 	 * @author JayaniP
-	 * @param reason
-	 *            the reason
+	 * @param reason the reason
 	 */
 	public void enterApproveRejectReason(String reason) {
 		logger.debug("Entering approve reject reason");
@@ -965,28 +837,15 @@ public class ManagerPage extends BasicPageObject {
 	 * Checks if is application name not visible.
 	 *
 	 * @author JayaniP
-	 * @param appName
-	 *            the app name
+	 * @param appName the app name
 	 * @return true, if is application name not visible
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
 	public boolean isApplicationNameNotVisible(String appName) throws Exception {
 		flag = false;
 		logger.debug("Validating Application name not visible");
 		String xpath = String.format(lblApplicationName, appName);
-		int Names = driver.findElements(By.xpath(xpath)).size(); // TODO : need
-																	// to
-																	// implement
-																	// a better
-																	// method in
-																	// framework
-																	// when
-																	// checking
-																	// a non
-																	// existing
-																	// UI
-																	// element
+		int Names = driver.findElements(By.xpath(xpath)).size();
 		try {
 			if (Names < 1) {
 				flag = true;
@@ -1019,11 +878,9 @@ public class ManagerPage extends BasicPageObject {
 	 * Checks if is approval task displayed.
 	 *
 	 * @author JayaniP
-	 * @param title
-	 *            the title
+	 * @param title the title
 	 * @return true, if is approval task displayed
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
 	public boolean isApprovalTaskDisplayed(String title) throws Exception {
 
@@ -1038,11 +895,8 @@ public class ManagerPage extends BasicPageObject {
 				logger.debug("Approval Task Title is Not Matched");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating Approval Task Title Page Title 'isApprovalTaskDisplayed()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating Approval Task Title Page Title 'isApprovalTaskDisplayed()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating Approval Task Title Page Title 'isApprovalTaskDisplayed()'" + e.getMessage());
+			throw new Exception("Exception While Validating Approval Task Title Page Title 'isApprovalTaskDisplayed()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
@@ -1051,11 +905,9 @@ public class ManagerPage extends BasicPageObject {
 	 * Checks if is approve reject popup displayed.
 	 *
 	 * @author JayaniP
-	 * @param title
-	 *            the title
+	 * @param title the title
 	 * @return true, if is approve reject popup displayed
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
 	public boolean isApproveRejectPopupDisplayed(String title) throws Exception {
 
@@ -1070,11 +922,8 @@ public class ManagerPage extends BasicPageObject {
 				logger.debug("Approve/Reject popup title is Not Matched");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating Approve/Reject popup Page Title 'isApproveRejectPopupDisplayed()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating Approve/Reject popup Page Title 'isApproveRejectPopupDisplayed()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating Approve/Reject popup Page Title 'isApproveRejectPopupDisplayed()'" + e.getMessage());
+			throw new Exception("Exception While Validating Approve/Reject popup Page Title 'isApproveRejectPopupDisplayed()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
@@ -1094,11 +943,9 @@ public class ManagerPage extends BasicPageObject {
 	 * Checks if is API blacklist page displayed.
 	 *
 	 * @author JayaniP
-	 * @param title
-	 *            the title
+	 * @param title the title
 	 * @return true, if is API blacklist page displayed
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
 	public boolean isAPIBlacklistPageDisplayed(String title) throws Exception {
 
@@ -1113,11 +960,8 @@ public class ManagerPage extends BasicPageObject {
 				logger.debug("APIwise Blacklist title is Not Matched");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating title APIwise Blacklist Page Title 'isAPIBlacklistPageDisplayed()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating title APIwise Blacklist Page Title 'isAPIBlacklistPageDisplayed()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating title APIwise Blacklist Page Title 'isAPIBlacklistPageDisplayed()'" + e.getMessage());
+			throw new Exception("Exception While Validating title APIwise Blacklist Page Title 'isAPIBlacklistPageDisplayed()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
@@ -1148,10 +992,8 @@ public class ManagerPage extends BasicPageObject {
 	 * Select api.
 	 *
 	 * @author JayaniP
-	 * @param apiType
-	 *            the api type
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @param apiType the api type
+	 * @throws InterruptedException the interrupted exception
 	 */
 	public void selectAPI(String apiType) throws InterruptedException {
 		Thread.sleep(sleepTime);
@@ -1177,8 +1019,7 @@ public class ManagerPage extends BasicPageObject {
 	 * Click add new button.
 	 *
 	 * @author JayaniP
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @throws InterruptedException the interrupted exception
 	 */
 	public void clickAddNewButton() throws InterruptedException {
 		Thread.sleep(sleepTime);
@@ -1191,11 +1032,9 @@ public class ManagerPage extends BasicPageObject {
 	 * Checks if is adds the number alert displayed.
 	 *
 	 * @author JayaniP
-	 * @param title
-	 *            the title
+	 * @param title the title
 	 * @return true, if is adds the number alert displayed
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
 	public boolean isAddNumberAlertDisplayed(String title) throws Exception {
 
@@ -1211,11 +1050,8 @@ public class ManagerPage extends BasicPageObject {
 				logger.debug("Add number alert title is Not Matched");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating add number alert Page Title 'isAddNumberAlertDisplayed()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating add number alert Page Title 'isAddNumberAlertDisplayed()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating add number alert Page Title 'isAddNumberAlertDisplayed()'" + e.getMessage());
+			throw new Exception("Exception While Validating add number alert Page Title 'isAddNumberAlertDisplayed()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
@@ -1224,8 +1060,7 @@ public class ManagerPage extends BasicPageObject {
 	 * Enter black list number.
 	 *
 	 * @author JayaniP
-	 * @param number
-	 *            the number
+	 * @param number the number
 	 */
 	public void enterBlackListNumber(String number) {
 		logger.debug("Enter the number to blacklist");
@@ -1250,11 +1085,9 @@ public class ManagerPage extends BasicPageObject {
 	 * Checks if is added number displayed.
 	 *
 	 * @author JayaniP
-	 * @param number
-	 *            the number
+	 * @param number the number
 	 * @return true, if is added number displayed
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
 	public boolean isAddedNumberDisplayed(String number) throws Exception {
 
@@ -1271,11 +1104,8 @@ public class ManagerPage extends BasicPageObject {
 				logger.debug("added number is Not Matched");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating added number in table Page Title 'isAddedNumberDisplayed()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating added number in table Page Title 'isAddedNumberDisplayed()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating added number in table Page Title 'isAddedNumberDisplayed()'" + e.getMessage());
+			throw new Exception("Exception While Validating added number in table Page Title 'isAddedNumberDisplayed()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
@@ -1284,11 +1114,9 @@ public class ManagerPage extends BasicPageObject {
 	 * Checks if is API manager admin module error popup displayed.
 	 *
 	 * @author JayaniP
-	 * @param title
-	 *            the title
+	 * @param title the title
 	 * @return true, if is API manager admin module error popup displayed
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
 	public boolean isAPIManagerAdminModuleErrorPopupDisplayed(String title)
 			throws Exception {
@@ -1304,11 +1132,8 @@ public class ManagerPage extends BasicPageObject {
 				logger.debug("API Manager Error Popup title is Not Matched");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating title API Manager Error Popup Page Title 'isAPIManagerAdminModuleErrorPopupDisplayed()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating title API Manager Error Popup Page Title 'isAPIManagerAdminModuleErrorPopupDisplayed()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating title API Manager Error Popup Page Title 'isAPIManagerAdminModuleErrorPopupDisplayed()'" + e.getMessage());
+			throw new Exception("Exception While Validating title API Manager Error Popup Page Title 'isAPIManagerAdminModuleErrorPopupDisplayed()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
@@ -1330,15 +1155,12 @@ public class ManagerPage extends BasicPageObject {
 	/**
 	 * Checks if is AP iwise whitelist page displayed.
 	 *
-	 * @author JayaniP
-	 * @param title
-	 *            the title
+	 * @author SulakkhanaW
+	 * @param title the title
 	 * @return true, if is AP iwise whitelist page displayed
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
-	public boolean isAPIwiseWhitelistPageDisplayed(String title)
-			throws Exception {
+	public boolean isAPIwiseWhitelistPageDisplayed(String title) throws Exception {
 
 		flag = false;
 		logger.debug("Validating APIwise White List Page");
@@ -1351,11 +1173,8 @@ public class ManagerPage extends BasicPageObject {
 				logger.debug("APIwise White List Page is Not Matched");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating APIwise White List Page Title 'isAPIwiseWhitelistPageDisplayed()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating APIwise White List Page Title 'isAPIwiseWhitelistPageDisplayed()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating APIwise White List Page Title 'isAPIwiseWhitelistPageDisplayed()'" + e.getMessage());
+			throw new Exception("Exception While Validating APIwise White List Page Title 'isAPIwiseWhitelistPageDisplayed()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
@@ -1422,13 +1241,11 @@ public class ManagerPage extends BasicPageObject {
 	}
 
 	/**
-	 * Select white list apiussd.
+	 * Select white list api.
 	 *
-	 * @author JayaniP
-	 * @param api
-	 *            the api
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @author SulakkhanaW
+	 * @param api the api
+	 * @throws InterruptedException the interrupted exception
 	 */
 	public void selectWhiteListAPI(String api) throws InterruptedException {
 		Thread.sleep(sleepTime);
@@ -1459,16 +1276,10 @@ public class ManagerPage extends BasicPageObject {
 	}
 
 	/**
-	 * Enter manual number.
+	 * Gen while list num.
 	 *
-	 * @author JayaniP
+	 * @author IsuruM
 	 * @return the string
-	 */
-
-	/**
-	 * Generate a random string for the white list number.
-	 * 
-	 * @author IsuruM return generated value
 	 */
 	public String GenWhileListNum() {
 
@@ -1639,8 +1450,7 @@ public class ManagerPage extends BasicPageObject {
 	 * Enter white list number list.
 	 *
 	 * @author JayaniP
-	 * @param numbers
-	 *            the numbers
+	 * @param numbers the numbers
 	 */
 	public void enterWhiteListNumberList(String numbers) {
 		logger.debug("Enter the number list to blacklist");
@@ -1663,22 +1473,18 @@ public class ManagerPage extends BasicPageObject {
 	 * Clear blacklist number.
 	 *
 	 * @author JayaniP
-	 * @param number
-	 *            the number
-	 * @throws Exception
-	 *             the exception
+	 * @param number the number
+	 * @throws Exception the exception
 	 */
 	public void clearBlacklistNumber(String number) throws Exception {
 		logger.debug("Remove blacklist number if available");
 
 		String xpathlblNumber = String.format(lblWhiteListNumbers, number);
-		List<WebElement> whitelistNum = driver.findElements(By
-				.xpath(xpathlblNumber));
+		List<WebElement> whitelistNum = driver.findElements(By.xpath(xpathlblNumber));
 		int countWhiteListNumber = whitelistNum.size();
 
 		String xpathRemoveNumber = String.format(btnRemoveNumber, number);
-		WebPelement btnRemoveNumber = defineEelement(UIType.Xpath,
-				xpathRemoveNumber);
+		WebPelement btnRemoveNumber = defineEelement(UIType.Xpath, xpathRemoveNumber);
 
 		try {
 			if (countWhiteListNumber == 1) {
@@ -1687,11 +1493,8 @@ public class ManagerPage extends BasicPageObject {
 				logger.debug("Clicked remove number");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While removing blacklist number 'clearBlacklistNumber()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While removing blacklist number 'clearBlacklistNumber()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While removing blacklist number 'clearBlacklistNumber()'" + e.getMessage());
+			throw new Exception("Exception While removing blacklist number 'clearBlacklistNumber()'" + e.getLocalizedMessage());
 		}
 	}
 
@@ -1710,14 +1513,11 @@ public class ManagerPage extends BasicPageObject {
 	 * Checks if is total api traffic page displayed.
 	 *
 	 * @author JayaniP
-	 * @param title
-	 *            the title
+	 * @param title the title
 	 * @return true, if is total api traffic page displayed
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
-	public boolean isTotalAPITrafficPageDisplayed(String title)
-			throws Exception {
+	public boolean isTotalAPITrafficPageDisplayed(String title) throws Exception {
 
 		flag = false;
 		logger.debug("Validating Total API Traffic Page");
@@ -1730,11 +1530,8 @@ public class ManagerPage extends BasicPageObject {
 				logger.debug("Total API Traffic Page is Not Matched");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating Total API Traffic Page Title 'isTotalAPITrafficPageDisplayed()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating Total API Traffic Page Title 'isTotalAPITrafficPageDisplayed()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating Total API Traffic Page Title 'isTotalAPITrafficPageDisplayed()'" + e.getMessage());
+			throw new Exception("Exception While Validating Total API Traffic Page Title 'isTotalAPITrafficPageDisplayed()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
@@ -1743,8 +1540,7 @@ public class ManagerPage extends BasicPageObject {
 	 * Enter api traffic from date.
 	 *
 	 * @author JayaniP
-	 * @param fromDate
-	 *            the from date
+	 * @param fromDate the from date
 	 */
 	public void enterAPITrafficFromDate(String fromDate) {
 		logger.debug("Enter Total API traffic From date");
@@ -1756,8 +1552,7 @@ public class ManagerPage extends BasicPageObject {
 	 * Enter api traffic to date.
 	 *
 	 * @author JayaniP
-	 * @param toDate
-	 *            the to date
+	 * @param toDate the to date
 	 */
 	public void enterAPITrafficToDate(String toDate) {
 		logger.debug("Enter Total API traffic To date");
@@ -1769,13 +1564,10 @@ public class ManagerPage extends BasicPageObject {
 	 * Select api traffic operator.
 	 *
 	 * @author JayaniP
-	 * @param operator
-	 *            the operator
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @param operator the operator
+	 * @throws InterruptedException the interrupted exception
 	 */
-	public void selectAPITrafficOperator(String operator)
-			throws InterruptedException {
+	public void selectAPITrafficOperator(String operator) throws InterruptedException {
 		Thread.sleep(sleepTime);
 
 		logger.debug("Start clicking on operator Drop down");
@@ -1796,13 +1588,10 @@ public class ManagerPage extends BasicPageObject {
 	 * Select total api traffic service provider.
 	 *
 	 * @author JayaniP
-	 * @param sprovider
-	 *            the sprovider
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @param sprovider the sprovider
+	 * @throws InterruptedException the interrupted exception
 	 */
-	public void selectTotalAPITrafficServiceProvider(String sprovider)
-			throws InterruptedException {
+	public void selectTotalAPITrafficServiceProvider(String sprovider) throws InterruptedException {
 		Thread.sleep(sleepTime);
 
 		logger.debug("Start clicking on Service provider Drop down");
@@ -1834,13 +1623,10 @@ public class ManagerPage extends BasicPageObject {
 	 * Select total api traffic application.
 	 *
 	 * @author JayaniP
-	 * @param app
-	 *            the app
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @param app the app
+	 * @throws InterruptedException the interrupted exception
 	 */
-	public void selectTotalAPITrafficApplication(String app)
-			throws InterruptedException {
+	public void selectTotalAPITrafficApplication(String app) throws InterruptedException {
 		Thread.sleep(sleepTime);
 
 		logger.debug("Start clicking on Application Drop down");
@@ -1861,13 +1647,10 @@ public class ManagerPage extends BasicPageObject {
 	 * Select total api traffic api.
 	 *
 	 * @author JayaniP
-	 * @param api
-	 *            the api
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @param api the api
+	 * @throws InterruptedException the interrupted exception
 	 */
-	public void selectTotalAPITrafficAPI(String api)
-			throws InterruptedException {
+	public void selectTotalAPITrafficAPI(String api) throws InterruptedException {
 		Thread.sleep(sleepTime);
 
 		logger.debug("Start clicking on API Drop down");
@@ -1921,11 +1704,9 @@ public class ManagerPage extends BasicPageObject {
 	 * Checks if is transaction log page displayed.
 	 *
 	 * @author JayaniP
-	 * @param title
-	 *            the title
+	 * @param title the title
 	 * @return true, if is transaction log page displayed
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
 	public boolean isTransactionLogPageDisplayed(String title) throws Exception {
 
@@ -1940,11 +1721,8 @@ public class ManagerPage extends BasicPageObject {
 				logger.debug("Transaction Log Page is Not Matched");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating Transaction Log Page Title 'isTransactionLogPageDisplayed()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating Transaction Log Page Title 'isTransactionLogPageDisplayed()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating Transaction Log Page Title 'isTransactionLogPageDisplayed()'" + e.getMessage());
+			throw new Exception("Exception While Validating Transaction Log Page Title 'isTransactionLogPageDisplayed()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
@@ -1953,8 +1731,7 @@ public class ManagerPage extends BasicPageObject {
 	 * Enter transaction log from date.
 	 *
 	 * @author JayaniP
-	 * @param fromDate
-	 *            the from date
+	 * @param fromDate the from date
 	 */
 	public void enterTransactionLogFromDate(String fromDate) {
 		logger.debug("Enter Transaction Log from date");
@@ -1966,8 +1743,7 @@ public class ManagerPage extends BasicPageObject {
 	 * Enter transaction log to date.
 	 *
 	 * @author JayaniP
-	 * @param toDate
-	 *            the to date
+	 * @param toDate the to date
 	 */
 	public void enterTransactionLogToDate(String toDate) {
 		logger.debug("Enter Transaction Log to date");
@@ -1976,16 +1752,13 @@ public class ManagerPage extends BasicPageObject {
 	}
 
 	/**
-	 * Transaction log operator.
+	 * Select transaction log operator.
 	 *
 	 * @author JayaniP
-	 * @param operator
-	 *            the operator
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @param operator the operator
+	 * @throws InterruptedException the interrupted exception
 	 */
-	public void selectTransactionLogOperator(String operator)
-			throws InterruptedException {
+	public void selectTransactionLogOperator(String operator) throws InterruptedException {
 		Thread.sleep(sleepTime);
 
 		logger.debug("Start clicking on operator Drop down");
@@ -2006,13 +1779,10 @@ public class ManagerPage extends BasicPageObject {
 	 * Select transaction log service provider.
 	 *
 	 * @author JayaniP
-	 * @param serviceProvider
-	 *            the service provider
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @param serviceProvider the service provider
+	 * @throws InterruptedException the interrupted exception
 	 */
-	public void selectTransactionLogServiceProvider(String serviceProvider)
-			throws InterruptedException {
+	public void selectTransactionLogServiceProvider(String serviceProvider) throws InterruptedException {
 		Thread.sleep(sleepTime);
 
 		logger.debug("Start clicking on service provider Drop down");
@@ -2054,16 +1824,13 @@ public class ManagerPage extends BasicPageObject {
 	}
 
 	/**
-	 * Select transaction log status.
+	 * Select transaction log records type.
 	 *
 	 * @author JayaniP
-	 * @param status
-	 *            the status
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @param status the status
+	 * @throws InterruptedException the interrupted exception
 	 */
-	public void selectTransactionLogRecordsType(String status)
-			throws InterruptedException {
+	public void selectTransactionLogRecordsType(String status) throws InterruptedException {
 		Thread.sleep(sleepTime);
 
 		logger.debug("Start clicking on RecordsType Drop down");
@@ -2106,14 +1873,11 @@ public class ManagerPage extends BasicPageObject {
 	 * Checks if is operator api traffic page displayed.
 	 *
 	 * @author JayaniP
-	 * @param title
-	 *            the title
+	 * @param title the title
 	 * @return true, if is operator api traffic page displayed
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
-	public boolean isOperatorAPITrafficPageDisplayed(String title)
-			throws Exception {
+	public boolean isOperatorAPITrafficPageDisplayed(String title) throws Exception {
 
 		flag = false;
 		logger.debug("Validating Operator API Traffic Page");
@@ -2126,11 +1890,8 @@ public class ManagerPage extends BasicPageObject {
 				logger.debug("Operator API Traffic Page is Not Matched");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating Operator API Traffic Page Title 'isOperatorAPITrafficPageDisplayed()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating Operator API Traffic Page Title 'isOperatorAPITrafficPageDisplayed()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating Operator API Traffic Page Title 'isOperatorAPITrafficPageDisplayed()'" + e.getMessage());
+			throw new Exception("Exception While Validating Operator API Traffic Page Title 'isOperatorAPITrafficPageDisplayed()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
@@ -2139,8 +1900,7 @@ public class ManagerPage extends BasicPageObject {
 	 * Enter operator api traffic from date.
 	 *
 	 * @author JayaniP
-	 * @param fromDate
-	 *            the from date
+	 * @param fromDate the from date
 	 */
 	public void enterOperatorAPITrafficFromDate(String fromDate) {
 		logger.debug("Enter Operator API Traffic From Date");
@@ -2152,8 +1912,7 @@ public class ManagerPage extends BasicPageObject {
 	 * Enter operator api traffic to date.
 	 *
 	 * @author JayaniP
-	 * @param toDate
-	 *            the to date
+	 * @param toDate the to date
 	 */
 	public void enterOperatorAPITrafficToDate(String toDate) {
 		logger.debug("Enter Operator API Traffic To Date");
@@ -2165,13 +1924,10 @@ public class ManagerPage extends BasicPageObject {
 	 * Select operator api traffic service provider.
 	 *
 	 * @author JayaniP
-	 * @param serviceProvider
-	 *            the service provider
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @param serviceProvider the service provider
+	 * @throws InterruptedException the interrupted exception
 	 */
-	public void selectOperatorAPITrafficServiceProvider(String serviceProvider)
-			throws InterruptedException {
+	public void selectOperatorAPITrafficServiceProvider(String serviceProvider) throws InterruptedException {
 		Thread.sleep(sleepTime);
 
 		logger.debug("Start clicking on service provider Drop down");
@@ -2179,8 +1935,7 @@ public class ManagerPage extends BasicPageObject {
 		logger.debug("Clicked on service provider Drop down");
 
 		logger.debug("Start typing service provider");
-		getElement(ddOperatorAPITrafficServiceProvider).sendKeys(
-				serviceProvider);
+		getElement(ddOperatorAPITrafficServiceProvider).sendKeys(serviceProvider);
 		logger.debug("Typed service provider");
 
 		logger.debug("Start click enter");
@@ -2193,13 +1948,10 @@ public class ManagerPage extends BasicPageObject {
 	 * Select operator api traffic application.
 	 *
 	 * @author JayaniP
-	 * @param app
-	 *            the app
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @param app the app
+	 * @throws InterruptedException the interrupted exception
 	 */
-	public void selectOperatorAPITrafficApplication(String app)
-			throws InterruptedException {
+	public void selectOperatorAPITrafficApplication(String app) throws InterruptedException {
 		Thread.sleep(sleepTime);
 
 		logger.debug("Start clicking on application Drop down");
@@ -2220,13 +1972,10 @@ public class ManagerPage extends BasicPageObject {
 	 * Select operator api traffic api.
 	 *
 	 * @author JayaniP
-	 * @param api
-	 *            the api
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @param api the api
+	 * @throws InterruptedException the interrupted exception
 	 */
-	public void selectOperatorAPITrafficAPI(String api)
-			throws InterruptedException {
+	public void selectOperatorAPITrafficAPI(String api) throws InterruptedException {
 		Thread.sleep(sleepTime);
 
 		logger.debug("Start clicking on api Drop down");
@@ -2280,11 +2029,9 @@ public class ManagerPage extends BasicPageObject {
 	 * Checks if is monthly invoice page displayed.
 	 *
 	 * @author JayaniP
-	 * @param title
-	 *            the title
+	 * @param title the title
 	 * @return true, if is monthly invoice page displayed
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
 	public boolean isMonthlyInvoicePageDisplayed(String title) throws Exception {
 
@@ -2299,11 +2046,8 @@ public class ManagerPage extends BasicPageObject {
 				logger.debug("Monthly Invoice Page is Not Matched");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating Monthly Invoice Page Title 'isMonthlyInvoicePageDisplayed()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating Monthly Invoice Page Title 'isMonthlyInvoicePageDisplayed()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating Monthly Invoice Page Title 'isMonthlyInvoicePageDisplayed()'" + e.getMessage());
+			throw new Exception("Exception While Validating Monthly Invoice Page Title 'isMonthlyInvoicePageDisplayed()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
@@ -2312,10 +2056,8 @@ public class ManagerPage extends BasicPageObject {
 	 * Select monthly invoice year.
 	 *
 	 * @author JayaniP
-	 * @param year
-	 *            the year
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @param year the year
+	 * @throws InterruptedException the interrupted exception
 	 */
 	public void selectMonthlyInvoiceYear(String year) throws InterruptedException {
 		Thread.sleep(sleepTime);
@@ -2338,13 +2080,10 @@ public class ManagerPage extends BasicPageObject {
 	 * Select monthly invoice month.
 	 *
 	 * @author JayaniP
-	 * @param month
-	 *            the month
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @param month the month
+	 * @throws InterruptedException the interrupted exception
 	 */
-	public void selectMonthlyInvoiceMonth(String month)
-			throws InterruptedException {
+	public void selectMonthlyInvoiceMonth(String month) throws InterruptedException {
 		Thread.sleep(sleepTime);
 
 		logger.debug("Start clicking on month down");
@@ -2365,13 +2104,10 @@ public class ManagerPage extends BasicPageObject {
 	 * Select monthly invoice service provider.
 	 *
 	 * @author JayaniP
-	 * @param serviceProvider
-	 *            the service provider
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @param serviceProvider the service provider
+	 * @throws InterruptedException the interrupted exception
 	 */
-	public void selectMonthlyInvoiceServiceProvider(String serviceProvider)
-			throws InterruptedException {
+	public void selectMonthlyInvoiceServiceProvider(String serviceProvider) throws InterruptedException {
 		Thread.sleep(sleepTime);
 
 		logger.debug("Start clicking on service provider down");
@@ -2408,14 +2144,11 @@ public class ManagerPage extends BasicPageObject {
 	 * Checks if is revenue breakdown page displayed.
 	 *
 	 * @author JayaniP
-	 * @param title
-	 *            the title
+	 * @param title the title
 	 * @return true, if is revenue breakdown page displayed
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
-	public boolean isRevenueBreakdownPageDisplayed(String title)
-			throws Exception {
+	public boolean isRevenueBreakdownPageDisplayed(String title) throws Exception {
 
 		flag = false;
 		logger.debug("Validating Revenue Break down Page");
@@ -2428,11 +2161,8 @@ public class ManagerPage extends BasicPageObject {
 				logger.debug("Revenue Break down Page is Not Matched");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating Revenue Break down Page Title 'isRevenueBreakdownPageDisplayed()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating Revenue Break down Page Title 'isRevenueBreakdownPageDisplayed()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating Revenue Break down Page Title 'isRevenueBreakdownPageDisplayed()'" + e.getMessage());
+			throw new Exception("Exception While Validating Revenue Break down Page Title 'isRevenueBreakdownPageDisplayed()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
@@ -2441,13 +2171,10 @@ public class ManagerPage extends BasicPageObject {
 	 * Select revenue breakdown year.
 	 *
 	 * @author JayaniP
-	 * @param year
-	 *            the year
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @param year the year
+	 * @throws InterruptedException the interrupted exception
 	 */
-	public void selectRevenueBreakdownYear(String year)
-			throws InterruptedException {
+	public void selectRevenueBreakdownYear(String year) throws InterruptedException {
 		Thread.sleep(sleepTime);
 
 		logger.debug("Start clicking on year Drop down");
@@ -2468,13 +2195,10 @@ public class ManagerPage extends BasicPageObject {
 	 * Select revenue breakdown month.
 	 *
 	 * @author JayaniP
-	 * @param month
-	 *            the month
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @param month the month
+	 * @throws InterruptedException the interrupted exception
 	 */
-	public void selectRevenueBreakdownMonth(String month)
-			throws InterruptedException {
+	public void selectRevenueBreakdownMonth(String month) throws InterruptedException {
 		Thread.sleep(sleepTime);
 
 		logger.debug("Start clicking on month Drop down");
@@ -2495,13 +2219,10 @@ public class ManagerPage extends BasicPageObject {
 	 * Select revenue breakdown operator.
 	 *
 	 * @author JayaniP
-	 * @param operator
-	 *            the operator
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @param operator the operator
+	 * @throws InterruptedException the interrupted exception
 	 */
-	public void selectRevenueBreakdownOperator(String operator)
-			throws InterruptedException {
+	public void selectRevenueBreakdownOperator(String operator) throws InterruptedException {
 		Thread.sleep(sleepTime);
 
 		logger.debug("Start clicking on operator Drop down");
@@ -2522,13 +2243,10 @@ public class ManagerPage extends BasicPageObject {
 	 * Select revenue breakdown service provider.
 	 *
 	 * @author JayaniP
-	 * @param serviceProvider
-	 *            the service provider
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @param serviceProvider the service provider
+	 * @throws InterruptedException the interrupted exception
 	 */
-	public void selectRevenueBreakdownServiceProvider(String serviceProvider)
-			throws InterruptedException {
+	public void selectRevenueBreakdownServiceProvider(String serviceProvider) throws InterruptedException {
 		Thread.sleep(sleepTime);
 
 		logger.debug("Start clicking on service provider Drop down");
@@ -2549,13 +2267,10 @@ public class ManagerPage extends BasicPageObject {
 	 * Select revenue breakdown application.
 	 *
 	 * @author JayaniP
-	 * @param app
-	 *            the app
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @param app the app
+	 * @throws InterruptedException the interrupted exception
 	 */
-	public void selectRevenueBreakdownApplication(String app)
-			throws InterruptedException {
+	public void selectRevenueBreakdownApplication(String app) throws InterruptedException {
 		Thread.sleep(sleepTime);
 
 		logger.debug("Start clicking on application Drop down");
@@ -2587,11 +2302,9 @@ public class ManagerPage extends BasicPageObject {
 	 * Checks if is customer care page displayed.
 	 *
 	 * @author JayaniP
-	 * @param title
-	 *            the title
+	 * @param title the title
 	 * @return true, if is customer care page displayed
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
 	public boolean isCustomerCarePageDisplayed(String title) throws Exception {
 
@@ -2606,11 +2319,8 @@ public class ManagerPage extends BasicPageObject {
 				logger.debug("customer care Page is Not Matched");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating customer care Page Title 'isCustomerCarePageDisplayed()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating customer care Page Title 'isCustomerCarePageDisplayed()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating customer care Page Title 'isCustomerCarePageDisplayed()'" + e.getMessage());
+			throw new Exception("Exception While Validating customer care Page Title 'isCustomerCarePageDisplayed()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
@@ -2619,8 +2329,7 @@ public class ManagerPage extends BasicPageObject {
 	 * Enter customer care from date.
 	 *
 	 * @author JayaniP
-	 * @param fromDate
-	 *            the from date
+	 * @param fromDate the from date
 	 */
 	public void enterCustomerCareFromDate(String fromDate) {
 		logger.debug("Start enter customer care from date");
@@ -2632,8 +2341,7 @@ public class ManagerPage extends BasicPageObject {
 	 * Enter customer care to date.
 	 *
 	 * @author JayaniP
-	 * @param toDate
-	 *            the to date
+	 * @param toDate the to date
 	 */
 	public void enterCustomerCareToDate(String toDate) {
 		logger.debug("Start enter customer care To date");
@@ -2645,8 +2353,7 @@ public class ManagerPage extends BasicPageObject {
 	 * Enter customer care msisdn.
 	 *
 	 * @author JayaniP
-	 * @param msisdn
-	 *            the msisdn
+	 * @param msisdn the msisdn
 	 */
 	public void enterCustomerCareMSISDN(String msisdn) {
 		logger.debug("Start enter customer care MSISDN");
@@ -2658,13 +2365,10 @@ public class ManagerPage extends BasicPageObject {
 	 * Select customer care operator.
 	 *
 	 * @author JayaniP
-	 * @param operator
-	 *            the operator
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @param operator the operator
+	 * @throws InterruptedException the interrupted exception
 	 */
-	public void selectCustomerCareOperator(String operator)
-			throws InterruptedException {
+	public void selectCustomerCareOperator(String operator) throws InterruptedException {
 		Thread.sleep(sleepTime);
 
 		logger.debug("Start clicking on operator Drop down");
@@ -2685,13 +2389,10 @@ public class ManagerPage extends BasicPageObject {
 	 * Select customer care service provider.
 	 *
 	 * @author JayaniP
-	 * @param serviceProvider
-	 *            the service provider
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @param serviceProvider the service provider
+	 * @throws InterruptedException the interrupted exception
 	 */
-	public void selectCustomerCareServiceProvider(String serviceProvider)
-			throws InterruptedException {
+	public void selectCustomerCareServiceProvider(String serviceProvider) throws InterruptedException {
 		Thread.sleep(sleepTime);
 
 		logger.debug("Start clicking on service provider Drop down");
@@ -2709,16 +2410,13 @@ public class ManagerPage extends BasicPageObject {
 	}
 
 	/**
-	 * Select customer care service application.
+	 * Select customer care application.
 	 *
 	 * @author JayaniP
-	 * @param app
-	 *            the app
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @param app the app
+	 * @throws InterruptedException the interrupted exception
 	 */
-	public void selectCustomerCareApplication(String app)
-			throws InterruptedException {
+	public void selectCustomerCareApplication(String app) throws InterruptedException {
 		Thread.sleep(sleepTime);
 
 		logger.debug("Start clicking on application Drop down");
@@ -2750,14 +2448,11 @@ public class ManagerPage extends BasicPageObject {
 	 * Checks if is API response time page displayed.
 	 *
 	 * @author JayaniP
-	 * @param title
-	 *            the title
+	 * @param title the title
 	 * @return true, if is API response time page displayed
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
-	public boolean isAPIResponseTimePageDisplayed(String title)
-			throws Exception {
+	public boolean isAPIResponseTimePageDisplayed(String title) throws Exception {
 
 		flag = false;
 		logger.debug("Validating API Response Time Page");
@@ -2770,11 +2465,8 @@ public class ManagerPage extends BasicPageObject {
 				logger.debug("API Response Time Page is Not Matched");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating API Response Time Page Title 'isAPIResponseTimePageDisplayed()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating API Response Time Page Title 'isAPIResponseTimePageDisplayed()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating API Response Time Page Title 'isAPIResponseTimePageDisplayed()'" + e.getMessage());
+			throw new Exception("Exception While Validating API Response Time Page Title 'isAPIResponseTimePageDisplayed()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
@@ -2783,8 +2475,7 @@ public class ManagerPage extends BasicPageObject {
 	 * Enter api response time from date.
 	 *
 	 * @author JayaniP
-	 * @param fromDate
-	 *            the from date
+	 * @param fromDate the from date
 	 */
 	public void enterAPIResponseTimeFromDate(String fromDate) {
 		logger.debug("Start enter API response time from date");
@@ -2796,8 +2487,7 @@ public class ManagerPage extends BasicPageObject {
 	 * Enter api response time to date.
 	 *
 	 * @author JayaniP
-	 * @param toDate
-	 *            the to date
+	 * @param toDate the to date
 	 */
 	public void enterAPIResponseTimeToDate(String toDate) {
 		logger.debug("Start enter API response time to date");
@@ -2809,13 +2499,10 @@ public class ManagerPage extends BasicPageObject {
 	 * Select api response times operator.
 	 *
 	 * @author JayaniP
-	 * @param operator
-	 *            the operator
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @param operator the operator
+	 * @throws InterruptedException the interrupted exception
 	 */
-	public void selectAPIResponseTimesOperator(String operator)
-			throws InterruptedException {
+	public void selectAPIResponseTimesOperator(String operator) throws InterruptedException {
 		Thread.sleep(sleepTime);
 
 		logger.debug("Start clicking on operator Drop down");
@@ -2836,13 +2523,10 @@ public class ManagerPage extends BasicPageObject {
 	 * Select api response times service provider.
 	 *
 	 * @author JayaniP
-	 * @param serviceProvider
-	 *            the service provider
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @param serviceProvider the service provider
+	 * @throws InterruptedException the interrupted exception
 	 */
-	public void selectAPIResponseTimesServiceProvider(String serviceProvider)
-			throws InterruptedException {
+	public void selectAPIResponseTimesServiceProvider(String serviceProvider) throws InterruptedException {
 		Thread.sleep(sleepTime);
 
 		logger.debug("Start clicking on service provider Drop down");
@@ -2863,13 +2547,10 @@ public class ManagerPage extends BasicPageObject {
 	 * Select api response times application.
 	 *
 	 * @author JayaniP
-	 * @param app
-	 *            the app
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @param app the app
+	 * @throws InterruptedException the interrupted exception
 	 */
-	public void selectAPIResponseTimesApplication(String app)
-			throws InterruptedException {
+	public void selectAPIResponseTimesApplication(String app) throws InterruptedException {
 		Thread.sleep(sleepTime);
 
 		logger.debug("Start clicking on application Drop down");
@@ -2912,14 +2593,11 @@ public class ManagerPage extends BasicPageObject {
 	 * Checks if is performance error rates page displayed.
 	 *
 	 * @author JayaniP
-	 * @param title
-	 *            the title
+	 * @param title the title
 	 * @return true, if is performance error rates page displayed
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
-	public boolean isPerformanceErrorRatesPageDisplayed(String title)
-			throws Exception {
+	public boolean isPerformanceErrorRatesPageDisplayed(String title) throws Exception {
 
 		flag = false;
 		logger.debug("Validating Performance Error Rates Page");
@@ -2932,11 +2610,8 @@ public class ManagerPage extends BasicPageObject {
 				logger.debug("Performance Error Rates Page is Not Matched");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating Performance Error Rates Page Title 'isPerformanceErrorRatesPageDisplayed()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating Performance Error Rates Page Title 'isPerformanceErrorRatesPageDisplayed()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating Performance Error Rates Page Title 'isPerformanceErrorRatesPageDisplayed()'" + e.getMessage());
+			throw new Exception("Exception While Validating Performance Error Rates Page Title 'isPerformanceErrorRatesPageDisplayed()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
@@ -2945,8 +2620,7 @@ public class ManagerPage extends BasicPageObject {
 	 * Enter performance error rates from date.
 	 *
 	 * @author JayaniP
-	 * @param fromdate
-	 *            the fromdate
+	 * @param fromdate the fromdate
 	 */
 	public void enterPerformanceErrorRatesFromDate(String fromdate) {
 		logger.debug("Start enter from date");
@@ -2958,8 +2632,7 @@ public class ManagerPage extends BasicPageObject {
 	 * Enter performance error rates to date.
 	 *
 	 * @author JayaniP
-	 * @param todate
-	 *            the todate
+	 * @param todate the todate
 	 */
 	public void enterPerformanceErrorRatesToDate(String todate) {
 		logger.debug("Start enter to date");
@@ -2971,13 +2644,10 @@ public class ManagerPage extends BasicPageObject {
 	 * Select performance error operator.
 	 *
 	 * @author JayaniP
-	 * @param operator
-	 *            the operator
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @param operator the operator
+	 * @throws InterruptedException the interrupted exception
 	 */
-	public void selectPerformanceErrorOperator(String operator)
-			throws InterruptedException {
+	public void selectPerformanceErrorOperator(String operator) throws InterruptedException {
 		Thread.sleep(sleepTime);
 
 		logger.debug("Start clicking on operator Drop down");
@@ -2998,13 +2668,10 @@ public class ManagerPage extends BasicPageObject {
 	 * Select performance error service provider.
 	 *
 	 * @author JayaniP
-	 * @param serviceProvider
-	 *            the service provider
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @param serviceProvider the service provider
+	 * @throws InterruptedException the interrupted exception
 	 */
-	public void selectPerformanceErrorServiceProvider(String serviceProvider)
-			throws InterruptedException {
+	public void selectPerformanceErrorServiceProvider(String serviceProvider) throws InterruptedException {
 		Thread.sleep(sleepTime);
 
 		logger.debug("Start clicking on service provider Drop down");
@@ -3026,13 +2693,10 @@ public class ManagerPage extends BasicPageObject {
 	 * Select performance error application.
 	 *
 	 * @author JayaniP
-	 * @param app
-	 *            the app
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @param app the app
+	 * @throws InterruptedException the interrupted exception
 	 */
-	public void selectPerformanceErrorApplication(String app)
-			throws InterruptedException {
+	public void selectPerformanceErrorApplication(String app) throws InterruptedException {
 		Thread.sleep(sleepTime);
 
 		logger.debug("Start clicking on Application Drop down");
@@ -3053,13 +2717,10 @@ public class ManagerPage extends BasicPageObject {
 	 * Select performance error api.
 	 *
 	 * @author JayaniP
-	 * @param api
-	 *            the api
-	 * @throws InterruptedException
-	 *             the interrupted exception
+	 * @param api the api
+	 * @throws InterruptedException the interrupted exception
 	 */
-	public void selectPerformanceErrorAPI(String api)
-			throws InterruptedException {
+	public void selectPerformanceErrorAPI(String api) throws InterruptedException {
 		Thread.sleep(sleepTime);
 
 		logger.debug("Start clicking on API Drop down");
@@ -3091,11 +2752,9 @@ public class ManagerPage extends BasicPageObject {
 	 * Checks if is white list added successfully popup displayed.
 	 *
 	 * @author JayaniP
-	 * @param title
-	 *            the title
+	 * @param title the title
 	 * @return true, if is white list added successfully popup displayed
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
 	public boolean isWhiteListAddedSuccessfullyPopupDisplayed(String title)
 			throws Exception {
@@ -3111,11 +2770,8 @@ public class ManagerPage extends BasicPageObject {
 				logger.debug("Success Pop up is Not Matched");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating Success Pop up Title 'isWhiteListAddedSuccessfullyPopupDisplayed()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating Success Pop up Title 'isWhiteListAddedSuccessfullyPopupDisplayed()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating Success Pop up Title 'isWhiteListAddedSuccessfullyPopupDisplayed()'" + e.getMessage());
+			throw new Exception("Exception While Validating Success Pop up Title 'isWhiteListAddedSuccessfullyPopupDisplayed()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
@@ -3124,8 +2780,7 @@ public class ManagerPage extends BasicPageObject {
 	 * Click ok.
 	 *
 	 * @author JayaniP
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
 	public void clickOK() throws Exception {
 		logger.debug("Start clicking on OK");
@@ -3138,14 +2793,11 @@ public class ManagerPage extends BasicPageObject {
 	 * Checks if is white list error popup displayed.
 	 *
 	 * @author JayaniP
-	 * @param title
-	 *            the title
+	 * @param title the title
 	 * @return true, if is white list error popup displayed
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
-	public boolean isWhiteListErrorPopupDisplayed(String title)
-			throws Exception {
+	public boolean isWhiteListErrorPopupDisplayed(String title) throws Exception {
 
 		flag = false;
 		logger.debug("Validating Error Pop up");
@@ -3158,11 +2810,8 @@ public class ManagerPage extends BasicPageObject {
 				logger.debug("Error Pop up is Not Matched");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating Error Pop up Title 'isWhiteListErrorPopupDisplayed()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating Error Pop up Title 'isWhiteListErrorPopupDisplayed()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating Error Pop up Title 'isWhiteListErrorPopupDisplayed()'" + e.getMessage());
+			throw new Exception("Exception While Validating Error Pop up Title 'isWhiteListErrorPopupDisplayed()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
@@ -3170,6 +2819,7 @@ public class ManagerPage extends BasicPageObject {
 	/**
 	 * Checks if is pie graph performance error rates.
 	 *
+	 * @author SulakkhanaW
 	 * @param fromDate the from date
 	 * @param toDate the to date
 	 * @param operatorId the operator id
@@ -3215,36 +2865,26 @@ public class ManagerPage extends BasicPageObject {
 	 * Checks if is pie graph total api traffic.
 	 *
 	 * @author SulakkhanaW
-	 * @param fromDate
-	 *            the from date
-	 * @param toDate
-	 *            the to date
-	 * @param operatorId
-	 *            the operator id
-	 * @param serviceProvider
-	 *            the service provider
+	 * @param fromDate the from date
+	 * @param toDate the to date
+	 * @param operatorId the operator id
+	 * @param serviceProvider the service provider
 	 * @return true, if is pie graph total api traffic
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
-	public boolean isPieGraphTotalAPITraffic(String fromDate, String toDate,
-			String operatorId, String serviceProvider) throws Exception {
+	public boolean isPieGraphTotalAPITraffic(String fromDate, String toDate, String operatorId, String serviceProvider) throws Exception {
 		flag = false;
 		ArrayList<String> apiList = new ArrayList<String>();
 		WebElement select;
 		try {
 			select = getElement(UIType.Xpath, pieChartTotalAPITraffic);
-			List<WebElement> options = select.findElements(By
-					.xpath(pieChartTotalAPITraffic));
+			List<WebElement> options = select.findElements(By.xpath(pieChartTotalAPITraffic));
 			for (WebElement option : options) {
 				apiList.add(option.getText());
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating graphs data 'isPieGraph()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating graphs data 'isPieGraph()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating graphs data 'isPieGraph()'" + e.getMessage());
+			throw new Exception("Exception While Validating graphs data 'isPieGraph()'" + e.getLocalizedMessage());
 		}
 		int count = apiList.size();
 		String apiListDetails[][] = new String[count][2];
@@ -3258,14 +2898,10 @@ public class ManagerPage extends BasicPageObject {
 			apiListDetails[i][1] = value;
 		}
 		try {
-			flag = dbReturningDataTotalAPITraffic(apiListDetails, fromDate,
-					toDate, operatorId, serviceProvider);
+			flag = dbReturningDataTotalAPITraffic(apiListDetails, fromDate, toDate, operatorId, serviceProvider);
 		} catch (Exception e) {
-			logger.debug("Exception While Validating matching data 'dbReturningData()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating matching data 'dbReturningData()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating matching data 'dbReturningData()'" + e.getMessage());
+			throw new Exception("Exception While Validating matching data 'dbReturningData()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
@@ -3273,6 +2909,7 @@ public class ManagerPage extends BasicPageObject {
 	/**
 	 * Db returning data performance error rates.
 	 *
+	 * @author SulakkhanaW
 	 * @param apiTrafficListUI the api traffic list ui
 	 * @param fromDate the from date
 	 * @param toDate the to date
@@ -3314,26 +2951,17 @@ public class ManagerPage extends BasicPageObject {
 	 * Db returning data total api traffic.
 	 *
 	 * @author SulakkhanaW
-	 * @param apiTrafficListUI
-	 *            the api traffic list ui
-	 * @param fromDate
-	 *            the from date
-	 * @param toDate
-	 *            the to date
-	 * @param operatorId
-	 *            the operator id
-	 * @param serviceProvider
-	 *            the service provider
+	 * @param apiTrafficListUI the api traffic list ui
+	 * @param fromDate the from date
+	 * @param toDate the to date
+	 * @param operatorId the operator id
+	 * @param serviceProvider the service provider
 	 * @return true, if successful
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
-	public boolean dbReturningDataTotalAPITraffic(String[][] apiTrafficListUI,
-			String fromDate, String toDate, String operatorId,
-			String serviceProvider) throws Exception {
+	public boolean dbReturningDataTotalAPITraffic(String[][] apiTrafficListUI, String fromDate, String toDate, String operatorId, String serviceProvider) throws Exception {
 		flag = false;
-		String query = String.format(SQLQuery.TOTAL_API_TRAFFIC, fromDate,
-				toDate, operatorId, serviceProvider);
+		String query = String.format(SQLQuery.TOTAL_API_TRAFFIC, fromDate, toDate, operatorId, serviceProvider);
 		QueryResult qsApiTotalTraffic;
 		String uiApiName = null;
 		String uiApiCount = null;
@@ -3356,15 +2984,8 @@ public class ManagerPage extends BasicPageObject {
 				flag = true;
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating matching datae 'dbReturningData()' UICount : "
-					+ uiApiCount
-					+ " and DBCount : "
-					+ dbApiCount
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating matching data 'dbReturningData()' UICount : "
-							+ uiApiCount + " and DBCount : " + dbApiCount
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating matching datae 'dbReturningData()' UICount : " + uiApiCount + " and DBCount : " + dbApiCount + e.getMessage());
+			throw new Exception("Exception While Validating matching data 'dbReturningData()' UICount : " + uiApiCount + " and DBCount : " + dbApiCount + e.getLocalizedMessage());
 		}
 		return flag;
 	}
@@ -3373,32 +2994,27 @@ public class ManagerPage extends BasicPageObject {
 	 * Checks if is pie chart operator api traffic.
 	 *
 	 * @author SulakkhanaW
-	 * @param fromDate            the from date
-	 * @param toDate            the to date
-	 * @param serviceProvider            the service provider
+	 * @param fromDate the from date
+	 * @param toDate the to date
+	 * @param serviceProvider the service provider
 	 * @param application the application
 	 * @param api the api
 	 * @return true, if is pie chart operator api traffic
-	 * @throws Exception             the exception
+	 * @throws Exception the exception
 	 */
-	public boolean isPieChartOperatorAPITraffic(String fromDate, String toDate,
-			String serviceProvider, String application, String api) throws Exception {
+	public boolean isPieChartOperatorAPITraffic(String fromDate, String toDate, String serviceProvider, String application, String api) throws Exception {
 		flag = false;
 		ArrayList<String> apiList = new ArrayList<String>();
 		WebElement select;
 		try {
 			select = getElement(UIType.Xpath, pieChartOperatorAPITraffic);
-			List<WebElement> options = select.findElements(By
-					.xpath(pieChartOperatorAPITraffic));
+			List<WebElement> options = select.findElements(By.xpath(pieChartOperatorAPITraffic));
 			for (WebElement option : options) {
 				apiList.add(option.getText());
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating graphs data 'isPieGraph()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating graphs data 'isPieGraph()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating graphs data 'isPieGraph()'" + e.getMessage());
+			throw new Exception("Exception While Validating graphs data 'isPieGraph()'" + e.getLocalizedMessage());
 		}
 
 		int count = apiList.size();
@@ -3413,14 +3029,10 @@ public class ManagerPage extends BasicPageObject {
 			apiListDetails[i][1] = value;
 		}
 		try {
-			flag = dbRetuningDataOperatorTraffic(apiListDetails, fromDate,
-					toDate, serviceProvider, application, api);
+			flag = dbRetuningDataOperatorTraffic(apiListDetails, fromDate, toDate, serviceProvider, application, api);
 		} catch (Exception e) {
-			logger.debug("Exception While Validating matching data 'dbReturningData()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating matching data 'dbReturningData()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating matching data 'dbReturningData()'" + e.getMessage());
+			throw new Exception("Exception While Validating matching data 'dbReturningData()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
@@ -3462,17 +3074,8 @@ public class ManagerPage extends BasicPageObject {
 				flag = true;
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating matching datae 'dbRetuningDataOperatorTraffic()' UICount : "
-					+ uiApiCount
-					+ " and DBCount : "
-					+ dbApiCount
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating matching data 'dbRetuningDataOperatorTraffic() UICount : "
-							+ uiApiCount
-							+ " and DBCount : "
-							+ dbApiCount
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating matching datae 'dbRetuningDataOperatorTraffic()' UICount : " + uiApiCount + " and DBCount : " + dbApiCount + e.getMessage());
+			throw new Exception("Exception While Validating matching data 'dbRetuningDataOperatorTraffic() UICount : " + uiApiCount + " and DBCount : " + dbApiCount + e.getLocalizedMessage());
 		}
 		return flag;
 	}
@@ -3482,10 +3085,10 @@ public class ManagerPage extends BasicPageObject {
 	 *
 	 * @author SulakkhanaW
 	 * @param query the query
-	 * @param column            the column
-	 * @param dbColumn            the db column
+	 * @param column the column
+	 * @param dbColumn the db column
 	 * @return true, if is customer care report
-	 * @throws Exception             the exception
+	 * @throws Exception the exception
 	 */
 	public boolean isCustomerCareReport(String query, String column, String dbColumn)throws Exception {
 		flag = false;
@@ -3533,9 +3136,9 @@ public class ManagerPage extends BasicPageObject {
 	/**
 	 * Checks if is manager page usename password text boxes displayed.
 	 *
+	 * @author SulakkhanaW
 	 * @return true, if is manager page usename password text boxes displayed
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
 	public boolean isManagerPageUsenamePasswordTextBoxesDisplayed()
 			throws Exception {
@@ -3544,19 +3147,15 @@ public class ManagerPage extends BasicPageObject {
 		logger.debug("Validating User name and password text boxes");
 		Thread.sleep(sleepTime);
 		try {
-			if (getElement(txtUserName).isDisplayed()
-					&& getElement(txtPassword).isDisplayed()) {
+			if (getElement(txtUserName).isDisplayed() && getElement(txtPassword).isDisplayed()) {
 				flag = true;
 				logger.debug("Validating User name and password text boxes completed");
 			} else {
 				logger.debug("User name and password text boxes are Not Matched");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating User name and password text boxes Title 'isManagerPageUsenamePasswordTextBoxesDisplayed()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating User name and password text boxes Title 'isManagerPageUsenamePasswordTextBoxesDisplayed()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating User name and password text boxes Title 'isManagerPageUsenamePasswordTextBoxesDisplayed()'" + e.getMessage());
+			throw new Exception("Exception While Validating User name and password text boxes Title 'isManagerPageUsenamePasswordTextBoxesDisplayed()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
@@ -3625,6 +3224,7 @@ public class ManagerPage extends BasicPageObject {
 	/**
 	 * Checks if is report accessing.
 	 *
+	 * @author SulakkhanaW
 	 * @param reportName the report name
 	 * @return true, if is report accessing
 	 * @throws Exception the exception
@@ -3648,17 +3248,16 @@ public class ManagerPage extends BasicPageObject {
 				logger.debug("Report is Not Matched");
 			}
 		} catch (InterruptedException e) {
-			logger.debug("Exception While Validating Report Access 'isReportAccessing()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating Report Access 'isReportAccessing()"
-							+ e.getMessage());
+			logger.debug("Exception While Validating Report Access 'isReportAccessing()'" + e.getMessage());
+			throw new Exception("Exception While Validating Report Access 'isReportAccessing()" + e.getMessage());
 		} 
 		return flag;
 	}
 	
 	/**
 	 * Click on sp black list.
+	 *
+	 * @author SulakkhanaW
 	 */
 	public void clickOnSPBlackList(){
 		logger.debug("Start clicking on SP Blacklist");
@@ -3669,6 +3268,7 @@ public class ManagerPage extends BasicPageObject {
 	/**
 	 * Select sp blacklist application.
 	 *
+	 * @author SulakkhanaW
 	 * @param appname the appname
 	 */
 	public void selectSPBlacklistApplication(String appname){
@@ -3679,6 +3279,8 @@ public class ManagerPage extends BasicPageObject {
 	
 	/**
 	 * Click on black list.
+	 *
+	 * @author SulakkhanaW
 	 */
 	public void clickOnSPBlackListButton(){
 		logger.debug("Start clicking on Blacklist");
@@ -3689,6 +3291,7 @@ public class ManagerPage extends BasicPageObject {
 	/**
 	 * Checks if is SP blacklist page displayed.
 	 *
+	 * @author SulakkhanaW
 	 * @param title the title
 	 * @return true, if is SP blacklist page displayed
 	 * @throws Exception the exception
@@ -3707,11 +3310,8 @@ public class ManagerPage extends BasicPageObject {
 				logger.debug("SP Blacklist Page is Not Matched");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating SP Blacklist Page Title 'isSPBlacklistPageDisplayed()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating SP Blacklist Page Title 'isSPBlacklistPageDisplayed()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating SP Blacklist Page Title 'isSPBlacklistPageDisplayed()'" + e.getMessage());
+			throw new Exception("Exception While Validating SP Blacklist Page Title 'isSPBlacklistPageDisplayed()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
@@ -3719,12 +3319,12 @@ public class ManagerPage extends BasicPageObject {
 	/**
 	 * Checks if is SP blacklist api admin module page displayed.
 	 *
+	 * @author SulakkhanaW
 	 * @param title the title
 	 * @return true, if is SP blacklist api admin module page displayed
 	 * @throws Exception the exception
 	 */
-	public boolean isSPBlacklistAPIAdminModulePageDisplayed(String title)
-			throws Exception {
+	public boolean isSPBlacklistAPIAdminModulePageDisplayed(String title) throws Exception {
 
 		flag = false;
 		logger.debug("Validating SP Blacklist API Admin Module Page");
@@ -3737,17 +3337,16 @@ public class ManagerPage extends BasicPageObject {
 				logger.debug("SP Blacklist Page API Admin Module is Not Matched");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating SP Blacklist API Admin Module Page Title 'isSPBlacklistAPIAdminModulePageDisplayed()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating SP Blacklist API Admin Module Page Title 'isSPBlacklistAPIAdminModulePageDisplayed()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating SP Blacklist API Admin Module Page Title 'isSPBlacklistAPIAdminModulePageDisplayed()'" + e.getMessage());
+			throw new Exception("Exception While Validating SP Blacklist API Admin Module Page Title 'isSPBlacklistAPIAdminModulePageDisplayed()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
 	
 	/**
 	 * Click admin module yes.
+	 *
+	 * @author SulakkhanaW
 	 */
 	public void clickAdminModuleYes(){
 		logger.debug("Start clicking on admin module yes");
@@ -4033,6 +3632,47 @@ public class ManagerPage extends BasicPageObject {
 	}
 	
 	/**
+	 * Checks if is validate numbers.
+	 *
+	 * @author SulakkhanaW
+	 * @param valueOne the value one
+	 * @param valueTwo the value two
+	 * @return true, if is validate numbers
+	 * @throws Exception the exception
+	 */
+	public boolean isValidateNumbers(String valueOne, String valueTwo) throws Exception{
+		flag = false;
+		double valOne = Double.parseDouble(valueOne);
+		double valTwo = Double.parseDouble(valueTwo);
+		try {
+			if (Math.abs(valOne - valTwo) <= 0.01){
+				flag = true;
+			}
+			else {
+				flag = false;
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating two numbers 'isValidateNumbers()'" + e.getMessage());
+			throw new Exception("Exception While Validating two numbers 'isValidateNumbers()'" + e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
+	/**
+	 * Removes the currency type.
+	 *
+	 * @author SulakkhanaW
+	 * @param value the value
+	 * @return the string
+	 */
+	public String removeCurrencyType(String value){
+		int endIndex = value.indexOf(" ");
+		int startIndex = 0;
+		String toBeRepalced = value.substring(startIndex, endIndex + 1);
+		return value.replace(toBeRepalced, "");
+	}
+	
+	/**
 	 * Gets the app row number.
 	 *
 	 * @author SulakkhanaW
@@ -4063,9 +3703,14 @@ public class ManagerPage extends BasicPageObject {
 	private int getAppDetailsEndRow(List<List<String>> exceldata, int appNameRowNumber, int rowCount){
 		int appDetailsEndRow = 0;
 		appNameRowNumber++;
+		int lastRow = rowCount - 1;
 		for (int s = appNameRowNumber; s < rowCount; s++){
-			if (!(exceldata.get(s).get(1).trim().isEmpty())){
-				appDetailsEndRow = s - 1;
+			
+			if ((!exceldata.get(s).get(1).trim().equals(""))|s==lastRow){
+				if (s == lastRow){
+					s++;
+				}
+				return appDetailsEndRow = s - 1;
 			}
 		}
 		return appDetailsEndRow;
@@ -4104,7 +3749,7 @@ public class ManagerPage extends BasicPageObject {
 	private int getOperationRowNumber(List<List<String>> exceldata, int apiRowNumber, int appDetailsEndRow, String operation){
 		int operationRowNumber = 0;
 		for (int y = apiRowNumber; y <= appDetailsEndRow; y++){
-			if (exceldata.get(y).get(4).equalsIgnoreCase(operation)){
+			if (exceldata.get(y).get(4).trim().equalsIgnoreCase(operation)){
 				operationRowNumber = y;
 			}
 		}
@@ -4157,7 +3802,15 @@ public class ManagerPage extends BasicPageObject {
 		return returnValue;
 	}
 
-	public boolean issubscription_ratestablesUpdated(String query) throws Exception{
+	/**
+	 * Checks if is subscription rates tables updated.
+	 *
+	 * @author JayaniP
+	 * @param query the query
+	 * @return true, if is subscription rates tables updated
+	 * @throws Exception the exception
+	 */
+	public boolean isSubscriptionRatesTablesUpdated(String query) throws Exception{
 		logger.debug("Validating subscription_rates table");
 		flag = false;
 		QueryResult qsTransactionLog = SQLExecuter.getQueryResults(query);
