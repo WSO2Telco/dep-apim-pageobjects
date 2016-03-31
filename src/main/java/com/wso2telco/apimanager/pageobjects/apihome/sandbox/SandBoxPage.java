@@ -1,5 +1,8 @@
 package com.wso2telco.apimanager.pageobjects.apihome.sandbox;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -35,6 +38,35 @@ public class SandBoxPage extends BasicPageObject  {
 	
 	/** The btn logout. */
 	private WebPelement btnLogout = defineEelement(UIType.Xpath, "//li[@class='logout-link-special']/button");
+	
+	/** The dd numbers. */
+	private WebPelement ddNumbers = defineEelement(UIType.Xpath, "//a[@title='Numbers']");
+	
+	/** The lnk manage numbers. */
+	private WebPelement lnkManageNumbers = defineEelement(UIType.Xpath, "//a[contains(.,'Manage Numbers')]");
+	
+	/** The lbl number. */
+	private String lblNumber = "//table[@id='numbers_data_table']/tbody/tr/td[1]";
+	
+	/** The lnk number delete. */
+	private String lnkNumberDelete = "//table[@id='numbers_data_table']/tbody/tr/td[contains(.,'%s')]/../td[4]/a[4]";
+	
+	/** The lbl manage numbers. */
+	private WebPelement lblManageNumbers = defineEelement(UIType.Xpath, "//div[@id='listing']/div/h2");
+	
+	/** The btn add numbers. */
+	private WebPelement btnAddNumbers = defineEelement(UIType.ID,"add_number_row_button");
+	
+	/** The txt number. */
+	private WebPelement txtNumber = defineEelement(UIType.ClassName,"required managenum_exist");
+	
+	/** The txt description. */
+	private WebPelement txtDescription = defineEelement(UIType.ClassName,"required");
+	
+	/** The txt balance. */
+	private WebPelement txtBalance = defineEelement(UIType.ClassName,"required balance");
+	
+	private WebPelement btnSaveNumber = defineEelement(UIType.ClassName,"save_data_icon");
 	
 	/**
 	 * Instantiates a new sand box page.
@@ -159,8 +191,132 @@ public class SandBoxPage extends BasicPageObject  {
 	 * @author SulakkhanaW
 	 */
 	public void clickLogout(){
-		logger.debug("Clicked on logout");
-		getElement(btnLogout).click();
 		logger.debug("Clicking on logout");
+		getElement(btnLogout).click();
+		logger.debug("Clicked on logout");
+	}
+	
+	/**
+	 * Click numbers.
+	 *
+	 * @author JayaniP
+	 */
+	public void clickNumbers(){
+		logger.debug("Clicking on numbers");
+		getElement(ddNumbers).click();
+		logger.debug("Clicked on numbers");
+	}
+	
+	/**
+	 * Select manage numbers.
+	 *
+	 * @author JayaniP
+	 */
+	public void selectManageNumbers(){
+		logger.debug("Selecting manage numbers");
+		getElement(lnkManageNumbers).click();
+		logger.debug("Selected manage numbers");
+	}
+	
+	/**
+	 * Clear existing number.
+	 *
+	 * @author JayaniP
+	 * @param number the number
+	 * @throws Exception the exception
+	 */
+	public void clearExistingNumber(String number) throws Exception {
+		
+		logger.debug("Clearing existing number");
+		List<WebElement> allElements = driver.findElements(By.xpath(lblNumber)); 
+		List<String> stringList = new ArrayList<>();
+
+			for (WebElement element: allElements) {
+			      stringList.add(element.getText());
+			}
+			if (stringList.toString().contains(number)) {
+				WebElement deleteNumber = driver.findElement(By.xpath(lnkNumberDelete));
+				deleteNumber.click();
+				logger.debug("Cleared existing number");
+			}
+		
+	}
+	
+	/**
+	 * Checks if is manage numbers.
+	 *
+	 * @author JayaniP
+	 * @param title the title
+	 * @return true, if is manage numbers
+	 * @throws Exception the exception
+	 */
+	public boolean isManageNumbers(String title) throws Exception{
+		flag = false;
+		logger.debug("Validating manage numbers page");
+		try {
+			if (getElement(lblManageNumbers).getText().equalsIgnoreCase(title)){
+				flag = true;
+				logger.debug("Manage numbers page is load properly");
+			} else {
+				logger.debug("Manage numbers page is not load properly");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating manage numbers page 'isManageNumbers()'" + e.getMessage());
+			throw new Exception("Exception While Validating manage numbers page 'isManageNumbers()'" + e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
+	/**
+	 * Click on add new number.
+	 *
+	 * @author JayaniP
+	 */
+	public void clickOnAddNewNumber(){
+		logger.debug("Clicking add numbers");
+		getElement(btnAddNumbers).click();
+		logger.debug("Clicked add numbers");
+	}
+	
+	/**
+	 * Enter number.
+	 *
+	 * @author JayaniP
+	 * @param number the number
+	 */
+	public void enterNumber(String number){
+		logger.debug("Entering number");
+		getElement(txtNumber).clearAndSendkeys(number);
+		logger.debug("Number entered");
+	}
+	
+	/**
+	 * Enter description.
+	 *
+	 * @author JayaniP
+	 * @param description the description
+	 */
+	public void enterDescription(String description){
+		logger.debug("Entering description");
+		getElement(txtDescription).clearAndSendkeys(description);
+		logger.debug("Description entered");
+	}
+	
+	/**
+	 * Enter balance.
+	 *
+	 * @author JayaniP
+	 * @param balance the balance
+	 */
+	public void enterBalance(String balance){
+		logger.debug("Entering balance");
+		getElement(txtBalance).clearAndSendkeys(balance);
+		logger.debug("Balance entered");
+	}
+	
+	public void clickSaveNumber(){
+		logger.debug("Clicking save number");
+		getElement(btnSaveNumber).click();
+		logger.debug("Number Saved");
 	}
 }
