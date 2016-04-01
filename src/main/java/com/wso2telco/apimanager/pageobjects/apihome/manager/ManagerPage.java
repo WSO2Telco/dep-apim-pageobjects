@@ -21,6 +21,7 @@ import com.wso2telco.test.framework.element.table.Table;
 import com.wso2telco.test.framework.util.UIType;
 import com.wso2telco.test.framework.tools.excelfile.CSVFileReader;
 import com.wso2telco.test.framework.tools.excelfile.ExcelFileReader;
+import com.wso2telco.test.framework.tools.excelfile.ExcelFileWriter;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -3623,6 +3624,90 @@ public class ManagerPage extends BasicPageObject {
 			}
 		}
 		return returnValue;
+	}
+	
+	/**
+	 * Gets the nb ui table data.
+	 *
+	 * @author SulakkhanaW
+	 * @return the nb ui table data
+	 */
+	public List<List<String>> getNbUITableData(){
+		WebElement invoiceTableNB = driver.findElement(By.xpath(nbMonthlyInvoiceTable));
+		Table invoiceTable = new Table(invoiceTableNB);
+		int columnCount = invoiceTable.head().getAllColumn().size();
+		int rowCount = invoiceTable.body().getAllRows().size();
+		int allRows = rowCount + 1;
+		List<List<String>> sheetdata = new ArrayList<List<String>>();
+		List<String> headerData = new ArrayList<String>();
+		for (int a = 0; a < columnCount; a++){
+			int colCount = a + 1;
+			String headerPath = "./thead/tr/th[" + colCount + "]";
+			String headerValue = invoiceTableNB.findElement(By.xpath(headerPath)).getText();
+			headerData.add(headerValue);
+		}
+		sheetdata.add(headerData);
+		for (int x = 1; x < allRows; x++){
+			List<String> bodyData = new ArrayList<String>();
+			for (int y = 0; y < columnCount; y++){
+				int colCount = y + 1;
+				String bodyPath = "./tbody/tr[" + x + "]/td[" + colCount + "]";
+				String bodyValue = invoiceTableNB.findElement(By.xpath(bodyPath)).getText();
+				bodyData.add(bodyValue);
+			}
+			sheetdata.add(bodyData);
+		}
+		return sheetdata;
+	}
+	
+	/**
+	 * Gets the sb ui table data.
+	 *
+	 * @author SulakkhanaW
+	 * @return the sb ui table data
+	 */
+	public List<List<String>> getSbUITableData(){
+		WebElement invoiceTableNB = driver.findElement(By.xpath(sbMonthlyInvoiceTable));
+		Table invoiceTable = new Table(invoiceTableNB);
+		int columnCount = invoiceTable.head().getAllColumn().size();
+		int rowCount = invoiceTable.body().getAllRows().size();
+		int allRows = rowCount + 1;
+		List<List<String>> sheetdata = new ArrayList<List<String>>();
+		List<String> headerData = new ArrayList<String>();
+		for (int a = 0; a < columnCount; a++){
+			int colCount = a + 1;
+			String headerPath = "./thead/tr/th[" + colCount + "]";
+			String headerValue = invoiceTableNB.findElement(By.xpath(headerPath)).getText();
+			headerData.add(headerValue);
+		}
+		sheetdata.add(headerData);
+		for (int x = 1; x < allRows; x++){
+			List<String> bodyData = new ArrayList<String>();
+			for (int y = 0; y < columnCount; y++){
+				int colCount = y + 1;
+				String bodyPath = "./tbody/tr[" + x + "]/td[" + colCount + "]";
+				String bodyValue = invoiceTableNB.findElement(By.xpath(bodyPath)).getText();
+				bodyData.add(bodyValue);
+			}
+			sheetdata.add(bodyData);
+		}
+		return sheetdata;
+	}
+	
+	/**
+	 * Write string ary to xlsx.
+	 *
+	 * @author SulakkhanaW
+	 * @param fileName the file name
+	 * @param array the array
+	 */
+	public void writeStringAryToXlsx(String fileName, List<List<String>> array){
+		try {
+				ExcelFileWriter excelWriter = new ExcelFileWriter();
+				excelWriter.writeFileUsingArray(fileName, array);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
