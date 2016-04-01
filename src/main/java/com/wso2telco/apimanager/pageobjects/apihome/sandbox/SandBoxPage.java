@@ -666,6 +666,16 @@ public class SandBoxPage extends BasicPageObject{
 	}
 	
 	/**
+	 * Gets the rsponse payload.
+	 *
+	 * @author JayaniP
+	 * @return the rsponse payload
+	 */
+	public String getRsponsePayload() {
+		return getElement(txtResponsePayload).getAttribute("value");
+	}
+	
+	/**
 	 * Checks if is amount available.
 	 *
 	 * @author JayaniP
