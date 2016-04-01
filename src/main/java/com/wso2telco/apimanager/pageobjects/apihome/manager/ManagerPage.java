@@ -22,6 +22,7 @@ import com.wso2telco.test.framework.util.UIType;
 import com.wso2telco.test.framework.tools.excelfile.CSVFileReader;
 import com.wso2telco.test.framework.tools.excelfile.ExcelFileReader;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ManagerPage.
  */
@@ -2135,6 +2136,11 @@ public class ManagerPage extends BasicPageObject {
 		logger.debug("Clicked revenue breakdown");
 	}
 
+	/**
+	 * Click on rvenue breakdown nb.
+	 *
+	 * @author JayaniP
+	 */
 	public void clickOnRvenueBreakdownNB() {
 		logger.debug("Start click revenue breakdown");
 		getElement(lnkRevenueBreakdownNB).click();
@@ -3925,66 +3931,58 @@ public class ManagerPage extends BasicPageObject {
 	 * Checks if is pie graph revenue breakdown sb.
 	 *
 	 * @author JayaniP
-	 * @param fromDate the from date
-	 * @param toDate the to date
-	 * @param operatorId the operator id
-	 * @param serviceProvider the service provider
-	 * @param application the application
+	 * @param api the api
+	 * @param apiCount the api count
 	 * @return true, if is pie graph revenue breakdown sb
 	 * @throws Exception the exception
 	 */
-	public boolean isPieGraphRevenueBreakdownSB(String fromDate, String toDate, String operatorId, String serviceProvider, String application) throws Exception {
+	public boolean isPieGraphRevenueBreakdownSB(String api, String apiCount) throws Exception {
 		flag = false;
 		ArrayList<String> apiList = new ArrayList<String>();
+		double amount = Double.parseDouble(apiCount);
 		WebElement select;
 		try {
 			select = getElement(UIType.Xpath, pieChartRvenueBreakdownSB);
-			List<WebElement> options = select.findElements(By
-					.xpath(pieChartRvenueBreakdownSB));
+			List<WebElement> options = select.findElements(By.xpath(pieChartRvenueBreakdownSB));
 			for (WebElement option : options) {
 				apiList.add(option.getText());
 			}
+
+			int count = apiList.size();
+			for (int i = 0; i < count; i++) {
+				String element = apiList.get(i);
+				int openParanthis = element.indexOf("(") + 1;
+				int closeParanthis = element.indexOf(")");
+				String value = element.substring(openParanthis, closeParanthis);
+				String apiName = element.substring(0, openParanthis - 1).trim();
+				double apiAmount = Double.parseDouble(value);
+				if (apiName.equalsIgnoreCase(api) && (Math.abs(amount - apiAmount) <= 0.01)){
+					flag = true;
+				}
+			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating graphs data 'isPieGraph()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating graphs data 'isPieGraph()'"
-							+ e.getLocalizedMessage());
-		}
-		int count = apiList.size();
-		String apiListDetails[][] = new String[count][2];
-		for (int i = 0; i < count; i++) {
-			String element = apiList.get(i);
-			int openParanthis = element.indexOf("(") + 1;
-			int closeParanthis = element.indexOf(")");
-			String value = element.substring(openParanthis, closeParanthis);
-			String apiName = element.substring(0, openParanthis - 1).trim();
-			apiListDetails[i][0] = apiName;
-			apiListDetails[i][1] = value;
-		}
-		try {
-			flag = dbReturningDataTotalAPITraffic(apiListDetails, fromDate,
-					toDate, operatorId, serviceProvider);
-		} catch (Exception e) {
-			logger.debug("Exception While Validating matching data 'dbReturningData()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating matching data 'dbReturningData()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating graphs data 'isPieGraph()'" + e.getMessage());
+			throw new Exception("Exception While Validating graphs data 'isPieGraph()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
 	
+	/**
+	 * Checks if is monthly invoice sb showed.
+	 *
+	 * @author JayaniP
+	 * @return true, if is monthly invoice sb showed
+	 * @throws Exception the exception
+	 */
 	public boolean isMonthlyInvoiceSBShowed() throws Exception {
 		flag = false;
 		logger.debug("Validating monthly invoice SB");
 		List<WebElement> allElements = driver.findElements(By.xpath(monthlyInvoiceSBpath)); 
 		List<String> stringList = new ArrayList<>();
-		for (WebElement element: allElements) {
-		      stringList.add(element.getText());
-		}
-		
 		try {
+			for (WebElement element: allElements) {
+			      stringList.add(element.getText());
+			}
 			if (stringList.toString().contains("Monthly Invoice SB")) {
 				flag = true;
 				logger.debug("Monthly Invoice SB is showed");
@@ -3992,11 +3990,8 @@ public class ManagerPage extends BasicPageObject {
 				logger.debug("Monthly Invoice SB is not showed");
 			}
 		} catch (Exception e) {
-			logger.debug("Exception While Validating Monthly Invoice SB 'isMonthlyInvoiceSBShowed()'"
-					+ e.getMessage());
-			throw new Exception(
-					"Exception While Validating Monthly Invoice SB 'isMonthlyInvoiceSBShowed()'"
-							+ e.getLocalizedMessage());
+			logger.debug("Exception While Validating Monthly Invoice SB 'isMonthlyInvoiceSBShowed()'" + e.getMessage());
+			throw new Exception("Exception While Validating Monthly Invoice SB 'isMonthlyInvoiceSBShowed()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
@@ -4004,6 +3999,72 @@ public class ManagerPage extends BasicPageObject {
 	/**
 	 * Checks if is monthly invoice nb showed.
 	 *
+	 * @author JayaniP
+	 * @return true, if is monthly invoice nb showed
+	 * @throws Exception the exception
+	 */
+	public boolean isMonthlyInvoiceNBNotShowed() throws Exception {
+		flag = false;
+		logger.debug("Validating monthly invoice SB");
+		List<WebElement> allElements = driver.findElements(By.xpath(monthlyInvoiceSBpath)); 
+		List<String> stringList = new ArrayList<>();
+		try {
+			for (WebElement element: allElements) {
+			      stringList.add(element.getText());
+			}
+			if (!stringList.toString().contains("Monthly Invoice NB")) {
+				flag = true;
+				logger.debug("Monthly Invoice NB is not showed");
+			} else {
+				logger.debug("Monthly Invoice SB is showed");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Monthly Invoice SB 'isMonthlyInvoiceNBNotShowed()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating Monthly Invoice SB 'isMonthlyInvoiceNBNotShowed()'"
+							+ e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
+	
+	/**
+	 * Checks if is monthly invoice sb not showed.
+	 *
+	 * @author JayaniP
+	 * @return true, if is monthly invoice sb not showed
+	 * @throws Exception the exception
+	 */
+	public boolean isMonthlyInvoiceSBNotShowed() throws Exception {
+		flag = false;
+		logger.debug("Validating monthly invoice SB");
+		List<WebElement> allElements = driver.findElements(By.xpath(monthlyInvoiceSBpath)); 
+		List<String> stringList = new ArrayList<>();		
+		try {
+			for (WebElement element: allElements) {
+			      stringList.add(element.getText());
+			}
+			if (!stringList.toString().contains("Monthly Invoice SB")) {
+				flag = true;
+				logger.debug("Monthly Invoice SB is not showed");
+			} else {
+				logger.debug("Monthly Invoice SB is showed");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Monthly Invoice SB 'isMonthlyInvoiceSBNotShowed()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating Monthly Invoice SB 'isMonthlyInvoiceSBNotShowed()'"
+							+ e.getLocalizedMessage());
+		}
+		return flag;
+	}
+
+	/**
+	 * Checks if is monthly invoice nb showed.
+	 *
+	 * @author JayaniP
 	 * @return true, if is monthly invoice nb showed
 	 * @throws Exception the exception
 	 */
@@ -4011,17 +4072,16 @@ public class ManagerPage extends BasicPageObject {
 		flag = false;
 		logger.debug("Validating monthly invoice SB");
 		List<WebElement> allElements = driver.findElements(By.xpath(monthlyInvoiceSBpath)); 
-		List<String> stringList = new ArrayList<>();
-		for (WebElement element: allElements) {
-		      stringList.add(element.getText());
-		}
-		
+		List<String> stringList = new ArrayList<>();		
 		try {
-			if (!stringList.toString().contains("Monthly Invoice NB")) {
+			for (WebElement element: allElements) {
+			      stringList.add(element.getText());
+			}
+			if (stringList.toString().contains("Monthly Invoice NB")) {
 				flag = true;
-				logger.debug("Monthly Invoice NB is not showed");
+				logger.debug("Monthly Invoice NB is showed");
 			} else {
-				logger.debug("Monthly Invoice SB is showed");
+				logger.debug("Monthly Invoice SB is not showed");
 			}
 		} catch (Exception e) {
 			logger.debug("Exception While Validating Monthly Invoice SB 'isMonthlyInvoiceNBShowed()'"
