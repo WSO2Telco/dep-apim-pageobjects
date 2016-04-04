@@ -394,7 +394,7 @@ public class ManagerPage extends BasicPageObject {
 
 	/** The lnk api response time. */
 	private WebPelement lnkAPIResponseTime = defineEelement(UIType.Xpath,
-			"//ul[@class='nav nav-list']/li[9]/a");
+			"//div[@id='left']/div/ul/li[12]/a");
 
 	/** The lbl api response time. */
 	private WebPelement lblAPIResponseTime = defineEelement(UIType.Xpath,
@@ -426,7 +426,7 @@ public class ManagerPage extends BasicPageObject {
 
 	/** The lnk performance error rates. */
 	private WebPelement lnkPerformanceErrorRates = defineEelement(UIType.Xpath,
-			"//ul[@class='nav nav-list']/li[10]/a");
+			"//div[@id='left']/div/ul/li[13]/a");
 
 	/** The lbl performance error rates. */
 	private WebPelement lblPerformanceErrorRates = defineEelement(UIType.Xpath,
