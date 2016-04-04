@@ -162,11 +162,11 @@ public class HomePage extends BasicPageObject {
 	 */
 	public SandBoxPage clickSandBoxLink() throws Exception{
 		logger.debug("Start clicking on Sandbox link");
-		String parent = driver.getWindowHandle();
+		//String parent = driver.getWindowHandle();
 		Thread.sleep(sleepTime);
 		getElement(linkSandBox).click();
 		Thread.sleep(sleepTime);
-		String win1=null;
+		/*String win1=null;
 		String win2=null;
 		Set<String> availableWindows = driver.getWindowHandles();
 		ArrayList<String> elements = new ArrayList<>();
@@ -189,11 +189,11 @@ public class HomePage extends BasicPageObject {
 				driver.switchTo().window(win2);
 			}	
 		}
-		catch (Exception e) {
+		/*catch (Exception e) {
 		logInstruction("Exception While clicking on Sandbox link 'clickSandboxLink()'" + e.getMessage());
 		throw new Exception("Exception While clicking on Sandbox link 'clickSandboxLink()'" + e.getLocalizedMessage());
-		}
-		logger.debug("Clicked on Sandbox link");
+		}*/
+		//logger.debug("Clicked on Sandbox link");
 		return new SandBoxPage(driver);
 		
 	}

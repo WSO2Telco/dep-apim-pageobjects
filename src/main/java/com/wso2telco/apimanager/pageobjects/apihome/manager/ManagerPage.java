@@ -341,7 +341,8 @@ public class ManagerPage extends BasicPageObject {
 	private WebPelement ddCustomerCareApplication = defineEelement(UIType.ID, "appSelect");
 
 	/** The lnk api response time. */
-	private WebPelement lnkAPIResponseTime = defineEelement(UIType.Xpath, "//ul[@class='nav nav-list']/li[9]/a");
+	private WebPelement lnkAPIResponseTime = defineEelement(UIType.Xpath, "//div[@id='left']/div/ul/li[12]/a");
+	//private WebPelement lnkAPIResponseTime = defineEelement(UIType.Xpath, "//ul[@class='nav nav-list']/li[9]/a");
 
 	/** The lbl api response time. */
 	private WebPelement lblAPIResponseTime = defineEelement(UIType.Xpath, "//div[@id='middle']/div[1]/h2");
@@ -365,7 +366,8 @@ public class ManagerPage extends BasicPageObject {
 	private WebPelement btnAPIResponseTimeGenerate = defineEelement(UIType.Name, "download_file");
 
 	/** The lnk performance error rates. */
-	private WebPelement lnkPerformanceErrorRates = defineEelement(UIType.Xpath, "//ul[@class='nav nav-list']/li[10]/a");
+	private WebPelement lnkPerformanceErrorRates = defineEelement(UIType.Xpath, "//div[@id='left']/div/ul/li[13]/a");
+	//private WebPelement lnkPerformanceErrorRates = defineEelement(UIType.Xpath, "//ul[@class='nav nav-list']/li[10]/a");
 
 	/** The lbl performance error rates. */
 	private WebPelement lblPerformanceErrorRates = defineEelement(UIType.Xpath, "//div[@id='middle']/div[1]/h2");
