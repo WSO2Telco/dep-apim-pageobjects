@@ -22,23 +22,22 @@ public class BasicPageObject extends PageBase {
 		super(driver);
 	}
 
-public void typeTextBox(WebPelement textbox, String value) throws Exception{
-		
+	public void typeTextBox(WebPelement textbox, String value) throws Exception {
+
 		getElement(textbox).clearAndSendkeys(value);
 		String enteredValue = textbox.getAttribute("value");
 		try {
-		if(!(enteredValue.equalsIgnoreCase(value))){
-				do{
+			if (!(enteredValue.equalsIgnoreCase(value))) {
+				do {
 					getElement(textbox).clearAndSendkeys(value);
 					enteredValue = textbox.getAttribute("value");
-				}while(!(enteredValue.equalsIgnoreCase(value)));
-			}	
-		}
-		 catch (Exception e) {
+				} while (!(enteredValue.equalsIgnoreCase(value)));
+			}
+		} catch (Exception e) {
 			e.getMessage();
 			throw new Exception("Exception While Validating User name 'isUserName()'" + e.getLocalizedMessage());
 		}
-}
+	}
 	
 	
 }

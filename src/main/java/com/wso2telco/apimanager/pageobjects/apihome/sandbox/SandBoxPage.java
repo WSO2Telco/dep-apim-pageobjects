@@ -208,7 +208,7 @@ public class SandBoxPage extends BasicPageObject{
 	/**
 	 * Enter user name.
 	 *
-	 * @author SulakkhanaW
+	 * @author IsuruM
 	 * @param username the username
 	 * @throws InterruptedException the interrupted exception
 	 */
@@ -770,6 +770,14 @@ public class SandBoxPage extends BasicPageObject{
 		return flag;
 	}
 	
+	/**
+	 * Gets the value from json.
+	 *
+	 * @author JayaniP
+	 * @param tag the tag
+	 * @param json the json
+	 * @return the value from json
+	 */
 	public String getValueFromJson(String tag, String json) {
 		JsonElement jsonElement = new JsonParser().parse(json);
 		JsonObject jsonObject = jsonElement.getAsJsonObject();
@@ -819,6 +827,14 @@ public class SandBoxPage extends BasicPageObject{
 		return returnValue;
 	}
 	
+	/**
+	 * Gets the value amount transaction.
+	 *
+	 * @author JayaniP
+	 * @param tag the tag
+	 * @param jsonObject the json object
+	 * @return the value amount transaction
+	 */
 	private String getValueAmountTransaction(String tag, JsonObject jsonObject){
 		jsonObject = jsonObject.getAsJsonObject("amountTransaction");
 		String returnValue = jsonObject.get(tag).toString();
@@ -829,6 +845,14 @@ public class SandBoxPage extends BasicPageObject{
 		return returnValue;
 	}
 	
+	/**
+	 * Gets the value paymnet amount.
+	 *
+	 * @author JayaniP
+	 * @param tag the tag
+	 * @param jsonObject the json object
+	 * @return the value paymnet amount
+	 */
 	private String getValuePaymnetAmount(String tag, JsonObject jsonObject){
 		jsonObject = jsonObject.getAsJsonObject("amountTransaction");
 		jsonObject = jsonObject.getAsJsonObject("paymentAmount");
@@ -840,6 +864,14 @@ public class SandBoxPage extends BasicPageObject{
 		return returnValue;
 	}
 	
+	/**
+	 * Gets the value charging meta data.
+	 *
+	 * @author JayaniP
+	 * @param tag the tag
+	 * @param jsonObject the json object
+	 * @return the value charging meta data
+	 */
 	private String getValueChargingMetaData(String tag, JsonObject jsonObject){
 		jsonObject = jsonObject.getAsJsonObject("amountTransaction");
 		jsonObject = jsonObject.getAsJsonObject("paymentAmount");
@@ -852,6 +884,14 @@ public class SandBoxPage extends BasicPageObject{
 		return returnValue;
 	}
 	
+	/**
+	 * Gets the value charging information.
+	 *
+	 * @author JayaniP
+	 * @param tag the tag
+	 * @param jsonObject the json object
+	 * @return the value charging information
+	 */
 	private String getValueChargingInformation(String tag, JsonObject jsonObject){
 		jsonObject = jsonObject.getAsJsonObject("amountTransaction");
 		jsonObject = jsonObject.getAsJsonObject("paymentAmount");
