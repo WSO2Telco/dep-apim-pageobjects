@@ -1,7 +1,12 @@
 package com.wso2telco.apimanager.pageobjects.apihome.subscriptions;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
 import com.wso2telco.test.framework.core.WebPelement;
@@ -59,6 +64,9 @@ public class SubscriptionsPage extends BasicPageObject  {
 	
 	/** The lbl access token sand. */
 	private WebPelement lblAccessTokenSand = defineEelement(UIType.Xpath, "//input[@id='refreshSandValidityTime']/../../div[1]/span");
+	
+	/** The lbl api. */
+	private String lblApi = "//div[@class='row-fluid']/div/a[@class='service-name']";
 	
 	/**
 	 * Instantiates a new subscriptions page.
@@ -506,6 +514,35 @@ public class SubscriptionsPage extends BasicPageObject  {
 		} catch (Exception e) {
 			logger.debug("Exception While Validating  renerated access token key  'isAccessKeyRegenerated()'" + e.getMessage());
 			throw new Exception("Exception While Validating  renerated access token key 'isAccessKeyRegenerated()'" + e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
+	/**
+	 * Checks if is subscribed ap is.
+	 *
+	 * @author JayaniP
+	 * @param api the api
+	 * @return true, if is subscribed ap is
+	 * @throws Exception the exception
+	 */
+	public boolean isSubscribedAPIs(String api) throws Exception{
+		flag = false;
+		logger.debug("Validating APIs");
+		ArrayList<String> apiList = new ArrayList<String>();
+		WebElement select;
+		try {
+			select = getElement(UIType.Xpath, lblApi);
+			List<WebElement> options = select.findElements(By.xpath(lblApi));
+			for (WebElement option : options) {
+				apiList.add(option.getText());
+			}
+			if (apiList.toString().contains(api)) {
+				flag = true;
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating APIs 'isSubscribedAPIs()'" + e.getMessage());
+			throw new Exception("Exception While Validating APIs 'isSubscribedAPIs()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}

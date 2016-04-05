@@ -16,6 +16,7 @@ import com.wso2telco.apimanager.pageobjects.BasicPageObject;
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
 
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class SandBoxPage.
@@ -55,6 +56,9 @@ public class SandBoxPage extends BasicPageObject{
 	
 	/** The lnk number delete. */
 	private String lnkNumberDelete = "//table[@id='numbers_data_table']/tbody/tr/td[contains(.,'%s')]/../td[4]/a[4]";
+	
+	/** The lbl balance. */
+	private String lblBalance = "//table[@id='numbers_data_table']/tbody/tr/td[contains(.,'%s')]/../td[3]";
 	
 	/** The lbl manage numbers. */
 	private WebPelement lblManageNumbers = defineEelement(UIType.Xpath, "//div[@id='listing']/div/h2");
@@ -115,6 +119,9 @@ public class SandBoxPage extends BasicPageObject{
 	
 	/** The txt notify url refund. */
 	private WebPelement txtNotifyUrlRefund = defineEelement(UIType.ID,"notifyURL");
+	
+	/** The txt max pay amount. */
+	private WebPelement txtMaxPayAmount = defineEelement(UIType.ID,"maxamt");
 	
 	/** The txt purchase category code. */
 	private WebPelement txtPurchaseCategoryCode = defineEelement(UIType.ID,"purchaseCategoryCode");
@@ -338,6 +345,32 @@ public class SandBoxPage extends BasicPageObject{
 				logger.debug("Cleared existing number");
 			}
 		
+	}
+	
+	/**
+	 * Gets the balanceof the number.
+	 *
+	 * @author JayaniP
+	 * @param number the number
+	 * @return the balanceof the number
+	 * @throws Exception the exception
+	 */
+	public String getBalanceofTheNumber(String number) throws Exception {
+		logger.debug("Get the balance");
+		String bal = "";
+		List<WebElement> allElements = driver.findElements(By.xpath(lblNumber)); 
+		List<String> stringList = new ArrayList<>();
+
+			for (WebElement element: allElements) {
+			      stringList.add(element.getText());
+			}
+			if (stringList.toString().contains(number)) {
+				String xpath = String.format(lblBalance, number);
+				WebPelement balance = defineEelement(UIType.Xpath, xpath);
+				bal = getElement(balance).getText();
+				logger.debug("Got the balance");
+			}
+		return bal;
 	}
 	
 	/**
@@ -693,8 +726,10 @@ public class SandBoxPage extends BasicPageObject{
 	 *
 	 * @author JayaniP
 	 * @return the request payload
+	 * @throws InterruptedException 
 	 */
-	public String getRequestPayloadUI() {
+	public String getRequestPayloadUI() throws InterruptedException {
+		Thread.sleep(sleepTime);
 		String requestPayload = getElement(txtRequestPayload).getAttribute("value");
 		return requestPayload;
 	}
@@ -704,9 +739,10 @@ public class SandBoxPage extends BasicPageObject{
 	 *
 	 * @author JayaniP
 	 * @return the rsponse payload
+	 * @throws InterruptedException 
 	 */
-	public String getRsponsePayload() {
-		//String requestPayload = getElement(txtRequestPayload).getAttribute("value");
+	public String getRsponsePayloadUI() throws InterruptedException {
+		Thread.sleep(sleepTime);
 		return getElement(txtResponsePayload).getAttribute("value");
 	}
 	
@@ -739,24 +775,42 @@ public class SandBoxPage extends BasicPageObject{
 		JsonObject jsonObject = jsonElement.getAsJsonObject();
 		String returnValue = null;
 		switch (tag) {
+
+		case "serverReferenceCode":	
 		case "endUserId":
 		case "transactionOperationStatus":
 		case "clientCorrelator":
 		case "referenceCode":
+		case "callbackData":
+		case "notificationFormat":
+		case "originalServerReferenceCode":
 			returnValue = getValueAmountTransaction(tag, jsonObject);
+			break;
+			
+		case "totalAmountCharged":
+		case "totalAmountRefunded":
+			returnValue = getValuePaymnetAmount(tag, jsonObject);
 			break;
 
 		case "taxAmount":
 		case "purchaseCategoryCode":
 		case "channel":
 		case "onBehalfOf":
+		case "serviceId":	
+		case "mandateId":
+		case "productId":
 			returnValue = getValueChargingMetaData(tag, jsonObject);
 			break;
 
 		case "amount":
 		case "description":
 		case "currency":
-			returnValue = chargingInformation(tag, jsonObject);
+		case "code":
+			returnValue = getValueChargingInformation(tag, jsonObject);
+			break;
+			
+		case "text":
+			returnValue = getValuePolicyException(tag, jsonObject);
 			break;
 			
 		default:
@@ -767,22 +821,68 @@ public class SandBoxPage extends BasicPageObject{
 	
 	private String getValueAmountTransaction(String tag, JsonObject jsonObject){
 		jsonObject = jsonObject.getAsJsonObject("amountTransaction");
+		String returnValue = jsonObject.get(tag).toString();
+		String firstCharacter = Character.toString(returnValue.charAt(0));
+		if (firstCharacter.equalsIgnoreCase("\"")){
+			returnValue = returnValue.substring(1, returnValue.length()-1);
+		}
+		return returnValue;
+	}
+	
+	private String getValuePaymnetAmount(String tag, JsonObject jsonObject){
+		jsonObject = jsonObject.getAsJsonObject("amountTransaction");
 		jsonObject = jsonObject.getAsJsonObject("paymentAmount");
-		return jsonObject.get(tag).toString();
+		String returnValue = jsonObject.get(tag).toString();
+		String firstCharacter = Character.toString(returnValue.charAt(0));
+		if (firstCharacter.equalsIgnoreCase("\"")){
+			returnValue = returnValue.substring(1, returnValue.length()-1);
+		}
+		return returnValue;
 	}
 	
 	private String getValueChargingMetaData(String tag, JsonObject jsonObject){
 		jsonObject = jsonObject.getAsJsonObject("amountTransaction");
 		jsonObject = jsonObject.getAsJsonObject("paymentAmount");
 		jsonObject = jsonObject.getAsJsonObject("chargingMetaData");
-		return jsonObject.get(tag).toString();
+		String returnValue = jsonObject.get(tag).toString();
+		String firstCharacter = Character.toString(returnValue.charAt(0));
+		if (firstCharacter.equalsIgnoreCase("\"")){
+			returnValue = jsonObject.get(tag).toString().substring(1, tag.length()-1);
+		}
+		return returnValue;
 	}
 	
-	private String chargingInformation(String tag, JsonObject jsonObject){
+	private String getValueChargingInformation(String tag, JsonObject jsonObject){
 		jsonObject = jsonObject.getAsJsonObject("amountTransaction");
 		jsonObject = jsonObject.getAsJsonObject("paymentAmount");
 		jsonObject = jsonObject.getAsJsonObject("chargingInformation");
-		return jsonObject.get(tag).toString().substring(1, tag.length()-1);
+		String firstCharacter = Character.toString(jsonObject.get(tag).toString().charAt(0));
+		String returnValue = null;
+		if (firstCharacter.equalsIgnoreCase("\"")){
+			returnValue = jsonObject.get(tag).toString().substring(1, tag.length()-1);
+		} else {
+			returnValue = jsonObject.get(tag).toString();
+		}
+		return returnValue;
+	}
+	
+	/**
+	 * Gets the value policy exception.
+	 *
+	 * @author JayaniP
+	 * @param tag the tag
+	 * @param jsonObject the json object
+	 * @return the value policy exception
+	 */
+	private String getValuePolicyException(String tag, JsonObject jsonObject){
+		jsonObject = jsonObject.getAsJsonObject("requestError");
+		jsonObject = jsonObject.getAsJsonObject("policyException");
+		String returnValue = jsonObject.get(tag).toString();
+		String firstCharacter = Character.toString(returnValue.charAt(0));
+		if (firstCharacter.equalsIgnoreCase("\"")){
+			returnValue = returnValue.substring(1, returnValue.length()-1);
+		}
+		return returnValue;
 	}
 	
 	/**
@@ -950,5 +1050,17 @@ public class SandBoxPage extends BasicPageObject{
 		logger.debug("Start entering NotifyURL");
 		getElement(txtNotifyUrlRefund).clearAndSendkeys(url);
 		logger.debug("Entered NotifyURL");
+	}
+	
+	/**
+	 * Enter max payment amount.
+	 *
+	 * @author JayaniP
+	 * @param amount the amount
+	 */
+	public void enterMaxPaymentAmount(String amount){
+		logger.debug("Start entering max payment amount");
+		getElement(txtMaxPayAmount).clearAndSendkeys(amount);
+		logger.debug("Entered max payment amount");
 	}
 }
