@@ -33,8 +33,7 @@ public class ManagerPage extends BasicPageObject {
 	Logger logger = Logger.getLogger(ManagerPage.class);
 
 	/** The lbl manager. */
-	private WebPelement lblManager = defineEelement(UIType.Xpath,
-			"//h2[@class='login-title']");
+	private WebPelement lblManager = defineEelement(UIType.Xpath, "//h2[@class='login-title']");
 
 	/** The txt user name. */
 	private WebPelement txtUserName = defineEelement(UIType.ID, "username");
@@ -2981,8 +2980,7 @@ public class ManagerPage extends BasicPageObject {
 				for (int x = 0; x < rowCount;) {
 					uiApiName = apiTrafficListUI[x][0];
 					uiApiCount = apiTrafficListUI[x][1];
-					dbApiCount = qsApiTotalTraffic.getValueFromCondition(
-							"trafficCount", "api", uiApiName);
+					dbApiCount = qsApiTotalTraffic.getValueFromCondition("trafficCount", "api", uiApiName);
 					if (!uiApiCount.equals(dbApiCount)) {
 						flag = false;
 					}
@@ -3693,6 +3691,376 @@ public class ManagerPage extends BasicPageObject {
 		}
 		return sheetdata;
 	}
+	
+	/**
+	 * Gets the app name from array.
+	 *
+	 * @author SulakkhanaW
+	 * @param data the data
+	 * @return the app name from array
+	 */
+	public List<String> getAppNameFromArray(List<List<String>> data){
+		int lastRow = data.size();
+		List<String> appNames = new ArrayList<String>();
+		for (int x = 1; x < lastRow; x++){
+			if (!data.get(x).get(1).isEmpty()){
+				appNames.add(data.get(x).get(1));
+			}
+		}
+		return appNames;
+	}
+	
+	/**
+	 * Gets the app start row.
+	 *
+	 * @author SulakkhanaW
+	 * @param appName the app name
+	 * @param data the data
+	 * @return the app start row
+	 */
+	public int getAppStartRow(String appName, List<List<String>> data){
+		int appStartRow = 0;
+		int rowCount = data.size();
+		for (int x = 0; x < rowCount; x++){
+			if (data.get(x).get(1).equalsIgnoreCase(appName)){
+				return appStartRow = x;
+			}
+		}
+		return appStartRow;
+	}
+	
+	/**
+	 * Gets the app end row.
+	 *
+	 * @author SulakkhanaW
+	 * @param startRow the start row
+	 * @param data the data
+	 * @return the app end row
+	 */
+	public int getAppEndRow(int startRow, List<List<String>> data){
+		int appEndRow = 0;
+		int rowCount = data.size();
+		for (int x = startRow; x < rowCount; x++){
+			if (data.get(x).get(6).equalsIgnoreCase("Total Amount")){
+				return appEndRow = x;
+			}
+		}
+		return appEndRow;
+	}
+	
+	/**
+	 * Gets the operation row num.
+	 *
+	 * @author SulakkhanaW
+	 * @param opration the opration
+	 * @param startRow the start row
+	 * @param endRow the end row
+	 * @param data the data
+	 * @return the operation row num
+	 */
+	public int getOperationRowNum(String opration, int startRow, int endRow, List<List<String>> data){
+		int oprationRowNum = 0;
+		for (int x = startRow; x <= endRow; x++){
+			if (data.get(x).get(4).equalsIgnoreCase(opration)){
+				return oprationRowNum = x;
+			}
+		}
+		return oprationRowNum;
+	}
+	
+	/**
+	 * Gets the sb app end row.
+	 *
+	 * @author SulakkhanaW
+	 * @param appStartRow the app start row
+	 * @param data the data
+	 * @return the sb app end row
+	 */
+	private int getSbAppEndRow(int appStartRow, List<List<String>> data){
+		int appDetailsEndRow = 0;
+		int rowCount = data.size();
+		appStartRow++;
+		int lastRow = rowCount - 1;
+		for (int s = appStartRow; s < rowCount; s++){
+			
+			if ((!data.get(s).get(1).trim().equals(""))|s==lastRow){
+				if (s == lastRow){
+					s++;
+				}
+				return appDetailsEndRow = s - 1;
+			}
+		}
+		return appDetailsEndRow;
+	}
+	
+	/**
+	 * Gets the sb operation row num.
+	 *
+	 * @author SulakkhanaW
+	 * @param operator the operator
+	 * @param opration the opration
+	 * @param startRow the start row
+	 * @param endRow the end row
+	 * @param data the data
+	 * @return the sb operation row num
+	 */
+	public int getSbOperationRowNum(String operator, String opration, int startRow, int endRow, List<List<String>> data){
+		int oprationRowNum = 0;
+		for (int x = startRow; x <= endRow; x++){
+			if (data.get(x).get(4).equalsIgnoreCase(operator) && data.get(x).get(5).equalsIgnoreCase(opration)){
+				return oprationRowNum = x;
+			}
+		}
+		return oprationRowNum;
+	}
+	
+	/**
+	 * Sb monthly invoice difference.
+	 *
+	 * @author SulakkhanaW
+	 * @param beforeExcel the before excel
+	 * @param afterExcel the after excel
+	 * @return the list
+	 */
+	public List<List<String>> sbMonthlyInvoiceDifference(List<List<String>> beforeExcel, List<List<String>> afterExcel) {
+		int beforeExcelLastRow = beforeExcel.size();
+		int afterExcelLastRow = afterExcel.size();
+		List<String> appNames = getAppNameFromArray(beforeExcel);
+		List<List<String>> sheetdata = new ArrayList<List<String>>();
+		sheetdata.add(beforeExcel.get(0));
+		int appCount = appNames.size();
+		if (beforeExcelLastRow == afterExcelLastRow) {
+			for (int x = 0; x < appCount; x++) {
+				int startRowBeforeExcel = getAppStartRow(appNames.get(x), beforeExcel);
+				int startRowAfterExcel = getAppStartRow(appNames.get(x), afterExcel);
+				int endRowBeforeExcel = getSbAppEndRow(startRowBeforeExcel, beforeExcel);
+				int endRowAfterExcel = getSbAppEndRow(startRowAfterExcel, afterExcel);
+				for (int y = startRowBeforeExcel; y <= endRowBeforeExcel; y++) {
+					List<String> bodyData = new ArrayList<String>();
+					bodyData.add(beforeExcel.get(y).get(0));
+					bodyData.add(beforeExcel.get(y).get(1));
+					bodyData.add(beforeExcel.get(y).get(2));
+					bodyData.add(beforeExcel.get(y).get(3));
+					bodyData.add(beforeExcel.get(y).get(4));
+					bodyData.add(beforeExcel.get(y).get(5));
+					bodyData.add(beforeExcel.get(y).get(6));
+					String operator = beforeExcel.get(y).get(4);
+					String operation = beforeExcel.get(y).get(5);
+					int afterExcelOperationRow = 0;
+					if (beforeExcel.get(y).get(8).equalsIgnoreCase("Total Amount")){
+						afterExcelOperationRow = afterExcelLastRow - 1;
+					} else {
+						afterExcelOperationRow = getSbOperationRowNum(operator, operation, startRowAfterExcel, endRowAfterExcel, afterExcel);
+					}
+					if (beforeExcel.get(y).get(6).equalsIgnoreCase(afterExcel.get(afterExcelOperationRow).get(6))) {
+						for (int a = 7; a <= 12; a++) {
+							String beforeCellString = beforeExcel.get(y).get(a);
+							String afterCellString = afterExcel.get(afterExcelOperationRow).get(a);
+							if (!beforeCellString.equalsIgnoreCase("Total Amount")) {
+								int endIndex = beforeCellString.indexOf(" ");
+								String toBeRepalcedBeforeCell = beforeCellString.substring(0, endIndex + 1);
+								String toBeRepalcedAfterCell = afterCellString.substring(0, endIndex + 1);
+								if (toBeRepalcedBeforeCell.equalsIgnoreCase(toBeRepalcedAfterCell)) {
+									String valueBefore = beforeCellString.replace(toBeRepalcedBeforeCell, "");
+									String valueAfter = afterCellString.replace(toBeRepalcedAfterCell, "");
+									String nullValue = "";
+									if (valueBefore.isEmpty() && valueAfter.isEmpty()) {
+										bodyData.add(nullValue);
+									} else {
+										double beforeCell = Double.parseDouble(valueBefore);
+										double afterCell = Double.parseDouble(valueAfter);
+										double priceDiff = afterCell - beforeCell;
+										String concatPrice = toBeRepalcedBeforeCell + Double.toString(priceDiff);
+										bodyData.add(concatPrice);
+									}
+								} else {
+									String price = "priceTypeMismatch";
+									bodyData.add(price);
+								}
+							} else {
+								bodyData.add(beforeCellString);
+							}
+						}
+					}
+					sheetdata.add(bodyData);
+				}
+			}
+		}
+		return sheetdata;
+	}
+	
+	/**
+	 * Checks if is sb difference match.
+	 *
+	 * @author SulakkhanaW
+	 * @param diffUi the diff ui
+	 * @param diffManual the diff manual
+	 * @return true, if is sb difference match
+	 * @throws Exception the exception
+	 */
+	public boolean isSbDifferenceMatch(List<List<String>> diffUi, List<List<String>> diffManual) throws Exception{
+		flag = false;
+		int uiLastRowNum = diffUi.size();
+		int manualLastRowNum = diffManual.size();
+		List<String> appNames = getAppNameFromArray(diffUi);
+		int appCount = appNames.size();
+		try {
+			if (uiLastRowNum == manualLastRowNum){
+				logger.debug("Monthly Invoice SB diff row numbers matched");
+				for (int x = 0; x < appCount; x++){
+					int startRowDiffUi = getAppStartRow(appNames.get(x), diffUi);
+					int startRowDiffManual = getAppStartRow(appNames.get(x), diffManual);
+					int endRowDiffUi = getSbAppEndRow(startRowDiffUi, diffUi);
+					int endRowDiffManual = getSbAppEndRow(startRowDiffManual, diffManual);
+					for (int y = startRowDiffUi; y <= endRowDiffUi; y++){
+						String operator = diffUi.get(y).get(4);
+						String operation = diffUi.get(y).get(5);
+						int diffManualOperationRow = 0;
+						if (diffUi.get(y).get(8).equalsIgnoreCase("Total Amount")){
+							diffManualOperationRow = manualLastRowNum - 1;
+						} else {
+							diffManualOperationRow = getSbOperationRowNum(operator, operation, startRowDiffManual, endRowDiffManual, diffManual);
+						}
+						for (int a = 7; a <= 12; a++) {
+							String beforeCellString = diffUi.get(y).get(a);
+							String afterCellString = diffManual.get(diffManualOperationRow).get(a);
+							if (!beforeCellString.equalsIgnoreCase(afterCellString)){
+								flag = false;
+								return flag;
+							}
+							else {
+								logger.debug("Monthly Invoice NB diff matched");
+								flag = true;
+							}
+						}
+					}
+				}
+			} else {
+				logger.debug("Monthly Invoice SB diff row numbers mismatched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating two excel sheets 'isSbDifferenceMatch()'" + e.getMessage());
+			throw new Exception("Exception While Validating two excel sheets 'isSbDifferenceMatch()'" + e.getLocalizedMessage());
+		}
+		return flag;
+	}
+
+	/**
+	 * Nb monthly invoice difference.
+	 *
+	 * @author SulakkhanaW
+	 * @param beforeExcel the before excel
+	 * @param afterExcel the after excel
+	 * @return the list
+	 */
+	public List<List<String>> nbMonthlyInvoiceDifference(List<List<String>> beforeExcel, List<List<String>> afterExcel){
+		int beforeExcelLastRow = beforeExcel.size();
+		int afterExcelLastRow = afterExcel.size();
+		List<String> appNames = getAppNameFromArray(beforeExcel);
+		List<List<String>> sheetdata = new ArrayList<List<String>>();
+		sheetdata.add(beforeExcel.get(0));
+		int appCount = appNames.size();
+		if (beforeExcelLastRow == afterExcelLastRow){
+			for (int x = 0; x < appCount; x++){
+				int startRowBeforeExcel = getAppStartRow(appNames.get(x), beforeExcel);
+				int startRowAfterExcel = getAppStartRow(appNames.get(x), afterExcel);
+				int endRowBeforeExcel = getAppEndRow(startRowBeforeExcel, beforeExcel);
+				int endRowAfterExcel = getAppEndRow(startRowAfterExcel, afterExcel);
+				for (int y = startRowBeforeExcel; y <= endRowBeforeExcel; y++){
+					List<String> bodyData = new ArrayList<String>();
+					bodyData.add(beforeExcel.get(y).get(0));
+					bodyData.add(beforeExcel.get(y).get(1));
+					bodyData.add(beforeExcel.get(y).get(2));
+					bodyData.add(beforeExcel.get(y).get(3));
+					bodyData.add(beforeExcel.get(y).get(4));
+					bodyData.add(beforeExcel.get(y).get(5));
+					String operation = beforeExcel.get(y).get(4);
+					int afterExcelOperationRow = getOperationRowNum(operation, startRowAfterExcel, endRowAfterExcel, afterExcel);
+					for (int a = 6; a <= 10; a++){
+						String beforeCellString = beforeExcel.get(y).get(a);
+						String afterCellString = afterExcel.get(afterExcelOperationRow).get(a);
+						if (!beforeCellString.equalsIgnoreCase("Total Amount")) {
+							int endIndex = beforeCellString.indexOf(" ");
+							String toBeRepalcedBeforeCell = beforeCellString.substring(0, endIndex + 1);
+							String toBeRepalcedAfterCell = afterCellString.substring(0, endIndex + 1);
+							if (toBeRepalcedBeforeCell.equalsIgnoreCase(toBeRepalcedAfterCell)) {
+								String valueBefore = beforeCellString.replace(toBeRepalcedBeforeCell, "");
+								String valueAfter = afterCellString.replace(toBeRepalcedAfterCell, "");
+								String nullValue = "";
+								if (valueBefore.isEmpty() && valueAfter.isEmpty()) {
+									bodyData.add(nullValue);
+								} else {
+									double beforeCell = Double.parseDouble(valueBefore);
+									double afterCell = Double.parseDouble(valueAfter);
+									double priceDiff = afterCell - beforeCell;
+									String concatPrice = toBeRepalcedBeforeCell + Double.toString(priceDiff);
+									bodyData.add(concatPrice);
+								}
+							} else {
+								String price = "priceTypeMismatch";
+								bodyData.add(price);
+							}
+						} else {
+							bodyData.add(beforeCellString);
+						}
+					}
+					sheetdata.add(bodyData);
+				}
+			}
+		}
+		return sheetdata;
+	}
+	
+	/**
+	 * Checks if is difference match.
+	 *
+	 * @author SulakkhanaW
+	 * @param diffUi the diff ui
+	 * @param diffManual the diff manual
+	 * @return true, if is difference match
+	 * @throws Exception the exception
+	 */
+	public boolean isDifferenceMatch(List<List<String>> diffUi, List<List<String>> diffManual) throws Exception{
+		flag = false;
+		int uiLastRowNum = diffUi.size();
+		int manualLastRowNum = diffManual.size();
+		List<String> appNames = getAppNameFromArray(diffUi);
+		int appCount = appNames.size();
+		try {
+			if (uiLastRowNum == manualLastRowNum){
+				logger.debug("Monthly Invoice NB diff row numbers matched");
+				for (int x = 0; x < appCount; x++){
+					int startRowDiffUi = getAppStartRow(appNames.get(x), diffUi);
+					int startRowDiffManual = getAppStartRow(appNames.get(x), diffManual);
+					int endRowDiffUi = getAppEndRow(startRowDiffUi, diffUi);
+					int endRowDiffManual = getAppEndRow(startRowDiffManual, diffManual);
+					for (int y = startRowDiffUi; y <= endRowDiffUi; y++){
+						String operation = diffUi.get(y).get(4);
+						int diffManualOperationRow = getOperationRowNum(operation, startRowDiffManual, endRowDiffManual, diffManual);
+						for (int a = 6; a <= 10; a++){
+							String beforeCellString = diffUi.get(y).get(a);
+							String afterCellString = diffManual.get(diffManualOperationRow).get(a);
+							if (!beforeCellString.equalsIgnoreCase(afterCellString)){
+								flag = false;
+								return flag;
+							}
+							else {
+								logger.debug("Monthly Invoice NB diff matched");
+								flag = true;
+							}
+						}
+					}
+				}
+			}else {
+				logger.debug("Monthly Invoice NB diff row numbers mismatched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating two excel sheets 'isDifferenceMatch()'" + e.getMessage());
+			throw new Exception("Exception While Validating two excel sheets 'isDifferenceMatch()'" + e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
 	
 	/**
 	 * Write string ary to xlsx.
