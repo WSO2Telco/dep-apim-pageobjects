@@ -10,7 +10,8 @@ public interface SQLQuery {
 	 * %s_2 - toDate
 	 * %s_3 - operatorId
 	 * */
-	String PERFORMANCE_ERROR_RATES = "select sb.exceptionId, COUNT(*) as valueCounts from SB_API_RESPONSE_SUMMARY sb where sb.time BETWEEN  '%s' and '%s' and and sb.operatorId = '%s' exceptionId IS NOT NULL GROUP BY sb.exceptionId";
+	String PERFORMANCE_ERROR_RATES = "select sb.exceptionId, COUNT(*) as valueCounts from SB_API_RESPONSE_SUMMARY sb where sb.time BETWEEN  '%s' and '%s' and sb.operatorId = '%s' and userId = '%s' and exceptionId IS NOT NULL GROUP BY sb.exceptionId";
+									  
 	
 	/** The total api traffic. 
 	 * %s_1 - fromDate

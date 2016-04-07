@@ -2928,7 +2928,7 @@ public class ManagerPage extends BasicPageObject {
 	 */
 	public boolean dbReturningDataPerformanceErrorRates(String[][] apiTrafficListUI, String fromDate, String toDate, String operatorId, String serviceProvider) throws Exception {
 		flag = false;
-		String query = String.format(SQLQuery.PERFORMANCE_ERROR_RATES, fromDate, toDate, operatorId);
+		String query = String.format(SQLQuery.PERFORMANCE_ERROR_RATES, fromDate, toDate, operatorId, serviceProvider);
 		QueryResult qsApiTotalTraffic;
 		String uiApiName = null;
 		String uiApiCount = null;
