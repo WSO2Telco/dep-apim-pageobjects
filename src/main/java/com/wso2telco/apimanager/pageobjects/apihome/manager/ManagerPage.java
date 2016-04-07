@@ -475,8 +475,7 @@ public class ManagerPage extends BasicPageObject {
 		logger.debug("Validating Manager page hedaer");
 		Thread.sleep(sleepTime);
 		try {
-			if (getElement(lblManager).getText()
-					.equalsIgnoreCase(managerHeader)) {
+			if (getElement(lblManager).getText().equalsIgnoreCase(managerHeader)) {
 				flag = true;
 				logger.debug("Manager page hedaer matched");
 			} else {
