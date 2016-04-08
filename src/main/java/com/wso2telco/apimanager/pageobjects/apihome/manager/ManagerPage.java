@@ -3206,8 +3206,8 @@ public class ManagerPage extends BasicPageObject {
 			for (int i = 0; i < rowCount; i++) {
 				String matchingValue = rows.get(i);
 				String dbValue = qsTransactionLog.getValueFromCondition(dbColumn, "requestId", matchingValue);
-				String excelMatchingVal = " " + matchingValue;
-				String excelValue = excelFileReader.getDesiredValue(exceldata, excelColumn, " MIFE Reference Code", excelMatchingVal);
+				String excelMatchingVal = matchingValue;
+				String excelValue = excelFileReader.getDesiredValue(exceldata, excelColumn, "MIFE_ReferenceCode", excelMatchingVal);
 				double dbval = 0,excelVal = 0;
 				if(dbValue.contains(".")||excelValue.contains(".")){
 					dbval = Double.parseDouble(dbValue);
