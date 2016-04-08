@@ -9,7 +9,6 @@ import com.wso2telco.apimanager.pageobjects.BasicPageObject;
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class APIPublisherHomePage.
  */
@@ -134,6 +133,11 @@ public class APIPublisherHomePage extends BasicPageObject {
 	 * %s_1 = type
 	 **/
 	private String chkURLType = "//label[text()[contains(.,'%s')]]/input";
+	
+	/** The chk url type ie. 
+	 * %s_1 = type
+	 * */
+	private String chkURLTypeIE = "//input[@value='%s']";
 	
 	/** The btn add parameter. 
 	 * %s_1 = AddParameter
@@ -319,9 +323,15 @@ public class APIPublisherHomePage extends BasicPageObject {
 	public void setUrlType(String type){
 		String Type = type.toUpperCase();
 		String xpath = String.format(chkURLType, Type);
+		String xpathIe = String.format(chkURLTypeIE, Type);
 		WebPelement chkType = defineEelement(UIType.Xpath, xpath);
+		WebPelement chkTypeIe = defineEelement(UIType.Xpath, xpathIe);
 		logger.debug("Entering API URL type");
-		getElement(chkType).click();
+		if (config.getValue("browser").equalsIgnoreCase("INTERNETEXPLORER")){
+			getElement(chkTypeIe).click();
+		} else {
+			getElement(chkType).click();
+		}
 		logger.debug("Entered API URL type");
 	}
 	

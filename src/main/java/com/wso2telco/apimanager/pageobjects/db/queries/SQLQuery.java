@@ -10,7 +10,8 @@ public interface SQLQuery {
 	 * %s_2 - toDate
 	 * %s_3 - operatorId
 	 * */
-	String PERFORMANCE_ERROR_RATES = "select sb.exceptionId, COUNT(*) as valueCounts from SB_API_RESPONSE_SUMMARY sb where sb.time BETWEEN  '%s' and '%s' and and sb.operatorId = '%s' exceptionId IS NOT NULL GROUP BY sb.exceptionId";
+	String PERFORMANCE_ERROR_RATES = "select sb.exceptionId, COUNT(*) as valueCounts from SB_API_RESPONSE_SUMMARY sb where sb.time BETWEEN  '%s' and '%s' and sb.operatorId = '%s' and userId = '%s' and exceptionId IS NOT NULL GROUP BY sb.exceptionId";
+									  
 	
 	/** The total api traffic. 
 	 * %s_1 - fromDate
@@ -30,6 +31,9 @@ public interface SQLQuery {
 	String OPERATOR_API_TRAFFIC="select sb.operatorId ,COUNT(sb.operatorId) as operatorcount from qadbApiStats.SB_API_RESPONSE_SUMMARY sb,qadbApiMgt.AM_APPLICATION app,qadbApiMgt.AM_APPLICATION_KEY_MAPPING appkey where app.APPLICATION_ID=appkey.APPLICATION_ID and appkey.CONSUMER_KEY=sb.consumerKey and sb.time BETWEEN '%s' and '%s' and sb.userId='%s' and app.NAME='%s' and sb.api='%s' GROUP BY sb.operatorId";
 	
 	
+	/** The customer care for customercare role. */
+	String CUSTOMER_CARE_FOR_CUSTOMERCARE_ROLE = "SELECT CONCAT(DATE(sb.time),' ',time(CONVERT_TZ(sb.time , '+00:00', '+05:30'))) as time,sb.jsonBody, sb.api, sb.responseCode FROM qadbApiStats.SB_API_RESPONSE_SUMMARY sb,qadbApiMgt.AM_APPLICATION app,qadbApiMgt.AM_APPLICATION_KEY_MAPPING appkey where app.APPLICATION_ID=appkey.APPLICATION_ID and appkey.CONSUMER_KEY=sb.consumerKey and appkey.KEY_TYPE='PRODUCTION' and sb.time BETWEEN '%s' and '%s' and app.NAME='%s'";
+	
 	/** The customer care. */
 	String CUSTOMER_CARE = "SELECT CONCAT(DATE(sb.time),' ',time(CONVERT_TZ(sb.time , '+00:00', '+05:30'))) as time,sb.jsonBody, sb.api, sb.responseCode FROM qadbApiStats.SB_API_RESPONSE_SUMMARY sb,qadbApiMgt.AM_APPLICATION app,qadbApiMgt.AM_APPLICATION_KEY_MAPPING appkey where app.APPLICATION_ID=appkey.APPLICATION_ID and appkey.CONSUMER_KEY=sb.consumerKey and appkey.KEY_TYPE='PRODUCTION' and sb.time BETWEEN '%s' and '%s' and sb.operatorId='%s' and sb.userId='%s' and app.NAME='%s'";
 	/** The transaction log. 
@@ -38,7 +42,7 @@ public interface SQLQuery {
 	 * %s_3 - operatorId
 	 * %s_4 - api
 	 * */
-	String TRANSACTION_LOG = "select sb.time, sb.userId, sb.operatorId, sb.api, sb.requestId, sb.msisdn, sb.chargeAmount, sb.responseCode, sb.purchaseCategoryCode from SB_API_RESPONSE_SUMMARY sb where sb.time BETWEEN  '%s' and '%s' and operatorId = '%s' and sb.api = '%s' and exceptionId IS NULL";
+	String TRANSACTION_LOG = "select CONCAT(DATE(sb.time),' ',time(CONVERT_TZ(sb.time , '+00:00', '+05:30'))) as time, sb.userId, sb.operatorId, sb.requestId, sb.msisdn, sb.chargeAmount, sb.responseCode from SB_API_RESPONSE_SUMMARY sb where sb.time BETWEEN  '%s' and '%s' and operatorId = '%s' and exceptionId IS NULL and sb.chargeAmount IS NOT NULL";
 	
 	
 	/** The subscription rates nb. */

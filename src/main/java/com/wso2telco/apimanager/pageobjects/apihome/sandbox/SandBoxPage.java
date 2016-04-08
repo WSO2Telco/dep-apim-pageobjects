@@ -9,11 +9,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
+
 
 // TODO: Auto-generated Javadoc
 /**
@@ -54,6 +56,9 @@ public class SandBoxPage extends BasicPageObject{
 	
 	/** The lnk number delete. */
 	private String lnkNumberDelete = "//table[@id='numbers_data_table']/tbody/tr/td[contains(.,'%s')]/../td[4]/a[4]";
+	
+	/** The lbl balance. */
+	private String lblBalance = "//table[@id='numbers_data_table']/tbody/tr/td[contains(.,'%s')]/../td[3]";
 	
 	/** The lbl manage numbers. */
 	private WebPelement lblManageNumbers = defineEelement(UIType.Xpath, "//div[@id='listing']/div/h2");
@@ -112,6 +117,12 @@ public class SandBoxPage extends BasicPageObject{
 	/** The txt notify url. */
 	private WebPelement txtNotifyUrl = defineEelement(UIType.ID,"callbackURL");
 	
+	/** The txt notify url refund. */
+	private WebPelement txtNotifyUrlRefund = defineEelement(UIType.ID,"notifyURL");
+	
+	/** The txt max pay amount. */
+	private WebPelement txtMaxPayAmount = defineEelement(UIType.ID,"maxamt");
+	
 	/** The txt purchase category code. */
 	private WebPelement txtPurchaseCategoryCode = defineEelement(UIType.ID,"purchaseCategoryCode");
 	
@@ -129,6 +140,36 @@ public class SandBoxPage extends BasicPageObject{
 	
 	/** The txt response payload. */
 	private WebPelement txtResponsePayload = defineEelement(UIType.Xpath,"//div[@class='ParameterValue']/textarea[@id='response']");
+	
+	/** The lnk refund user. */
+	private WebPelement lnkRefundUser = defineEelement(UIType.Xpath,"//a[contains(.,'Refund the User')]");
+	
+	/** The lbl refund the user. */
+	private WebPelement lblRefundTheUser = defineEelement(UIType.Xpath,"//div[@class='title-section']/h2");
+	
+	/** The txt call back data. */
+	private WebPelement txtCallBackData = defineEelement(UIType.ID,"callbackData");
+	
+	/** The txt code. */
+	private WebPelement txtCode = defineEelement(UIType.ID,"code");
+	
+	/** The txt mandate code. */
+	private WebPelement txtMandateCode = defineEelement(UIType.ID,"mandateId");
+	
+	/** The txt notification format. */
+	private WebPelement txtNotificationFormat = defineEelement(UIType.ID,"notificationFormat");
+	
+	/** The txt on behalf of. */
+	private WebPelement txtOnBehalfOf = defineEelement(UIType.ID,"onBehalfOf");
+	
+	/** The txt server reference code. */
+	private WebPelement txtServerReferenceCode = defineEelement(UIType.ID,"originalServerRef");
+	
+	/** The txt product id. */
+	private WebPelement txtProductId = defineEelement(UIType.ID,"productId");
+	
+	/** The txt service id. */
+	private WebPelement txtServiceId = defineEelement(UIType.ID,"serviceID");
 	
 	/**
 	 * Instantiates a new sand box page.
@@ -168,7 +209,7 @@ public class SandBoxPage extends BasicPageObject{
 	/**
 	 * Enter user name.
 	 *
-	 * @author SulakkhanaW
+	 * @author IsuruM
 	 * @param username the username
 	 * @throws InterruptedException the interrupted exception
 	 */
@@ -192,9 +233,11 @@ public class SandBoxPage extends BasicPageObject{
 	 */
 	
 	public void enterPassword(String password) throws InterruptedException{
+		WebElement paswd = driver.findElement(By.cssSelector("#loginForm>#pass"));
 		logger.debug("Entering password");
 		Thread.sleep(sleepTime);
-		WebElement paswd=driver.findElement(By.cssSelector("#loginForm>#pass"));
+		Thread.sleep(sleepTime);
+		paswd.clear();
 		paswd.sendKeys(password);
 		Thread.sleep(sleepTime);
 		logger.debug("Entered password successfully");
@@ -288,7 +331,7 @@ public class SandBoxPage extends BasicPageObject{
 	 * @throws Exception the exception
 	 */
 	public void clearExistingNumber(String number) throws Exception {
-		
+		Thread.sleep(sleepTime);
 		logger.debug("Clearing existing number");
 		List<WebElement> allElements = driver.findElements(By.xpath(lblNumber)); 
 		List<String> stringList = new ArrayList<>();
@@ -305,6 +348,32 @@ public class SandBoxPage extends BasicPageObject{
 				logger.debug("Cleared existing number");
 			}
 		
+	}
+	
+	/**
+	 * Gets the balanceof the number.
+	 *
+	 * @author JayaniP
+	 * @param number the number
+	 * @return the balanceof the number
+	 * @throws Exception the exception
+	 */
+	public String getBalanceofTheNumber(String number) throws Exception {
+		logger.debug("Get the balance");
+		String bal = "";
+		List<WebElement> allElements = driver.findElements(By.xpath(lblNumber)); 
+		List<String> stringList = new ArrayList<>();
+
+			for (WebElement element: allElements) {
+			      stringList.add(element.getText());
+			}
+			if (stringList.toString().contains(number)) {
+				String xpath = String.format(lblBalance, number);
+				WebPelement balance = defineEelement(UIType.Xpath, xpath);
+				bal = getElement(balance).getText();
+				logger.debug("Got the balance");
+			}
+		return bal;
 	}
 	
 	/**
@@ -400,6 +469,7 @@ public class SandBoxPage extends BasicPageObject{
 	 * @throws Exception the exception
 	 */
 	public boolean isNumberAvailable(String number) throws Exception{
+		Thread.sleep(sleepTime);
 		flag = false;
 		logger.debug("Validate number");
 		List<WebElement> allElements = driver.findElements(By.xpath(lblNumber)); 
@@ -660,9 +730,12 @@ public class SandBoxPage extends BasicPageObject{
 	 *
 	 * @author JayaniP
 	 * @return the request payload
+	 * @throws InterruptedException 
 	 */
-	public String getRequestPayload() {
-		return getElement(txtRequestPayload).getAttribute("value");
+	public String getRequestPayloadUI() throws InterruptedException {
+		Thread.sleep(sleepTime);
+		String requestPayload = getElement(txtRequestPayload).getAttribute("value");
+		return requestPayload;
 	}
 	
 	/**
@@ -670,8 +743,10 @@ public class SandBoxPage extends BasicPageObject{
 	 *
 	 * @author JayaniP
 	 * @return the rsponse payload
+	 * @throws InterruptedException 
 	 */
-	public String getRsponsePayload() {
+	public String getRsponsePayloadUI() throws InterruptedException {
+		Thread.sleep(sleepTime);
 		return getElement(txtResponsePayload).getAttribute("value");
 	}
 	
@@ -699,11 +774,159 @@ public class SandBoxPage extends BasicPageObject{
 		return flag;
 	}
 	
-	public String getValueFromJson(String tag, String json){
-		JsonParser p = new JsonParser();
-		JsonObject o = p.parse(json).getAsJsonObject();
-		o.get(tag);
-		return o.get(tag).toString();
+	/**
+	 * Gets the value from json.
+	 *
+	 * @author JayaniP
+	 * @param tag the tag
+	 * @param json the json
+	 * @return the value from json
+	 */
+	public String getValueFromJson(String tag, String json) {
+		JsonElement jsonElement = new JsonParser().parse(json);
+		JsonObject jsonObject = jsonElement.getAsJsonObject();
+		String returnValue = null;
+		switch (tag) {
+
+		case "serverReferenceCode":	
+		case "endUserId":
+		case "transactionOperationStatus":
+		case "clientCorrelator":
+		case "referenceCode":
+		case "callbackData":
+		case "notificationFormat":
+		case "originalServerReferenceCode":
+			returnValue = getValueAmountTransaction(tag, jsonObject);
+			break;
+			
+		case "totalAmountCharged":
+		case "totalAmountRefunded":
+			returnValue = getValuePaymnetAmount(tag, jsonObject);
+			break;
+
+		case "taxAmount":
+		case "purchaseCategoryCode":
+		case "channel":
+		case "onBehalfOf":
+		case "serviceId":	
+		case "mandateId":
+		case "productId":
+			returnValue = getValueChargingMetaData(tag, jsonObject);
+			break;
+
+		case "amount":
+		case "description":
+		case "currency":
+		case "code":
+			returnValue = getValueChargingInformation(tag, jsonObject);
+			break;
+			
+		case "text":
+			returnValue = getValuePolicyException(tag, jsonObject);
+			break;
+			
+		default:
+			break;
+		}
+		return returnValue;
+	}
+	
+	/**
+	 * Gets the value amount transaction.
+	 *
+	 * @author JayaniP
+	 * @param tag the tag
+	 * @param jsonObject the json object
+	 * @return the value amount transaction
+	 */
+	private String getValueAmountTransaction(String tag, JsonObject jsonObject){
+		jsonObject = jsonObject.getAsJsonObject("amountTransaction");
+		String returnValue = jsonObject.get(tag).toString();
+		String firstCharacter = Character.toString(returnValue.charAt(0));
+		if (firstCharacter.equalsIgnoreCase("\"")){
+			returnValue = returnValue.substring(1, returnValue.length()-1);
+		}
+		return returnValue;
+	}
+	
+	/**
+	 * Gets the value paymnet amount.
+	 *
+	 * @author JayaniP
+	 * @param tag the tag
+	 * @param jsonObject the json object
+	 * @return the value paymnet amount
+	 */
+	private String getValuePaymnetAmount(String tag, JsonObject jsonObject){
+		jsonObject = jsonObject.getAsJsonObject("amountTransaction");
+		jsonObject = jsonObject.getAsJsonObject("paymentAmount");
+		String returnValue = jsonObject.get(tag).toString();
+		String firstCharacter = Character.toString(returnValue.charAt(0));
+		if (firstCharacter.equalsIgnoreCase("\"")){
+			returnValue = returnValue.substring(1, returnValue.length()-1);
+		}
+		return returnValue;
+	}
+	
+	/**
+	 * Gets the value charging meta data.
+	 *
+	 * @author JayaniP
+	 * @param tag the tag
+	 * @param jsonObject the json object
+	 * @return the value charging meta data
+	 */
+	private String getValueChargingMetaData(String tag, JsonObject jsonObject){
+		jsonObject = jsonObject.getAsJsonObject("amountTransaction");
+		jsonObject = jsonObject.getAsJsonObject("paymentAmount");
+		jsonObject = jsonObject.getAsJsonObject("chargingMetaData");
+		String returnValue = jsonObject.get(tag).toString();
+		String firstCharacter = Character.toString(returnValue.charAt(0));
+		if (firstCharacter.equalsIgnoreCase("\"")){
+			returnValue = jsonObject.get(tag).toString().substring(1, tag.length()-1);
+		}
+		return returnValue;
+	}
+	
+	/**
+	 * Gets the value charging information.
+	 *
+	 * @author JayaniP
+	 * @param tag the tag
+	 * @param jsonObject the json object
+	 * @return the value charging information
+	 */
+	private String getValueChargingInformation(String tag, JsonObject jsonObject){
+		jsonObject = jsonObject.getAsJsonObject("amountTransaction");
+		jsonObject = jsonObject.getAsJsonObject("paymentAmount");
+		jsonObject = jsonObject.getAsJsonObject("chargingInformation");
+		String firstCharacter = Character.toString(jsonObject.get(tag).toString().charAt(0));
+		String returnValue = null;
+		if (firstCharacter.equalsIgnoreCase("\"")){
+			returnValue = jsonObject.get(tag).toString().substring(1, tag.length()-1);
+		} else {
+			returnValue = jsonObject.get(tag).toString();
+		}
+		return returnValue;
+	}
+	
+	/**
+	 * Gets the value policy exception.
+	 *
+	 * @author JayaniP
+	 * @param tag the tag
+	 * @param jsonObject the json object
+	 * @return the value policy exception
+	 */
+	private String getValuePolicyException(String tag, JsonObject jsonObject){
+		jsonObject = jsonObject.getAsJsonObject("requestError");
+		jsonObject = jsonObject.getAsJsonObject("policyException");
+		String returnValue = jsonObject.get(tag).toString();
+		String firstCharacter = Character.toString(returnValue.charAt(0));
+		if (firstCharacter.equalsIgnoreCase("\"")){
+			returnValue = returnValue.substring(1, returnValue.length()-1);
+		}
+		return returnValue;
 	}
 	
 	/**
@@ -727,5 +950,161 @@ public class SandBoxPage extends BasicPageObject{
 			throw new Exception("Exception While Validating amount 'isAmountAvailable()'" + e.getLocalizedMessage());
 		}
 		return flag;
+	}
+	
+	/**
+	 * Click on refund user.
+	 *
+	 * @author JayaniP
+	 */
+	public void clickOnRefundUser(){
+		logger.debug("Start clicking on refund user");
+		getElement(lnkRefundUser).click();
+		logger.debug("Clicked on refund user");
+	}
+	
+	/**
+	 * Checks if is refund user.
+	 *
+	 * @author JayaniP
+	 * @param title the title
+	 * @return true, if is refund user
+	 * @throws Exception the exception
+	 */
+	public boolean isRefundUser(String title) throws Exception{
+		flag = false;
+		logger.debug("Validating refund the user page");
+		try {
+			if (getElement(lblRefundTheUser).getText().equalsIgnoreCase(title)){
+				flag = true;
+				logger.debug("Refund the user page is load properly");
+			} else {
+				logger.debug("Refund the user page is not load properly");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Refund the user page 'isRefundUser()'" + e.getMessage());
+			throw new Exception("Exception While Validating Refund the user page 'isRefundUser()'" + e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
+	/**
+	 * Enter call back data.
+	 *
+	 * @author JayaniP
+	 * @param callBackData the call back data
+	 */
+	public void enterCallBackData(String callBackData){
+		logger.debug("Start entering call back data");
+		getElement(txtCallBackData).clearAndSendkeys(callBackData);
+		logger.debug("Entered call back data");
+	}
+	
+	/**
+	 * Enter code.
+	 *
+	 * @author JayaniP
+	 * @param code the code
+	 */
+	public void enterCode(String code){
+		logger.debug("Start entering code");
+		getElement(txtCode).clearAndSendkeys(code);
+		logger.debug("Entered code");
+	}
+	
+	/**
+	 * Enter mandate id.
+	 *
+	 * @author JayaniP
+	 * @param mandateId the mandate id
+	 */
+	public void enterMandateId(String mandateId){
+		logger.debug("Start entering mandateId");
+		getElement(txtMandateCode).clearAndSendkeys(mandateId);
+		logger.debug("Entered mandateId");
+	}
+	
+	/**
+	 * Enter notification format.
+	 *
+	 * @author JayaniP
+	 * @param format the format
+	 */
+	public void enterNotificationFormat(String format){
+		logger.debug("Start entering notification format");
+		getElement(txtNotificationFormat).clearAndSendkeys(format);
+		logger.debug("Entered notification format");
+	}
+	
+	/**
+	 * Enter on behalf of.
+	 *
+	 * @author JayaniP
+	 * @param onBehalfOf the on behalf of
+	 */
+	public void enterOnBehalfOf(String onBehalfOf){
+		logger.debug("Start entering onBehalfOf");
+		getElement(txtOnBehalfOf).clearAndSendkeys(onBehalfOf);
+		logger.debug("Entered onBehalfOf");
+	}
+	
+	/**
+	 * Enter server reference code.
+	 *
+	 * @author JayaniP
+	 * @param referenceCode the reference code
+	 */
+	public void enterServerReferenceCode(String referenceCode){
+		logger.debug("Start entering reference Code");
+		getElement(txtServerReferenceCode).clearAndSendkeys(referenceCode);
+		logger.debug("Entered reference Code");
+	}
+	
+	/**
+	 * Enter product id.
+	 *
+	 * @author JayaniP
+	 * @param prodID the prod id
+	 */
+	public void enterProductId(String prodID){
+		logger.debug("Start entering product id");
+		getElement(txtProductId).clearAndSendkeys(prodID);
+		logger.debug("Entered product id");
+	}
+	
+	/**
+	 * Enter service id.
+	 *
+	 * @author JayaniP
+	 * @param serviceId the service id
+	 */
+	public void enterServiceId(String serviceId){
+		logger.debug("Start entering service id");
+		getElement(txtServiceId).clearAndSendkeys(serviceId);
+		logger.debug("Entered service id");
+	}
+	
+	/**
+	 * Enter refund notify url.
+	 *
+	 * @author JayaniP
+	 * @param url the url
+	 */
+	public void enterRefundNotifyURL(String url){
+		logger.debug("Start entering NotifyURL");
+		getElement(txtNotifyUrlRefund).clearAndSendkeys(url);
+		logger.debug("Entered NotifyURL");
+	}
+	
+	/**
+	 * Enter max payment amount.
+	 *
+	 * @author JayaniP
+	 * @param amount the amount
+	 */
+	public void enterMaxPaymentAmount(String amount){
+		logger.debug("Start entering max payment amount");
+		getElement(txtMaxPayAmount).clearAndSendkeys(amount);
+		logger.debug("Entered max payment amount");
 	}
 }
