@@ -3965,8 +3965,8 @@ public class ManagerPage extends BasicPageObject {
 			for (int x = 0; x < appCount; x++){
 				int startRowBeforeExcel = getAppStartRow(appNames.get(x), beforeExcel);
 				int startRowAfterExcel = getAppStartRow(appNames.get(x), afterExcel);
-				int endRowBeforeExcel = getAppEndRow(startRowBeforeExcel, beforeExcel);
-				int endRowAfterExcel = getAppEndRow(startRowAfterExcel, afterExcel);
+				int endRowBeforeExcel = getSbAppEndRow(startRowBeforeExcel, beforeExcel);
+				int endRowAfterExcel = getSbAppEndRow(startRowAfterExcel, afterExcel);
 				for (int y = startRowBeforeExcel; y <= endRowBeforeExcel; y++){
 					List<String> bodyData = new ArrayList<String>();
 					bodyData.add(beforeExcel.get(y).get(0));
@@ -4033,8 +4033,8 @@ public class ManagerPage extends BasicPageObject {
 				for (int x = 0; x < appCount; x++){
 					int startRowDiffUi = getAppStartRow(appNames.get(x), diffUi);
 					int startRowDiffManual = getAppStartRow(appNames.get(x), diffManual);
-					int endRowDiffUi = getAppEndRow(startRowDiffUi, diffUi);
-					int endRowDiffManual = getAppEndRow(startRowDiffManual, diffManual);
+					int endRowDiffUi = getSbAppEndRow(startRowDiffUi, diffUi);
+					int endRowDiffManual = getSbAppEndRow(startRowDiffManual, diffManual);
 					for (int y = startRowDiffUi; y <= endRowDiffUi; y++){
 						String operation = diffUi.get(y).get(4);
 						int diffManualOperationRow = getOperationRowNum(operation, startRowDiffManual, endRowDiffManual, diffManual);
