@@ -170,6 +170,7 @@ public class SandBoxPage extends BasicPageObject{
 	
 	/** The txt service id. */
 	private WebPelement txtServiceId = defineEelement(UIType.ID,"serviceID");
+	
 	/**
 	 * Instantiates a new sand box page.
 	 *
@@ -232,9 +233,11 @@ public class SandBoxPage extends BasicPageObject{
 	 */
 	
 	public void enterPassword(String password) throws InterruptedException{
+		WebElement paswd = driver.findElement(By.cssSelector("#loginForm>#pass"));
 		logger.debug("Entering password");
 		Thread.sleep(sleepTime);
-		WebElement paswd=driver.findElement(By.cssSelector("#loginForm>#pass"));
+		Thread.sleep(sleepTime);
+		paswd.clear();
 		paswd.sendKeys(password);
 		Thread.sleep(sleepTime);
 		logger.debug("Entered password successfully");

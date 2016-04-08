@@ -129,10 +129,13 @@ public class ApplicationsPage extends BasicPageObject  {
 	 *
 	 * @author SulakkhanaW
 	 * @param applicationName the application name
+	 * @throws InterruptedException 
 	 */
-	public void enterAppllicationName(String applicationName){
+	public void enterAppllicationName(String applicationName) throws InterruptedException{
 		logger.debug("Enter application name");
+		Thread.sleep(sleepTime);
 		getElement(txtApplicationName).clearAndSendkeys(applicationName);
+		Thread.sleep(sleepTime);
 		logger.debug("Application name entered Successfully");
 	}
 	
@@ -141,10 +144,12 @@ public class ApplicationsPage extends BasicPageObject  {
 	 *
 	 * @author SulakkhanaW
 	 * @param applicationCallbackUrl the application callback url
+	 * @throws InterruptedException 
 	 */
-	public void enterAppllicationCallbackUrl(String applicationCallbackUrl){
+	public void enterAppllicationCallbackUrl(String applicationCallbackUrl) throws InterruptedException{
 		logger.debug("Enter application callback url");
 		getElement(txtApplicationCallbackUrl).clearAndSendkeys(applicationCallbackUrl);
+		Thread.sleep(sleepTime);
 		logger.debug("Application callback url entered Successfully");
 	}
 	
@@ -153,10 +158,12 @@ public class ApplicationsPage extends BasicPageObject  {
 	 *
 	 * @author SulakkhanaW
 	 * @param description the description
+	 * @throws InterruptedException 
 	 */
-	public void enterAppllicationDescription(String description){
+	public void enterAppllicationDescription(String description) throws InterruptedException{
 		logger.debug("Enter application description");
 		getElement(txtApplicationDescription).clearAndSendkeys(description);
+		Thread.sleep(sleepTime);
 		logger.debug("Application description entered Successfully");
 	}
 	
