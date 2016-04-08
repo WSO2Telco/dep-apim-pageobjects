@@ -331,7 +331,7 @@ public class SandBoxPage extends BasicPageObject{
 	 * @throws Exception the exception
 	 */
 	public void clearExistingNumber(String number) throws Exception {
-		
+		Thread.sleep(sleepTime);
 		logger.debug("Clearing existing number");
 		List<WebElement> allElements = driver.findElements(By.xpath(lblNumber)); 
 		List<String> stringList = new ArrayList<>();
@@ -469,6 +469,7 @@ public class SandBoxPage extends BasicPageObject{
 	 * @throws Exception the exception
 	 */
 	public boolean isNumberAvailable(String number) throws Exception{
+		Thread.sleep(sleepTime);
 		flag = false;
 		logger.debug("Validate number");
 		List<WebElement> allElements = driver.findElements(By.xpath(lblNumber)); 

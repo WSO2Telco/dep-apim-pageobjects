@@ -42,7 +42,7 @@ public interface SQLQuery {
 	 * %s_3 - operatorId
 	 * %s_4 - api
 	 * */
-	String TRANSACTION_LOG = "select sb.time, sb.userId, sb.operatorId, sb.api, sb.requestId, sb.msisdn, sb.chargeAmount, sb.responseCode, sb.purchaseCategoryCode from SB_API_RESPONSE_SUMMARY sb where sb.time BETWEEN  '%s' and '%s' and operatorId = '%s' and sb.api = '%s' and exceptionId IS NULL";
+	String TRANSACTION_LOG = "select CONCAT(DATE(sb.time),' ',time(CONVERT_TZ(sb.time , '+00:00', '+05:30'))) as time, sb.userId, sb.operatorId, sb.requestId, sb.msisdn, sb.chargeAmount, sb.responseCode from SB_API_RESPONSE_SUMMARY sb where sb.time BETWEEN  '%s' and '%s' and operatorId = '%s' and exceptionId IS NULL and sb.chargeAmount IS NOT NULL";
 	
 	
 	/** The subscription rates nb. */
