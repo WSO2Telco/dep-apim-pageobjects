@@ -4546,4 +4546,24 @@ public class ManagerPage extends BasicPageObject {
 		}
 		return flag;
 	}
+	
+	/**
+	 * Send api request.
+	 *
+	 * @author SulakkhanaW
+	 * @param batFilePath the bat file path
+	 */
+	public void sendAPIRequest(String batFilePath){
+		try {
+			logger.debug("Sending API request using jmeter");
+			Process process = Runtime.getRuntime().exec("cmd /c start /wait " + batFilePath);
+			process.getInputStream();
+			process.waitFor();
+			logger.debug("Send API request using jmeter successfully");
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 }
