@@ -11,7 +11,6 @@ import com.wso2telco.apimanager.pageobjects.BasicPageObject;
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class PublisherHomePage.
  */
@@ -161,7 +160,7 @@ public class PublisherHomePage extends BasicPageObject {
 	public boolean isTableSubscriptions(String userName, String appName, String apiName) throws Exception {
 
 		int initial = 0;
-		boolean flags = false;
+		flag = false;
 		try {
 			if (driver.findElement(By.xpath(subscriptionLabelHeader)).isDisplayed()) {
 				Thread.sleep(sleepTime);
@@ -177,7 +176,6 @@ public class PublisherHomePage extends BasicPageObject {
 					if (row_num == 11) {
 						row_num = 1;
 						numOfTimes++;
-						// TODO:declare the xpath as a string on top of the class
 						if (!(driver.findElement(By.xpath(paginationNavigator)).getAttribute("class") == "disabled")) {
 							driver.findElement(By.xpath(paginationNavigator)).click();
 						}
@@ -200,8 +198,8 @@ public class PublisherHomePage extends BasicPageObject {
 							}
 							if ((userName.equals(user) && appName.equals(application))&& (apiName.equals(subscribedAPIS))) {
 
-								flags = true;
-								return flags;
+								flag = true;
+								return flag;
 
 							}
 
@@ -227,8 +225,8 @@ public class PublisherHomePage extends BasicPageObject {
 							}
 							if ((userName.equals(user) && appName.equals(application))&& (apiName.equals(subscribedAPIS))) {
 
-								flags = true;
-								return flags;
+								flag = true;
+								return flag;
 
 							}
 
@@ -244,6 +242,6 @@ public class PublisherHomePage extends BasicPageObject {
 			logger.debug("Exception While Validating subscription 'isTableSubscriptions()'" + e.getMessage());
 			throw new Exception("Exception While Validating subscription 'isTableSubscriptions()'" + e.getLocalizedMessage());
 		}
-		return flags;
+		return flag;
 	}
 }
