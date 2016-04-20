@@ -3111,8 +3111,7 @@ public class ManagerPage extends BasicPageObject {
 			for (int i = 0; i < count;) {
 				pageination.get(i).click();
 				Thread.sleep(sleepTime);
-				WebElement table = driver.findElement(By.xpath(tblCustomerCare));
-				Table tableContent = new Table(table);
+				Table tableContent = getTable(UIType.Xpath, tblCustomerCare);
 				int rowCount = tableContent.body().getAllRows().size();
 				int columnCount = tableContent.head().getColumnIndex(column);
 				int matchingColumnCount = tableContent.head().getColumnIndex("Date");
@@ -3397,8 +3396,7 @@ public class ManagerPage extends BasicPageObject {
 	 * @return the int
 	 */
 	private int appRowCountSouthboundTable(String appName){
-		WebElement invoiceTableSB = driver.findElement(By.xpath(sbMonthlyInvoiceTable));
-		Table sbInvoiceTable = new Table(invoiceTableSB);
+		Table sbInvoiceTable = getTable(UIType.Xpath, sbMonthlyInvoiceTable);
 		int appRows = sbInvoiceTable.body().getAllRows().size();
 		int appRowNumber = sbInvoiceTable.body().getRowIndex(appName);
 		for (int x = appRowNumber; x < appRows; x++){
@@ -3418,8 +3416,7 @@ public class ManagerPage extends BasicPageObject {
 	 * @return the int
 	 */
 	private int appRowCountNbTable(String appName){
-		WebElement invoiceTableNB = driver.findElement(By.xpath(nbMonthlyInvoiceTable));
-		Table invoiceTable = new Table(invoiceTableNB);
+		Table invoiceTable = getTable(UIType.Xpath, nbMonthlyInvoiceTable);
 		int appRows = invoiceTable.body().getAllRows().size();
 		int appRowNumber = invoiceTable.body().getRowIndex(appName);
 		for (int x = appRowNumber; x < appRows; x++){
@@ -3439,8 +3436,7 @@ public class ManagerPage extends BasicPageObject {
 	 * @return the southbound total amount
 	 */
 	public String getSouthboundTotalAmount(String columnName){
-		WebElement invoiceTableSB = driver.findElement(By.xpath(sbMonthlyInvoiceTable));
-		Table sbInvoiceTable = new Table(invoiceTableSB);
+		Table sbInvoiceTable = getTable(UIType.Xpath, sbMonthlyInvoiceTable);
 		String returnValue = null;
 		int rowCountTotalAmount = sbInvoiceTable.body().getAllRows().size();
 		WebElement rowTotalAmount = sbInvoiceTable.body().getRow(rowCountTotalAmount - 1);
@@ -3478,8 +3474,7 @@ public class ManagerPage extends BasicPageObject {
 	 * @return the nb total amount
 	 */
 	public String getNbTotalAmount(String appName, String columnName){
-		WebElement invoiceTableNB = driver.findElement(By.xpath(nbMonthlyInvoiceTable));
-		Table invoiceTable = new Table(invoiceTableNB);
+		Table invoiceTable = getTable(UIType.Xpath, nbMonthlyInvoiceTable);
 		String returnValue = null;
 		int rowCountTotalAmount = appRowCountNbTable(appName);
 		WebElement rowTotalAmount = invoiceTable.body().getRow(rowCountTotalAmount);
@@ -3521,8 +3516,7 @@ public class ManagerPage extends BasicPageObject {
 	 */
 	public String getSouthboundInvoicValue(String appName,String apiName,String operator, String operation,String columnName){
 		String returnValue = null;
-		WebElement invoiceTableSB = driver.findElement(By.xpath(sbMonthlyInvoiceTable));
-		Table sbInvoiceTable = new Table(invoiceTableSB);
+		Table sbInvoiceTable = getTable(UIType.Xpath, sbMonthlyInvoiceTable);
 		int appRowNumber = sbInvoiceTable.body().getRowIndex(appName);
 		int appRowCount = appRowCountSouthboundTable(appName);
 		for (int x = appRowNumber; x <= appRowCount; x++){
@@ -3583,8 +3577,7 @@ public class ManagerPage extends BasicPageObject {
 	 */
 	public String getNbValueInvoice(String appName,String apiName,String operation,String columnName){
 		String returnValue = null;
-		WebElement invoiceTableNB = driver.findElement(By.xpath(nbMonthlyInvoiceTable));
-		Table invoiceTable = new Table(invoiceTableNB);
+		Table invoiceTable = getTable(UIType.Xpath, nbMonthlyInvoiceTable);
 		int appRowNumber = invoiceTable.body().getRowIndex(appName);
 		int appRowCount = appRowCountNbTable(appName);
 		for (int x = appRowNumber; x <= appRowCount; x++){
@@ -3633,7 +3626,7 @@ public class ManagerPage extends BasicPageObject {
 	 */
 	public List<List<String>> getNbUITableData(){
 		WebElement invoiceTableNB = driver.findElement(By.xpath(nbMonthlyInvoiceTable));
-		Table invoiceTable = new Table(invoiceTableNB);
+		Table invoiceTable = getTable(UIType.Xpath, nbMonthlyInvoiceTable);
 		int columnCount = invoiceTable.head().getAllColumn().size();
 		int rowCount = invoiceTable.body().getAllRows().size();
 		int allRows = rowCount + 1;
@@ -3667,7 +3660,7 @@ public class ManagerPage extends BasicPageObject {
 	 */
 	public List<List<String>> getSbUITableData(){
 		WebElement invoiceTableNB = driver.findElement(By.xpath(sbMonthlyInvoiceTable));
-		Table invoiceTable = new Table(invoiceTableNB);
+		Table invoiceTable = getTable(UIType.Xpath, sbMonthlyInvoiceTable);
 		int columnCount = invoiceTable.head().getAllColumn().size();
 		int rowCount = invoiceTable.body().getAllRows().size();
 		int allRows = rowCount + 1;
