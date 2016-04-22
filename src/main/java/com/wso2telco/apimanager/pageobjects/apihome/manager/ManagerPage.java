@@ -23,7 +23,6 @@ import com.wso2telco.test.framework.tools.excelfile.CSVFileReader;
 import com.wso2telco.test.framework.tools.excelfile.ExcelFileReader;
 import com.wso2telco.test.framework.tools.excelfile.ExcelFileWriter;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ManagerPage.
  */
@@ -3809,6 +3808,49 @@ public class ManagerPage extends BasicPageObject {
 	}
 	
 	/**
+	 * Gets the operator start row.
+	 *
+	 * @author SulakkhanaW
+	 * @param startRow the start row
+	 * @param endRow the end row
+	 * @param operator the operator
+	 * @param operation the operation
+	 * @param afterExcel the after excel
+	 * @return the operator start row
+	 */
+	private int getOperatorStartRow(int startRow, int endRow, String operator, String operation, List<List<String>> afterExcel){
+		int start = 0;
+		for (int x = startRow; x <= endRow; x++){
+			if (afterExcel.get(x).get(4).equalsIgnoreCase(operator) && afterExcel.get(x).get(5).equalsIgnoreCase(operation)){
+				return start = x;
+			}
+		}
+		return start;
+	}
+	
+	/**
+	 * Gets the operator last row.
+	 *
+	 * @author SulakkhanaW
+	 * @param operatorStartRow the operator start row
+	 * @param appEndRow the app end row
+	 * @param afterExcel the after excel
+	 * @return the operator last row
+	 */
+	private int getOperatorLastRow(int operatorStartRow, int appEndRow, List<List<String>> afterExcel){
+		int endRow = 0;
+		int rowCount = afterExcel.size();
+		int lastRow = rowCount - 1;
+		operatorStartRow++;
+		for (int s = operatorStartRow; s < rowCount; s++){
+			if ((!afterExcel.get(s).get(4).trim().equals(""))|s==lastRow){
+				return endRow = s - 1;
+			}
+		}
+		return endRow;
+	}
+	
+	/**
 	 * Sb monthly invoice difference.
 	 *
 	 * @author SulakkhanaW
@@ -3829,6 +3871,8 @@ public class ManagerPage extends BasicPageObject {
 				int startRowAfterExcel = getAppStartRow(appNames.get(x), afterExcel);
 				int endRowBeforeExcel = getSbAppEndRow(startRowBeforeExcel, beforeExcel);
 				int endRowAfterExcel = getSbAppEndRow(startRowAfterExcel, afterExcel);
+				int operatorStartRowAfter = 0;
+				int operatorEndRowAfter = 0;
 				for (int y = startRowBeforeExcel; y <= endRowBeforeExcel; y++) {
 					List<String> bodyData = new ArrayList<String>();
 					bodyData.add(beforeExcel.get(y).get(0));
@@ -3841,10 +3885,14 @@ public class ManagerPage extends BasicPageObject {
 					String operator = beforeExcel.get(y).get(4);
 					String operation = beforeExcel.get(y).get(5);
 					int afterExcelOperationRow = 0;
+					if (!operator.equals("")){
+						operatorStartRowAfter = getOperatorStartRow(startRowAfterExcel, endRowAfterExcel, operator, operation, afterExcel);
+						operatorEndRowAfter = getOperatorLastRow(operatorStartRowAfter, endRowAfterExcel, afterExcel);
+					}
 					if (beforeExcel.get(y).get(8).equalsIgnoreCase("Total Amount")){
 						afterExcelOperationRow = afterExcelLastRow - 1;
 					} else {
-						afterExcelOperationRow = getSbOperationRowNum(operator, operation, startRowAfterExcel, endRowAfterExcel, afterExcel);
+						afterExcelOperationRow = getSbOperationRowNum(operator, operation, operatorStartRowAfter, operatorEndRowAfter, afterExcel);
 					}
 					if (beforeExcel.get(y).get(6).equalsIgnoreCase(afterExcel.get(afterExcelOperationRow).get(6))) {
 						for (int a = 7; a <= 12; a++) {
@@ -3906,24 +3954,31 @@ public class ManagerPage extends BasicPageObject {
 					int startRowDiffManual = getAppStartRow(appNames.get(x), diffManual);
 					int endRowDiffUi = getSbAppEndRow(startRowDiffUi, diffUi);
 					int endRowDiffManual = getSbAppEndRow(startRowDiffManual, diffManual);
+					int operatorStartRowAfter = 0;
+					int operatorEndRowAfter = 0;
 					for (int y = startRowDiffUi; y <= endRowDiffUi; y++){
 						String operator = diffUi.get(y).get(4);
 						String operation = diffUi.get(y).get(5);
 						int diffManualOperationRow = 0;
+						if (!operator.equals("")){
+							operatorStartRowAfter = getOperatorStartRow(startRowDiffManual, endRowDiffManual, operator, operation, diffManual);
+							operatorEndRowAfter = getOperatorLastRow(operatorStartRowAfter, endRowDiffManual, diffManual);
+						}
 						if (diffUi.get(y).get(8).equalsIgnoreCase("Total Amount")){
 							diffManualOperationRow = manualLastRowNum - 1;
 						} else {
-							diffManualOperationRow = getSbOperationRowNum(operator, operation, startRowDiffManual, endRowDiffManual, diffManual);
+							diffManualOperationRow = getSbOperationRowNum(operator, operation, operatorStartRowAfter, operatorEndRowAfter, diffManual);
 						}
 						for (int a = 7; a <= 12; a++) {
 							String beforeCellString = diffUi.get(y).get(a);
 							String afterCellString = diffManual.get(diffManualOperationRow).get(a);
 							if (!beforeCellString.equalsIgnoreCase(afterCellString)){
 								flag = false;
+								logger.debug("Monthly Invoice NB diff mismatched - " + beforeCellString + " And " + afterCellString + ", Row number - " + y + " Column Number - " + a);
 								return flag;
 							}
 							else {
-								logger.debug("Monthly Invoice NB diff matched");
+								logger.debug("Monthly Invoice NB diff matched, Row number - " + y + " Column Number - " + a);
 								flag = true;
 							}
 						}
