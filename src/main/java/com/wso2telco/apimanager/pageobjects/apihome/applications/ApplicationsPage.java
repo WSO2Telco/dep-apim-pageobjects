@@ -56,7 +56,7 @@ public class ApplicationsPage extends BasicPageObject  {
  	 * %s_1 = username
  	 * %s_2 = app
  	 **/
-	private String lblAppAvailable = "//td[text()[contains(.,'%s_%s')]]";
+	private String lblAppAvailable = "//td[text()[contains(.,'%s')]]";
 	 
 	 /** The btn app delete. 
 	  * %s = app
@@ -338,7 +338,7 @@ public class ApplicationsPage extends BasicPageObject  {
 			
 			flag = false;
 			logger.debug("Validating app is visible");
-			String xpath = String.format(lblAppAvailable, username, app);
+			String xpath = String.format(lblAppAvailable, app);
 			int elements = driver.findElements(By.xpath(xpath)).size(); // TODO : need to implement a better method to check UI elements when its not existing
 			try {
 				if (elements != 0){
