@@ -16,8 +16,6 @@ import com.wso2telco.apimanager.pageobjects.BasicPageObject;
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
 
-
-// TODO: Auto-generated Javadoc
 /**
  * The Class SandBoxPage.
  */
@@ -67,7 +65,7 @@ public class SandBoxPage extends BasicPageObject{
 	private WebPelement btnAddNumbers = defineEelement(UIType.ID,"add_number_row_button");
 	
 	/** The txt number. */
-	private WebPelement txtNumber = defineEelement(UIType.Xpath,"//input[@class='required managenum_exist']");
+	private WebPelement txtNumber = defineEelement(UIType.Xpath,"//input[@class='required tel managenum_exist']");
 	
 	/** The txt description. */
 	private WebPelement txtDescription = defineEelement(UIType.Xpath,"//input[@class='required']");
@@ -179,6 +177,56 @@ public class SandBoxPage extends BasicPageObject{
 	 */
 	public SandBoxPage(WebDriver driver) {
 		super(driver);
+	}
+		
+	/**
+	 * Checks if is request payload tax amount.
+	 *
+	 * @param taxAmount the tax amount
+	 * @param requestPaylod the request paylod
+	 * @return true, if is request payload tax amount
+	 * @throws Exception the exception
+	 */
+	public boolean isRequestPayloadTaxAmount(String taxAmount, String requestPaylod) throws Exception{
+		flag = false;
+		logger.debug("Validating Request Payload Tax Amount");
+		try {
+			if (requestPaylod.contains(taxAmount)){
+				flag = true;
+				logger.debug("Request Payload Tax Amount matched");
+			} else{
+				logger.debug("Request Payload Tax Amount mismatched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Request Payload Tax Amount 'isRequestPayloadTaxAmount()'" + e.getMessage());
+			throw new Exception("Exception While Validating Request Payload Tax Amount 'isRequestPayloadTaxAmount()'" + e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
+	/**
+	 * Checks if is response payload tax amount.
+	 *
+	 * @param taxAmount the tax amount
+	 * @param responsePayload the response payload
+	 * @return true, if is response payload tax amount
+	 * @throws Exception the exception
+	 */
+	public boolean isResponsePayloadTaxAmount(String taxAmount, String responsePayload) throws Exception{
+		flag = false;
+		logger.debug("Validating Response Payload Tax Amount");
+		try {
+			if (responsePayload.contains(taxAmount)){
+				flag = true;
+				logger.debug("Response Payload Tax Amount matched");
+			} else{
+				logger.debug("Response Payload Tax Amount mismatched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Response Payload Tax Amount 'isResponsePayloadTaxAmount()'" + e.getMessage());
+			throw new Exception("Exception While Validating Response Payload Tax Amount 'isResponsePayloadTaxAmount()'" + e.getLocalizedMessage());
+		}
+		return flag;
 	}
 
 	/**
