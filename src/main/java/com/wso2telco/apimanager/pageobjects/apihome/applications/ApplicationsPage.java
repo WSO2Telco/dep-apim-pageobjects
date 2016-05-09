@@ -35,19 +35,19 @@ public class ApplicationsPage extends BasicPageObject  {
 	private WebPelement btnAppAdd = defineEelement(UIType.ID, "application-add-button");
 	
 	/** The lbl application name. */
-	private String lblApplicationName = "//td[contains(.,'%s_%s')]";
+	private String lblApplicationName = "//td[contains(.,'%s')]";
 	
 	/** The ddl tier. */
-	private String ddlTier = "//td[contains(.,'%s_%s')]/following-sibling::td[1]/select";
+	private String ddlTier = "//td[contains(.,'%s')]/following-sibling::td[1]/select";
 	
 	/** The lbl status. */
-	private String lblStatus = "//td[contains(.,'%s_%s')]/following-sibling::td[2]";
+	private String lblStatus = "//td[contains(.,'%s')]/following-sibling::td[2]";
 	
 	/** The lbl callbackurl. */
 	private String lblCallbackurl = "//td[contains(.,'%s_%s')]/following-sibling::td[3]";
 	
 	/** The lbl description. */
-	private String lblDescription = "//td[contains(.,'%s_%s')]/following-sibling::td[4]";
+	private String lblDescription = "//td[contains(.,'%s')]/following-sibling::td[4]";
 	
 	/** The btn yes. */
 	private WebPelement btnYes = defineEelement(UIType.Xpath, ".//*[@id='messageModal']/div[3]/a[contains(.,'Yes')]");
@@ -56,7 +56,7 @@ public class ApplicationsPage extends BasicPageObject  {
  	 * %s_1 = username
  	 * %s_2 = app
  	 **/
-	private String lblAppAvailable = "//td[text()[contains(.,'%s_%s')]]";
+	private String lblAppAvailable = "//td[text()[contains(.,'%s')]]";
 	 
 	 /** The btn app delete. 
 	  * %s = app
@@ -190,7 +190,7 @@ public class ApplicationsPage extends BasicPageObject  {
 	public boolean isApplicationName(String username, String appName) throws Exception{
 		flag = false;
 		logger.debug("Validating Application name");
-		String xpath = String.format(lblApplicationName, username, appName);
+		String xpath = String.format(lblApplicationName, appName);
 		WebPelement applicationName = defineEelement(UIType.Xpath, xpath);
 		String applicationname = getElement(applicationName).getText().trim();
 		String tableAppName = username + "_" + applicationname;
@@ -221,7 +221,7 @@ public class ApplicationsPage extends BasicPageObject  {
 	public boolean isTeirname(String username,String appname,String teir) throws Exception{
 		flag = false;
 		logger.debug("Validating tier name");
-		String xpath = String.format(ddlTier, username, appname);
+		String xpath = String.format(ddlTier, appname);
 		WebPelement tierName = defineEelement(UIType.Xpath, xpath);
 		
 		try {
@@ -251,7 +251,7 @@ public class ApplicationsPage extends BasicPageObject  {
 	public boolean isApplicationStatus(String username,String appname,String status) throws Exception{
 		flag = false;
 		logger.debug("Validating application status");
-		String xpath = String.format(lblStatus, username, appname);
+		String xpath = String.format(lblStatus, appname);
 		WebPelement statusName = defineEelement(UIType.Xpath, xpath);
 		try {
 			if (getElement(statusName).getText().trim().contains(status)){
@@ -309,7 +309,7 @@ public class ApplicationsPage extends BasicPageObject  {
 	public boolean validateDescription(String username,String appname,String description) throws Exception{
 		flag = false;
 		logger.debug("Validating application cdescription");
-		String xpath = String.format(lblDescription, username, appname);
+		String xpath = String.format(lblDescription, appname);
 		WebPelement textDescription = defineEelement(UIType.Xpath, xpath);
 		try {
 			if (getElement(textDescription).getText().trim().contains(description)){
@@ -338,7 +338,7 @@ public class ApplicationsPage extends BasicPageObject  {
 			
 			flag = false;
 			logger.debug("Validating app is visible");
-			String xpath = String.format(lblAppAvailable, username, app);
+			String xpath = String.format(lblAppAvailable, app);
 			int elements = driver.findElements(By.xpath(xpath)).size(); // TODO : need to implement a better method to check UI elements when its not existing
 			try {
 				if (elements != 0){

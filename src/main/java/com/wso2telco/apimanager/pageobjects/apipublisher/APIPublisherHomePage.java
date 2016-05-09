@@ -23,6 +23,12 @@ public class APIPublisherHomePage extends BasicPageObject {
 	/** The lnk api add. */
 	private WebPelement lnkAPIAdd = defineEelement(UIType.Xpath, "//li/a[text()[contains(.,'Add')]]");
 	
+	/** The rdo design api. */
+	private WebPelement rdoDesignAPI = defineEelement(UIType.Xpath, "//label[contains(.,'Design new API')]/input");
+	
+	/** The btn start creating. */
+	private WebPelement btnStartCreating = defineEelement(UIType.ID, "designNewAPI");
+	
 	/** The txt api search. */
 	private WebPelement txtAPISearch = defineEelement(UIType.Xpath, "//form/input[@class='input-xlarge search-query']");
 	
@@ -48,7 +54,7 @@ public class APIPublisherHomePage extends BasicPageObject {
 	private WebPelement btnAddNewResource = defineEelement(UIType.ID, "add_resource");
 	
 	/** The lnk resource. */
-	private WebPelement lnkResource = defineEelement(UIType.Xpath, "//tr[2]/td[2]/a");
+	private WebPelement lnkResource = defineEelement(UIType.Xpath, "//tr[1]/td[2]/a");
 	
 	/** The txt parameter name. */
 	private WebPelement txtParameterName = defineEelement(UIType.ClassName, "parameter_name");
@@ -90,7 +96,10 @@ public class APIPublisherHomePage extends BasicPageObject {
 	private WebPelement btnSubmitRequired = defineEelement(UIType.Xpath, "//td[5]/..//div//button[@type='submit']");
 	
 	/** The btn implement. */
-	private WebPelement btnImplement = defineEelement(UIType.Xpath, "//a[text()='Implement']");
+	private WebPelement btnImplement = defineEelement(UIType.Xpath, "//a[text()='Next: Implement >']");
+	
+	/** The lnk manage api. */
+	private WebPelement lnkManageAPI = defineEelement(UIType.Xpath, "//h4[contains(.,'Managed API')]");
 	
 	/** The ddl endpoint type. */
 	private WebPelement ddlEndpointType = defineEelement(UIType.ID, "endpoint_type");
@@ -102,13 +111,16 @@ public class APIPublisherHomePage extends BasicPageObject {
 	private WebPelement txtSandboxEndpoint = defineEelement(UIType.Xpath, "//input[contains(@id,'sandbox_endpoints')]");
 	
 	/** The btn manage. */
-	private WebPelement btnManage = defineEelement(UIType.Xpath, "//a[@id='go_to_manage']");
+	private WebPelement btnManage = defineEelement(UIType.ID, "go_to_manage");
 	
 	/** The btn tier availability. */
 	private WebPelement btnTierAvailability = defineEelement(UIType.Xpath, "//div/div/button[@data-toggle='dropdown']");
 	
 	/** The btn save publish. */
 	private WebPelement btnSavePublish = defineEelement(UIType.Xpath, "//a[text()[contains(.,'Save & Publish')]]");
+	
+	/** The btn goto overview. */
+	private WebPelement btnGotoOverview = defineEelement(UIType.Xpath, "//div[@id='publish-success']/div[3]/div/a[contains(.,'Go to Overview')]");
 	
 	/** The lbl prod url. */
 	private WebPelement lblProdUrl = defineEelement(UIType.Xpath, "//td[text()[contains(.,'Production URL')]]/../td[@id='inUrl']");
@@ -133,6 +145,9 @@ public class APIPublisherHomePage extends BasicPageObject {
 	 * %s_1 = type
 	 **/
 	private String chkURLType = "//label[text()[contains(.,'%s')]]/input";
+	
+	/** The btn resource add. */
+	private WebPelement btnResourceAdd = defineEelement(UIType.ID, "add_resource");
 	
 	/** The chk url type ie. 
 	 * %s_1 = type
@@ -251,6 +266,30 @@ public class APIPublisherHomePage extends BasicPageObject {
 	}
 	
 	/**
+	 * Click design api.
+	 *
+	 * @throws InterruptedException the interrupted exception
+	 */
+	public void clickDesignAPI() throws InterruptedException{
+		logger.debug("Clicking on Design API");
+		getElement(rdoDesignAPI).click();
+		Thread.sleep(sleepTime);
+		logger.debug("Clicked on Design API");
+	}
+	
+	/**
+	 * Click start creating.
+	 *
+	 * @throws InterruptedException the interrupted exception
+	 */
+	public void clickStartCreating() throws InterruptedException{
+		logger.debug("Clicking on Start creating");
+		getElement(btnStartCreating).click();
+		Thread.sleep(sleepTime);
+		logger.debug("Clicked on Start creating");
+	}
+	
+	/**
 	 * Enter api name.
 	 *
 	 * @author SulakkhanaW
@@ -321,7 +360,7 @@ public class APIPublisherHomePage extends BasicPageObject {
 	 * @param type the new url type
 	 */
 	public void setUrlType(String type){
-		String Type = type.toUpperCase();
+		String Type = type.toLowerCase();
 		String xpath = String.format(chkURLType, Type);
 		String xpathIe = String.format(chkURLTypeIE, Type);
 		WebPelement chkType = defineEelement(UIType.Xpath, xpath);
@@ -333,6 +372,18 @@ public class APIPublisherHomePage extends BasicPageObject {
 			getElement(chkType).click();
 		}
 		logger.debug("Entered API URL type");
+	}
+	
+	/**
+	 * Click resource add.
+	 *
+	 * @throws InterruptedException the interrupted exception
+	 */
+	public void clickResourceAdd() throws InterruptedException{
+		logger.debug("Clicking on Resource add");
+		getElement(btnResourceAdd).click();
+		Thread.sleep(sleepTime);
+		logger.debug("Clicked on Resource add");
 	}
 	
 	/**
@@ -531,6 +582,15 @@ public class APIPublisherHomePage extends BasicPageObject {
 	}
 	
 	/**
+	 * Click mange api.
+	 */
+	public void clickMangeAPI(){
+		logger.debug("Clicking on Manage API");
+		getElement(lnkManageAPI).click();
+		logger.debug("Clicked on Manage API");
+	}
+	
+	/**
 	 * Select endpoint type.
 	 *
 	 * @author SulakkhanaW
@@ -608,6 +668,15 @@ public class APIPublisherHomePage extends BasicPageObject {
 		Thread.sleep(sleepTime);
 		getElement(btnSavePublish).click();
 		logger.debug("Clicked on Publish");
+	}
+	
+	/**
+	 * Click goto overview.
+	 */
+	public void clickGotoOverview(){
+		logger.debug("Clicking on Go to overview");
+		getElement(btnGotoOverview).click();
+		logger.debug("Clicked on Go to overview");
 	}
 	
 	/**

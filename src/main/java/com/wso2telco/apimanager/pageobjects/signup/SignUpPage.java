@@ -35,7 +35,7 @@ public class SignUpPage extends BasicPageObject {
 	private WebPelement txtFName = defineEelement(UIType.ID, "1.0cliamUri");
 	
 	/** The txt email. */
-	private WebPelement txtEmail = defineEelement(UIType.ID, "2.0cliamUri");
+	private WebPelement txtEmail = defineEelement(UIType.ID, "5.0cliamUri");
 	
 	/** The btn submit. */
 	private WebPelement btnSubmit = defineEelement(UIType.Xpath, "//input[@class='submit btn btn-primary']");

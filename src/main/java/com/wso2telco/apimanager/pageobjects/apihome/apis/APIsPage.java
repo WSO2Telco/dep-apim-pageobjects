@@ -45,7 +45,7 @@ public class APIsPage extends BasicPageObject {
 	/** The lnk api name.
 	 * %_1 = apiName
 	 **/
-	private String lnkAPIName = "//a[text()[contains(.,'%s')]]";
+	private String lnkAPIName = "//div[@class='content-section shadow-up']//a[text()[contains(.,'%s')]]";
 	
 	/** The ddl operator.
 	 * %s_1 = operator
