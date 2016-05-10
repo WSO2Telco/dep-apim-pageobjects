@@ -298,10 +298,14 @@ public class APIsPage extends BasicPageObject {
 	 * Click go to subscriber.
 	 *
 	 * @author SulakkhanaW
+	 * @throws InterruptedException 
 	 */
-	public void clickGoToSubscriber(){
+	public void clickGoToSubscriber() throws InterruptedException{
+		WebPelement workround = defineEelement(UIType.Xpath, "//div[@class='modal-footer']/a[@class='btn btn btn-primary']");
 		logger.debug("Clicking on go to subscribe");
-		getElement(btnGoToSubscriber).click();
+		//getElement(btnGoToSubscriber).click();
+		Thread.sleep(sleepTime);
+		getElement(workround).click();
 		logger.debug("Clicked on go to subscribe");
 	}
 }
