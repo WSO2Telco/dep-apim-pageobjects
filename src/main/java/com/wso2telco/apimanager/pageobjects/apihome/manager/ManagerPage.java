@@ -160,7 +160,10 @@ public class ManagerPage extends BasicPageObject {
 	private String lnkApplicationDetails = "//tr/td/div/label[text()[contains(.,'%s')]]/../../label/b[text()[contains(.,'Application Details')]]";
 
 	/** The ddl tier. */
-	private WebPelement ddlTier = defineEelement(UIType.Xpath, "//td[@id='desc0']/div[4]/div[1]/select/option[@value='Unlimited']");
+	//private WebPelement ddlTier = defineEelement(UIType.Xpath, "//td[@id='desc0']/div[4]/div[1]/select/option[@value='Unlimited']");
+
+	/** The ddl tier l. */
+	private String ddlTierL = "//label[contains(.,'%s')]/../..//select";
 
 	/**
 	 * The btn assign me. %s_1 = appName
@@ -747,10 +750,13 @@ public class ManagerPage extends BasicPageObject {
 	 * @param appname the appname
 	 */
 	public void selectTier(String tier, String appname) {
+		String xpath = String.format(ddlTierL, appname);
+		WebPelement ddlTierList = defineEelement(UIType.Xpath, xpath);
+		getElement(ddlTierList).click();
 		logger.debug("Selecting tier");
-		getElement(ddlTier).sendKeys(tier);
+		getElement(ddlTierList).sendKeys(tier);
 		logger.debug("Tier selected");
-		getElement(ddlTier).sendEnter();
+		getElement(ddlTierList).sendEnter();
 	}
 
 	/**

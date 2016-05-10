@@ -37,7 +37,7 @@ public class APIsPage extends BasicPageObject {
 	private WebPelement lblSubsSuccess = defineEelement(UIType.Xpath, "//div[@id='messageModal']/div[1]/h3");
 	
 	/** The btn go to subscriber. */
-	private WebPelement btnGoToSubscriber = defineEelement(UIType.Xpath, "//a[contains(text(),'Go to My Subscriptions')]");
+	//private WebPelement btnGoToSubscriber = defineEelement(UIType.Xpath, "//a[contains(text(),'Go to My Subscriptions')]");
 	
 	/** The ddl tabs. */
 	private String ddlTabs = "//select[@id='application-list']//option";
