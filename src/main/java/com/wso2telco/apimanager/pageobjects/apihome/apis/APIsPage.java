@@ -37,7 +37,7 @@ public class APIsPage extends BasicPageObject {
 	private WebPelement lblSubsSuccess = defineEelement(UIType.Xpath, "//div[@id='messageModal']/div[1]/h3");
 	
 	/** The btn go to subscriber. */
-	private WebPelement btnGoToSubscriber = defineEelement(UIType.Xpath, "//a[contains(text(),'Go to My Subscriptions')]");
+	//private WebPelement btnGoToSubscriber = defineEelement(UIType.Xpath, "//a[contains(text(),'Go to My Subscriptions')]");
 	
 	/** The ddl tabs. */
 	private String ddlTabs = "//select[@id='application-list']//option";
@@ -45,7 +45,7 @@ public class APIsPage extends BasicPageObject {
 	/** The lnk api name.
 	 * %_1 = apiName
 	 **/
-	private String lnkAPIName = "//div[@class='content-section shadow-up']//a[text()[contains(.,'%s')]]";
+	private String lnkAPIName = "//div[@class='content-section shadow-up']//a[@title='%s']";
 	
 	/** The ddl operator.
 	 * %s_1 = operator
@@ -83,6 +83,37 @@ public class APIsPage extends BasicPageObject {
 		} catch (Exception e) {
 			logger.debug("Exception While Validating API page header 'isAPIPage()'" + e.getMessage());
 			throw new Exception("Exception While Validating API page header 'isAPIPage()'" + e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
+	/**
+	 * Checks if is created api on api page.
+	 *
+	 * @param apiName the api name
+	 * @return true, if is created api on api page
+	 * @throws Exception the exception
+	 */
+	public boolean isCreatedAPIOnAPIPage(String apiName) throws Exception{
+		flag = false;
+		String xpath = String.format(lnkAPIName, apiName);
+		ArrayList<String> actFirstSecQstList = new ArrayList<String>();
+		List<WebElement> options = driver.findElements(By.xpath(xpath));
+		try {
+			for (WebElement option : options) {
+				actFirstSecQstList.add(option.getAttribute("title"));
+			}
+			for (int x = 0; x < actFirstSecQstList.size(); x++) {
+				if (actFirstSecQstList.get(x).trim().contains(apiName)) {
+					flag = true;
+					logger.debug("API name is visible");
+				} else {
+					logger.debug("API name is not visible");
+				}
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating API name 'isCreatedAPIOnAPIPage()'" + e.getMessage());
+			throw new Exception("Exception While Validating API name 'isCreatedAPIOnAPIPage()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
