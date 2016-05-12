@@ -13,6 +13,7 @@ import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class APIsPage.
  */
@@ -29,6 +30,9 @@ public class APIsPage extends BasicPageObject {
 	
 	/** The ddl application. */
 	private WebPelement ddlApplication = defineEelement(UIType.ID, "application-list");
+	
+	/** The list app name. */
+	private String listAppName = "//*[@id='application-list']/optgroup/option[text()='%s']";
 	
 	/** The btn subscribe. */
 	private WebPelement btnSubscribe = defineEelement(UIType.ID, "subscribe-button");
@@ -188,7 +192,7 @@ public class APIsPage extends BasicPageObject {
 	 * Click application drop down.
 	 *
 	 * @author SulakkhanaW
-	 * @throws InterruptedException 
+	 * @throws InterruptedException the interrupted exception
 	 */
 	public void clickApplicationDropDown() throws InterruptedException{
 		logger.debug("Clicking on Application drop down");
@@ -266,12 +270,13 @@ public class APIsPage extends BasicPageObject {
 	 */
 	public void clickAppName(String appname) throws InterruptedException{
 		Thread.sleep(1000);
+		String xpath = String.format(listAppName, appname);
+		WebPelement appNameItem = defineEelement(UIType.Xpath, xpath);
 		logger.debug("Clicking on Application name drop down");
-		getElement(ddlApplication).sendKeys(appname);
-		logger.debug("Clicked on Application name drop down");
-		logger.debug("Sending enter key");
-		getElement(ddlApplication).sendEnter();
-		logger.debug("Send enter key");
+		getElement(ddlApplication).click();
+		logger.debug("Selecting the app name");
+		getElement(appNameItem).click();
+		getElement(appNameItem).sendEnter();
 	}
 	
 	/**
@@ -329,7 +334,7 @@ public class APIsPage extends BasicPageObject {
 	 * Click go to subscriber.
 	 *
 	 * @author SulakkhanaW
-	 * @throws InterruptedException 
+	 * @throws InterruptedException the interrupted exception
 	 */
 	public void clickGoToSubscriber() throws InterruptedException{
 		WebPelement workround = defineEelement(UIType.Xpath, "//div[@class='modal-footer']/a[@class='btn btn btn-primary']");
