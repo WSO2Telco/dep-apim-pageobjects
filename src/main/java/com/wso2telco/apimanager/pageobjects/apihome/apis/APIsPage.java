@@ -32,7 +32,7 @@ public class APIsPage extends BasicPageObject {
 	private WebPelement ddlApplication = defineEelement(UIType.ID, "application-list");
 	
 	/** The list app name. */
-	private String listAppName = "//*[@id='application-list']/optgroup/option[text()='%s']";
+	//private String listAppName = "//*[@id='application-list']/optgroup/option[text()='%s']";
 	
 	/** The btn subscribe. */
 	private WebPelement btnSubscribe = defineEelement(UIType.ID, "subscribe-button");
@@ -270,13 +270,13 @@ public class APIsPage extends BasicPageObject {
 	 */
 	public void clickAppName(String appname) throws InterruptedException{
 		Thread.sleep(1000);
-		String xpath = String.format(listAppName, appname);
-		WebPelement appNameItem = defineEelement(UIType.Xpath, xpath);
-		logger.debug("Clicking on Application name drop down");
-		getElement(ddlApplication).click();
-		logger.debug("Selecting the app name");
-		getElement(appNameItem).click();
-		getElement(appNameItem).sendEnter();
+		//String xpath = String.format(listAppName, appname);
+		//WebPelement appNameItem = defineEelement(UIType.Xpath, xpath);
+		getElement(ddlApplication).sendKeys(appname);
+		logger.debug("Clicked on Application name drop down");
+		logger.debug("Sending enter key");
+		getElement(ddlApplication).sendEnter();
+		logger.debug("Send enter key");
 	}
 	
 	/**
