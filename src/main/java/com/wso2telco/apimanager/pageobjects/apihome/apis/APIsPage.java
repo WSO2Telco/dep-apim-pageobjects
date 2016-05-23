@@ -41,7 +41,7 @@ public class APIsPage extends BasicPageObject {
 	private WebPelement lblSubsSuccess = defineEelement(UIType.Xpath, "//div[@id='messageModal']/div[1]/h3");
 	
 	/** The btn go to subscriber. */
-	//private WebPelement btnGoToSubscriber = defineEelement(UIType.Xpath, "//a[contains(text(),'Go to My Subscriptions')]");
+	private WebPelement btnGoToSubscriber = defineEelement(UIType.Xpath, "//a[contains(text(),'Go to My Subscriptions')]");
 	
 	/** The ddl tabs. */
 	private String ddlTabs = "//select[@id='application-list']//option";
@@ -337,11 +337,12 @@ public class APIsPage extends BasicPageObject {
 	 * @throws InterruptedException the interrupted exception
 	 */
 	public void clickGoToSubscriber() throws InterruptedException{
-		WebPelement workround = defineEelement(UIType.Xpath, "//div[@class='modal-footer']/a[@class='btn btn btn-primary']");
+		//WebPelement workround = defineEelement(UIType.Xpath, "//div[@class='modal-footer']/a[@class='btn btn btn-primary']");
 		logger.debug("Clicking on go to subscribe");
-		//getElement(btnGoToSubscriber).click();
 		Thread.sleep(sleepTime);
-		getElement(workround).click();
+		getElement(btnGoToSubscriber).click();
+		Thread.sleep(sleepTime);
+		//getElement(workround).click();
 		logger.debug("Clicked on go to subscribe");
 	}
 }
