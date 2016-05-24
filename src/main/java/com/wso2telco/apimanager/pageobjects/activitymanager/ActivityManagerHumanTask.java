@@ -135,5 +135,24 @@ public class ActivityManagerHumanTask extends BasicPageObject {
 		getElement(btnUpload).click();
 		logger.debug("Clicked on upload button");
 	}
+	
+	public boolean isFileUploaded(String msg) throws Exception{
+		flag = false;
+		WebPelement lblSuccessMsg = defineEelement(UIType.Xpath, "//div[@id='messagebox-info']/p");
+		String msgUI = getElement(lblSuccessMsg).getText();
+		try {
+			logger.debug("Validating success message for uploading file");
+			if (msgUI.contains(msgUI)){
+				flag = true;
+				logger.debug("Zip file uploaded successfully");
+			} else {
+				logger.debug("Zip file did not uploaded successfully");
+			}
+		} catch (Exception e) {
+			logInstruction("Exception While validating file uploading success message 'isFileUploaded()'" + e.getMessage());
+			throw new Exception("Exception While validating file uploading success message 'isFileUploaded()'" + e.getLocalizedMessage());
+		}
+		return flag;
+	}
 
 }
