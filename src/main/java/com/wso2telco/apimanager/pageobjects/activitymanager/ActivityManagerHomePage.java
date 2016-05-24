@@ -32,13 +32,15 @@ public class ActivityManagerHomePage extends BasicPageObject {
 	private WebPelement btnMain = defineEelement(UIType.Xpath, "//div[@id='menu-panel-button1']");
 	
 	/** The lnk manage area. */
-	private WebPelement lnkManageArea = defineEelement(UIType.Xpath, "//div[@id='menu']/ul/li[9]");
+	private WebPelement lnkManageArea = defineEelement(UIType.Xpath, "//li[contains(.,'Manage')]/following-sibling::li");
 	
 	/** The btn manage. */
 	private WebPelement btnManage = defineEelement(UIType.Xpath, "//div[@id='menu']/ul/li[8]");
 	
 	/** The lnk analytics list. */
 	private WebPelement lnkAnalyticsList = defineEelement(UIType.Xpath, "//div[@id='menu']/ul/li[9]/ul/li[8]/ul/li/a[contains(.,'List')]");
+	
+	private WebPelement lnkAddHumanTask = defineEelement(UIType.Xpath, "//div[@id='menu']/ul/li[contains(.,'Manage')]/following-sibling::li/ul/li[contains(.,'Human Tasks')]/following-sibling::li[1]/ul/li/a[contains(.,'Add')]");
 	
 	/**
 	 * Checks if is home page header.
@@ -105,6 +107,34 @@ public class ActivityManagerHomePage extends BasicPageObject {
 			throw new Exception("Exception While clicking on Analytics List link 'clickAnalyticsLsit()'" + e.getLocalizedMessage());
 		}
 		return new ActivityMangerAvailableScripts(driver);
+	}
+	
+	/**
+	 * Click human task add.
+	 *
+	 * @throws Exception the exception
+	 */
+	public void clickHumanTaskAdd() throws Exception{
+		try {
+			logger.debug("Validating Manager tab is clicked");
+			if (getElement(lnkManageArea).getAttribute("style").equalsIgnoreCase("display: none;")){
+				logger.debug("Manager tab is not clicked");
+				logger.debug("Clicking on Manager tab");
+				getElement(btnManage).click();
+				logger.debug("Clicked on Manager tab");
+				logger.debug("Clicking on Human Task Add");
+				getElement(lnkAddHumanTask).click();
+				logger.debug("Clicked on Human Task Add");
+			} else {
+				logger.debug("Manager tab is clicked");
+				logger.debug("Clicking on Human Task Add");
+				getElement(lnkAddHumanTask).click();
+				logger.debug("Clicked on Human Task Add");
+			}
+		} catch (Exception e) {
+			logInstruction("Exception While clicking on Human Task add link 'clickHumanTaskAdd()'" + e.getMessage());
+			throw new Exception("Exception While clicking on Human Task add link 'clickHumanTaskAdd()'" + e.getLocalizedMessage());
+		}
 	}
 
 }
