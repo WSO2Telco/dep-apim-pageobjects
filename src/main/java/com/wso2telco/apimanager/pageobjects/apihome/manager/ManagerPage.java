@@ -450,6 +450,12 @@ public class ManagerPage extends BasicPageObject {
 	
 	/** The sb monthly invoice table. */
 	private String sbMonthlyInvoiceTable = "//div[@id='usageDiv']/div/table";
+	
+    /** The lbl required msg. */
+    private WebPelement lblRequiredMsg = defineEelement(UIType.Xpath, "//div[@class='bootbox modal fade in']/div[@class='modal-body']");
+    
+    /** The btn reqired msg ok. */
+    private WebPelement btnReqiredMsgOk = defineEelement(UIType.Xpath, "//div[@class='bootbox modal fade in']/div[@class='modal-footer']/a");
 
 	/**
 	 * Instantiates a new manager page.
@@ -4614,4 +4620,39 @@ public class ManagerPage extends BasicPageObject {
 			e.printStackTrace();
 		}
 	}
+    
+    /**
+     * Checks if is action comment required.
+     *
+     * @param msg the msg
+     * @return true, if is action comment required
+     * @throws Exception the exception
+     */
+    public boolean isActionCommentRequired(String msg) throws Exception{
+        flag = false;
+        String uiMsg = getElement(lblRequiredMsg).getText();
+        try {
+            logger.debug("Validating Action comment is required");
+            if (uiMsg.contains(msg)){
+                flag = true;
+                logger.debug("Reqired warning pop up visible");
+            } else {
+                logger.debug("Reqired warning pop up is not visible");
+            }
+        } catch (Exception e) {
+            logger.debug("Exception While Validating Action comment warning popup 'isActionCommentRequired()'" + e.getMessage());
+            throw new Exception("Exception While Validating Action comment warning popup 'isActionCommentRequired()'" + e.getLocalizedMessage());
+        }
+        return flag;
+    }
+    
+    /**
+     * Click required ok.
+     */
+    public void clickRequiredOk(){
+        logger.debug("Clicking on required Ok");
+        getElement(btnReqiredMsgOk).click();
+        logger.debug("Clicked on required Ok");
+    }
+
 }
