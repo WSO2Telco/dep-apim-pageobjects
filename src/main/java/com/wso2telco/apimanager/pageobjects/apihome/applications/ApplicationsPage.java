@@ -193,7 +193,8 @@ public class ApplicationsPage extends BasicPageObject  {
 		String xpath = String.format(lblApplicationName, appName);
 		WebPelement applicationName = defineEelement(UIType.Xpath, xpath);
 		String applicationname = getElement(applicationName).getText().trim();
-		String tableAppName = username + "_" + applicationname;
+		//String tableAppName = username + "_" + applicationname;
+		String tableAppName = applicationname;
 		try {
 			if (tableAppName.contains(appName)){
 				flag = true;
