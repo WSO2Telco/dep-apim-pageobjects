@@ -169,6 +169,35 @@ public class SandBoxPage extends BasicPageObject{
 	/** The txt service id. */
 	private WebPelement txtServiceId = defineEelement(UIType.ID,"serviceID");
 	
+	/** The lnk manage numbers. */
+	private WebPelement lnkSenderAddresses = defineEelement(UIType.Xpath, "//a[contains(.,'Sender Addresses')]");
+	
+	/** The lbl shortCode. */
+	private  String lblshortCode =  "//table[@id='numbers_data_table']/tbody/tr/td[1]";
+	
+	/** The lnk short code delete. */
+	private String lnkShortCodeDelete = "//table[@id='numbers_data_table']/tbody/tr/td[contains(.,'%s')]/../td[3]/a[4]";
+	
+	/**The txt short code add */
+	private WebPelement txtAddShortCode=defineEelement(UIType.Xpath, "//input[@class='required number shortcode_exist']");
+	
+	/** The btn add short code. */
+	private WebPelement btnAddShortCode = defineEelement(UIType.ID,"add_new_row_button");
+	
+	/**The lbl error */
+	private WebPelement lblError=defineEelement(UIType.Xpath, "//label[@class='error']");
+	
+	/**The btnEdit*/
+	private WebPelement btnEdit=defineEelement(UIType.Xpath, "//a[@class='edit_tbl_icon']");
+	
+	/**The btn edit save*/
+	private WebPelement btnEdtSave=defineEelement(UIType.Xpath, "//a[@class='save_edit_icon']");
+	
+	/**The txt description after error*/
+	private WebPelement txtdescriptioAftererror=defineEelement(UIType.Xpath, "//input[@class='required error']");
+
+	
+	
 	/**
 	 * Instantiates a new sand box page.
 	 *
@@ -178,6 +207,8 @@ public class SandBoxPage extends BasicPageObject{
 	public SandBoxPage(WebDriver driver) {
 		super(driver);
 	}
+	
+
 		
 	/**
 	 * Checks if is request payload tax amount.
@@ -1154,5 +1185,124 @@ public class SandBoxPage extends BasicPageObject{
 		logger.debug("Start entering max payment amount");
 		getElement(txtMaxPayAmount).clearAndSendkeys(amount);
 		logger.debug("Entered max payment amount");
+	}
+	
+	/**
+	 * Select Sender Addresses sub menu
+	 * @author Achiniuj
+	 */
+	public void selectSenderAddresses(){
+		logger.debug("Selecting Sender Addresses");
+		getElement(lnkSenderAddresses).click();
+		logger.debug("Selected Sender Addresses");
+	}
+	
+	/**
+	 * Clear the existing short code
+	 * @author Achiniuj
+	 * @param shortCode
+	 * @throws Exception
+	 */
+	public void clearExistingShortCodes(String shortCode) throws Exception {
+		Thread.sleep(sleepTime);
+		logger.debug("Clearing existing short code");
+		List<WebElement> allElements = driver.findElements(By.xpath(lblshortCode)); 
+		List<String> stringList = new ArrayList<>();
+
+			for (WebElement element: allElements) {
+			      stringList.add(element.getText());
+			}
+			if (stringList.toString().contains(shortCode)) {
+				String xpath = String.format(lnkShortCodeDelete, shortCode);
+				WebPelement deleteShortCode = defineEelement(UIType.Xpath, xpath);
+				getElement(deleteShortCode).click();
+				
+				logger.debug("Start click enter");
+				//getElement(deleteShortCode).sendEnter();
+				logger.debug("Clicked enter");
+				Alert alert = driver.switchTo().alert();
+				alert.accept();
+				logger.debug("Cleared existing short code");
+			}
+		
+	}
+	
+	/**
+	 * Click Add new button for add new short code
+	 * @author Achiniuj
+	 */
+	public void clickAddNewShortCodebtn(){
+		logger.debug("Clicking add new button");
+		getElement(btnAddShortCode).click();
+		logger.debug("Clicked add new button");
+		
+	}
+	
+	/**
+	 * Enter new short code
+	 * @author Achiniuj
+	 * @param shortCode
+	 */
+	public void addNewShortCode(String shortCode){
+		logger.debug("Adding New short code");
+		getElement(txtAddShortCode).clearAndSendkeys(shortCode);
+		logger.debug("Added New Short code");
+		
+		
+	}	
+	
+	/**
+	 * Validate error msg
+	 * @author Achiniuj
+	 * @param errorMsg
+	 * @return
+	 * @throws Exception
+	 */
+	 public boolean isErrorMsg(String errorMsg) throws Exception{
+		flag = false;
+		logger.debug("Validating the error message");
+		try {
+			if (getElement(lblError).getText().equalsIgnoreCase(errorMsg)){
+				flag = true;
+				logger.debug("Error message is correct");
+			} else {
+				logger.debug("Error message is incorrect");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Refund the error message 'isErrorMsg()'" + e.getMessage());
+			throw new Exception("Exception While Validating Refund the error message 'isErrorMsg()'" + e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
+	/**
+	 * Click add edit button
+	 * @author Achiniuj
+	 */
+	public void clickEditbtn(){
+		logger.debug("Clicking Edit button");
+		getElement(btnEdit).click();;
+		logger.debug("Clicked Edit button");
+	}
+	
+	/**
+	 * Click save button after edit the short code.
+	 * @author AchiniJ
+	 */
+	public void clickEditSavebtn(){
+		logger.debug("Clicking Edit save button");
+		getElement(btnEdtSave).click();
+		logger.debug("Clicked Edit save button");
+	}
+	
+	/**
+	 * Enter description after a error message
+	 * @author Achiniuj
+	 * @param description
+	 */
+	public void enterDisAfetrErrorMsg(String description){
+		logger.debug("Entering description");
+		getElement(txtdescriptioAftererror).clearAndSendkeys(description);
+		logger.debug("Description entered");
 	}
 }
