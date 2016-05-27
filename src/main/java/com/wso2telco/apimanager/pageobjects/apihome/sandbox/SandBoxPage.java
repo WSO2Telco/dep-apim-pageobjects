@@ -9,9 +9,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
@@ -81,6 +78,9 @@ public class SandBoxPage extends BasicPageObject{
 	
 	/** The lnk payment. */
 	private WebPelement lnkPayment = defineEelement(UIType.Xpath,"//li[@class='dropdown tryit-menu-item subnavi open']/ul/li/a[contains(.,'Payment')]");
+	
+	/** The lnk lbs. */
+	private WebPelement lnkLBS = defineEelement(UIType.Xpath, "//ul[@id='mainnavi']//a[contains(.,'LBS')]");
 	
 	/** The lbl payment parameters. */
 	private WebPelement lblPaymentParameters = defineEelement(UIType.Xpath,"//div[@class='title-section']/h2");
@@ -591,6 +591,17 @@ public class SandBoxPage extends BasicPageObject{
 	}
 	
 	/**
+	 * Click on lbs.
+	 *
+	 * @author SulakkhanaW
+	 */
+	public void clickOnLBS(){
+		logger.debug("Clicking on LBS");
+		getElement(lnkLBS).click();
+		logger.debug("Clicked on LBS");
+	}
+	
+	/**
 	 * Checks if is payment parameters.
 	 *
 	 * @author JayaniP
@@ -851,161 +862,6 @@ public class SandBoxPage extends BasicPageObject{
 			throw new Exception("Exception While Validating amount 'isAmountAvailable()'" + e.getLocalizedMessage());
 		}
 		return flag;
-	}
-	
-	/**
-	 * Gets the value from json.
-	 *
-	 * @author JayaniP
-	 * @param tag the tag
-	 * @param json the json
-	 * @return the value from json
-	 */
-	public String getValueFromJson(String tag, String json) {
-		JsonElement jsonElement = new JsonParser().parse(json);
-		JsonObject jsonObject = jsonElement.getAsJsonObject();
-		String returnValue = null;
-		switch (tag) {
-
-		case "serverReferenceCode":	
-		case "endUserId":
-		case "transactionOperationStatus":
-		case "clientCorrelator":
-		case "referenceCode":
-		case "callbackData":
-		case "notificationFormat":
-		case "originalServerReferenceCode":
-			returnValue = getValueAmountTransaction(tag, jsonObject);
-			break;
-			
-		case "totalAmountCharged":
-		case "totalAmountRefunded":
-			returnValue = getValuePaymnetAmount(tag, jsonObject);
-			break;
-
-		case "taxAmount":
-		case "purchaseCategoryCode":
-		case "channel":
-		case "onBehalfOf":
-		case "serviceId":	
-		case "mandateId":
-		case "productId":
-			returnValue = getValueChargingMetaData(tag, jsonObject);
-			break;
-
-		case "amount":
-		case "description":
-		case "currency":
-		case "code":
-			returnValue = getValueChargingInformation(tag, jsonObject);
-			break;
-			
-		case "text":
-			returnValue = getValuePolicyException(tag, jsonObject);
-			break;
-			
-		default:
-			break;
-		}
-		return returnValue;
-	}
-	
-	/**
-	 * Gets the value amount transaction.
-	 *
-	 * @author JayaniP
-	 * @param tag the tag
-	 * @param jsonObject the json object
-	 * @return the value amount transaction
-	 */
-	private String getValueAmountTransaction(String tag, JsonObject jsonObject){
-		jsonObject = jsonObject.getAsJsonObject("amountTransaction");
-		String returnValue = jsonObject.get(tag).toString();
-		String firstCharacter = Character.toString(returnValue.charAt(0));
-		if (firstCharacter.equalsIgnoreCase("\"")){
-			returnValue = returnValue.substring(1, returnValue.length()-1);
-		}
-		return returnValue;
-	}
-	
-	/**
-	 * Gets the value paymnet amount.
-	 *
-	 * @author JayaniP
-	 * @param tag the tag
-	 * @param jsonObject the json object
-	 * @return the value paymnet amount
-	 */
-	private String getValuePaymnetAmount(String tag, JsonObject jsonObject){
-		jsonObject = jsonObject.getAsJsonObject("amountTransaction");
-		jsonObject = jsonObject.getAsJsonObject("paymentAmount");
-		String returnValue = jsonObject.get(tag).toString();
-		String firstCharacter = Character.toString(returnValue.charAt(0));
-		if (firstCharacter.equalsIgnoreCase("\"")){
-			returnValue = returnValue.substring(1, returnValue.length()-1);
-		}
-		return returnValue;
-	}
-	
-	/**
-	 * Gets the value charging meta data.
-	 *
-	 * @author JayaniP
-	 * @param tag the tag
-	 * @param jsonObject the json object
-	 * @return the value charging meta data
-	 */
-	private String getValueChargingMetaData(String tag, JsonObject jsonObject){
-		jsonObject = jsonObject.getAsJsonObject("amountTransaction");
-		jsonObject = jsonObject.getAsJsonObject("paymentAmount");
-		jsonObject = jsonObject.getAsJsonObject("chargingMetaData");
-		String returnValue = jsonObject.get(tag).toString();
-		String firstCharacter = Character.toString(returnValue.charAt(0));
-		if (firstCharacter.equalsIgnoreCase("\"")){
-			returnValue = jsonObject.get(tag).toString().substring(1, tag.length()-1);
-		}
-		return returnValue;
-	}
-	
-	/**
-	 * Gets the value charging information.
-	 *
-	 * @author JayaniP
-	 * @param tag the tag
-	 * @param jsonObject the json object
-	 * @return the value charging information
-	 */
-	private String getValueChargingInformation(String tag, JsonObject jsonObject){
-		jsonObject = jsonObject.getAsJsonObject("amountTransaction");
-		jsonObject = jsonObject.getAsJsonObject("paymentAmount");
-		jsonObject = jsonObject.getAsJsonObject("chargingInformation");
-		String firstCharacter = Character.toString(jsonObject.get(tag).toString().charAt(0));
-		String returnValue = null;
-		if (firstCharacter.equalsIgnoreCase("\"")){
-			returnValue = jsonObject.get(tag).toString().substring(1, tag.length()-1);
-		} else {
-			returnValue = jsonObject.get(tag).toString();
-		}
-		return returnValue;
-	}
-	
-	/**
-	 * Gets the value policy exception.
-	 *
-	 * @author JayaniP
-	 * @param tag the tag
-	 * @param jsonObject the json object
-	 * @return the value policy exception
-	 */
-	private String getValuePolicyException(String tag, JsonObject jsonObject){
-		jsonObject = jsonObject.getAsJsonObject("requestError");
-		jsonObject = jsonObject.getAsJsonObject("policyException");
-		String returnValue = jsonObject.get(tag).toString();
-		String firstCharacter = Character.toString(returnValue.charAt(0));
-		if (firstCharacter.equalsIgnoreCase("\"")){
-			returnValue = returnValue.substring(1, returnValue.length()-1);
-		}
-		return returnValue;
 	}
 	
 	/**
