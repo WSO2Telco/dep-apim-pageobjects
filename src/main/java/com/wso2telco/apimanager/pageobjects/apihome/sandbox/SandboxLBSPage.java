@@ -96,7 +96,7 @@ public class SandboxLBSPage extends BasicPageObject {
 	 */
 	public void setLocationRetrievalStatus(String locationRetrievalStatus){
 		logger.debug("Selecting LocationvRetrievalvStatus");
-		getElement(ddllocationRetrievalStatus).clearAndSendkeys(locationRetrievalStatus);
+		getElement(ddllocationRetrievalStatus).sendKeys(locationRetrievalStatus);
 		logger.debug("Location Retrieval Status selected");
 	}
 	
@@ -119,7 +119,7 @@ public class SandboxLBSPage extends BasicPageObject {
 	 */
 	public void setTelAddress(String address){
 		logger.debug("Setting tele address");
-		getElement(txtTelAddress).click();
+		getElement(txtTelAddress).clearAndSendkeys(address);;
 		logger.debug("Tele address set");
 	}
 	
@@ -151,8 +151,10 @@ public class SandboxLBSPage extends BasicPageObject {
 	 *
 	 * @author SulakkhanaW
 	 * @return the location response
+	 * @throws InterruptedException 
 	 */
-	public String getLocationResponse(){
+	public String getLocationResponse() throws InterruptedException{
+		Thread.sleep(sleepTime);
 		return getElement(txtResponsePayload).getAttribute("value");
 	}
 
