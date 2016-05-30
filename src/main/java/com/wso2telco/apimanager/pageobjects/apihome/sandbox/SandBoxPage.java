@@ -51,7 +51,7 @@ public class SandBoxPage extends BasicPageObject{
 	
 	/** The lbl number. */
 	private String lblNumber = "//table[@id='numbers_data_table']/tbody/tr/td[1]";
-	
+
 	/** The lnk number delete. */
 	private String lnkNumberDelete = "//table[@id='numbers_data_table']/tbody/tr/td[contains(.,'%s')]/../td[4]/a[4]";
 	
@@ -187,15 +187,26 @@ public class SandBoxPage extends BasicPageObject{
 	/**The lbl error */
 	private WebPelement lblError=defineEelement(UIType.Xpath, "//label[@class='error']");
 	
-	/**The btnEdit*/
-	private WebPelement btnEdit=defineEelement(UIType.Xpath, "//a[@class='edit_tbl_icon']");
-	
-	/**The btn edit save*/
-	private WebPelement btnEdtSave=defineEelement(UIType.Xpath, "//a[@class='save_edit_icon']");
-	
 	/**The txt description after error*/
 	private WebPelement txtdescriptioAftererror=defineEelement(UIType.Xpath, "//input[@class='required error']");
-
+	
+	/**The txt enter balance after error */
+	private WebPelement txtBalanceAfterError=defineEelement(UIType.Xpath, "//input[@class='required balance error']");
+	
+	/** The txt editNumber. */
+	private WebPelement editNumber = defineEelement(UIType.Xpath,"//input[@class='required tel']");
+	
+	/**The txt span string */
+	String spantString = "//table[@id='numbers_data_table']/tbody/tr/td/input[contains(@value,'%s')]/../../td[4]/a[@class='save_edit_icon']";
+	
+	/**The txt span string Short code */
+	String spantStringShortCode = "//table[@id='numbers_data_table']/tbody/tr/td/input[contains(@value,'%s')]/../../td[3]/a[@class='save_edit_icon']";
+	
+	/**The txt span string Short code edit btn */
+	String spantStringShortCodeEditBtn = "//table[@id='numbers_data_table']/tbody/tr/td[contains(.,'%s')]/../td[3]/a[3]";
+	
+	/**The txt span string Short code edit btn */
+	String spantStringNumberEditBtn = "//table[@id='numbers_data_table']/tbody/tr/td[contains(.,'%s')]/../td[4]/a[3]";
 	
 	
 	/**
@@ -207,8 +218,6 @@ public class SandBoxPage extends BasicPageObject{
 	public SandBoxPage(WebDriver driver) {
 		super(driver);
 	}
-	
-
 		
 	/**
 	 * Checks if is request payload tax amount.
@@ -412,21 +421,19 @@ public class SandBoxPage extends BasicPageObject{
 	public void clearExistingNumber(String number) throws Exception {
 		Thread.sleep(sleepTime);
 		logger.debug("Clearing existing number");
-		List<WebElement> allElements = driver.findElements(By.xpath(lblNumber)); 
+		List<WebElement> allElements = driver.findElements(By.xpath(lblNumber));
 		List<String> stringList = new ArrayList<>();
-
-			for (WebElement element: allElements) {
-			      stringList.add(element.getText());
-			}
-			if (stringList.toString().contains(number)) {
-				String xpath = String.format(lnkNumberDelete, number);
-				WebPelement deleteNumber = defineEelement(UIType.Xpath, xpath);
-				getElement(deleteNumber).click();
-				Alert alert = driver.switchTo().alert();
-				alert.accept();
-				logger.debug("Cleared existing number");
-			}
-		
+		for (WebElement element : allElements) {
+			stringList.add(element.getText());
+		}
+		if (stringList.toString().contains(number)) {
+			String xpath = String.format(lnkNumberDelete, number);
+			WebPelement deleteNumber = defineEelement(UIType.Xpath, xpath);
+			getElement(deleteNumber).click();
+			Alert alert = driver.switchTo().alert();
+			alert.accept();
+			logger.debug("Cleared existing number");
+		}
 	}
 	
 	/**
@@ -527,6 +534,17 @@ public class SandBoxPage extends BasicPageObject{
 		getElement(txtBalance).clearAndSendkeys(balance);
 		logger.debug("Balance entered");
 	}
+	/**
+	 * @author Achiniuj
+	 * @param number
+	 */
+	public void editNumber(String number){
+		logger.debug("Editing the number");
+		getElement(editNumber).clearAndSendkeys(number);
+		logger.debug("Edited the number");
+		
+	}
+	
 	
 	/**
 	 * Click save number.
@@ -1198,6 +1216,29 @@ public class SandBoxPage extends BasicPageObject{
 	}
 	
 	/**
+	 * @author Achiniuj
+	 * @param welcome
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean isSansboxManageNumberPage(String title) throws Exception{
+		flag = false;
+		logger.debug("Validating Sandbox number manage page");
+		try {
+			if (getElement(lblWelcome).getText().equalsIgnoreCase(title)){
+				flag = true;
+				logger.debug("Sandbox Manage number page is load properly");
+			} else {
+				logger.debug("Sandbox Manage nymber page is not load properly");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Sandbox welcome page 'isSansboxManageNumberPage()'" + e.getMessage());
+			throw new Exception("Exception While Validating Sandbox welcome page 'isSansboxManageNumberPage()'" + e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
+	/**
 	 * Clear the existing short code
 	 * @author Achiniuj
 	 * @param shortCode
@@ -1252,6 +1293,22 @@ public class SandBoxPage extends BasicPageObject{
 	}	
 	
 	/**
+	 * Click edit save button in short code
+	 * @author Achiniuj
+	 * @param shortCode
+	 * @throws Exception
+	 */
+	public void clickEditSavebtnShortCode(String shortCode) throws Exception {
+		Thread.sleep(sleepTime);
+		logger.debug("Clicking Edit save button");
+		String saveShortCodeXpath=String.format(spantStringShortCode, shortCode);
+		WebPelement btnEditSave = defineEelement(UIType.Xpath, saveShortCodeXpath);
+		getElement(btnEditSave).click();
+		logger.debug("Clicked Edit save button");
+		
+	}
+	
+	/**
 	 * Validate error msg
 	 * @author Achiniuj
 	 * @param errorMsg
@@ -1274,26 +1331,73 @@ public class SandBoxPage extends BasicPageObject{
 		}
 		return flag;
 	}
-	
+	 
+	 /**
+	  * @author Achiniuj
+	  * @param balance
+	  */
+	 public void enterBalanceError(String balance){
+			logger.debug("Entering balance");
+			getElement(txtBalanceAfterError).clearAndSendkeys(balance);
+			logger.debug("Entered balance");
+	}
+	 
 	/**
-	 * Click add edit button
+	 * Clear the balance in number managment page
 	 * @author Achiniuj
 	 */
-	public void clickEditbtn(){
+	 public void clearBalance(){
+		 logger.debug("Clearing balance");
+		 getElement(txtBalance).clear();
+		 logger.debug("Cleared balance");
+	 }
+	 
+	/**
+	 * Click Short code edit button 
+	 * @author Achiniuj
+	 * @param shortCode
+	 * @throws Exception
+	 */
+	public void clickEditbtnShortCode(String shortCode) throws Exception {
+		Thread.sleep(sleepTime);
 		logger.debug("Clicking Edit button");
-		getElement(btnEdit).click();;
+		String shortCodeEditbtnXpath=String.format(spantStringShortCodeEditBtn,shortCode);
+		WebPelement btnEditShortCode = defineEelement(UIType.Xpath, shortCodeEditbtnXpath);
+		getElement(btnEditShortCode).click();
+		logger.debug("Clicked Edit button");
+	}	
+	
+	/**
+	 * Click number edit button
+	 * @author Achiniuj
+	 * @param number
+	 * @throws Exception
+	 */
+	public void clickEditbtnNumber(String number) throws Exception {
+		Thread.sleep(sleepTime);
+		logger.debug("Clicking Edit button");
+		String numberEditbtnXpath=String.format(spantStringNumberEditBtn,number);
+		WebPelement btnEditNumber = defineEelement(UIType.Xpath, numberEditbtnXpath);
+		getElement(btnEditNumber).click();
 		logger.debug("Clicked Edit button");
 	}
 	
 	/**
 	 * Click save button after edit the short code.
 	 * @author AchiniJ
+	 * @param number
+	 * @throws Exception
 	 */
-	public void clickEditSavebtn(){
+	public void clickEditSavebtn(String number) throws Exception {
+		Thread.sleep(sleepTime);
 		logger.debug("Clicking Edit save button");
-		getElement(btnEdtSave).click();
+		String saveNumberXpath=String.format(spantString, number);
+		WebPelement btnEditSave = defineEelement(UIType.Xpath, saveNumberXpath);
+		getElement(btnEditSave).click();
 		logger.debug("Clicked Edit save button");
-	}
+		
+	}	
+	
 	
 	/**
 	 * Enter description after a error message
@@ -1305,4 +1409,6 @@ public class SandBoxPage extends BasicPageObject{
 		getElement(txtdescriptioAftererror).clearAndSendkeys(description);
 		logger.debug("Description entered");
 	}
+
+	
 }
