@@ -44,8 +44,7 @@ public class ManagerPage extends BasicPageObject {
 	private WebPelement btnLogIn = defineEelement(UIType.ID, "loginButton");
 
 	/** The lbl home. */
-	private WebPelement lblHome = defineEelement(UIType.Xpath,
-			"//div[@class='title-section']/h2");
+	private WebPelement lblHome = defineEelement(UIType.Xpath, "//div[@class='title-section']/h2");
 
 	/** The btn user name. */
 	private WebPelement btnUserName = defineEelement(UIType.ID, "userMenu");

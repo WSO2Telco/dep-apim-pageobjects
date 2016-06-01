@@ -16,7 +16,7 @@ import com.wso2telco.test.framework.util.UIType;
 /**
  * The Class SandBoxPage.
  */
-public class SandBoxPage extends BasicPageObject{
+public class SandBoxPage extends BasicPageObject {
 	
 	
 	/** The logger. */
@@ -81,6 +81,9 @@ public class SandBoxPage extends BasicPageObject{
 	
 	/** The lnk lbs. */
 	private WebPelement lnkLBS = defineEelement(UIType.Xpath, "//ul[@id='mainnavi']//a[contains(.,'LBS')]");
+	
+	/** The lnk sms. */
+	private WebPelement lnkSMS = defineEelement(UIType.Xpath, "//ul[@id='mainnavi']//a[contains(.,'SMS')]");
 	
 	/** The lbl payment parameters. */
 	private WebPelement lblPaymentParameters = defineEelement(UIType.Xpath,"//div[@class='title-section']/h2");
@@ -619,6 +622,17 @@ public class SandBoxPage extends BasicPageObject{
 		logger.debug("Clicking on LBS");
 		getElement(lnkLBS).click();
 		logger.debug("Clicked on LBS");
+	}
+	
+	/**
+	 * Click on sms.
+	 *
+	 * @author SulakkhanaW
+	 */
+	public void clickOnSMS(){
+		logger.debug("Clicking on SMS");
+		getElement(lnkSMS).click();
+		logger.debug("Clicked on SMS");
 	}
 	
 	/**
