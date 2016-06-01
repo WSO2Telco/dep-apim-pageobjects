@@ -13,6 +13,7 @@ import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.element.table.Table;
 import com.wso2telco.test.framework.util.UIType;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class SandboxSMSPage.
  */
@@ -74,6 +75,12 @@ public class SandboxSMSPage extends BasicPageObject {
 	
 	/** The btn nofify add button. */
 	private WebPelement btnNofifyAddButton = defineEelement(UIType.ID, "nofify-add-button");
+	
+	/** The txt request payload. */
+	private WebPelement txtRequestPayload = defineEelement(UIType.ID, "request");
+	
+	/** The txt reponse payload. */
+	private WebPelement txtReponsePayload = defineEelement(UIType.ID, "response");
 	
 	/** The tbl response data. */
 	private String tblResponseData = "sms_notification_table";
@@ -406,6 +413,26 @@ public class SandboxSMSPage extends BasicPageObject {
 		logger.debug("Clicking on notify add button");
 		getElement(btnNofifyAddButton).click();
 		logger.debug("Clicked on notify add button");
+	}
+	
+	/**
+	 * Gets the sms request payload.
+	 *
+	 * @author SulakkhanaW
+	 * @return the sms request payload
+	 */
+	public String getSmsRequestPayload(){
+		return getElement(txtRequestPayload).getAttribute("value");
+	}
+	
+	/**
+	 * Gets the sms response payload.
+	 *
+	 * @author SulakkhanaW
+	 * @return the sms response payload
+	 */
+	public String getSmsResponsePayload(){
+		return getElement(txtReponsePayload).getAttribute("value");
 	}
 	
 	/**
