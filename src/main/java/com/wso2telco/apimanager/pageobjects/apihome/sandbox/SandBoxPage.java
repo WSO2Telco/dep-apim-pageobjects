@@ -208,6 +208,8 @@ public class SandBoxPage extends BasicPageObject{
 	/**The txt span string Short code edit btn */
 	String spantStringNumberEditBtn = "//table[@id='numbers_data_table']/tbody/tr/td[contains(.,'%s')]/../td[4]/a[3]";
 	
+	/** The lnk USSD. */
+	private WebPelement lnkUssd = defineEelement(UIType.Xpath,"//li[@class='dropdown tryit-menu-item subnavi open']/ul/li/a[contains(.,'USSD')]");
 	
 	/**
 	 * Instantiates a new sand box page.
@@ -1254,7 +1256,6 @@ public class SandBoxPage extends BasicPageObject{
 		
 	}	
 	
-	
 	/**
 	 * Enter description after a error message
 	 * @author Achiniuj
@@ -1265,6 +1266,15 @@ public class SandBoxPage extends BasicPageObject{
 		getElement(txtdescriptioAftererror).clearAndSendkeys(description);
 		logger.debug("Description entered");
 	}
-
+	
+	/**
+	 * Click USSD page
+	 * @author Achiniuj
+	 */
+	public void clickOnUSSD(){
+		logger.debug("Clicking USSD");
+		getElement(lnkUssd).click();
+		logger.debug("Clicked on USSD");
+	}
 	
 }
