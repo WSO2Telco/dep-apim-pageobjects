@@ -13,7 +13,6 @@ import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.element.table.Table;
 import com.wso2telco.test.framework.util.UIType;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SandboxSMSPage.
  */
@@ -84,6 +83,48 @@ public class SandboxSMSPage extends BasicPageObject {
 	
 	/** The tbl response data. */
 	private String tblResponseData = "sms_notification_table";
+	
+	/** The btn retrive sms. */
+	private WebPelement btnRetriveSMS = defineEelement(UIType.Xpath, "//input[@value='Retrieve SMS ']");
+	
+	/** The ddl registration id. */
+	private WebPelement ddlRegistrationID = defineEelement(UIType.ID, "registration-id");
+	
+	/** The txt max batch size. */
+	private WebPelement txtMaxBatchSize = defineEelement(UIType.ID, "max-batch-size");
+	
+	/** The btn sms retrive request. */
+	private WebPelement btnSMSRetriveRequest = defineEelement(UIType.ID, "sms-retrieve-request-button");
+	
+	/** The txt sms response payload. */
+	private WebPelement txtSMSResponsePayload = defineEelement(UIType.ID, "json-response");
+	
+	/** The tbl retrive message. */
+	private String tblRetriveMessage = "retrieve_messages_table";
+	
+	/** The lnk delivery subscription. */
+	private WebPelement lnkDeliverySubscription = defineEelement(UIType.ID, "//a[contains(.,'Delivery Subscriptions')]");
+	
+	/** The txt filter criteria. */
+	private WebPelement txtFilterCriteria = defineEelement(UIType.ID, "filterCriteria");
+	
+	/** The txt subscription notify url. */
+	private WebPelement txtSubscriptionNotifyURL = defineEelement(UIType.ID, "notifyURL");
+	
+	/** The txt subscription callback. */
+	private WebPelement txtSubscriptionCallback = defineEelement(UIType.ID, "callbackData");
+	
+	/** The txt subscription client correlator. */
+	private WebPelement txtSubscriptionClientCorrelator = defineEelement(UIType.ID, "clientCorrelator");
+	
+	/** The btn notify add. */
+	private WebPelement btnNotifyAdd = defineEelement(UIType.ID, "nofify-add-button");
+	
+	/** The tbl delivery sub data. */
+	private String tblDeliverySubData = "delivery_sub_data_table";
+	
+	/** The btn subscription delete. */
+	private String btnSubscriptionDelete = "//td[contains(.,'%s')]/../td/a";
 
 	/**
 	 * Instantiates a new sandbox sms page.
@@ -205,7 +246,7 @@ public class SandboxSMSPage extends BasicPageObject {
 	 * @return true, if is SMS parameters
 	 * @throws Exception the exception
 	 */
-	public boolean isSMSParameters(String title) throws Exception{
+	public boolean isSMSPageHeader(String title) throws Exception{
 		flag = false;
 		logger.debug("Validating SMS parameters page");
 		try {
@@ -450,6 +491,204 @@ public class SandboxSMSPage extends BasicPageObject {
 			rowdata.add(sendReqTable.body().getCellFromRowIndexColumnIndex(lastRowNumber, x).getText().trim());
 		}
 		return rowdata;
+	}
+	
+	/**
+	 * Click retrive sms.
+	 *
+	 * @author SulakkhanaW
+	 */
+	public void clickRetriveSMS(){
+		logger.debug("Clicking on Retrive SMS button");
+		getElement(btnRetriveSMS).click();
+		logger.debug("Clicked on Retrive SMS button");
+	}
+	
+	/**
+	 * Select registraion id.
+	 *
+	 * @author SulakkhanaW
+	 * @param registrationId the registration id
+	 */
+	public void selectRegistraionID(String registrationId){
+		logger.debug("Selecting Registraion ID");
+		getElement(ddlRegistrationID).sendKeys(registrationId);
+		logger.debug("Registraion ID Selected");
+	}
+	
+	/**
+	 * Enter max batch size.
+	 *
+	 * @author SulakkhanaW
+	 * @param maxBatchSize the max batch size
+	 */
+	public void enterMaxBatchSize(String maxBatchSize){
+		logger.debug("Entering max batch size");
+		getElement(txtMaxBatchSize).clearAndSendkeys(maxBatchSize);
+		logger.debug("Entered max batch size");
+	}
+	
+	/**
+	 * Click sms retrive request.
+	 *
+	 * @author SulakkhanaW
+	 */
+	public void clickSMSRetriveRequest(){
+		logger.debug("Clicking on SMS retrive request button");
+		getElement(btnSMSRetriveRequest).click();
+		logger.debug("Clicked on SMS retrive request button");
+	}
+	
+	/**
+	 * Gets the SMS retrive payload.
+	 *
+	 * @author SulakkhanaW
+	 * @return the SMS retrive payload
+	 */
+	public String getSMSRetrivePayload(){
+		return getElement(txtSMSResponsePayload).getAttribute("value");
+	}
+	
+	/**
+	 * Gets the SMS retrive message.
+	 *
+	 * @author SulakkhanaW
+	 * @return the SMS retrive message
+	 */
+	public List<List<String>> getSMSRetriveMessage(){
+		List<List<String>> tabledata = new ArrayList<List<String>>();
+		Table smsRetriveTable = getTable(UIType.ID, tblRetriveMessage);
+		smsRetriveTable.body().getAllRows();
+		return tabledata;
+	}
+	
+	/**
+	 * Click delivery subscription.
+	 *
+	 * @author SulakkhanaW
+	 */
+	public void clickDeliverySubscription(){
+		logger.debug("Clicking on delivery subscription link");
+		getElement(lnkDeliverySubscription).click();
+		logger.debug("Clicked on delivery subscription link");
+	}
+	
+	/**
+	 * Enter filter criteria.
+	 *
+	 * @author SulakkhanaW
+	 * @param filterCriteria the filter criteria
+	 */
+	public void enterFilterCriteria(String filterCriteria){
+		logger.debug("Entering filter criteria");
+		getElement(txtFilterCriteria).clearAndSendkeys(filterCriteria);
+		logger.debug("Entered filter criteria");
+	}
+	
+	/**
+	 * Enter subscription notify url.
+	 *
+	 * @author SulakkhanaW
+	 * @param notifyURL the notify url
+	 */
+	public void enterSubscriptionNotifyURL(String notifyURL){
+		logger.debug("Entering notify URL");
+		getElement(txtSubscriptionNotifyURL).clearAndSendkeys(notifyURL);
+		logger.debug("Entered notify URL");
+	}
+	
+	/**
+	 * Enter subscription callback.
+	 *
+	 * @author SulakkhanaW
+	 * @param subscriptionCallback the subscription callback
+	 */
+	public void enterSubscriptionCallback(String subscriptionCallback){
+		logger.debug("Entering Subscription callback");
+		getElement(txtSubscriptionCallback).clearAndSendkeys(subscriptionCallback);
+		logger.debug("Entered Subscription callback");
+	}
+	
+	/**
+	 * Enter subscription clietn correlator.
+	 *
+	 * @author SulakkhanaW
+	 * @param subscriptionClientCorrelator the subscription client correlator
+	 */
+	public void enterSubscriptionClietnCorrelator(String subscriptionClientCorrelator){
+		logger.debug("Entering Subscription client correlator");
+		getElement(txtSubscriptionClientCorrelator).clearAndSendkeys(subscriptionClientCorrelator);
+		logger.debug("Entered Subscription client correlator");
+	}
+	
+	/**
+	 * Click subscription send request.
+	 *
+	 * @author SulakkhanaW
+	 */
+	public void clickSubscriptionSendRequest(){
+		logger.debug("Clicking on subscription send request button");
+		getElement(btnNotifyAdd).click();
+		logger.debug("Clicked on subscription send request button");
+	}
+	
+	/**
+	 * Gets the delivery row table.
+	 *
+	 * @author SulakkhanaW
+	 * @param clietnCorrelator the clietn correlator
+	 * @return the delivery row table
+	 */
+	public List<String> getDeliveryRowTable(String clietnCorrelator){
+		List<String> tabledata = new ArrayList<String>();
+		Table smsSusbcriptionTable = getTable(UIType.ID, tblDeliverySubData);
+		int getRowNumber = smsSusbcriptionTable.body().getRowIndexUsingTextInColumn(clietnCorrelator, 3);
+		int columnRow = smsSusbcriptionTable.body().getNumberOfColumns();
+		for (int x = 0; x < columnRow; x++)	{
+			tabledata.add(smsSusbcriptionTable.body().getCellFromRowIndexColumnIndex(getRowNumber, x).getText().trim());
+		}
+		return tabledata;
+	}
+	
+	/**
+	 * Click delete subscription.
+	 *
+	 * @author SulakkhanaW
+	 * @param subscriptionCorrelator the subscription correlator
+	 */
+	public void clickDeleteSubscription(String subscriptionCorrelator){
+		logger.debug("Clicking on subscription delete button");
+		String xpath = String.format(btnSubscriptionDelete, subscriptionCorrelator);
+		WebPelement btnDelete = defineEelement(UIType.Xpath, xpath);
+		getElement(btnDelete).click();
+		logger.debug("Clicked on subscription delete button");
+	}
+	
+	/**
+	 * Checks if is subscrtion delete.
+	 *
+	 * @author SulakkhanaW
+	 * @param clientCorrelator the client correlator
+	 * @return true, if is subscrtion delete
+	 * @throws Exception the exception
+	 */
+	public boolean isSubscrtionDelete(String clientCorrelator) throws Exception{
+		logger.debug("Validating subscription deletion success");
+		flag = false;
+		Table smsSusbcriptionTable = getTable(UIType.ID, tblDeliverySubData);
+		int getRowNumber = smsSusbcriptionTable.body().getRowIndexUsingTextInColumn(clientCorrelator, 3);
+		try {
+			if (getRowNumber == -1){
+				flag = true;
+				logger.debug("Subscription deleted successesfully");
+			} else {
+				logger.debug("Subscription not deleted");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating subscription deletion success 'isSubscrtionDelete()'" + e.getMessage());
+			throw new Exception("Exception While Validating subscription deletion success 'isSubscrtionDelete()'" + e.getLocalizedMessage());
+		}
+		return flag;
 	}
 
 }
