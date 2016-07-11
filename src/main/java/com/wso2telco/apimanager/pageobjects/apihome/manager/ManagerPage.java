@@ -160,7 +160,10 @@ public class ManagerPage extends BasicPageObject {
 	private String lnkApplicationDetails = "//tr/td/div/label[text()[contains(.,'%s')]]/../../label/b[text()[contains(.,'Application Details')]]";
 
 	/** The ddl tier. */
-	private WebPelement ddlTier = defineEelement(UIType.Xpath, "//td[@id='desc0']/div[4]/div[1]/select/option[@value='Unlimited']");
+	//private WebPelement ddlTier = defineEelement(UIType.Xpath, "//td[@id='desc0']/div[4]/div[1]/select/option[@value='Unlimited']");
+	
+	/** The ddl tier l. */
+	private String ddlTierL = "//label[contains(.,'%s')]/../..//select";
 
 	/**
 	 * The btn assign me. %s_1 = appName
@@ -753,10 +756,13 @@ public class ManagerPage extends BasicPageObject {
 	 * @param appname the appname
 	 */
 	public void selectTier(String tier, String appname) {
+		String xpath = String.format(ddlTierL, appname);
+		WebPelement ddlTierList = defineEelement(UIType.Xpath, xpath);
+		getElement(ddlTierList).click();
 		logger.debug("Selecting tier");
-		getElement(ddlTier).sendKeys(tier);
+		getElement(ddlTierList).sendKeys(tier);
 		logger.debug("Tier selected");
-		getElement(ddlTier).sendEnter();
+		getElement(ddlTierList).sendEnter();
 	}
 
 	/**
@@ -4653,6 +4659,122 @@ public class ManagerPage extends BasicPageObject {
         logger.debug("Clicking on required Ok");
         getElement(btnReqiredMsgOk).click();
         logger.debug("Clicked on required Ok");
+    }
+    
+    /**
+     * Subscription approvals by admin.
+     *
+     * @param appName the app name
+     * @param tier the tier
+     * @param comment the comment
+     * @throws InterruptedException 
+     */
+    public void subscriptionApprovalsByAdmin(String appName, String tier, String comment) throws InterruptedException{
+    	String tableClass = "//table[@class='table table-bordered table-striped']";
+    	Table subscriptionTable = getTable(UIType.Xpath, tableClass);
+    	ArrayList<String> rowList = new ArrayList<String>();
+		List<WebElement> rows = subscriptionTable.body().getAllRows();
+		int rowCount = rows.size();
+		for (int x = 0; x < rowCount; x++){
+			if (rows.get(x).getText().contains(appName)){
+				int rownumber = x + 1;
+				rowList.add(Integer.toString(rownumber));
+			}
+		}
+    	int appContainingRowCount = rowList.size();
+    	Thread.sleep(sleepTime);
+    	for (int x = 0; x < appContainingRowCount; x++){
+    		String rowNumber = "1";
+			String lnkApplicationDetails = "//tr[" + rowNumber + "]/td/label[contains(.,'Subscription Details')]";
+			WebPelement lnkAppName = defineEelement(UIType.Xpath, lnkApplicationDetails);
+			Thread.sleep(1000);
+			getElement(lnkAppName).click();
+			Thread.sleep(2000);
+			String ddlTierL = "//tr["+rowNumber+"]/td/label/div/div/select";
+			WebPelement ddlTierList = defineEelement(UIType.Xpath, ddlTierL);
+			Thread.sleep(1000);
+			getElement(ddlTierList).click();
+			Thread.sleep(1000);
+			getElement(ddlTierList).sendKeys(tier);
+			getElement(ddlTierList).sendEnter();
+			Thread.sleep(2000);
+			String btnAssign = "//tr[" + rowNumber + "]/td/button[contains(.,'Assign To Me')]";
+			WebPelement btnAssignMe = defineEelement(UIType.Xpath, btnAssign);
+			Thread.sleep(1000);
+			getElement(btnAssignMe).click();
+			Thread.sleep(2000);
+			String btnStart = "//tr[" + rowNumber + "]/td/button[contains(.,'Start')]";
+			WebPelement start = defineEelement(UIType.Xpath, btnStart);
+			getElement(start).click();
+			Thread.sleep(1000);
+			String ddlConditionList = "//tr[" + rowNumber + "]/td/select[@class='js_stateDropDown pull-left']";
+			Thread.sleep(1000);
+			WebPelement ddlCondition = defineEelement(UIType.Xpath, ddlConditionList);
+			getElement(ddlCondition).sendKeys("Approve");
+			Thread.sleep(1000);
+			getElement(ddlCondition).sendEnter();
+			Thread.sleep(1000);
+			String btnComplete = "//tr[" + rowNumber + "]/td/button[contains(.,'Complete')]";
+			WebPelement complete = defineEelement(UIType.Xpath, btnComplete);
+			Thread.sleep(1000);
+			getElement(complete).click();
+			Thread.sleep(1000);
+			WebPelement txtApproveReject = defineEelement(UIType.Xpath, "//div/form/input[@type='text']");
+			Thread.sleep(1000);
+			getElement(txtApproveReject).clearAndSendkeys(comment);
+			Thread.sleep(1000);
+			WebPelement btnApproveOk = defineEelement(UIType.Xpath, "//div/a[text()[contains(.,'OK')]]");
+			Thread.sleep(1000);
+			getElement(btnApproveOk).click();
+    	}
+    }
+    
+    public void subscriptionApprovalsByOperatorAdmin(String appName, String tier, String comment) throws InterruptedException{
+    	String tableClass = "//table[@class='table table-bordered table-striped']";
+    	Table subscriptionTable = getTable(UIType.Xpath, tableClass);
+    	ArrayList<String> rowList = new ArrayList<String>();
+		List<WebElement> rows = subscriptionTable.body().getAllRows();
+		int rowCount = rows.size();
+		for (int x = 0; x < rowCount; x++){
+			if (rows.get(x).getText().contains(appName)){
+				int rownumber = x + 1;
+				rowList.add(Integer.toString(rownumber));
+			}
+		}
+    	int appContainingRowCount = rowList.size();
+    	Thread.sleep(sleepTime);
+    	for (int x = 0; x < appContainingRowCount; x++){
+    		String rowNumber = "1";
+			Thread.sleep(2000);
+			/*String btnAssign = "//tr[" + rowNumber + "]/td/button[contains(.,'Assign To Me')]";
+			WebPelement btnAssignMe = defineEelement(UIType.Xpath, btnAssign);
+			Thread.sleep(1000);
+			getElement(btnAssignMe).click();
+			Thread.sleep(2000);*/
+			String btnStart = "//tr[" + rowNumber + "]/td/button[contains(.,'Start')]";
+			WebPelement start = defineEelement(UIType.Xpath, btnStart);
+			getElement(start).click();
+			Thread.sleep(1000);
+			String ddlConditionList = "//tr[" + rowNumber + "]/td/select[@class='js_stateDropDown pull-left']";
+			Thread.sleep(1000);
+			WebPelement ddlCondition = defineEelement(UIType.Xpath, ddlConditionList);
+			getElement(ddlCondition).sendKeys("Approve");
+			Thread.sleep(1000);
+			getElement(ddlCondition).sendEnter();
+			Thread.sleep(1000);
+			String btnComplete = "//tr[" + rowNumber + "]/td/button[contains(.,'Complete')]";
+			WebPelement complete = defineEelement(UIType.Xpath, btnComplete);
+			Thread.sleep(1000);
+			getElement(complete).click();
+			Thread.sleep(1000);
+			WebPelement txtApproveReject = defineEelement(UIType.Xpath, "//div/form/input[@type='text']");
+			Thread.sleep(1000);
+			getElement(txtApproveReject).clearAndSendkeys(comment);
+			Thread.sleep(1000);
+			WebPelement btnApproveOk = defineEelement(UIType.Xpath, "//div/a[text()[contains(.,'OK')]]");
+			Thread.sleep(1000);
+			getElement(btnApproveOk).click();
+    	}
     }
 
 }
