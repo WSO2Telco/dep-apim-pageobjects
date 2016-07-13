@@ -41,6 +41,9 @@ public class SubscriptionsPage extends BasicPageObject  {
 	/** The txt token validity sand. */
 	private WebPelement txtTokenValiditySand = defineEelement(UIType.ID, "refreshSandValidityTime");
 	
+	/** The lbl access token. */
+	private WebPelement lblAccessToken = defineEelement(UIType.Xpath, "//span[@class='accessTokenDisplayPro keyValues']");
+	
 	/** The lbl cons key prod. */
 	private WebPelement lblConsKeyProd = defineEelement(UIType.Xpath, "//div[@class='consumerKey']/span");
 	
@@ -214,6 +217,18 @@ public class SubscriptionsPage extends BasicPageObject  {
 		logger.debug("Start typing token validity period for sandbox");
 		getElement(txtTokenValiditySand).clearAndSendkeys(validity);
 		logger.debug("Typed token validity period for sandbox");
+	}
+	
+	/**
+	 * Gets the production access token.
+	 *
+	 * @return the production access token
+	 */
+	public String getProductionAccessToken(){
+		logger.debug("Finding production Access token key");
+		String accessKey = getElement(lblAccessToken).getText().trim();
+		logger.debug("Production Access token key key found");
+		return accessKey;
 	}
 	
 	/**
