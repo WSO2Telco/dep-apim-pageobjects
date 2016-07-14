@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import com.wso2telco.apimanager.pageobjects.apihome.manager.ManagerPage;
 import com.wso2telco.apimanager.pageobjects.db.queries.SQLQuery;
 import com.wso2telco.test.framework.db.connection.executers.SQLExecuter;
+import com.wso2telco.test.framework.db.connection.sql.QueryResult;
 
 public class DataBaseQueries {
 
@@ -15,7 +16,7 @@ public class DataBaseQueries {
 				"%Status", Status).replace("%ApplicationName", ApplicationName);
 		System.out.println(UPDATE_OPERATORAPPS + "/n");
 		try {
-			SQLExecuter.ExecuteUpdateQuery(UPDATE_OPERATORAPPS);
+			SQLExecuter.executeUpdateQuery(UPDATE_OPERATORAPPS);
 			logger.debug("Update query UPDATE_OPERATORAPPS executed.");
 		} catch (Exception e) {
 			System.err
@@ -25,7 +26,7 @@ public class DataBaseQueries {
 	}
 
 	public void updateConsumerKeyandConsumerSecret(String ConsumerKNew,
-			String ConsumerSNew, String ConsumerKOld, String ConsumerSOld) {
+			String ConsumerSNew, String ConsumerKOld, String ConsumerSOld) throws Exception {
 
 		String UPDATE_SP_INBOUND_AUTH = SQLQuery.UPDATE_SP_INBOUND_AUTH
 				.replace("%ConsumerKeyNew", ConsumerKNew)
@@ -70,7 +71,7 @@ public class DataBaseQueries {
 		System.out.println(UPDATE_SP_TOKEN + "\n ");
 
 		try {
-			SQLExecuter.ExecuteUpdateQuery(UPDATE_SP_INBOUND_AUTH);
+			SQLExecuter.executeUpdateQuery(UPDATE_SP_INBOUND_AUTH);
 			logger.debug("Update query UPDATE_SP_INBOUND_AUTH executed.");
 		} catch (Exception e) {
 			logger.error("Error occured when executing UPDATE_SP_INBOUND_AUTH : "
@@ -78,7 +79,7 @@ public class DataBaseQueries {
 		}
 
 		try {
-			SQLExecuter.ExecuteUpdateQuery(UPDATE_AM_APPLICATION_KEY_MAPPING);
+			SQLExecuter.executeUpdateQuery(UPDATE_AM_APPLICATION_KEY_MAPPING);
 			logger.debug("Update query UPDATE_AM_APPLICATION_KEY_MAPPING executed.");
 		} catch (Exception e) {
 			logger.error("Error occured when executing UPDATE_AM_APPLICATION_KEY_MAPPING : "
@@ -86,9 +87,10 @@ public class DataBaseQueries {
 		}
 
 		// Check whether temp record available to manage foreign key constraint
-		if (SQLExecuter.getNumbersOfRows(SQLQuery.GET_TEMP_KEY) == 0) {
+		QueryResult qsTempKey = SQLExecuter.getQueryResults(SQLQuery.GET_TEMP_KEY);
+		if (qsTempKey.getResultSize() == 0) {
 			try {
-				SQLExecuter.ExecuteUpdateQuery(INSERT_IDN_OAUTH_CONSUMER_APPS);
+				SQLExecuter.executeUpdateQuery(INSERT_IDN_OAUTH_CONSUMER_APPS);
 				logger.debug("Update query INSERT_IDN_OAUTH_CONSUMER_APPS executed.");
 			} catch (Exception e) {
 				logger.error("Error occured when executing GET_TEMP_KEY: "
@@ -98,7 +100,7 @@ public class DataBaseQueries {
 
 		try {
 			SQLExecuter
-					.ExecuteUpdateQuery(UPDATE_TEMP_AM_APP_KEY_DOMAIN_MAPPING);
+					.executeUpdateQuery(UPDATE_TEMP_AM_APP_KEY_DOMAIN_MAPPING);
 			logger.debug("Update query UPDATE_TEMP_AM_APP_KEY_DOMAIN_MAPPING executed.");
 		} catch (Exception e) {
 			logger.error("Error occured when executing UPDATE_TEMP_AM_APP_KEY_DOMAIN_MAPPING : "
@@ -106,7 +108,7 @@ public class DataBaseQueries {
 		}
 
 		try {
-			SQLExecuter.ExecuteUpdateQuery(UPDATE_TEMP_IDN_OAUTH2_ACCESS_TOKEN);
+			SQLExecuter.executeUpdateQuery(UPDATE_TEMP_IDN_OAUTH2_ACCESS_TOKEN);
 			logger.debug("Update query UPDATE_TEMP_IDN_OAUTH2_ACCESS_TOKEN executed.");
 		} catch (Exception e) {
 			logger.error("Error occured when executing UPDATE_TEMP_IDN_OAUTH2_ACCESS_TOKEN : "
@@ -115,7 +117,7 @@ public class DataBaseQueries {
 
 		try {
 			SQLExecuter
-					.ExecuteUpdateQuery(UPDATE_TEMP_UPDATE_IDN_OAUTH2_AUTHORIZATION_CODE);
+					.executeUpdateQuery(UPDATE_TEMP_UPDATE_IDN_OAUTH2_AUTHORIZATION_CODE);
 			logger.debug("Update query UPDATE_TEMP_UPDATE_IDN_OAUTH2_AUTHORIZATION_CODE executed.");
 		} catch (Exception e) {
 			logger.error("Error occured when executing UPDATE_TEMP_UPDATE_IDN_OAUTH2_AUTHORIZATION_CODE : "
@@ -123,7 +125,7 @@ public class DataBaseQueries {
 		}
 
 		try {
-			SQLExecuter.ExecuteUpdateQuery(UPDATE_IDN_OAUTH_CONSUMER_APPS);
+			SQLExecuter.executeUpdateQuery(UPDATE_IDN_OAUTH_CONSUMER_APPS);
 			logger.debug("Update query UPDATE_IDN_OAUTH_CONSUMER_APPS executed.");
 		} catch (Exception e) {
 			logger.error("Error occured when executing UPDATE_IDN_OAUTH_CONSUMER_APPS : "
@@ -131,7 +133,7 @@ public class DataBaseQueries {
 		}
 
 		try {
-			SQLExecuter.ExecuteUpdateQuery(UPDATE_AM_APP_KEY_DOMAIN_MAPPING);
+			SQLExecuter.executeUpdateQuery(UPDATE_AM_APP_KEY_DOMAIN_MAPPING);
 			logger.debug("Update query UPDATE_AM_APP_KEY_DOMAIN_MAPPING executed.");
 		} catch (Exception e) {
 			logger.error("Error occured when executing UPDATE_AM_APP_KEY_DOMAIN_MAPPING : "
@@ -139,7 +141,7 @@ public class DataBaseQueries {
 		}
 
 		try {
-			SQLExecuter.ExecuteUpdateQuery(UPDATE_IDN_OAUTH2_ACCESS_TOKEN);
+			SQLExecuter.executeUpdateQuery(UPDATE_IDN_OAUTH2_ACCESS_TOKEN);
 			logger.debug("Update query UPDATE_IDN_OAUTH2_ACCESS_TOKEN executed.");
 		} catch (Exception e) {
 			logger.error("Error occured when executing UPDATE_IDN_OAUTH2_ACCESS_TOKEN : "
@@ -148,7 +150,7 @@ public class DataBaseQueries {
 
 		try {
 			SQLExecuter
-					.ExecuteUpdateQuery(UPDATE_IDN_OAUTH2_AUTHORIZATION_CODE);
+					.executeUpdateQuery(UPDATE_IDN_OAUTH2_AUTHORIZATION_CODE);
 			logger.debug("Update query UPDATE_IDN_OAUTH2_AUTHORIZATION_CODE executed.");
 		} catch (Exception e) {
 			logger.error("Error occured when executing UPDATE_IDN_OAUTH2_AUTHORIZATION_CODE : "
@@ -156,7 +158,7 @@ public class DataBaseQueries {
 		}
 
 		try {
-			SQLExecuter.ExecuteUpdateQuery(UPDATE_SP_TOKEN);
+			SQLExecuter.executeUpdateQuery(UPDATE_SP_TOKEN);
 			logger.debug("Update query UPDATE_SP_TOKEN executed.");
 		} catch (Exception e) {
 			logger.error(("Error occured when executing UPDATE_SP_TOKEN : "
@@ -165,12 +167,12 @@ public class DataBaseQueries {
 
 	}
 
-	public static void main(String args[]) {
+/*	public static void main(String args[]) {
 		DataBaseQueries s = new DataBaseQueries();
 		s.updateOperatorAppsStatus("1", "ssgsg");
 		s.updateConsumerKeyandConsumerSecret(
 				"6b0037da-9002-4a1c-8c56-d0f8c763149f",
 				"9fa3e85c-aeea-4022-9198-9118f48cec9b",
 				"9f8wg5U1pYkVNSphvgSYod8C6CMa", "_bERff0XJW7kRIdh4w_NUC6QfpIa");
-	}
+	}*/
 }
