@@ -17,7 +17,7 @@ public class SignUpPage extends BasicPageObject {
 	Logger logger = Logger.getLogger(SignUpPage.class);
 
 	/** The title sign up. */
-	private WebPelement titleSignUp = defineEelement(UIType.Xpath, "//div[@class='title-section']/h2");
+	private WebPelement titleSignUp = defineEelement(UIType.Xpath, "//*[@id='sign-up']/h3");
 	
 	/** The txt new u name. */
 	private WebPelement txtNewUName = defineEelement(UIType.ID, "newUsername");
@@ -38,7 +38,7 @@ public class SignUpPage extends BasicPageObject {
 	private WebPelement txtEmail = defineEelement(UIType.ID, "5.0cliamUri");
 	
 	/** The btn submit. */
-	private WebPelement btnSubmit = defineEelement(UIType.Xpath, "//input[@class='submit btn btn-primary']");
+	private WebPelement btnSubmit = defineEelement(UIType.Xpath, "//button[@type='submit']");
 	
 	/** The msg success. */
 	private WebPelement msgSuccess = defineEelement(UIType.Xpath, "//span[@class='messageText']");

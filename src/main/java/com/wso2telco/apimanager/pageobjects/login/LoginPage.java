@@ -15,10 +15,10 @@ public class LoginPage extends BasicPageObject {
 	Logger logger = Logger.getLogger(LoginPage.class);
 	
 	/** The btn sign up. */
-	private WebPelement btnSignUp = defineEelement(UIType.ID, "register-link");
+	private WebPelement btnSignUp = defineEelement(UIType.ID, "register-link1");
 	
 	/** The link login. */
-	private WebPelement linkLogin = defineEelement(UIType.ID, "login-link");
+	private WebPelement linkLogin = defineEelement(UIType.Xpath, "//a[@class='need-login']/span[2]");
 	
 	/** The link login_ ie. */
 	//private WebPelement linkLogin_IE = defineEelement(UIType.Xpath, "//a[@id='login-link']");
@@ -36,10 +36,10 @@ public class LoginPage extends BasicPageObject {
 	private WebPelement lblLogin = defineEelement(UIType.Xpath, "//div[@class='modal-header']/h3");
 	
 	/** The lbl user name. */
-	private WebPelement lblUserName = defineEelement(UIType.Xpath, "//a[@class='link-to-user dropdown-toggle']");
+	private WebPelement lblUserName = defineEelement(UIType.Xpath, "//span[@class='hidden-xs']");
 	
 	/** The dd user name. */
-	private WebPelement ddUserName = defineEelement(UIType.Xpath, "//a[@class='link-to-user dropdown-toggle']/b[1]");
+	private WebPelement ddUserName = defineEelement(UIType.Xpath, "//span[@class='hidden-xs']/..");
 	
 	/** The btn logout. */
 	private WebPelement btnLogout = defineEelement(UIType.ID, "logout-link");
@@ -158,7 +158,7 @@ public class LoginPage extends BasicPageObject {
 		flag = false;
 		logger.debug("Validating user name");
 		try {
-			if (getElement(lblUserName).getText().equalsIgnoreCase(username)){
+			if (getElement(lblUserName).getText().trim().equalsIgnoreCase(username)){
 				flag = true;
 				logger.debug("User name matched");
 			} else {
@@ -210,7 +210,7 @@ public class LoginPage extends BasicPageObject {
 		flag = false;
 		logger.debug("Validating Login button");
 		try {
-			if (getElement(linkLogin).getText().equalsIgnoreCase(value)){
+			if (getElement(linkLogin).getText().trim().equalsIgnoreCase(value)){
 				flag = true;
 				logger.debug("Login button visible");
 			} else {
