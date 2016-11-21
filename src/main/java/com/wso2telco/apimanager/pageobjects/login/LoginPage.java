@@ -15,10 +15,10 @@ public class LoginPage extends BasicPageObject {
 	Logger logger = Logger.getLogger(LoginPage.class);
 	
 	/** The btn sign up. */
-	private WebPelement btnSignUp = defineEelement(UIType.ID, "register-link1");
+	private WebPelement btnSignUp = defineEelement(UIType.Xpath, ".//*[@id='register-link' or @id='register-link1' or a[text()='Sign-up'] ]");
 	
 	/** The link login. */
-	private WebPelement linkLogin = defineEelement(UIType.Xpath, "//a[@class='need-login']/span[2]");
+	private WebPelement linkLogin = defineEelement(UIType.Xpath, ".//span[text()='Sign In']");
 	
 	/** The link login_ ie. */
 	//private WebPelement linkLogin_IE = defineEelement(UIType.Xpath, "//a[@id='login-link']");
