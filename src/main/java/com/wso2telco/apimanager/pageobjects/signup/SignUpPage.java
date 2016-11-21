@@ -17,12 +17,12 @@ public class SignUpPage extends BasicPageObject {
 	Logger logger = Logger.getLogger(SignUpPage.class);
 
 	/** The title sign up. */
-	private WebPelement titleSignUp = defineEelement(UIType.Xpath, "//*[@id='sign-up']/h3");
+	private WebPelement titleSignUp = defineEelement(UIType.Xpath, "//div[@class='title-section']/h2|.//*[@id='sign-up']/h3");
 	
-	/** The txt new u name. */
+	/** The txt new user name. */
 	private WebPelement txtNewUName = defineEelement(UIType.ID, "newUsername");
 	
-	/** The txt p word. */
+	/** The txt pword. */
 	private WebPelement txtPWord = defineEelement(UIType.ID, "newPassword");
 	
 	/** The txt re type p word. */
@@ -35,16 +35,41 @@ public class SignUpPage extends BasicPageObject {
 	private WebPelement txtFName = defineEelement(UIType.ID, "1.0cliamUri");
 	
 	/** The txt email. */
-	private WebPelement txtEmail = defineEelement(UIType.ID, "5.0cliamUri");
+	private WebPelement txtEmail = defineEelement(UIType.Xpath, ".//*[@id='2.0cliamUri' or @id='5.0cliamUri']");
 	
 	/** The btn submit. */
-	private WebPelement btnSubmit = defineEelement(UIType.Xpath, "//button[@type='submit']");
-	
+	private WebPelement btnSubmit = defineEelement(UIType.Xpath, ".//*[@id='register-link' or a[text()='Sign-up'] ]|.//button[@type='submit']");
+
+	/** The btn submit. */
+	private WebPelement btnCancel = defineEelement(UIType.Xpath, ".//*[@id='goBackBtn']");
+
 	/** The msg success. */
 	private WebPelement msgSuccess = defineEelement(UIType.Xpath, "//span[@class='messageText']");
 	
 	/** The btn ok. */
 	private WebPelement btnOK = defineEelement(UIType.Xpath, "//a[@class='btn btn btn-primary']");
+	
+	/**Optional Fields**/	
+	/** The txt Organization . */
+	private WebPelement txtOrganization  = defineEelement(UIType.Xpath, ".//*[@id='2.0cliamUri']");
+	
+	/** The txt Address. */
+	private WebPelement txtAddress  = defineEelement(UIType.Xpath, ".//*[@id='3.0cliamUri']");
+	
+	/** The txt Country. */
+	private WebPelement txtCountry  = defineEelement(UIType.Xpath, ".//*[@id='4.0cliamUri']");
+	
+	/** The txt Land Phone. */
+	private WebPelement txtLandPhone   = defineEelement(UIType.Xpath, ".//*[@id='6.0cliamUri']");
+	
+	/** The txt MobilePhone. */
+	private WebPelement txtMobilePhone  = defineEelement(UIType.Xpath, ".//*[@id='7.0cliamUri']");
+
+	/** The txt IM. */
+	private WebPelement txtIM  = defineEelement(UIType.Xpath, ".//*[@id='8.0cliamUri']");
+	
+	/** The txt URL. */
+	private WebPelement txtURL  = defineEelement(UIType.Xpath, ".//*[@id='9.0cliamUri']");
 	
 	/**
 	 * Instantiates a new sign up page.
