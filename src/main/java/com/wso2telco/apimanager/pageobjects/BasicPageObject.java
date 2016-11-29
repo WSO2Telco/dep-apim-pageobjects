@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.pageobjects.PageBase;
+import com.wso2telco.test.framework.tools.data.DataGenerator;
 
 /**
  * The Class BasicPageObject.
@@ -39,5 +40,12 @@ public class BasicPageObject extends PageBase {
 		}
 	}
 	
+	public String getRandomNumber(int num){
+		String radomNumber;
+		DataGenerator dataGenerator = new DataGenerator();
+		radomNumber = dataGenerator.generateRandomNumber(num);
+		return radomNumber;
+	}
+		
 	
 }

@@ -23,13 +23,19 @@ public class APIsPage extends BasicPageObject {
 	Logger logger = Logger.getLogger(APIsPage.class);
 	
 	/** The lbl ap is. */
-	private WebPelement lblAPIs = defineEelement(UIType.Xpath, "//div[@class='title-section']/h2");
+	private WebPelement lblAPIs = defineEelement(UIType.Xpath, "//div[@class='page-header']/h2");
 	
 	/** The lbl api status. */
-	private WebPelement lblApiStatus = defineEelement(UIType.Xpath, "//th[text()[contains(.,'Status')]]/../td");
+	private WebPelement lblApiStatus = defineEelement(UIType.Xpath, "//strong[contains(text(),'Status')]/../../div//span");
+	
+	/** The dd application. */
+	private WebPelement ddApplicationName = defineEelement(UIType.Xpath, "//label[text()='Applications']/following-sibling::*/button");
 	
 	/** The ddl application. */
-	private WebPelement ddlApplication = defineEelement(UIType.ID, "application-list");
+	private WebPelement ddlApplication = defineEelement(UIType.Xpath, "//label[text()='Applications']/following-sibling::*/select/optgroup/option");
+	
+	/** The ddl application Name. */
+	private String ddlAppName = "//select[@id='application-list']/optgroup/option[text()='%s']";
 	
 	/** The list app name. */
 	//private String listAppName = "//*[@id='application-list']/optgroup/option[text()='%s']";
@@ -38,10 +44,10 @@ public class APIsPage extends BasicPageObject {
 	private WebPelement btnSubscribe = defineEelement(UIType.ID, "subscribe-button");
 	
 	/** The lbl subs success. */
-	private WebPelement lblSubsSuccess = defineEelement(UIType.Xpath, "//div[@id='messageModal']/div[1]/h3");
+	private WebPelement lblSubsSuccess = defineEelement(UIType.Xpath, "//div[@id='messageModal']//h3");
 	
 	/** The btn go to subscriber. */
-	private WebPelement btnGoToSubscriber = defineEelement(UIType.Xpath, "//a[contains(text(),'Go to My Subscriptions')]");
+	private WebPelement btnGoToSubscriber = defineEelement(UIType.Xpath, "//a[contains(text(),'View Subscriptions')]");
 	
 	/** The ddl tabs. */
 	private String ddlTabs = "//select[@id='application-list']//option";
@@ -49,8 +55,9 @@ public class APIsPage extends BasicPageObject {
 	/** The lnk api name.
 	 * %_1 = apiName
 	 **/
-	private String lnkAPIName = "//div[@class='content-section shadow-up']//a[@title='%s']";
+	private String lnkAPIName = "//a[contains(text(),'%s')]/../preceding-sibling::*/a[contains(@title,'%s')]";
 	
+
 	/** The ddl operator.
 	 * %s_1 = operator
 	 **/
@@ -155,8 +162,8 @@ public class APIsPage extends BasicPageObject {
 	 * @author SulakkhanaW
 	 * @param apiName the api name
 	 */
-	public void clickCreatedAPI(String apiName){
-		String xpath = String.format(lnkAPIName, apiName);		
+	public void clickCreatedAPI(String apiName, String apiVersion){
+		String xpath = String.format(lnkAPIName, apiVersion, apiName);		
 		WebPelement lnkCreatedAPI = defineEelement(UIType.Xpath, xpath);
 		logger.debug("Clicking on create API");
 		getElement(lnkCreatedAPI).click();
@@ -196,7 +203,7 @@ public class APIsPage extends BasicPageObject {
 	 */
 	public void clickApplicationDropDown() throws InterruptedException{
 		logger.debug("Clicking on Application drop down");
-		driver.findElement(By.cssSelector("#application-list")).click();
+		getElement(ddApplicationName).click();
 		Thread.sleep(sleepTime);
 		logger.debug("Clicked on Application drop down");
 	}
@@ -250,6 +257,7 @@ public class APIsPage extends BasicPageObject {
 					flag = true;
 					getElement(ddlApplication).sendKeys(Keys.ESCAPE);
 					logger.debug("Application name is visible after approving");
+					break;
 				} else {
 					logger.debug("Application name is not visible after approving");
 				}
@@ -270,12 +278,12 @@ public class APIsPage extends BasicPageObject {
 	 */
 	public void clickAppName(String appname) throws InterruptedException{
 		Thread.sleep(1000);
-		//String xpath = String.format(listAppName, appname);
-		//WebPelement appNameItem = defineEelement(UIType.Xpath, xpath);
-		getElement(ddlApplication).sendKeys(appname);
+		String xpath = String.format(ddlAppName, appname);
+		WebPelement appNameItem = defineEelement(UIType.Xpath, xpath);
+		getElement(appNameItem).click();
 		logger.debug("Clicked on Application name drop down");
 		logger.debug("Sending enter key");
-		getElement(ddlApplication).sendEnter();
+//		getElement(ddlApplication).sendEnter();
 		logger.debug("Send enter key");
 	}
 	

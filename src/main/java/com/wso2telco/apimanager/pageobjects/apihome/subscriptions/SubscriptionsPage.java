@@ -20,8 +20,8 @@ public class SubscriptionsPage extends BasicPageObject  {
 	/** The logger. */
 	Logger logger = Logger.getLogger(SubscriptionsPage.class);
 	
-	/** The lbl subscriptions. */
-	private WebPelement lblSubscriptions = defineEelement(UIType.Xpath, "//div[@class='title-section']/h2");
+	/** The tab subscriptions. */
+	private String tabSubscriptions = ".//h2[text()='%s']/../following-sibling::*//a[text()='%s']";
 	
 	/** The lbl app name. */
 	private WebPelement lblAppName = defineEelement(UIType.Xpath, "//div[@id='s2id_appListSelected']/a/span[1]");
@@ -30,10 +30,10 @@ public class SubscriptionsPage extends BasicPageObject  {
 	private WebPelement txtAppSearch = defineEelement(UIType.Xpath, "//div[@id='select2-drop']/div/input");
 	
 	/** The txt token validity prod. */
-	private WebPelement txtTokenValidityProd = defineEelement(UIType.ID, "refreshProdValidityTime");
+	private WebPelement txtTokenValidityProd = defineEelement(UIType.Xpath, "//input[contains(@title,'validity')]");
 	
 	/** The btn generate prod. */
-	private WebPelement btnGenerateProd = defineEelement(UIType.Xpath, "//button[@data-keytype='PRODUCTION']");
+	private WebPelement btnGenerateProd = defineEelement(UIType.Xpath, "//div[@id='production']//button");
 	
 	/** The btn generate sand. */
 	private WebPelement btnGenerateSand = defineEelement(UIType.Xpath, "//button[@data-keytype='SANDBOX']");
@@ -42,10 +42,10 @@ public class SubscriptionsPage extends BasicPageObject  {
 	private WebPelement txtTokenValiditySand = defineEelement(UIType.ID, "refreshSandValidityTime");
 	
 	/** The lbl cons key prod. */
-	private WebPelement lblConsKeyProd = defineEelement(UIType.Xpath, "//div[@class='consumerKey']/span");
+	private WebPelement lblConsKeyProd = defineEelement(UIType.Xpath, "//label[text()='Consumer Key']");
 	
 	/** The lbl sec key prod. */
-	private WebPelement lblSecKeyProd = defineEelement(UIType.Xpath, "//div[@class='consumerSecret']/span");
+	private WebPelement lblSecKeyProd = defineEelement(UIType.Xpath, "//label[text()='Consumer Secret']");
 	
     /** The lbl cons key sand. */
     private WebPelement lblConsKeySand = defineEelement(UIType.Xpath, "//input[@id='refreshSandValidityTime']/../../div[4]/span");
@@ -60,13 +60,16 @@ public class SubscriptionsPage extends BasicPageObject  {
 	private WebPelement btnReGenerateSand = defineEelement(UIType.Xpath, "//input[@id='refreshSandValidityTime']/../../div[3]/button");
 	
 	/** The lbl access token prod. */
-	private WebPelement lblAccessTokenProd = defineEelement(UIType.Xpath, "//div[@class='consumerKey']/../div[1]/span");
+	private WebPelement lblAccessTokenProd = defineEelement(UIType.Xpath, "//label[text()='Access Token']");
 	
 	/** The lbl access token sand. */
 	private WebPelement lblAccessTokenSand = defineEelement(UIType.Xpath, "//input[@id='refreshSandValidityTime']/../../div[1]/span");
 	
 	/** The lbl api. */
-	private String lblApi = "//div[@class='row-fluid']/div/a[@class='service-name']";
+	private String lblApi = "//table[@id='subscription-table']/tbody/tr/td/a/h4";
+	
+	/** The link unsubscribe */
+	private String Unsubscribe = "//h4[text()='%s - %s']/../../following-sibling::*/a[@title='Unsubscribe']";
 	
 	/**
 	 * Instantiates a new subscriptions page.
@@ -86,13 +89,15 @@ public class SubscriptionsPage extends BasicPageObject  {
 	 * @return true, if is subscription header displayed
 	 * @throws Exception the exception
 	 */
-	public boolean isSubscriptionHeaderDisplayed(String header) throws Exception {
+	public boolean isSubscriptionHeaderDisplayed(String appname, String header) throws Exception {
 
 		flag = false;
 		logger.debug("Validating Subscription Header");
 		Thread.sleep(sleepTime);
+		String xpath = String.format(tabSubscriptions, appname, header);
+		WebPelement subscriptionTab = defineEelement(UIType.Xpath, xpath);
 		try {
-			if (header.contains(getElement(lblSubscriptions).getText())) {
+			if (header.contains(getElement(subscriptionTab).getText())) {
 				flag = true;
 				logger.debug("Validating Subscription Header completed");
 			} else {
@@ -526,7 +531,7 @@ public class SubscriptionsPage extends BasicPageObject  {
 	 * @return true, if is subscribed ap is
 	 * @throws Exception the exception
 	 */
-	public boolean isSubscribedAPIs(String api) throws Exception{
+	public boolean isSubscribedAPIs(String version, String api) throws Exception{
 		flag = false;
 		logger.debug("Validating APIs");
 		ArrayList<String> apiList = new ArrayList<String>();
@@ -537,7 +542,7 @@ public class SubscriptionsPage extends BasicPageObject  {
 			for (WebElement option : options) {
 				apiList.add(option.getText());
 			}
-			if (apiList.toString().contains(api)) {
+			if (apiList.toString().contains(api+" - "+version)) {
 				flag = true;
 			}
 		} catch (Exception e) {
@@ -547,5 +552,54 @@ public class SubscriptionsPage extends BasicPageObject  {
 		return flag;
 	}
 
+	/**
+	 * Click Subscription tab
+	 *
+	 * @author MalshaniS
+	 */
+	public void clickSubscriptionTab(String app, String tabName){
+		logger.debug("Clicking on Subscription Tab");
+		String xpath = String.format(tabSubscriptions, app, tabName);
+		WebPelement tbSubscription = defineEelement(UIType.Xpath, xpath);
+		getElement(tbSubscription).click();
+		logger.debug("Clicked on Subscription Tab");
+	}
+	
+	/**
+	 * Click Unsubscription link
+	 *
+	 * @author MalshaniS
+	 */
+	public void clickUnsubscribe(String api, String version){
+		logger.debug("Clicking on Unsubscribe Link");
+		String xpath = String.format(Unsubscribe, api, version);
+		WebPelement lnkUnsubscribe = defineEelement(UIType.Xpath, xpath);
+		getElement(lnkUnsubscribe).click();
+		logger.debug("Clicked on Unsubscribe Link");
+	}
+	
+	/**
+	 * Checks if is production access token.
+	 *
+	 * @author MalshaniS
+	 * @return true, if is production access token
+	 * @throws Exception the exception
+	 */
+	public boolean isProductionAccessToken() throws Exception{
+		flag = false;
+		logger.debug("Validating production access token is displayed");
+		try {
+			if (getElement(lblAccessTokenProd).isDisplayed()){
+				flag = true;
+				logger.debug("Production access token is displayed");
+			} else {
+				logger.debug("Production access token is not displayed");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Production access token is displayed 'isProductionAccessToken()'" + e.getMessage());
+			throw new Exception("Exception While Validating Production access token is displayed 'isProductionAccessToken()'" + e.getLocalizedMessage());
+		}
+		return flag;
+	}
 }
 

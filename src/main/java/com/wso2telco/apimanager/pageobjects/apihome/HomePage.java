@@ -24,18 +24,19 @@ public class HomePage extends BasicPageObject {
 	Logger logger = Logger.getLogger(HomePage.class);
 
 	/** The link ap is. */
-	private WebPelement linkAPIs = defineEelement(UIType.Xpath, "//ul[@class='nav orderFix']/li[2]/a");
+	private WebPelement linkAPIs = defineEelement(UIType.Xpath, "//a[@title='APIs']");
 	
 	/** The link my applications. */
-	private WebPelement linkMyApplications = defineEelement(UIType.Xpath, "//ul[@class='nav orderFix']/li[3]/a");
+	private WebPelement linkMyApplications = defineEelement(UIType.Xpath, "//a[@class='link-myapplications']");
+	
+	/** The link add application */
+	private WebPelement linkAddAplication = defineEelement(UIType.Xpath, "//a[@title='Add Application']");
 	
 	/** The link my subscriptions. */
 	private WebPelement linkMySubscriptions = defineEelement(UIType.Xpath, "//ul[@class='nav orderFix']/li[4]/a");
 	
 	/** The link manage. */
 	private WebPelement linkManage = defineEelement(UIType.Xpath, "//ul[@class='nav orderFix']/li[5]/a");
-	
-	
 	
 	/** The link sand box. */
 	private WebPelement linkSandBox = defineEelement(UIType.Xpath, "//ul[@class='nav orderFix']/li[6]/a");
@@ -87,6 +88,19 @@ public class HomePage extends BasicPageObject {
 		} catch (Exception e) {
 			logInstruction("Exception While clicking on My Applications link 'clickMyApplicationsLink()'" + e.getMessage());
 			throw new Exception("Exception While clicking on My Applications link 'clickMyApplicationsLink()'" + e.getLocalizedMessage());
+		}
+		return new ApplicationsPage(driver);
+	}
+	
+	public ApplicationsPage clickAddApplicationLink() throws Exception{
+		try {
+			logger.debug("Start clicking on Add Application link");
+			getElement(linkAddAplication).click();
+			Thread.sleep(15000);
+			logger.debug("Clicked on Add Application link");
+		} catch (Exception e) {
+			logInstruction("Exception While clicking on Add Application link 'clickAddApplicationLink()'" + e.getMessage());
+			throw new Exception("Exception While clicking on Add Application link 'clickAddApplicationLink()'" + e.getLocalizedMessage());
 		}
 		return new ApplicationsPage(driver);
 	}

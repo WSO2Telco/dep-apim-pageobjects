@@ -8,6 +8,8 @@ import com.wso2telco.apimanager.pageobjects.BasicPageObject;
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
 
+import junit.framework.Assert;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class SignUpPage.
@@ -74,7 +76,32 @@ public class SignUpPage extends BasicPageObject {
 	/** The txt URL. */
 	private WebPelement txtURL = defineEelement(UIType.Xpath, ".//*[@id='9.0cliamUri']");
 	
+	/** User Name field validation */
+	private WebPelement lblUsernameValidation = defineEelement(UIType.Xpath, "//label[contains(text(),'Username')]/../span");
 	
+	/** Password field validation */
+	private WebPelement lblPasswordValidation = defineEelement(UIType.Xpath, "//label[contains(text(),'Password')]/../span");
+	
+	/** Re-type Password field validation */
+	private WebPelement lblReTypePasswordValidation = defineEelement(UIType.Xpath, "//label[contains(text(),'Re-type Password')]/../span");
+	
+	/** First Name field validation */
+	private WebPelement lblFirstNameValidation = defineEelement(UIType.Xpath, "//label[contains(text(),'First Name')]/../span");
+	
+	/** Last Name field validation */
+	private WebPelement lblLastNameValidation = defineEelement(UIType.Xpath, "//label[contains(text(),'Last Name')]/../span");
+	
+	/** Email field validation */
+	private WebPelement lblEmailValidation = defineEelement(UIType.Xpath, "//label[contains(text(),'Email')]/../span");
+	
+	/** Already Exists User Validation */
+	private WebPelement msgUserExists = defineEelement(UIType.Xpath, "//span[@class='messageText']");
+
+
+
+
+
+
 	/** The link Additional details. */
 	private WebPelement linkAdditionalDetails = defineEelement(UIType.Xpath, ".//a[@title='View Additional Details']");
 
@@ -357,5 +384,85 @@ public class SignUpPage extends BasicPageObject {
 		getElement(btnOK).click();
 		logger.debug("Clicked on ok");
 	}
+	
+	public boolean isUsernameEmpty(String errorMessage){
+		flag = false;
+		
+		if(getElement(lblUsernameValidation).getText().contains(errorMessage)){
+			flag = true;
+		}
+		
+		return flag;
+	}
+	
+	public boolean isPasswordEmpty(String errorMessage){
+		flag = false;
+		
+		if(getElement(lblPasswordValidation).getText().contains(errorMessage)){
+			flag = true;
+		}
+		
+		return flag;
+	}
 
+	public boolean isReTypePasswordEmpty(String errorMessage){
+		flag = false;
+		
+		if(getElement(lblReTypePasswordValidation).getText().contains(errorMessage)){
+			flag = true;
+		}
+		
+		return flag;		
+	}
+	
+	public boolean isFirstNameEmpty(String errorMessage){
+		flag = false;
+		
+		if(getElement(lblFirstNameValidation).getText().contains(errorMessage)){
+			flag = true;
+		}
+		
+		return flag;
+	}
+	
+	public boolean isLastNameEmpty(String errorMessage){
+		flag = false;
+		
+		if(getElement(lblLastNameValidation).getText().contains(errorMessage)){
+			flag = true;
+		}
+		
+		return flag;
+	}
+	
+	public boolean isEmailEmpty(String errorMessage){
+		flag = false;
+		
+		if(getElement(lblEmailValidation).getText().contains(errorMessage)){
+			flag = true;
+		}
+		
+		return flag;
+	}
+
+	public boolean isUserAlreadyExists(String errorMessage) throws Exception{
+		
+		flag = false;
+		logger.debug("Validating user already exists message");
+		try {
+			Thread.sleep(sleepTime);
+			if (getElement(msgUserExists).getText().contains(errorMessage)) {
+				flag = true;
+				logger.debug("User already exists message matched");
+			} else {
+				logger.debug("User already exists message mismatched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating User already exists messager 'isUserAlreadyExists()'"
+					+ e.getMessage());
+			throw new Exception("Exception While Validating User already exists message 'isUserAlreadyExists()'"
+					+ e.getLocalizedMessage());
+		}
+		return flag;
+	}
 }
