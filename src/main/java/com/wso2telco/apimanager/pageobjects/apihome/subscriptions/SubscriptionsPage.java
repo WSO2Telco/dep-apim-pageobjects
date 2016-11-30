@@ -539,7 +539,7 @@ public class SubscriptionsPage extends BasicPageObject  {
 	 * @return true, if is subscribed ap is
 	 * @throws Exception the exception
 	 */
-	public boolean isSubscribedAPIs(String version, String api) throws Exception{
+	public boolean isSubscribedAPIs(String api,String version) throws Exception{
 		flag = false;
 		logger.debug("Validating APIs");
 		ArrayList<String> apiList = new ArrayList<String>();

@@ -625,10 +625,12 @@ public class APIPublisherHomePage extends BasicPageObject {
 	 * Click implement.
 	 *
 	 * @author SulakkhanaW
+	 * @throws Exception 
 	 */
-	public void clickImplement(){
+	public void clickImplement() throws Exception{
 		logger.debug("Clicking on Implement");
 		getElement(btnImplement).click();
+		Thread.sleep(sleepTime);
 		logger.debug("Clicked on Implement");
 	}
 	
