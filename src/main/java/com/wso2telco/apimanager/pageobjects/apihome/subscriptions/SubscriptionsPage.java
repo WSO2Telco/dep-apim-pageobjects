@@ -72,11 +72,11 @@ public class SubscriptionsPage extends BasicPageObject  {
 	private String Unsubscribe = "//h4[text()='%s - %s']/../../following-sibling::*/a[@title='Unsubscribe']";
 	
 	/** The lbl Subscription tier*/
-	private String lblSubscriptionTier = "//h4[text()='%s - %s']/../../following-sibling::td[1]";
+	private String lblSubscriptionTier = "//h4[text()='%s']/../../following-sibling::td[1]";
 	
 	
 	/** The lbl Subscription status*/
-	private String lblSubscriptionStatus = "//h4[text()='%s - %s']/../../following-sibling::td[2]";
+	private String lblSubscriptionStatus = "//h4[text()='%s']/../../following-sibling::td[2]";
 	
 	
 	/**

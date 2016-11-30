@@ -4794,5 +4794,31 @@ public class ManagerPage extends BasicPageObject {
 		logger.debug("Clicked on Subscription details");
 	}
 
-	
+	/**
+	 * Checks if the subscription task Removed.
+	 *
+	 * @author MalshaniS
+	 * @param appName the app name
+	 * @return true, if is subscription task removed
+	 * @throws Exception the exception
+	 */
+	public boolean isSubscriptionTaskRemoved(String appName) throws Exception {
+		flag = false;
+		logger.debug("Validating subscription task removed");
+		Thread.sleep(sleepTime);
+		String xpath = String.format(lblApplicationName, appName);
+		int Names = driver.findElements(By.xpath(xpath)).size();
+		try {
+			if (Names == 0) {
+				flag = true;
+				logger.debug("subscription task is removed");
+			} else {
+				logger.debug("subscription task is not removed");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating subscription task is removed 'isSubscriptionTaskRemoved()'" + e.getMessage());
+			throw new Exception("Exception While Validating subscription task is removed 'isSubscriptionTaskRemoved()'" + e.getLocalizedMessage());
+		}
+		return flag;
+	}
 }
