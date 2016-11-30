@@ -14,26 +14,28 @@ import com.wso2telco.test.framework.util.UIType;
  */
 public class APIPublisherHomePage extends BasicPageObject {
 	
+//	private static final UIType UIType.Xpath = null;
+
 	/** The logger. */
 	Logger logger = Logger.getLogger(APIPublisherHomePage.class);
 	
 	/** The lbl username. */
-	private WebPelement lblUsername = defineEelement(UIType.ID, "userMenu");
+	private WebPelement lblUsername = defineEelement(UIType.Xpath, "//a[@title='user']/span[2]");
 	
 	/** The lnk api add. */
 	private WebPelement lnkAPIAdd = defineEelement(UIType.Xpath, "//li/a[text()[contains(.,'Add')]]");
 	
 	/** The rdo design api. */
-	private WebPelement rdoDesignAPI = defineEelement(UIType.Xpath, "//label[contains(.,'Design new API')]/input");
+	private WebPelement rdoDesignAPI = defineEelement(UIType.Xpath, "//div[text()='Design New API']/../preceding-sibling::*/span");
 	
 	/** The btn start creating. */
 	private WebPelement btnStartCreating = defineEelement(UIType.ID, "designNewAPI");
 	
 	/** The txt api search. */
-	private WebPelement txtAPISearch = defineEelement(UIType.Xpath, "//form/input[@class='input-xlarge search-query']");
+	private WebPelement txtAPISearch = defineEelement(UIType.Xpath, "//input[contains(@title,'Search')]");
 	
 	/** The btn search. */
-	private WebPelement btnSearch = defineEelement(UIType.Xpath, "//button[text()[contains(.,'Search')]]");
+	private WebPelement btnSearch = defineEelement(UIType.Xpath, "//button[@title='Search']");
 	
 	/** The txt api name. */
 	private WebPelement txtApiName = defineEelement(UIType.ID, "name");
@@ -96,7 +98,7 @@ public class APIPublisherHomePage extends BasicPageObject {
 	private WebPelement btnSubmitRequired = defineEelement(UIType.Xpath, "//td[5]/..//div//button[@type='submit']");
 	
 	/** The btn implement. */
-	private WebPelement btnImplement = defineEelement(UIType.Xpath, "//a[text()='Next: Implement >']");
+	private WebPelement btnImplement = defineEelement(UIType.Xpath, "//a[text()='Next: Implement']");
 	
 	/** The lnk manage api. */
 	private WebPelement lnkManageAPI = defineEelement(UIType.Xpath, "//h4[contains(.,'Managed API')]");
@@ -105,10 +107,10 @@ public class APIPublisherHomePage extends BasicPageObject {
 	private WebPelement ddlEndpointType = defineEelement(UIType.ID, "endpoint_type");
 	
 	/** The txt prod endpoint. */
-	private WebPelement txtProdEndpoint = defineEelement(UIType.Xpath, "//input[contains(@id,'production_endpoints')]");
+	private WebPelement txtProdEndpoint = defineEelement(UIType.Xpath, "//label[text()[contains(.,'Production Endpoint')]]/following-sibling::div/div/input");
 	
 	/** The txt sandbox endpoint. */
-	private WebPelement txtSandboxEndpoint = defineEelement(UIType.Xpath, "//input[contains(@id,'sandbox_endpoints')]");
+	private WebPelement txtSandboxEndpoint = defineEelement(UIType.Xpath, "//label[text()[contains(.,'Sandbox Endpoint')]]/following-sibling::div/div/input");
 	
 	/** The btn manage. */
 	private WebPelement btnManage = defineEelement(UIType.ID, "go_to_manage");
@@ -120,7 +122,7 @@ public class APIPublisherHomePage extends BasicPageObject {
 	private WebPelement btnSavePublish = defineEelement(UIType.Xpath, "//a[text()[contains(.,'Save & Publish')]]");
 	
 	/** The btn goto overview. */
-	private WebPelement btnGotoOverview = defineEelement(UIType.Xpath, "//div[@id='publish-success']/div[3]/div/a[contains(.,'Go to Overview')]");
+	private WebPelement btnGotoOverview = defineEelement(UIType.Xpath, "//div[@id='navbar']//a[contains(.,'Go to Overview')]");
 	
 	/** The lbl prod url. */
 	private WebPelement lblProdUrl = defineEelement(UIType.Xpath, "//td[text()[contains(.,'Production URL')]]/../td[@id='inUrl']");
@@ -134,17 +136,17 @@ public class APIPublisherHomePage extends BasicPageObject {
 	/** The lbl api name. 
 	 * %s = apiName
 	 **/
-	private String lblAPIName = "//div/h5/a[contains(@title,'%s')]";
+	private String lblAPIName = "//div/h4/a[contains(@title,'%s')]";
 	
 	/** The btn api close. 
 	 * %s_1 = apiName
 	 **/
-	private String btnAPIClose = "//div/h5/a[contains(@title,'%s')]/../../../button[@type='button']";
+	private String btnAPIClose = "//div/h4/a[contains(@title,'%s')]/../following-sibling::h5[text()='%s']/following-sibling::a[@title='DELETE']";
 	
 	/** The chk url type. 
 	 * %s_1 = type
 	 **/
-	private String chkURLType = "//label[text()[contains(.,'%s')]]/input";
+	private String chkURLType = "//span[text()[contains(.,'%s')]]";
 	
 	/** The btn resource add. */
 	private WebPelement btnResourceAdd = defineEelement(UIType.ID, "add_resource");
@@ -164,6 +166,55 @@ public class APIPublisherHomePage extends BasicPageObject {
 	 **/
 	private String lblTierAvailabilityDrop = "//div/div/ul/li/a/label[text()[contains(.,'%s')]]/input[@type='checkbox']";
 
+	/** The chk subscription tiers
+	 */
+	private String chkSubscriptionTier = "//input[@value='%s']/following-sibling::span";
+	
+	/** btn Save API */
+	private WebPelement btnSave = defineEelement(UIType.ID, "save_api");
+	
+	/** lbl api status */
+	private WebPelement lblStatus = defineEelement(UIType.Xpath, "//span[@id='status']");
+	
+	/** lbl success message pop up */
+	private WebPelement lblApiPublishedMessage = defineEelement(UIType.Xpath, "//div[@id='publish-success']/div/div/div/h3");
+	
+	/** Pop up btn Go to Overview */
+	private WebPelement btnPopupGoToOverview = defineEelement(UIType.Xpath, "//div[@id='publish-success']//a[@title='Go to Overview']");
+	
+	/** lnk API*/
+	private String lnkApi = "//h5[text()='%s']/preceding-sibling::h4/a[text()='%s']";
+	
+	/** tab Lifecycle */
+	private WebPelement tabLifecycle = defineEelement(UIType.ID, "lifecyclesLink");
+	
+	/** lbl current state*/
+	private WebPelement lblCurrentState = defineEelement(UIType.Xpath, "//h4[text()='Current State:']/../following-sibling::div//strong");
+	
+	/** chk api publish options */
+	private String chkPublishOptions = "//span[contains(.,'%s')]";
+	
+	/** btn Publish API*/
+	private WebPelement btnPublish = defineEelement(UIType.Xpath, "//input[@value='Publish']");
+	
+	/** btn create new version*/
+	private WebPelement btnCreateNewVersion = defineEelement(UIType.Xpath, "//a[@title='Create New Version']");
+	
+	/** txt new version number */
+	private WebPelement txtNewVersion = defineEelement(UIType.ID, "new-version");
+	
+	/** button Done */
+	private WebPelement btnDone = defineEelement(UIType.Xpath, "//button[text()='Done']");
+	
+	/** lbl api state*/
+	private String lblApiState = "//a[text()='%s']/../following-sibling::h5[text()='%s']/following-sibling::h5";
+	
+	/** lbl api subscriptions*/
+	private String lblSubscriptions = "//a[text()='%s']/../following-sibling::h5[text()='%s']/following-sibling::p/a";
+	
+	/** lbl api publisher error */
+	private WebPelement lblApiPublisherError = defineEelement(UIType.Xpath, "//h3[@class='modal-title']");
+	
 	/**
 	 * Instantiates a new API publisher home page.
 	 *
@@ -230,9 +281,9 @@ public class APIPublisherHomePage extends BasicPageObject {
 	 * @param apiName the api name
 	 * @throws Exception the exception
 	 */
-	public void deleteExistingAPI(String apiName) throws Exception{
+	public void deleteExistingAPI(String apiName, String version) throws Exception{
 		String xpath = String.format(lblAPIName, apiName);
-		String closeXpath = String.format(btnAPIClose, apiName);
+		String closeXpath = String.format(btnAPIClose, apiName, version);
 		WebPelement lnkclose = defineEelement(UIType.Xpath, closeXpath);
 		WebPelement btnYes = defineEelement(UIType.Xpath, "//a[text()='Yes']");
 		int count = driver.findElements(By.xpath(xpath)).size();//verifyListContent(UIType.Xpath, xpath).size();
@@ -574,10 +625,12 @@ public class APIPublisherHomePage extends BasicPageObject {
 	 * Click implement.
 	 *
 	 * @author SulakkhanaW
+	 * @throws Exception 
 	 */
-	public void clickImplement(){
+	public void clickImplement() throws Exception{
 		logger.debug("Clicking on Implement");
 		getElement(btnImplement).click();
+		Thread.sleep(sleepTime);
 		logger.debug("Clicked on Implement");
 	}
 	
@@ -645,16 +698,15 @@ public class APIPublisherHomePage extends BasicPageObject {
 	 * @throws InterruptedException 
 	 */
 	public void selectTierAvailability(String tier) throws InterruptedException{
-		logger.debug("Clicking Tier availabilty drop down");
-		getElement(btnTierAvailability).click();
-		logger.debug("Clicked Tier availabilty drop down");
-		String xpath = String.format(lblTierAvailabilityDrop, tier);
-		WebPelement lblTier = defineEelement(UIType.Xpath, xpath);
 		logger.debug("Selecting Tier");
-		getElement(lblTier).click();
+		String[] subscriptionTier = tier.split(",");
+		for(int i=0; i<subscriptionTier.length; i++){
+			String xpath = String.format(chkSubscriptionTier, subscriptionTier[i]);
+			WebPelement lblTier = defineEelement(UIType.Xpath, xpath);
+			getElement(lblTier).click();			
+		}
 		logger.debug("Tier Selected");
 		Thread.sleep(sleepTime);
-		getElement(lblTier).sendKeys(Keys.ESCAPE);
 	}
 	
 	/**
@@ -753,5 +805,289 @@ public class APIPublisherHomePage extends BasicPageObject {
 		}
 		return flag;
 	}
+	
+	/**
+	 * Click API save button.
+	 *
+	 * @author MalshaniS
+	 * @throws InterruptedException 
+	 */
+	public void clickSaveAPI() throws Exception{
+		logger.debug("Saving api");
+		getElement(btnSave).click();
+		Thread.sleep(sleepTime);
+		logger.debug("API saved successfully");
+	}
 
+	/**
+	 * Check the API status
+	 *
+	 * @author MalshaniS
+	 * @throws Exception 
+	 * 
+	 */
+	public boolean isAPIStatusAvailable(String apiStatus) throws Exception{
+		flag = false;
+		logger.debug("Checking API Status");
+		
+		try{
+			if(getElement(lblStatus).getText().trim().equals(apiStatus)){
+				flag = true;
+				logger.debug("APi Status matched");
+			}
+			else{
+				logger.debug("APi Status not matched");
+			}
+		}
+		catch(Exception e){
+			logger.debug("Exception While checking api status 'isAPIStatusAvailable()'" + e.getMessage());
+			throw new Exception("Exception While checking api status 'isAPIStatusAvailable()'" + e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
+	/**
+	 * Check if the API published successfully
+	 *
+	 * @author MalshaniS
+	 * @throws Exception 
+	 * 
+	 */
+	public boolean isPublishSuccess(String message) throws Exception{	
+			flag = false;
+			logger.debug("Checking success message displayed");
+			
+			try{
+				if(getElement(lblApiPublishedMessage).getText().trim().equals(message)){
+					flag = true;
+					logger.debug("APi Successfully Published");
+				}
+				else{
+					logger.debug("APi Not Published");
+				}
+			}
+			catch(Exception e){
+				logger.debug("Exception While checking api status 'isPublishSuccess()'" + e.getMessage());
+				throw new Exception("Exception While checking api status 'isPublishSuccess()'" + e.getLocalizedMessage());
+			}
+			return flag;
+	}
+	
+	/**
+	 * Click success pop up Go to Overview button
+	 *
+	 * @author MalshaniS
+	 * @throws InterruptedException 
+	 */
+	public void clickPopupGoToOverview() throws Exception{
+		logger.debug("Clicking on Go to overview button");
+		getElement(btnPopupGoToOverview).click();
+		Thread.sleep(sleepTime);
+		logger.debug("Clicked on Go to Overview button");
+	}
+	
+	/**
+	 * Click on created api
+	 *
+	 * @author MalshaniS
+	 * @throws Exception 
+	 */
+	public void clickOnApi(String apiName, String version) throws Exception{
+		logger.debug("Clicking on API");
+		String xpath = String.format(lnkApi, version, apiName);
+		WebPelement lnkApiName = defineEelement(UIType.Xpath, xpath);
+		getElement(lnkApiName).click();
+		Thread.sleep(sleepTime);
+		logger.debug("Clicked on API");
+	}
+	
+	/**
+	 * Click on Lifecycle tab
+	 *
+	 * @author MalshaniS
+	 * @throws Exception 
+	 */
+	public void clickLifecycle() throws Exception{
+		logger.debug("Clicking on Lifecycle tab");
+		getElement(tabLifecycle).click();
+		Thread.sleep(sleepTime);
+		logger.debug("Clicked on Lifecycle tab");
+	}
+	
+	/**
+	 * Check the current state of the api
+	 *
+	 * @author MalshaniS
+	 * @throws Exception 
+	 * 
+	 */
+	public boolean checkCurrentState(String state) throws Exception{	
+			flag = false;
+			logger.debug("Checking current state of api");
+			
+			try{
+				if(getElement(lblCurrentState).getText().trim().equals(state)){
+					flag = true;
+					logger.debug("Current State of api matched");
+				}
+				else{
+					logger.debug("Current State of api not matched");
+				}
+			}
+			catch(Exception e){
+				logger.debug("Exception While checking current state of api 'checkCurrentState()'" + e.getMessage());
+				throw new Exception("Exception While checking current state of api 'checkCurrentState()'" + e.getLocalizedMessage());
+			}
+			return flag;
+	}
+	
+	/**
+	 * Click on publish options check box 
+	 *
+	 * @author MalshaniS
+	 * @throws Exception 
+	 */
+	public void clickApiPublishOption(String option) throws Exception{
+		logger.debug("Selecting an option before publish the api");
+		String xpath = String.format(chkPublishOptions, option);
+		WebPelement chkApiPublishOption = defineEelement(UIType.Xpath, xpath);
+		getElement(chkApiPublishOption).click();
+		Thread.sleep(sleepTime);
+		logger.debug("Selected an option before publish the api");
+	}
+	
+	/**
+	 * Click on publish button
+	 *
+	 * @author MalshaniS
+	 * @throws Exception 
+	 */
+	public void clickPublish() throws Exception{
+		logger.debug("Clicking on Publish button");
+		getElement(btnPublish).click();
+		Thread.sleep(sleepTime);
+		logger.debug("Clicked on Publish button");
+	}
+	
+	/**
+	 * Click on create new version button
+	 *
+	 * @author MalshaniS
+	 * @throws Exception 
+	 */
+	public void clickCreateNewVersion() throws Exception{
+		logger.debug("Clicking on Create New Version button");
+		getElement(btnCreateNewVersion).click();
+		Thread.sleep(sleepTime);
+		logger.debug("Clicked on Create New Version button");
+	}
+	
+	/**
+	 * Enter new version number
+	 *
+	 * @author MalshaniS
+	 * @throws Exception 
+	 */
+	public void enterNewVersionNumber(String newVersion) throws Exception{
+		logger.debug("Entering New Version number");
+		getElement(txtNewVersion).clearAndSendkeys(newVersion);
+		Thread.sleep(sleepTime);
+		logger.debug("Entered New Version number");
+	}
+	
+	/**
+	 * Click on Done button
+	 *
+	 * @author MalshaniS
+	 * @throws Exception 
+	 */
+	public void clickDone() throws Exception{
+		logger.debug("Clicking on Done button");
+		getElement(btnDone).click();
+		Thread.sleep(sleepTime);
+		logger.debug("Clicked on Done button");
+	}
+	
+	/**
+	 * Check the api state
+	 *
+	 * @author MalshaniS
+	 * @throws Exception 
+	 * @return true if api state is matched
+	 */
+	public boolean checkApiState(String apiName, String version, String state) throws Exception{	
+			flag = false;
+			logger.debug("Checking api state");
+			String xpath = String.format(lblApiState, apiName, version);
+			WebPelement lblState = defineEelement(UIType.Xpath, xpath);		
+			try{
+				if(getElement(lblState).getText().trim().equals(state)){
+					flag = true;
+					logger.debug("Current State of api matched");
+				}
+				else{
+					logger.debug("Current State of api not matched");
+				}
+			}
+			catch(Exception e){
+				logger.debug("Exception While checking current state of api 'checkApiState()'" + e.getMessage());
+				throw new Exception("Exception While checking current state of api 'checkApiState()'" + e.getLocalizedMessage());
+			}
+			return flag;
+	}
+	
+	/**
+	 * Check the Number of users for api
+	 *
+	 * @author MalshaniS
+	 * @throws Exception 
+	 * @return true if number of subscriptions for api matched
+	 */
+	public boolean checkApiUsers(String apiName, String version, String numOfUsers) throws Exception{	
+			flag = false;
+			logger.debug("Checking api Users");
+			String xpath = String.format(lblSubscriptions, apiName, version);
+			WebPelement lblNumOfUsers = defineEelement(UIType.Xpath, xpath);		
+			try{
+				if(getElement(lblNumOfUsers).getText().trim().equals(numOfUsers)){
+					flag = true;
+					logger.debug("Number of Users of api matched");
+				}
+				else{
+					logger.debug("Number of Users of api not matched");
+				}
+			}
+			catch(Exception e){
+				logger.debug("Exception While checking Number of Users of api 'checkApiUsers()'" + e.getMessage());
+				throw new Exception("Exception While checking Number of Users of api 'checkApiUsers()'" + e.getLocalizedMessage());
+			}
+			return flag;
+	}
+	
+	/**
+	 * Validate subscription exists error popup
+	 *
+	 * @author MalshaniS
+	 * @throws Exception 
+	 * @return true if subscription exists error poped up
+	 */
+	public boolean isApiPublisherError(String errormessage) throws Exception{	
+			flag = false;
+			logger.debug("Checking api publisher error");
+				
+			try{
+				if(getElement(lblApiPublisherError).getText().trim().equalsIgnoreCase(errormessage)){
+					flag = true;
+					logger.debug("Api publisher error poped up");
+				}
+				else{
+					logger.debug("Api publisher error not poped up");
+				}
+			}
+			catch(Exception e){
+				logger.debug("Exception While checking apipublisher error 'isApiPublisherError()'" + e.getMessage());
+				throw new Exception("Exception While checking apipublisher error 'isApiPublisherError()'" + e.getLocalizedMessage());
+			}
+			return flag;
+	}
 }

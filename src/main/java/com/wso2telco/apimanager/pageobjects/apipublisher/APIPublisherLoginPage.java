@@ -16,13 +16,13 @@ public class APIPublisherLoginPage extends BasicPageObject{
 	Logger logger = Logger.getLogger(APIPublisherLoginPage.class);
 	
 	/** The txt username. */
-	private WebPelement txtUsername = defineEelement(UIType.Xpath, "//form/input[@id='username']");
+	private WebPelement txtUsername = defineEelement(UIType.Xpath, "//input[@id='username']");
 	
 	/** The txt password. */
-	private WebPelement txtPassword = defineEelement(UIType.Xpath, "//form/input[@id='pass']");
+	private WebPelement txtPassword = defineEelement(UIType.Xpath, "//input[@id='pass']");
 	
 	/** The btn login. */
-	private WebPelement btnLogin = defineEelement(UIType.ID, "loginButton");
+	private WebPelement btnLogin = defineEelement(UIType.Xpath, "//button[text()='Sign In']");
 
 	/**
 	 * Instantiates a new API publisher login page.

@@ -11,6 +11,7 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
 import com.wso2telco.apimanager.pageobjects.db.queries.SQLQuery;
@@ -179,6 +180,9 @@ public class ManagerPage extends BasicPageObject {
 	 **/
 	private String ddlConditionList = "//tr/td/div/label[text()[contains(.,'%s')]]/../../../td[5]/select[@class='js_stateDropDown pull-left']";
 
+	/** The ddl condition list options*/
+	
+	private String ddlConditionListOptions = "//tr/td/div/label[text()[contains(.,'%s')]]/../../../td[5]/select[@class='js_stateDropDown pull-left']/option[%s]";
 	/**
 	 * The btn complete. %s_1 = appName
 	 **/
@@ -459,6 +463,12 @@ public class ManagerPage extends BasicPageObject {
 	/** The btn reqired msg ok. */
 	private WebPelement btnReqiredMsgOk = defineEelement(UIType.Xpath, "//div[@class='bootbox modal fade in']/div[@class='modal-footer']/a");
 
+	/** The lbl application approval task status*/
+	private String lblApprovalTaskStatus = "//tr/td/div/label[text()[contains(.,'%s')]]/../../following-sibling::td[contains(@id,'status')]";
+	
+	/** The lnk Subscription Details*/
+	private String lnkSubscriptionDetails = "//label[contains(.,'%s')]/../following-sibling::label/label/b[text()='Subscription Details']";
+	
 	/**
 	 * Instantiates a new manager page.
 	 *
@@ -761,8 +771,9 @@ public class ManagerPage extends BasicPageObject {
 		logger.debug("Selecting tier");
 		getElement(ddlTierList).sendKeys(tier);
 		logger.debug("Tier selected");
-		getElement(ddlTierList).sendEnter();
+		getElement(ddlTierList).sendEnter();		
 	}
+
 
 	/**
 	 * Click assign me.
@@ -4658,5 +4669,156 @@ public class ManagerPage extends BasicPageObject {
 		logger.debug("Clicking on required Ok");
 		getElement(btnReqiredMsgOk).click();
 		logger.debug("Clicked on required Ok");
+	}
+	
+	/**
+	 * Checks the application approval task status
+	 *
+	 * @param appname the appname
+	 * @param status the status
+	 * @return true, if the status matched
+	 * @throws Exception the exception
+	 */
+	public boolean isApprovalTaskStatus(String appname, String status) throws Exception{
+		flag = false;
+		logger.debug("Validating approval task status");
+		String xpath = String.format(lblApprovalTaskStatus, appname);
+		WebPelement lblApprovalTaskStatus = defineEelement(UIType.Xpath, xpath);
+		try {
+			if (getElement(lblApprovalTaskStatus).getText().trim().equalsIgnoreCase(status)){
+				flag = true;
+				logger.debug("approval task status matched");
+			} else {
+				logger.debug("approval task status mismatched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating approval task status 'isApprovalTaskStatus()'" + e.getMessage());
+			throw new Exception("Exception While Validating approval task status 'isApprovalTaskStatus()'" + e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
+	/**
+	 * click on actions drop down list 
+	 
+	 */
+	public void clickDropdownActions(String appname){
+		logger.debug("Clicking on actions dropdown");
+		String xpath = String.format(ddlConditionList, appname);
+		WebPelement ddlConditionList = defineEelement(UIType.Xpath, xpath);
+		getElement(ddlConditionList).click();
+		logger.debug("Clicked on actions dropdown");
+	}
+	
+	/**
+	 * Checks the actions of the task
+	 *
+	 * @param appname the appname
+	 * @param action the action
+	 * @return true, if the actions displayed
+	 * @throws Exception the exception
+	 */
+	public boolean isApprovalActionsDisplayed(String actions, String appname) throws Exception{
+		flag = false;
+		logger.debug("Validating Approval actions in the dropdown");
+		String[] options = actions.split(",");
+		int optionCount = 1;
+		
+		try {
+			for(int i=0; i<options.length; i++){
+				
+				String xpath = String.format(ddlConditionListOptions, appname, optionCount);
+				WebPelement ddlConditionListOptions = defineEelement(UIType.Xpath, xpath);
+				
+				if (getElement(ddlConditionListOptions).getText().trim().equalsIgnoreCase(options[i])){
+					flag = true;
+					logger.debug("Approval actions in the dropdown matched");
+					optionCount ++;
+					
+				} else {
+					logger.debug("Approval actions in the dropdown mismatched");
+				}
+			}
+			
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Approval actions in the dropdown 'isApprovalActionsDisplayed()'" + e.getMessage());
+			throw new Exception("Exception While Validating Approval actions in the dropdown 'isApprovalActionsDisplayed()'" + e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
+	
+	/** 
+	 * 
+	 * @param appname the appname
+	 * @param tier the tier
+	 * @return true if tier value displayed
+	 * @throws Exception
+	 */
+	public boolean isTierValueDisplayed(String tier, String appname) throws Exception{
+		flag = false;
+		logger.debug("Validating Tier value");
+		
+		String xpath = String.format(ddlTierL, appname);
+		WebPelement ddlTierList = defineEelement(UIType.Xpath, xpath);
+		Select s =new Select(getElement(ddlTierList));
+//		WebPelement o=(WebPelement) s.getFirstSelectedOption();
+		String availableTier = s.getFirstSelectedOption().getText();
+		
+		Thread.sleep(sleepTime);
+		try {
+			if (availableTier.trim().equalsIgnoreCase(tier)) {
+				flag = true;
+				logger.debug("Tier value displayed");
+			} else {
+				logger.debug("Tier value not displayed");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Tier value displayed 'isTierValueDisplayed()'" + e.getMessage());
+			throw new Exception("Exception While Validating Tier value not displayed 'isTierValueDisplayed()'" + e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
+	/**
+	 * Click subscription details.
+	 *
+	 * @author MalshaniS
+	 * @param appname the appname
+	 */
+	public void clickSubscriptionDetails(String appname) {
+		String xpath = String.format(lnkSubscriptionDetails, appname);
+		WebPelement lnkSubscriptionDetails = defineEelement(UIType.Xpath, xpath);
+		logger.debug("Clicking on Subscription details");
+		getElement(lnkSubscriptionDetails).click();
+		logger.debug("Clicked on Subscription details");
+	}
+
+	/**
+	 * Checks if the subscription task Removed.
+	 *
+	 * @author MalshaniS
+	 * @param appName the app name
+	 * @return true, if is subscription task removed
+	 * @throws Exception the exception
+	 */
+	public boolean isSubscriptionTaskRemoved(String appName) throws Exception {
+		flag = false;
+		logger.debug("Validating subscription task removed");
+		Thread.sleep(sleepTime);
+		String xpath = String.format(lblApplicationName, appName);
+		int Names = driver.findElements(By.xpath(xpath)).size();
+		try {
+			if (Names == 0) {
+				flag = true;
+				logger.debug("subscription task is removed");
+			} else {
+				logger.debug("subscription task is not removed");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating subscription task is removed 'isSubscriptionTaskRemoved()'" + e.getMessage());
+			throw new Exception("Exception While Validating subscription task is removed 'isSubscriptionTaskRemoved()'" + e.getLocalizedMessage());
+		}
+		return flag;
 	}
 }
