@@ -466,8 +466,8 @@ public class ManagerPage extends BasicPageObject {
 	/** The lbl application approval task status*/
 	private String lblApprovalTaskStatus = "//tr/td/div/label[text()[contains(.,'%s')]]/../../following-sibling::td[contains(@id,'status')]";
 	
-	/** The lbl subscription approval task*/
-	private String lblSubscription = "//tr/td/div/label[text()[contains(.,'%s')]]/../following-sibling::div[2]/label";
+	/** The lnk Subscription Details*/
+	private String lnkSubscriptionDetails = "//label[contains(.,'%s')]/../following-sibling::label/label/b[text()='Subscription Details']";
 	
 	/**
 	 * Instantiates a new manager page.
@@ -4779,5 +4779,20 @@ public class ManagerPage extends BasicPageObject {
 		}
 		return flag;
 	}
+	
+	/**
+	 * Click subscription details.
+	 *
+	 * @author MalshaniS
+	 * @param appname the appname
+	 */
+	public void clickSubscriptionDetails(String appname) {
+		String xpath = String.format(lnkSubscriptionDetails, appname);
+		WebPelement lnkSubscriptionDetails = defineEelement(UIType.Xpath, xpath);
+		logger.debug("Clicking on Subscription details");
+		getElement(lnkSubscriptionDetails).click();
+		logger.debug("Clicked on Subscription details");
+	}
+
 	
 }

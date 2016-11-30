@@ -71,6 +71,14 @@ public class SubscriptionsPage extends BasicPageObject  {
 	/** The link unsubscribe */
 	private String Unsubscribe = "//h4[text()='%s - %s']/../../following-sibling::*/a[@title='Unsubscribe']";
 	
+	/** The lbl Subscription tier*/
+	private String lblSubscriptionTier = "//h4[text()='%s - %s']/../../following-sibling::td[1]";
+	
+	
+	/** The lbl Subscription status*/
+	private String lblSubscriptionStatus = "//h4[text()='%s - %s']/../../following-sibling::td[2]";
+	
+	
 	/**
 	 * Instantiates a new subscriptions page.
 	 *
@@ -601,5 +609,71 @@ public class SubscriptionsPage extends BasicPageObject  {
 		}
 		return flag;
 	}
+	
+	/**
+ 	 * Check workflow status of the Subscription
+ 	 * 
+ 	 * MalshaniS
+ 	 * 
+ 	 * @param appname the appname
+ 	 * @param status the status
+ 	 * @return true if Subscription status matched
+ 	 * @throws Exception
+ 	 */
+ 	public boolean validateSubscriptionStatus(String apiname, String status) throws Exception{
+ 		flag = false;
+ 		
+ 		logger.debug("Validating Subscription status of the application");
+ 		String xpath = String.format(lblSubscriptionStatus, apiname);
+ 		WebPelement lblSubscriptionStatus = defineEelement(UIType.Xpath, xpath);
+ 		
+ 		try{
+ 			if(getElement(lblSubscriptionStatus).getText().trim().contains(status)){
+ 				logger.debug("Subscription status of the application matched");
+ 				flag = true;
+ 			}
+ 			else{
+ 				logger.debug("Subscription status of the application not matched");
+ 			}
+ 		}
+ 		catch (Exception e) {
+ 			logger.debug("Exception While Validating Subscription status of the application 'validateWorkflowStatus()'" + e.getMessage());
+			throw new Exception("Exception While Validating Subscription status of the application 'validateWorkflowStatus()'" + e.getLocalizedMessage());
+ 		}
+ 			return flag;	
+ 	}
+ 	
+ 	/**
+ 	 * Check workflow tier of the Subscription
+ 	 * 
+ 	 * MalshaniS
+ 	 * 
+ 	 * @param appname the appname
+ 	 * @param status the status
+ 	 * @return true if workflow status matched
+ 	 * @throws Exception
+ 	 */
+ 	public boolean validateSubscriptionTier(String apiname, String tier) throws Exception{
+ 		flag = false;
+ 		
+ 		logger.debug("Validating tier of the Subscription");
+ 		String xpath = String.format(lblSubscriptionTier, apiname);
+ 		WebPelement lblSubscriptionTier = defineEelement(UIType.Xpath, xpath);
+ 		
+ 		try{
+ 			if(getElement(lblSubscriptionTier).getText().trim().contains(tier)){
+ 				logger.debug("tier of the Subscription matched");
+ 				flag = true;
+ 			}
+ 			else{
+ 				logger.debug("tier of the Subscription not matched");
+ 			}
+ 		}
+ 		catch (Exception e) {
+ 			logger.debug("Exception While Validating tier of the Subscription 'validateApplicationTier()'" + e.getMessage());
+			throw new Exception("Exception While Validating tier of the Subscription 'validateApplicationTier()'" + e.getLocalizedMessage());
+ 		}
+ 			return flag;	
+ 	}
 }
 
