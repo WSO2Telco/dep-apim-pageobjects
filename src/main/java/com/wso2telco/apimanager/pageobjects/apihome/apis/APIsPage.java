@@ -63,6 +63,12 @@ public class APIsPage extends BasicPageObject {
 	 **/
 	private String ddlOperator = "//select[@id='operators']/option[contains(text(),'%s')]";
 	
+	/** The txt API Search*/
+	private WebPelement txtSearchAPI = defineEelement(UIType.Xpath, "//input[@title='apim_search']");
+	
+	/** The btn search. */
+	private WebPelement btnSearch = defineEelement(UIType.Xpath, "//button[@title='Search']");
+	
 	/**
 	 * Instantiates a new AP is page.
 	 *
@@ -352,5 +358,28 @@ public class APIsPage extends BasicPageObject {
 		Thread.sleep(sleepTime);
 		//getElement(workround).click();
 		logger.debug("Clicked on go to subscribe");
+	}
+	
+	/**
+	 * Enter api name search.
+	 *
+	 * @author MalshaniS
+	 * @param apiName the api name
+	 */
+	public void enterAPINameSearch(String apiName){
+		logger.debug("Enter API name on the search text box");
+		getElement(txtSearchAPI).clearAndSendkeys(apiName);
+		logger.debug("Entered API name on the search text box");
+	}
+	
+	/**
+	 * Click search.
+	 *
+	 * @author MalshaniS
+	 */
+	public void clickSearch(){
+		logger.debug("Clicking on search");
+		getElement(btnSearch).click();
+		logger.debug("Clicked on search");
 	}
 }
