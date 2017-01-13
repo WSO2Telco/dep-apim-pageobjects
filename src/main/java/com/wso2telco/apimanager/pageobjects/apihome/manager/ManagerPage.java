@@ -153,6 +153,12 @@ public class ManagerPage extends BasicPageObject {
 	 * The lbl application name. %s_1 = appName
 	 **/
 	private String lblApplicationName = "//tr/td/div/label[text()[contains(.,'%s')]]";
+	
+	/**
+	 * The lbl subscription name.
+	 **/
+	private String lblSubscription = "//tr/td/div/label[text()[contains(.,'%s')]]/../following-sibling::div/label[text()[contains(.,'%s')]]";
+
 
 	/**
 	 * The lnk application details. %s_1 = appname
@@ -4818,6 +4824,67 @@ public class ManagerPage extends BasicPageObject {
 		} catch (Exception e) {
 			logger.debug("Exception While Validating subscription task is removed 'isSubscriptionTaskRemoved()'" + e.getMessage());
 			throw new Exception("Exception While Validating subscription task is removed 'isSubscriptionTaskRemoved()'" + e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
+	/**
+	 * Verifing Created Subscription is visible
+	 * 
+	 * @author MalshaniS
+	 * @param appName
+	 * @param apiName
+	 * @return
+	 * @throws Exception
+	 */
+	
+	public boolean isSubscriptionVisible(String appName, String apiName) throws Exception{
+		flag = false;
+		logger.debug("Validating Subscription name");
+		Thread.sleep(sleepTime);
+		String xpath = String.format(lblSubscription, appName, apiName);
+		int Names = driver.findElements(By.xpath(xpath)).size();
+		try {
+			if (Names == 1) {
+				flag = true;
+				logger.debug("Subscription name is visible");
+			} else {
+				logger.debug("Subscription creation name is not visible");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Subscription name 'isSubscriptionVisible()'" + e.getMessage());
+			throw new Exception("Exception While Validating Subscription name 'isSubscriptionVisible()'" + e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
+	/**
+	 * Verifing Subscription is not visible after approving
+	 * 
+	 * @author MalshaniS
+	 * @param appName
+	 * @param apiName
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean isSubscriptionNotVisible(String appName, String apiName) throws Exception{
+		flag = false;
+		logger.debug("Validating Subscription not visible");
+		String xpath = String.format(lblSubscription, appName, apiName);
+		int Names = driver.findElements(By.xpath(xpath)).size();
+		try {
+			if (Names < 1) {
+				flag = true;
+				logger.debug("Subscription not visible");
+			} else {
+				logger.debug("Subscription visible");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Subscription 'isSubscriptionNotVisible()'"
+					+ e.getMessage());
+			throw new Exception(
+					"Exception While Validating Subscription 'isSubscriptionNotVisible()'"
+							+ e.getLocalizedMessage());
 		}
 		return flag;
 	}
