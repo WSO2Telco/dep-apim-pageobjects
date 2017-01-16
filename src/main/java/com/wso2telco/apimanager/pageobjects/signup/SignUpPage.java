@@ -1,14 +1,11 @@
 package com.wso2telco.apimanager.pageobjects.signup;
 
 import org.apache.log4j.Logger;
-import org.apache.log4j.lf5.viewer.categoryexplorer.TreeModelAdapter;
 import org.openqa.selenium.WebDriver;
 
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
-
-import junit.framework.Assert;
 
 // TODO: Auto-generated Javadoc
 /**
