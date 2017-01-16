@@ -171,29 +171,47 @@ public class ManagerPage extends BasicPageObject {
 	/** The ddl tier l. */
 	private String ddlTierL = "//label[contains(.,'%s')]/../..//select";
 
+	/** The ddl subscription tier  */
+	private String ddlSubscriptionTierL = "//label[contains(.,'%s')]/../following-sibling::div/label[text()[contains(.,'%s')]]/../..//select";
+	
 	/**
 	 * The btn assign me. %s_1 = appName
 	 **/
 	private String btnAssignMe = "//tr/td/div/label[text()[contains(.,'%s')]]/../../../td[5]/button[text()[contains(.,'Assign To Me')]]";
+	
+	/** The btn Subscription Assign to Me*/
+	private String btnSubscrtionAssignMe = "//tr/td/div/label[text()[contains(.,'%s')]]/../following-sibling::div/label[text()[contains(.,'%s')]]/../../../td[5]/button[text()[contains(.,'Assign To Me')]]";
 
 	/**
 	 * The btn start. %s_1 = appname
 	 **/
 	private String btnStart = "//tr/td/div/label[text()[contains(.,'%s')]]/../../../td[5]/button[text()[contains(.,'Start')]]";
+	
+	/** btn Start Subscription Approval*/
+	private String btnSubscriptionStart = "//tr/td/div/label[text()[contains(.,'%s')]]/../following-sibling::div/label[text()[contains(.,'%s')]]/../../../td[5]/button[text()[contains(.,'Start')]]";
 
 	/**
 	 * The ddl condition list. %s_1 = appName
 	 **/
 	private String ddlConditionList = "//tr/td/div/label[text()[contains(.,'%s')]]/../../../td[5]/select[@class='js_stateDropDown pull-left']";
+	
+	/** The ddl subscription condition list*/
+	private String ddlSubscriptionConditionList = "//tr/td/div/label[text()[contains(.,'%s')]]/../following-sibling::div/label[text()[contains(.,'%s')]]/../../../td[5]/select[@class='js_stateDropDown pull-left']";
 
 	/** The ddl condition list options*/
 	
 	private String ddlConditionListOptions = "//tr/td/div/label[text()[contains(.,'%s')]]/../../../td[5]/select[@class='js_stateDropDown pull-left']/option[%s]";
+	
+	/** The ddl Subscription condition list options */
+	private String ddlSubscriptionConditionListOptions = "//tr/td/div/label[text()[contains(.,'%s')]]/../following-sibling::div/label[text()[contains(.,'%s')]]/../../../td[5]/select[@class='js_stateDropDown pull-left']/option[%s]";
 	/**
 	 * The btn complete. %s_1 = appName
 	 **/
 	private String btnComplete = "//tr/td/div/label[text()[contains(.,'%s')]]/../../../td[5]/button[text()[contains(.,'Complete')]]";
-
+	
+	/** The btn subscription approval complete */
+	private String btnSubscriptionComplete = "//tr/td/div/label[text()[contains(.,'%s')]]/../following-sibling::div/label[text()[contains(.,'%s')]]/../../../td[5]/button[text()[contains(.,'Complete')]]";
+			
 	/**
 	 * The lbl number. %s_1 = number
 	 **/
@@ -473,7 +491,10 @@ public class ManagerPage extends BasicPageObject {
 	private String lblApprovalTaskStatus = "//tr/td/div/label[text()[contains(.,'%s')]]/../../following-sibling::td[contains(@id,'status')]";
 	
 	/** The lnk Subscription Details*/
-	private String lnkSubscriptionDetails = "//label[contains(.,'%s')]/../following-sibling::label/label/b[text()='Subscription Details']";
+	private String lnkSubscriptionDetails = "//label[contains(.,'%s')]/../following-sibling::div/label[text()[contains(.,'%s')]]/../following-sibling::label/label/b[text()='Subscription Details']";
+	
+	/** The label Subscription Apprval Task Status*/
+	private String lblSubscriptionApprovalTaskStatus = "//tr/td/div/label[text()[contains(.,'%s')]]/../following-sibling::div/label[text()[contains(.,'%s')]]/../../following-sibling::td[contains(@id,'status')]";
 	
 	/**
 	 * Instantiates a new manager page.
@@ -4792,8 +4813,8 @@ public class ManagerPage extends BasicPageObject {
 	 * @author MalshaniS
 	 * @param appname the appname
 	 */
-	public void clickSubscriptionDetails(String appname) {
-		String xpath = String.format(lnkSubscriptionDetails, appname);
+	public void clickSubscriptionDetails(String appname, String apiName) {
+		String xpath = String.format(lnkSubscriptionDetails, appname, apiName);
 		WebPelement lnkSubscriptionDetails = defineEelement(UIType.Xpath, xpath);
 		logger.debug("Clicking on Subscription details");
 		getElement(lnkSubscriptionDetails).click();
@@ -4885,6 +4906,199 @@ public class ManagerPage extends BasicPageObject {
 			throw new Exception(
 					"Exception While Validating Subscription 'isSubscriptionNotVisible()'"
 							+ e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
+	/**
+	 * Checks the subscription approval task status
+	 * 
+	 * @author MalshaniS
+	 * @param appname
+	 * @param apiname
+	 * @param status
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean isSubscriptionApprovalTaskStatus(String appname, String apiname, String status) throws Exception{
+		flag = false;
+		logger.debug("Validating approval task status");
+		String xpath = String.format(lblSubscriptionApprovalTaskStatus, appname, apiname);
+		WebPelement lblSubscriptionApprovalTaskStatus = defineEelement(UIType.Xpath, xpath);
+		try {
+			if (getElement(lblSubscriptionApprovalTaskStatus).getText().trim().equalsIgnoreCase(status)){
+				flag = true;
+				logger.debug("approval task status matched");
+			} else {
+				logger.debug("approval task status mismatched");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating approval task status 'isSubscriptionApprovalTaskStatus()'" + e.getMessage());
+			throw new Exception("Exception While Validating approval task status 'isSubscriptionApprovalTaskStatus()'" + e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
+	/**
+	 * Click assign me.
+	 * 
+	 * @author MalshaniS
+	 * @param appName
+	 * @param apiname
+	 */
+	public void clickSubscriptionAssignMe(String appName, String apiname) {
+		String xpath = String.format(btnSubscrtionAssignMe, appName, apiname);
+		WebPelement btnSubscrtionAssignMe = defineEelement(UIType.Xpath, xpath);
+		logger.debug("Clicking on Assign me");
+		getElement(btnSubscrtionAssignMe).click();
+		logger.debug("Clicked on Assign me");
+	}
+	
+	/**
+	 * Click Subscription approval start.
+	 *
+	 * @author MalshaniS
+	 * @param appName
+	 * @param apiName
+	 */
+	public void clickSubscriptionStart(String appName, String apiName) {
+		String xpath = String.format(btnSubscriptionStart, appName, apiName);
+		WebPelement btnSubscriptionStart = defineEelement(UIType.Xpath, xpath);
+		logger.debug("Clicking on start button");
+		getElement(btnSubscriptionStart).click();
+		logger.debug("Clicked on start button");
+	}
+	
+	/**
+	 * Select Condition
+	 * 
+	 * @author MalshaniS
+	 * @param condition
+	 * @param appName
+	 */
+	public void selectSubscriptionActionCondition(String condition, String appName, String apiName) {
+		String xpath = String.format(ddlSubscriptionConditionList, appName, apiName);
+		WebPelement ddlSubscriptionConditionList = defineEelement(UIType.Xpath, xpath);
+		logger.debug("Selecting condition");
+		getElement(ddlSubscriptionConditionList).sendKeys(condition);
+		getElement(ddlSubscriptionConditionList).sendEnter();
+		logger.debug("Condition selected");
+	}
+
+	/**
+	 * Click Subscription approal Complete button
+	 * 
+	 * @author MalshaniS
+	 * @param appName
+	 */
+	public void clickSubscriptionComplete(String appName, String apiName) {
+		String xpath = String.format(btnSubscriptionComplete, appName, apiName);
+		WebPelement btnSubscriptionComplete = defineEelement(UIType.Xpath, xpath);
+		logger.debug("Clicking on complete");
+		getElement(btnSubscriptionComplete).click();
+		logger.debug("Clicked on complete");
+	}
+	
+	/**
+	 * Click on Action Dropdown
+	 * 
+	 * @author MalshaniS
+	 * @param appname
+	 * @param apiname
+	 */
+	public void clickSubscriptionDropdownActions(String appname, String apiname){
+		logger.debug("Clicking on actions dropdown");
+		String xpath = String.format(ddlSubscriptionConditionList, appname, apiname);
+		WebPelement ddlSubscriptionConditionList = defineEelement(UIType.Xpath, xpath);
+		getElement(ddlSubscriptionConditionList).click();
+		logger.debug("Clicked on actions dropdown");
+	}
+	
+	/**
+	 * Checks the actions of the task
+	 *
+	 * @param appname the appname
+	 * @param action the action
+	 * @param apiName the apiname
+	 * @return true, if the actions displayed
+	 * @throws Exception the exception
+	 */
+	public boolean isSubscriptionApprovalActionsDisplayed(String actions, String appname, String apiName) throws Exception{
+		flag = false;
+		logger.debug("Validating Approval actions in the dropdown");
+		String[] options = actions.split(",");
+		int optionCount = 1;
+		
+		try {
+			for(int i=0; i<options.length; i++){
+				
+				String xpath = String.format(ddlSubscriptionConditionListOptions, appname,apiName, optionCount);
+				WebPelement ddlSubscriptionConditionListOptions = defineEelement(UIType.Xpath, xpath);
+				
+				if (getElement(ddlSubscriptionConditionListOptions).getText().trim().equalsIgnoreCase(options[i])){
+					flag = true;
+					logger.debug("Approval actions in the dropdown matched");
+					optionCount ++;
+					
+				} else {
+					logger.debug("Approval actions in the dropdown mismatched");
+				}
+			}
+			
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Approval actions in the dropdown 'ddlSubscriptionConditionListOptions()'" + e.getMessage());
+			throw new Exception("Exception While Validating Approval actions in the dropdown 'ddlSubscriptionConditionListOptions()'" + e.getLocalizedMessage());
+		}
+		return flag;
+	}
+	
+	/**
+	 * Select Subscription Tier
+	 * 
+	 * @param tier
+	 * @param appname
+	 * @param apiName
+	 */
+	public void selectSubscriptionTier(String tier, String appname, String apiName) {
+		String xpath = String.format(ddlSubscriptionTierL, appname, apiName);
+		WebPelement ddlSubscriptionTierL = defineEelement(UIType.Xpath, xpath);
+		getElement(ddlSubscriptionTierL).click();
+		logger.debug("Selecting tier");
+		getElement(ddlSubscriptionTierL).sendKeys(tier);
+		logger.debug("Tier selected");
+		getElement(ddlSubscriptionTierL).sendEnter();		
+	}
+	
+	/**
+	 * Verify the subscription tier values are displayed
+	 * 
+	 * @param tier
+	 * @param appname
+	 * @param apiname
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean isSubscriptionTierValueDisplayed(String tier, String appname, String apiname) throws Exception{
+		flag = false;
+		logger.debug("Validating Tier value");
+		
+		String xpath = String.format(ddlSubscriptionTierL, appname, apiname);
+		WebPelement ddlSubscriptionTierL = defineEelement(UIType.Xpath, xpath);
+		Select s =new Select(getElement(ddlSubscriptionTierL));
+
+		String availableTier = s.getFirstSelectedOption().getText();
+		
+		Thread.sleep(sleepTime);
+		try {
+			if (availableTier.trim().equalsIgnoreCase(tier)) {
+				flag = true;
+				logger.debug("Tier value displayed");
+			} else {
+				logger.debug("Tier value not displayed");
+			}
+		} catch (Exception e) {
+			logger.debug("Exception While Validating Tier value displayed 'isSubscriptionTierValueDisplayed()'" + e.getMessage());
+			throw new Exception("Exception While Validating Tier value not displayed 'isSubscriptionTierValueDisplayed()'" + e.getLocalizedMessage());
 		}
 		return flag;
 	}
