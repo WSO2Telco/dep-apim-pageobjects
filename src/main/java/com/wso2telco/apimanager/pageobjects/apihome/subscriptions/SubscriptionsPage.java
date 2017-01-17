@@ -78,6 +78,8 @@ public class SubscriptionsPage extends BasicPageObject  {
 	/** The lbl Subscription status*/
 	private String lblSubscriptionStatus = "//h4[text()='%s']/../../following-sibling::td[2]";
 	
+	private WebPelement lblNoSubscriptions = defineEelement(UIType.Xpath, "//div[@id='subscription']/div/h4[text()='No Subscriptions']");
+	
 	
 	/**
 	 * Instantiates a new subscriptions page.
@@ -545,13 +547,15 @@ public class SubscriptionsPage extends BasicPageObject  {
 		ArrayList<String> apiList = new ArrayList<String>();
 		WebElement select;
 		try {
-			select = getElement(UIType.Xpath, lblApi);
-			List<WebElement> options = select.findElements(By.xpath(lblApi));
-			for (WebElement option : options) {
-				apiList.add(option.getText());
-			}
-			if (apiList.toString().contains(api+" - "+version)) {
-				flag = true;
+			if(!getElement(lblNoSubscriptions).isDisplayed()){			
+				select = getElement(UIType.Xpath, lblApi);
+				List<WebElement> options = select.findElements(By.xpath(lblApi));
+				for (WebElement option : options) {
+					apiList.add(option.getText());
+				}
+				if (apiList.toString().contains(api+" - "+version)) {
+					flag = true;
+				}
 			}
 		} catch (Exception e) {
 			logger.debug("Exception While Validating APIs 'isSubscribedAPIs()'" + e.getMessage());
