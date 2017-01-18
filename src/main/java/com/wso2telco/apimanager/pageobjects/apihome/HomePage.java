@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
 import com.wso2telco.apimanager.pageobjects.apihome.apis.APIsPage;
@@ -41,6 +44,7 @@ public class HomePage extends BasicPageObject {
 	/** The link sand box. */
 	private WebPelement linkSandBox = defineEelement(UIType.Xpath, "//ul[@class='nav orderFix']/li[6]/a");
 
+	WebDriverWait wait = new WebDriverWait(driver, 120);
 	
 	/**
 	 * Instantiates a new home page.
@@ -82,6 +86,7 @@ public class HomePage extends BasicPageObject {
 	public ApplicationsPage clickMyApplicationsLink() throws Exception{
 		try {
 			logger.debug("Start clicking on My Applications link");
+			wait.until(ExpectedConditions.elementToBeClickable(getElement(linkMyApplications)));
 			getElement(linkMyApplications).click();
 			Thread.sleep(15000);
 			logger.debug("Clicked on My Applications link");
