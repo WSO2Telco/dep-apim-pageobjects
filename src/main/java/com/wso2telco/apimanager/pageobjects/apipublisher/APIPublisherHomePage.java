@@ -4,6 +4,8 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
 import com.wso2telco.test.framework.core.WebPelement;
@@ -215,6 +217,8 @@ public class APIPublisherHomePage extends BasicPageObject {
 	/** lbl api publisher error */
 	private WebPelement lblApiPublisherError = defineEelement(UIType.Xpath, "//h3[@class='modal-title']");
 	
+	WebDriverWait wait = new WebDriverWait(driver, 120);
+	
 	/**
 	 * Instantiates a new API publisher home page.
 	 *
@@ -418,8 +422,10 @@ public class APIPublisherHomePage extends BasicPageObject {
 		WebPelement chkTypeIe = defineEelement(UIType.Xpath, xpathIe);
 		logger.debug("Entering API URL type");
 		if (config.getValue("browser").equalsIgnoreCase("INTERNETEXPLORER")){
+			wait.until(ExpectedConditions.elementToBeClickable(getElement(chkTypeIe)));
 			getElement(chkTypeIe).click();
 		} else {
+			wait.until(ExpectedConditions.elementToBeClickable(getElement(chkType)));
 			getElement(chkType).click();
 		}
 		logger.debug("Entered API URL type");
