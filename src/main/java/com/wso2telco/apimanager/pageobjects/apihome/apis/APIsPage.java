@@ -69,6 +69,9 @@ public class APIsPage extends BasicPageObject {
 	/** The btn search. */
 	private WebPelement btnSearch = defineEelement(UIType.Xpath, "//button[@title='Search']");
 	
+	/** The btn Stay on this page*/
+	private WebPelement btnStayOnThisPage = defineEelement(UIType.Xpath, "//a[contains(text(),'Stay on this page')]");
+	
 	/**
 	 * Instantiates a new AP is page.
 	 *
@@ -381,5 +384,11 @@ public class APIsPage extends BasicPageObject {
 		logger.debug("Clicking on search");
 		getElement(btnSearch).click();
 		logger.debug("Clicked on search");
+	}
+	
+	public void clickStayOnThisPage(){
+		logger.debug("Clicking on Stay on this page button");
+		getElement(btnStayOnThisPage).click();
+		logger.debug("Clicked on Stay on this page button");
 	}
 }
