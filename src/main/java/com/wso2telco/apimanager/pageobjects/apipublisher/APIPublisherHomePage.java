@@ -150,7 +150,7 @@ public class APIPublisherHomePage extends BasicPageObject {
 	private String chkURLType = "//input[@value='%s']/following-sibling::span";
 	
 	/** The btn resource add. */
-	private WebPelement btnResourceAdd = defineEelement(UIType.ID, "add_resource");
+	private WebPelement btnResourceAdd = defineEelement(UIType.Css, "#add_resource");
 	
 	/** The chk url type ie. 
 	 * %s_1 = type
