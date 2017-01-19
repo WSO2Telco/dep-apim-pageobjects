@@ -102,7 +102,7 @@ public class APIPublisherHomePage extends BasicPageObject {
 	private WebPelement btnImplement = defineEelement(UIType.Xpath, "//a[@id='go_to_implement']");
 	
 	/** The lnk manage api. */
-	private WebPelement lnkManageAPI = defineEelement(UIType.Xpath, "//h4[contains(.,'Managed API')]");
+	private WebPelement lnkManageAPI = defineEelement(UIType.Xpath, "//div[text()='Managed API']/following-sibling::div/i");
 	
 	/** The ddl endpoint type. */
 	private WebPelement ddlEndpointType = defineEelement(UIType.ID, "endpoint_type");
@@ -645,6 +645,7 @@ public class APIPublisherHomePage extends BasicPageObject {
 	 */
 	public void clickMangeAPI(){
 		logger.debug("Clicking on Manage API");
+		wait.until(ExpectedConditions.elementToBeClickable(getElement(lnkManageAPI)));
 		getElement(lnkManageAPI).click();
 		logger.debug("Clicked on Manage API");
 	}
