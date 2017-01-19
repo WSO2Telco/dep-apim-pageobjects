@@ -2,7 +2,9 @@ package com.wso2telco.apimanager.pageobjects.apipublisher;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -147,7 +149,7 @@ public class APIPublisherHomePage extends BasicPageObject {
 	/** The chk url type. 
 	 * %s_1 = type
 	 **/
-	private String chkURLType = "//span[text()[contains(.,'%s')]]";
+	private String chkURLType = "//input[@value='%s']/following-sibling::span";
 	
 	/** The btn resource add. */
 	private WebPelement btnResourceAdd = defineEelement(UIType.ID, "add_resource");
@@ -414,16 +416,20 @@ public class APIPublisherHomePage extends BasicPageObject {
 	 * @param type the new url type
 	 */
 	public void setUrlType(String type){
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+		
 		String Type = type.toLowerCase();
 		String xpath = String.format(chkURLType, Type);
 		String xpathIe = String.format(chkURLTypeIE, Type);
 		WebPelement chkType = defineEelement(UIType.Xpath, xpath);
 		WebPelement chkTypeIe = defineEelement(UIType.Xpath, xpathIe);
+		
 		logger.debug("Entering API URL type");
 		if (config.getValue("browser").equalsIgnoreCase("INTERNETEXPLORER")){
 			wait.until(ExpectedConditions.elementToBeClickable(getElement(chkTypeIe)));
 			getElement(chkTypeIe).click();
-		} else {
+		} else {		
 			wait.until(ExpectedConditions.elementToBeClickable(getElement(chkType)));
 			getElement(chkType).click();
 		}
