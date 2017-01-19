@@ -640,6 +640,8 @@ public class APIPublisherHomePage extends BasicPageObject {
 		//getElement(btnImplement).click();
 		Thread.sleep(sleepTime);
 		logger.debug("Clicked on Implement");
+		Thread.sleep(sleepTime);
+		logger.debug(driver.getCurrentUrl());
 	}
 	
 	/**
