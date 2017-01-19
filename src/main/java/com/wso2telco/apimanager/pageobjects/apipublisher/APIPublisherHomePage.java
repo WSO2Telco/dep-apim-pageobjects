@@ -636,7 +636,8 @@ public class APIPublisherHomePage extends BasicPageObject {
 	public void clickImplement() throws Exception{
 		logger.debug("Clicking on Implement");
 		wait.until(ExpectedConditions.elementToBeClickable(getElement(btnImplement)));
-		getElement(btnImplement).click();
+		getElement(btnImplement).submit();
+		//getElement(btnImplement).click();
 		Thread.sleep(sleepTime);
 		logger.debug("Clicked on Implement");
 	}
