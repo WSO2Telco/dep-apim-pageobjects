@@ -3,6 +3,9 @@ package com.wso2telco.apimanager.pageobjects.apipublisher;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -634,10 +637,14 @@ public class APIPublisherHomePage extends BasicPageObject {
 	 * @throws Exception 
 	 */
 	public void clickImplement() throws Exception{
+		
 		logger.debug("Clicking on Implement");
-		wait.until(ExpectedConditions.elementToBeClickable(getElement(btnImplement)));
-		logger.debug(getElement(btnImplement).isEnabled());
-		getElement(btnImplement).click();
+		WebElement e=getElement(btnImplement);
+		wait.until(ExpectedConditions.elementToBeClickable(e));
+		logger.debug(e.isEnabled());
+		 Actions oAction=new Actions(driver);
+		 oAction.contextClick(e).perform();
+		//getElement(btnImplement).click();
 		Thread.sleep(sleepTime);
 		logger.debug("Clicked on Implement");
 		Thread.sleep(sleepTime);
