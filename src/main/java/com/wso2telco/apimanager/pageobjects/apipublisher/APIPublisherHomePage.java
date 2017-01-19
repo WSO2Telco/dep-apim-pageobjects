@@ -635,6 +635,7 @@ public class APIPublisherHomePage extends BasicPageObject {
 	 */
 	public void clickImplement() throws Exception{
 		logger.debug("Clicking on Implement");
+		Thread.sleep(sleepTime);
 		getElement(btnImplement).click();
 		Thread.sleep(sleepTime);
 		logger.debug("Clicked on Implement");
@@ -642,11 +643,13 @@ public class APIPublisherHomePage extends BasicPageObject {
 	
 	/**
 	 * Click mange api.
+	 * @throws Exception 
 	 */
-	public void clickMangeAPI(){
+	public void clickMangeAPI() throws Exception{
 		logger.debug("Clicking on Manage API");
 		wait.until(ExpectedConditions.elementToBeClickable(getElement(lnkManageAPI)));
 		getElement(lnkManageAPI).click();
+		Thread.sleep(sleepTime);
 		logger.debug("Clicked on Manage API");
 	}
 	
