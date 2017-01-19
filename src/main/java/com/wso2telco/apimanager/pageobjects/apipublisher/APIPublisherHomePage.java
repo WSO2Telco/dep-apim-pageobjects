@@ -99,7 +99,7 @@ public class APIPublisherHomePage extends BasicPageObject {
 	private WebPelement btnSubmitRequired = defineEelement(UIType.Xpath, "//td[5]/..//div//button[@type='submit']");
 	
 	/** The btn implement. */
-	private WebPelement btnImplement = defineEelement(UIType.Xpath, "//a[text()='Next: Implement']");
+	private WebPelement btnImplement = defineEelement(UIType.Xpath, "//a[@id='go_to_implement']");
 	
 	/** The lnk manage api. */
 	private WebPelement lnkManageAPI = defineEelement(UIType.Xpath, "//h4[contains(.,'Managed API')]");
