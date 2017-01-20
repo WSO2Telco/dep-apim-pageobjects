@@ -635,7 +635,6 @@ public class APIPublisherHomePage extends BasicPageObject {
 	 * @throws Exception 
 	 */
 	public void clickImplement() throws Exception{
-		driver.manage().window().maximize();
 		logger.debug("Clicking on Implement");
 		WebElement e=getElement(btnImplement);
 		wait.until(ExpectedConditions.elementToBeClickable(e));
