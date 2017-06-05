@@ -10,13 +10,13 @@ import com.wso2telco.test.framework.util.UIType;
  * The Class LoginPage.
  */
 public class LoginPage extends BasicPageObject {
-	
+
 	/** The logger. */
 	Logger logger = Logger.getLogger(LoginPage.class);
-	
+
 	/** The btn sign up. */
 	private WebPelement btnSignUp = defineEelement(UIType.Xpath, ".//*[@id='register-link' or @id='register-link1' or a[text()='Sign-up'] ]");
-	
+
 	/** The link login. */
 	private WebPelement linkLogin = defineEelement(UIType.Xpath, ".//span[text()='Sign In']");
 	
@@ -43,6 +43,8 @@ public class LoginPage extends BasicPageObject {
 	
 	/** The btn logout. */
 	private WebPelement btnLogout = defineEelement(UIType.ID, "logout-link");
+
+	private WebPelement btnUserAccount = defineEelement(UIType.Xpath, "//a[@title='user account']");
 	
 	
 	/**
@@ -193,6 +195,8 @@ public class LoginPage extends BasicPageObject {
 	public void clickLogout() throws InterruptedException{
 		logger.debug("Clicking on logout");
 		Thread.sleep(sleepTime);
+
+		getElement(btnUserAccount).click();
 		getElement(btnLogout).click();
 		Thread.sleep(sleepTime);
 		logger.debug("Clicked on logout");
