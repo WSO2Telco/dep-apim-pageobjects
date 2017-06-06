@@ -12,6 +12,7 @@ import org.openqa.selenium.WebElement;
 import com.wso2telco.test.framework.core.WebPelement;
 import com.wso2telco.test.framework.util.UIType;
 import com.wso2telco.apimanager.pageobjects.BasicPageObject;
+import org.openqa.selenium.support.ui.Select;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -300,16 +301,32 @@ public class APIsPage extends BasicPageObject {
 	 * Click operator.
 	 *
 	 * @author SulakkhanaW
-	 * @param operator the operator
+	 * @param operators single operator of multiple operators with comma separated
 	 */
-	public void clickOperator(String operator){
-		String xpath = String.format(ddlOperator, operator);
-		WebPelement lbloperator = defineEelement(UIType.Xpath, xpath);
+	public void clickOperator(String operators) throws Exception{
 		logger.debug("Clicking on operator");
-		getElement(lbloperator).click();
-		logger.debug("Clicked on operator");
+		try {
+            getElement(UIType.Xpath, "//button[@title['Nothing selected']]").click();
+			Thread.sleep(1500);
+			int x=0;
+			String operatorsAry[] = operators.split(",");
+			for (String operator : operatorsAry) {
+			    x++;
+				String opName = getElement(UIType.Xpath, "//ul[@class='dropdown-menu inner']/child::li["+x+"]/descendant::span[@class='text']").getText();
+					if (operator.equals(opName)){
+						x-=1;
+						getElement(UIType.Xpath, "//ul[@class='dropdown-menu inner']/child::li[@data-original-index="+x+"]/a").click();
+            	        x++;
+					}
+				logger.debug("Clicked on operator");
+			}
+
+		}catch (Exception ex){
+			throw new Exception("Exception While click operators 'clickOperator()'"  + ex.getLocalizedMessage());
+		}
+
 	}
-	
+
 	/**
 	 * Click subscribe.
 	 *

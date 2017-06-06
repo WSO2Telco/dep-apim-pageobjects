@@ -2,6 +2,7 @@ package com.wso2telco.apimanager.pageobjects.apipublisher;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -128,10 +129,10 @@ public class APIPublisherHomePage extends BasicPageObject {
 	
 	/** The lbl prod url. */
 	private WebPelement lblProdUrl = defineEelement(UIType.Xpath, "//td[text()[contains(.,'Production URL')]]/../td[@id='inUrl']");
-	
+
 	/** The lbl sandbox. */
 	private WebPelement lblSandbox = defineEelement(UIType.Xpath, "//td[text()[contains(.,'Sandbox URL')]]/../td[@id='sandbox']");
-	
+
 	/** The lbl tier availability. */
 	private WebPelement lblTierAvailability = defineEelement(UIType.Xpath, "//td[text()[contains(.,'Tier Availability')]]/../td[@id='tierAvb']");
 	
@@ -152,7 +153,10 @@ public class APIPublisherHomePage extends BasicPageObject {
 	
 	/** The btn resource add. */
 	private WebPelement btnResourceAdd = defineEelement(UIType.Css, "#add_resource");
-	
+
+	/** The btn resource all yes. */
+	private WebPelement btnResourceAllYes = defineEelement(UIType.Xpath, ".//*[@id='messageModal']/div/div/div[3]/a[1]");
+
 	/** The chk url type ie. 
 	 * %s_1 = type
 	 * */
@@ -216,7 +220,11 @@ public class APIPublisherHomePage extends BasicPageObject {
 	
 	/** lbl api publisher error */
 	private WebPelement lblApiPublisherError = defineEelement(UIType.Xpath, "//h3[@class='modal-title']");
-	
+
+	/** lbl api not available label */
+	private WebPelement lblApiNotAvailableError = defineEelement(UIType.Xpath, "//div[@id='listing']/div[2]/div/div[5]");
+
+
 	WebDriverWait wait = new WebDriverWait(driver, 120);
 	
 	/**
@@ -261,7 +269,7 @@ public class APIPublisherHomePage extends BasicPageObject {
 	 * @author SulakkhanaW
 	 * @param apiName the api name
 	 */
-	public void enterAPINameSearch(String apiName){
+	public void enterAPINameSearch(String apiName) throws Exception{
 		logger.debug("Enter API name on the search text box");
 		getElement(txtAPISearch).clearAndSendkeys(apiName);
 		logger.debug("Entered API name on the search text box");
@@ -442,6 +450,18 @@ public class APIPublisherHomePage extends BasicPageObject {
 		getElement(btnResourceAdd).click();
 		Thread.sleep(sleepTime);
 		logger.debug("Clicked on Resource add");
+	}
+
+	/**
+	 * Click All Resource message Yes.
+	 *
+	 * @throws InterruptedException the interrupted exception
+	 */
+	public void clickResourceAllYes() throws InterruptedException{
+		logger.debug("Clicking on wildcard resource (/*) yes");
+		getElement(btnResourceAllYes).click();
+		Thread.sleep(sleepTime);
+		logger.debug("Clicked on wildcard resource (/*) yes");
 	}
 	
 	/**
@@ -676,9 +696,12 @@ public class APIPublisherHomePage extends BasicPageObject {
 	 * @author SulakkhanaW
 	 * @param prodEndpoint the prod endpoint
 	 */
-	public void enterProdEndpoint(String prodEndpoint){
+	public void enterProdEndpoint(String prodEndpoint) throws Exception{
 		logger.debug("Entering production endpoint");
+		getElement(txtProdEndpoint).sendKeys(Keys.ENTER);
 		getElement(txtProdEndpoint).clearAndSendkeys(prodEndpoint);
+		getElement(txtProdEndpoint).sendKeys(Keys.ENTER);
+		Thread.sleep(2000);
 		logger.debug("Entered production endpoint");
 	}
 	
@@ -691,6 +714,7 @@ public class APIPublisherHomePage extends BasicPageObject {
 	public void enterSandboxEndpoint(String sandboxEndpoint){
 		logger.debug("Entering sandbox endpoint");
 		getElement(txtSandboxEndpoint).clearAndSendkeys(sandboxEndpoint);
+		getElement(txtSandboxEndpoint).sendKeys(Keys.ENTER);
 		logger.debug("Entered sandbox endpoint");
 	}
 	
@@ -1104,5 +1128,25 @@ public class APIPublisherHomePage extends BasicPageObject {
 				throw new Exception("Exception While checking apipublisher error 'isApiPublisherError()'" + e.getLocalizedMessage());
 			}
 			return flag;
+	}
+
+
+	/**
+	 * Check the api availability
+	 *
+	 * @author RajithK
+	 * @throws Exception
+	 * @return true if api state is matched
+	 */
+	public boolean checkApiAvailability(String label) throws Exception{
+		logger.debug("Api publisher check API availability ");
+		try{
+			return getElement(lblApiNotAvailableError).getText().trim().equalsIgnoreCase(label);
+		}catch (NullPointerException ex){
+			throw new NullPointerException("Api Already exists");
+		}catch (Exception ex){
+			logger.debug("Api publisher 'api is already exists' 'checkApiAvailability()'");
+			throw new Exception("Exception While checking api Availability 'api is already exists' 'checkApiAvailability()'" + ex.getLocalizedMessage());
+		}
 	}
 }
