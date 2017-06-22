@@ -699,6 +699,8 @@ public class APIPublisherHomePage extends BasicPageObject {
 	public void enterProdEndpoint(String prodEndpoint) throws Exception{
 		logger.debug("Entering production endpoint");
 		getElement(txtProdEndpoint).sendKeys(Keys.ENTER);
+		Thread.sleep(1500);
+		getElement(txtProdEndpoint).sendKeys(Keys.ENTER);
 		getElement(txtProdEndpoint).clearAndSendkeys(prodEndpoint);
 		getElement(txtProdEndpoint).sendKeys(Keys.ENTER);
 		Thread.sleep(2000);
