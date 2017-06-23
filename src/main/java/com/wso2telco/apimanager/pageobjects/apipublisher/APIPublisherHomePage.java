@@ -744,8 +744,9 @@ public class APIPublisherHomePage extends BasicPageObject {
 		for(int i=0; i<subscriptionTier.length; i++){
 			String xpath = String.format(chkSubscriptionTier, subscriptionTier[i]);
 			WebPelement lblTier = defineEelement(UIType.Xpath, xpath);
+			Thread.sleep(sleepTime);
 			getElement(lblTier).click();
-			Thread.sleep(1000);
+			Thread.sleep(sleepTime);
 		}
 		logger.debug("Tier Selected");
 		Thread.sleep(sleepTime);
