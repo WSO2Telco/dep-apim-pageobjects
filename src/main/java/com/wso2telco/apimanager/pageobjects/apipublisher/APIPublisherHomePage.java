@@ -248,6 +248,7 @@ public class APIPublisherHomePage extends BasicPageObject {
 	public boolean isUserLogin(String username) throws Exception{
 		flag = false;
 		Thread.sleep(sleepTime);
+		Thread.sleep(sleepTime);
 		logger.debug("Validating User login");
 		try {
 			if (getElement(lblUsername).getText().trim().equalsIgnoreCase(username)){

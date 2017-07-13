@@ -63,10 +63,11 @@ public class APIPublisherLoginPage extends BasicPageObject{
 	 *
 	 * @author SulakkhanaW
 	 */
-	public void clickLogin(){
+	public void clickLogin() throws Exception{
 		logger.debug("Click on login button");
 		getElement(btnLogin).click();
 		logger.debug("Login button clicked");
+		Thread.sleep(sleepTime);
 	}
 
 }
