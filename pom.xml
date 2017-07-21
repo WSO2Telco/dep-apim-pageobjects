@@ -3,7 +3,7 @@
   <groupId>com.wso2telco.test</groupId>
   <artifactId>dep-apim-pageobjects</artifactId>
   <packaging>jar</packaging>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.0.0</version>
   <name>dep-apim-pageobjects</name>
   <url>http://maven.apache.org</url>
  <properties>
@@ -66,7 +66,7 @@
 		<url>https://github.com/WSO2Telco/dep-apim-pageobjects.git</url>
 		<developerConnection>scm:git:https://github.com/WSO2Telco/dep-apim-pageobjects.git</developerConnection>
 		<connection>scm:git:https://github.com/WSO2Telco/dep-apim-pageobjects.git</connection>
-		<tag>HEAD</tag>
+		<tag>v1.0.0</tag>
 	</scm>
 
 	<repositories>
