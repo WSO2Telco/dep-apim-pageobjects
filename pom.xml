@@ -63,9 +63,9 @@
 	</dependencies>
 
 	<scm>
-		<url>https://github.com/Nuwan-Walisundara/dep-apim-pageobjects.git</url>
-		<developerConnection>scm:git:https://github.com/Nuwan-Walisundara/dep-apim-pageobjects.git</developerConnection>
-		<connection>scm:git:https://github.com/Nuwan-Walisundara/dep-apim-pageobjects.git</connection>
+		<url>https://github.com/WSO2Telco/dep-apim-pageobjects.git</url>
+		<developerConnection>scm:git:https://github.com/WSO2Telco/dep-apim-pageobjects.git</developerConnection>
+		<connection>scm:git:https://github.com/WSO2Telco/dep-apim-pageobjects.git</connection>
 		<tag>HEAD</tag>
 	</scm>
 
@@ -115,8 +115,8 @@
 		<repository>
 			<id>wso2telco.releases</id>
 			<name>release repo</name>
-			<!--url>http://maven.wso2telco.com/nexus/content/repositories/releases</url-->
-			<url>file:///projects/nexus/content/repositories/releases</url>
+			<url>http://maven.wso2telco.com/nexus/content/repositories/releases</url>
+			<!--url>file:///projects/nexus/content/repositories/releases</url-->
 		</repository>
 	</distributionManagement>
 
