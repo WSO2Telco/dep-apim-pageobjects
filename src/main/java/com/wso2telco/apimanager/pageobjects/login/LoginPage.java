@@ -142,9 +142,9 @@ public class LoginPage extends BasicPageObject {
 	 */
 	public void clickLogInButton() throws InterruptedException{
 		logger.debug("Clicking on login button");
-		Thread.sleep(sleepTime);
+		Thread.sleep(sleepTime/4);
 		getElement(btnLogin).click();
-		Thread.sleep(sleepTime);
+		Thread.sleep(sleepTime/4);
 		logger.debug("Clicked on login button");
 	}
 	

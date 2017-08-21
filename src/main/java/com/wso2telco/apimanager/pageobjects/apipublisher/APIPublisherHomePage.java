@@ -14,6 +14,7 @@ import com.wso2telco.test.framework.util.UIType;
 
 /**
  * The Class APIPublisherHomePage.
+ * 
  */
 public class APIPublisherHomePage extends BasicPageObject {
 	
@@ -224,6 +225,10 @@ public class APIPublisherHomePage extends BasicPageObject {
 	/** lbl api not available label */
 	private WebPelement lblApiNotAvailableError = defineEelement(UIType.Xpath, "//div[@id='listing']/div[2]/div/div[5]");
 
+	/** lbl for Name text box validation*/
+	private WebPelement lblNameValidation = defineEelement(UIType.Xpath, "//label[@id='name-error']");
+
+	
 
 	WebDriverWait wait = new WebDriverWait(driver, 120);
 	
@@ -672,7 +677,7 @@ public class APIPublisherHomePage extends BasicPageObject {
 	 * @throws Exception 
 	 */
 	public void clickMangeAPI() throws Exception{
-		logger.debug("Clicking on Manage API");
+		logger.debug("Clicking on Manage API :"+lnkManageAPI);
 		wait.until(ExpectedConditions.elementToBeClickable(getElement(lnkManageAPI)));
 		getElement(lnkManageAPI).click();
 		Thread.sleep(sleepTime);
@@ -745,9 +750,9 @@ public class APIPublisherHomePage extends BasicPageObject {
 		for(int i=0; i<subscriptionTier.length; i++){
 			String xpath = String.format(chkSubscriptionTier, subscriptionTier[i]);
 			WebPelement lblTier = defineEelement(UIType.Xpath, xpath);
-			Thread.sleep(sleepTime);
+			Thread.sleep(sleepTime/6);
 			getElement(lblTier).click();
-			Thread.sleep(sleepTime);
+			Thread.sleep(sleepTime/6);
 		}
 		logger.debug("Tier Selected");
 		Thread.sleep(sleepTime);
@@ -1142,6 +1147,7 @@ public class APIPublisherHomePage extends BasicPageObject {
 	 * @author RajithK
 	 * @throws Exception
 	 * @return true if api state is matched
+	 * @deprecated use isApiAvailable instead
 	 */
 	public boolean checkApiAvailability(String label) throws Exception{
 		logger.debug("Api publisher check API availability ");
@@ -1154,4 +1160,38 @@ public class APIPublisherHomePage extends BasicPageObject {
 			throw new Exception("Exception While checking api Availability 'api is already exists' 'checkApiAvailability()'" + ex.getLocalizedMessage());
 		}
 	}
+	
+	
+	
+	/**
+	 * Check the api availability
+	 *
+	 * @author Nuwan
+	 * @throws Exception
+	 * @return true if api state is matched
+	 */
+	public boolean isApiAvailable(String label) throws Exception{
+		logger.debug("Api publisher check API availability ");
+		try{
+			WebPelement webElement = getElement(lblApiNotAvailableError);
+			if(webElement!=null && label!=null) {
+				return webElement.getText().trim().equalsIgnoreCase(label);	
+			}else {
+				return false;
+			}
+			
+		}catch (Exception ex){
+			logger.debug("Api publisher 'api is already exists' 'checkApiAvailability()'");
+			throw new Exception("Exception While checking api Availability 'api is already exists' 'checkApiAvailability()'" + ex.getLocalizedMessage());
+		}
+	}
+	
+	public boolean isDuplicateName() {
+		
+		 getElement(lblNameValidation).getText();
+		
+		return true;
+	}
+	
+	
 }
