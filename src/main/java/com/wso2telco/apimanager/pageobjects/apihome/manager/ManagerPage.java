@@ -156,7 +156,7 @@ public class ManagerPage extends BasicPageObject {
 	
 	/**
 	 * The lbl subscription name.
-	 **/
+	 **/                              
 	private String lblSubscription = "//tr/td/div/label[text()[contains(.,'%s')]]/../following-sibling::div/label[text()[contains(.,'%s')]]";
 
 
@@ -4862,7 +4862,7 @@ public class ManagerPage extends BasicPageObject {
 	public boolean isSubscriptionVisible(String appName, String apiName) throws Exception{
 		flag = false;
 		logger.debug("Validating Subscription name");
-		Thread.sleep(sleepTime);
+		Thread.sleep(sleepTime/4);
 		String xpath = String.format(lblSubscription, appName, apiName);
 		int Names = driver.findElements(By.xpath(xpath)).size();
 		try {
